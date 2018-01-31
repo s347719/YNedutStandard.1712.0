@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_evaluate_ques_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+<!--     <include
+        android:id="@+id/app_evaluate_common_view"
+        layout="@layout/common_evaluate_question_view" /> -->
+
+    <TextView
+        android:id="@+id/app_evaluate_ques_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="你觉得改老师要授课过程中，是否有违规行为?（2~10分）"
+        android:textColor="#434343"
+        android:textSize="@dimen/common_listItem_textSize" />
+
+    <LinearLayout
+        android:id="@+id/app_evluate_options_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="gone" >
+
+        <com.yineng.ynmessager.view.MyRadioGroup
+            android:id="@+id/app_evaluate_single_options_rg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+        </com.yineng.ynmessager.view.MyRadioGroup>
+        
+        <LinearLayout 
+            android:id="@+id/app_evaluate_mult_options_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/app_evaluate_get_score_view"
+        layout="@layout/common_evaluate_input_score" />
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+<!--事务反馈-->
+<ion-view class="fixed-header content-bg affair-retroaction">
+    <div class="fixed-header-wrapper">
+        <div class="list">
+            <ion-item class="item-default item">
+                <div class="report-thumbnail">
+                    <div class="theme-border-box">{{assign.transactionSchedule}}%</div>
+                    <h2>{{assign.name}}</h2>
+                    <p class="text-gray">
+                        <span>主办:{{assign.mainUserName}}</span>
+                        <span>交办:{{assign.handUserName}}</span>
+                    </p>
+                    <p class="text-gray">
+                        <span>时间:{{assign.startDate}}-{{assign.endDate}}</span>
+                    </p>
+                </div>
+            </ion-item>
+        </div>
+    </div>
+    <ion-content class="">
+        <div class="list list-space edit-input">
+            <div class="item item-input" ng-if="transactionScheduleFlag">
+                <span class="input-label">事务进度</span>
+                <div class="status">
+                    <!--ng-change="checkNumber(assign.transactionSchedule)"-->
+                    <label><input  class="form-control input-mini input-inline" ng-model="assign.transactionSchedule">%</label>
+                    <label ng-click="changeSpeed()"><span><i class="ion-minus"></i></span></label>
+                    <label ng-click="changeSpeed(1)"><span><i class="ion-plus"></i></span></label>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">反馈内容 <span class="text-gray font-12">{{min}}/1000</span></span>
+                <textarea type="input" rows="5" class="form-control" ng-change="checkText(assign.instructions)" placeholder="输入反馈内容" maxlength="1000" ng-model="assign.instructions"></textarea>
+            </div>
+            <div file-uploader init-files="assign.fsAnnexIDs" init-broadcast="filesDone"></div>
+            <!--更多内容区域结束-->
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="back()">返回</button>
+                <button class="button button-theme button-local" ng-click="checkData()">提交反馈</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

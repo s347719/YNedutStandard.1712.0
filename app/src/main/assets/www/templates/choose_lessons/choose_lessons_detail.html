@@ -1,0 +1,75 @@
+<ion-view ng-controller="chooseLessonsDetailCtrl" class="">
+    <ion-header-bar class="bar-calm">
+        <div class="pos-header-box pos-icon-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" ng-model="searchValue" placeholder="搜索课程">
+            <i class="right-icon ion-ios-close-outline" ng-click="clearSearchValue()" ng-if="searchValue"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-header content-bc">
+        <ion-list class="list-text-group pad-right-box border-left" ng-repeat="group in showCourseList">
+            <div class="pos-box-center">
+                <div class="pos-text">
+                    <span ng-bind="group.groupName"></span>
+                </div>
+            </div>
+            <ion-item class="list-text-item item" ng-repeat="item in group.xkStuMobileTeachClassDetailVOList">
+                <div class="title-text margin-top-5" ng-bind="item.electiveCourseNameStr"></div>
+                <p class="margin-top-5"><span ng-bind="item.credit+'学分'"></span><span class="divider" ng-if="item.credit&&item.teacherNames">|</span><span ng-bind="item.teacherNames"></span></p>
+                <div class="margin-top-5">
+                    <label class="button-label min-width" ng-if="item.isRequired" ng-click="openModal(item)">有选课要求</label>
+                </div>
+                <div class="area-right" ng-class="{'right-no-icon':!item.isSelect}">
+                    <p class="input-inline margin-top-5 margin-right-10" ng-bind="item.selectedNumber+(item.planNumber==null?'':'/'+item.planNumber)"></p>
+                    <i class="ion-checkmark-round" ng-if="item.isSelect"></i>
+                    <button class="button button-sm button-calm button-outline" ng-if="!item.isSelect" ng-click="clickSelectCorse(item)">
+                        选择
+                    </button>
+                </div>
+            </ion-item>
+            <div class="item item-title item-show" ng-if="searchValue&&group.isShowAll " ng-click="showAllCourse(group)">
+                <span>显示此组所有课程</span>&nbsp;<i class="ion ion-chevron-down"></i>
+            </div>
+        </ion-list>
+    </ion-content>
+    <div class="fullscreen-box" ng-if="emptyInfo&&!dataLoading" ng-click="getSelectingCorseList(termId)">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{dataErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-click="getSelectingCorseList(termId)" ng-if="!searchValue&&(!showCourseList || showCourseList.length==0)&&!emptyInfo&&!dataLoading">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>没有可选择的课程！</p>
+            <p class="dark">单击重试</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-if="dataLoading&&!emptyInfo">
+        <ion-spinner class="screen-center"></ion-spinner>
+    </div>
+    <!--<ion-spinner class="screen-center" ng-if="dataLoading"></ion-spinner>-->
+    <ion-footer-bar class="bar bar-footer">
+        <button class="button button-sm button-calm button-outline button-block button-center" ng-click="getBack()">返回</button>
+    </ion-footer-bar>
+    <!--选择学期-->
+    <script id="template.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap cl-modal">
+                <div class="list-heading clearfix">
+                    选课要求
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                    <p ng-bind="tempSelectCorse.electiveCourseNameStr"></p>
+                </div>
+                <div class="list-wrap">
+                    <p ng-bind="tempSelectCorse.requireDesc"></p>
+                </div>
+                <div class="cl-modal-button">
+                    <button class="button button-sm button-calm button-block button-center" ng-click="selectCorse(tempSelectCorse)">确定选择</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!--选择学期-->
+</ion-view>

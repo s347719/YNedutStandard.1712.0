@@ -1,0 +1,22 @@
+<!--教室分类查看-->
+<ion-view class="classroom-classify">
+    <ion-header-bar class="pos-list-header bar-calm">
+        <div class="classify-header" ng-click="checkReturnClick()">
+            <div class="text-header-box">
+                <i class="ion-ios-arrow-back"></i>{{classroomName}}
+            </div>
+            <div class="search-text">找到{{classroomList.length}}条匹配结果</div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--搜索教室列表-->
+        <div class="search-content">
+            <ul class="classroom-list-group">
+                <li class="classroom-list-item" ng-repeat="nameList in classroomList" ng-click="classroomListClick(nameList)">
+                    {{nameList.name}}
+                </li>
+            </ul>
+        </div>
+        <!--搜索教室列表-->
+    </ion-content>
+</ion-view>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.65"
+    android:background="@color/black"
+    android:divider="?android:attr/listDivider"
+    android:orientation="vertical"
+    android:showDividers="middle" >
+
+    <RelativeLayout
+        android:id="@+id/groupMsgNotifySetting_rel_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/groupMsgNotifySetting_receiveNotify"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <ImageView
+            android:id="@+id/groupMsgNotifySetting_img_notifyChecked"
+            android:layout_width="@dimen/groupMsgNotifySetting_popupwindow_checked_ImgSize"
+            android:layout_height="@dimen/groupMsgNotifySetting_popupwindow_checked_ImgSize"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/presence_online" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupMsgNotifySetting_rel_silence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/groupMsgNotifySetting_receiveWithoutNotify"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <ImageView
+            android:id="@+id/groupMsgNotifySetting_img_silenceChecked"
+            android:layout_width="@dimen/groupMsgNotifySetting_popupwindow_checked_ImgSize"
+            android:layout_height="@dimen/groupMsgNotifySetting_popupwindow_checked_ImgSize"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/presence_online" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/groupMsgNotifySetting_rel_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/groupMsgNotifySetting_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp">
+    <!--头部加火箭-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="80dp"
+            android:background="@mipmap/update_top">
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/update_rocekt"
+            android:layout_width="48dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@mipmap/update_rocket"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:minHeight="120dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发现新版本"
+            android:textColor="@color/actionBar_bg"
+            android:textSize="@dimen/sp_16"
+            />
+        <TextView
+            android:id="@+id/multe_update_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_5"
+            android:text="必须升级新版本后才能正常使用"
+            android:background="@color/white"
+            android:textColor="@color/update_hinttext_color"
+            android:visibility="gone"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/update_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:lineSpacingExtra="8dp"
+                    android:textColor="@color/color_six"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+    <!--底部按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/update_background_bott_cornor"
+        android:gravity="center"
+        android:minHeight="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/update_calcle"
+                    android:layout_width="110dp"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/background_whitesolid_bluestroke_cornor"
+                    android:textColor="@color/actionBar_bg"
+                    android:textSize="@dimen/dp_16" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/update_update"
+                    android:layout_width="110dp"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/background_blue_cornor"
+                    android:text="立即更新"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp_16" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7" />
+</LinearLayout>

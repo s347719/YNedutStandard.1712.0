@@ -1,0 +1,150 @@
+<ion-view class="examine-students">
+    <ion-header-bar>
+        <div class="margin-top-10 font-size-16">&nbsp;填写考核信息</div>
+    </ion-header-bar>
+    <ion-content class="content-bc no-space">
+        <!--搜索考核项-->
+        <div class="header-bt-text bar margin-top-0">
+            <ul>
+                <li class="text" ng-bind="ckeckItem.showName"></li>
+                <li class="content" ng-show="ckeckItem.itemDesc" >
+                    <!--加 open 显示更多-->
+                    <span class="help-inline" ng-class="{'open':showAllRemark}" ng-bind="ckeckItem.itemDesc"></span>
+                    <a href="" class="pos-link" ng-bind="showAllRemark?'收起':'全部'" ng-click="showAllRemark = !showAllRemark"></a>
+                </li>
+            </ul>
+        </div>
+        <!--搜索考核项-->
+        <ion-list class="list list-text-rt-lt list-item-height-50">
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-5" ng-bind="ckeckItem.creditType=='0'?'扣分':'加分'"></li>
+                    <li>
+                        <i class="ion-android-remove-circle calm "
+                           ng-class="{'disabled':checkInfo.score<=ckeckItem.creditBeginScore}"
+                           ng-click="addAndSubScore(false)" ng-if="ckeckItem.isAllowAdjust"></i>
+                        <div class="center-text">
+                            <input maxlength="4" ng-disabled="!ckeckItem.isAllowAdjust" type="text"
+                                                        ng-blur="validateScore(checkInfo.score)"
+                                                        ng-model="checkInfo.score">
+                            <span>分</span>
+                        </div>
+                        <i class="ion-android-add-circle calm" ng-click="addAndSubScore(true)"
+                           ng-class="{'disabled':checkInfo.score>=ckeckItem.creditEndScore}" ng-if="ckeckItem.isAllowAdjust"></i>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-5">次数</li>
+                    <li>
+                        <i class="ion-android-remove-circle calm"  ng-class="{'disabled':checkInfo.scoreNumber<=1}" ng-click="addAndSubNumber(false)"></i>
+                        <div class="center-text">
+                            <input   type="text" maxlength="3" ng-model="checkInfo.scoreNumber" ng-blur="verifyNumber()"><span>次</span>
+                        </div>
+                        <i class="ion-android-add-circle calm" ng-class="{'disabled':checkInfo.scoreNumber>=999}"  ng-click="addAndSubNumber(true)"></i>
+                    </li>
+                </ul>
+            </ion-item>
+               <ion-item class="item">
+                <!--上传组件-->
+                  <div  web-uploader on-uploader-change="getDfsIds(data)" init-files="initFiles"></div>
+              </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-10">考核地点</li>
+                    <li>
+                        <input type="text" class="calm input-text-sty" maxlength="50" ng-model="checkInfo.examineAddress" placeholder="请输入考核地点">
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-10">考核备注</li>
+                    <li>
+                        <button class="button button-mini button-calm" ng-click="getRemarkList(ckeckItem,true)">选择</button>
+                    </li>
+                </ul>
+                <div class="margin-top-5">
+                    <textarea name="" id="" maxlength="500" ng-model="checkInfo.remark" class="form-control textarea-border textarea-wd height-60" placeholder="手动输入"></textarea>
+                </div>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-10">是否影响班级考核</li>
+                    <li>
+                        <label class="toggle defined-toggle-calm defined-toggle-mini travel margin-top-0">
+                            <input type="checkbox" ng-model="checkInfo.isEffectAdminClassExamine" class="ng-pristine ng-untouched ng-valid">
+                            <div class="track">
+                                <span>是</span>
+                                <span>否</span>
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+                <span class="help-block" style="white-space: initial;" ng-if="checkInfo.isEffectAdminClassExamine && checkInfo.convertClassCheckWay">注：将自动在班级考核项目“<span style="color: red;">{{ckeckItem.moraleduChClassItemName}}</span>”上<span style="color: red;">{{ckeckItem.convertClassScoreType == 1 ? '扣' : '加'}}{{ckeckItem.convertClassScore}}分/人次</span></span>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-10">考核时间</li>
+                    <li>
+                        <input type="text" class="calm input-text-sty" ng-model="checkInfo.datetime" datetimepicker datetime-type="datetime">
+                    </li>
+                </ul>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar>
+        <div class="row footer-pos-button">
+           <div class="col col-20">
+               <button class="button button-calm button-outline" ng-click="previousStep()">上一步</button>
+           </div>
+            <div class="col text-center">
+                <button class="button button-outline button-calm" ng-click="showSelectedStu = !showSelectedStu">
+                    已选{{selectedStuList.length}}个学生&nbsp;
+                    <i ng-class="{'ion-arrow-up-b': showSelectedStu, 'ion-arrow-down-b': !showSelectedStu}" ></i>
+                </button >
+            </div>
+            <div class="col col-20 text-center">
+                <button class="button button-sm button-calm" ng-click="submit()">提交</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--浮动框——已选的学生-->
+    <selected-stu-viewer></selected-stu-viewer>
+    <!--浮动框——已选的学生-->
+    <!--输入原因浮层-->
+    <script id="show_cause.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                </div>
+                <ul class="list-wrap" ng-if="remarkList&&remarkList.length>0">
+                    <li class="list-item" ng-click="selectRemarkFun(item)" ng-class="{'active':item.id==selectedRemark.id}" ng-bind="item.name" ng-repeat="item in remarkList">没有按规定佩戴学生牌</li>
+                </ul>
+                <ul class="list-wrap" ng-if="!remarkList||remarkList.length==0">
+                    <li class="text-center margin-top-20 margin-bottom-20">
+                        <h5>没有可选择的原因模板！</h5>
+                        <span class="help-inline" ng-click="getRemarkList(ckeckItem,false)">刷新重试</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--输入原因浮层-->
+    <!--自定义弹窗-->
+    <div class="pos-popup-bg" ng-if="checkSuccess">
+        <div class="pos-popup-modal">
+            <div class="text-center margin-top-10">
+                <img src="img/success.png" alt="" width="30">
+                <h3 class="green-c">考核成功</h3>
+                <button class="button button-calm margin-top-20" ng-click="previousStep()">继续其他项目的考核</button><br/>
+                <button class="button button-calm button-outline margin-top-10" ng-click="checkOtherStu()">考核其他学生</button>
+            </div>
+        </div>
+    </div>
+    <!--自定义弹窗-->
+</ion-view>

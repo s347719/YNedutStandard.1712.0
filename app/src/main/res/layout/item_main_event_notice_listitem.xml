@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/main_eventNotice_listItem_horPadding"
+    android:paddingRight="@dimen/main_eventNotice_listItem_horPadding"
+    android:background="@color/common_content_bg"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/main_rel_eventNotice_listItem_leftArea"
+        android:layout_width="@dimen/main_eventNotice_listItem_leftArea_width"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/main_eventNotice_listItem_leftArea_marginRight"
+        tools:visibility="visible">
+
+
+        <ImageView
+            android:id="@+id/main_img_eventNotice_listItem_icon"
+            android:layout_width="@dimen/main_eventNotice_listItem_leftArea_icon_size"
+            android:layout_height="@dimen/main_eventNotice_listItem_leftArea_icon_size"
+            tools:src="@mipmap/event_notice_announcement"
+            android:layout_alignTop="@+id/red_tip"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/red_tip"
+            android:layout_width="@dimen/norice_red_image_width"
+            android:layout_height="@dimen/norice_red_image_width"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/main_eventNotice_listItem_rightArea_card_marginTop"
+            android:background="@drawable/notice_red_circle"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/main_text_event_listitem_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/main_img_eventNotice_listItem_icon"
+            android:layout_marginTop="@dimen/main_eventNotice_listItem_leftArea_marginRight"
+            android:textSize="10sp"
+            />
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/main_eventNotice_listItem_rightArea_card_marginBottom"
+        android:layout_marginEnd="@dimen/main_eventNotice_listItem_rightArea_card_marginRight"
+        android:layout_marginRight="@dimen/main_eventNotice_listItem_rightArea_card_marginRight"
+        android:layout_marginTop="@dimen/main_eventNotice_listItem_rightArea_card_marginTop"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/common_content_bg"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/chatfrom_bg"
+            android:padding="@dimen/main_eventNotice_listItem_rightArea_card_padding"
+            >
+
+            <TextView
+                android:id="@+id/main_txt_eventNotice_listItem_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingLeft="@dimen/main_eventNotice_listItem_rightArea_card_marginLeft"
+                android:textColor="@color/notice_titleColor"
+                android:textSize="@dimen/main_eventNotice_listItem_rightArea_title_TextSize"
+                tools:text="this is the title" />
+
+            <TextView
+                android:id="@+id/main_txt_eventNotice_listItem_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_eventNotice_listItem_rightArea_card_padding"
+                android:paddingLeft="@dimen/main_eventNotice_listItem_rightArea_card_marginLeft"
+                android:ellipsize="end"
+                android:textColor="@color/notice_contentColor"
+                android:textSize="@dimen/main_eventNotice_listItem_rightArea_content_TextSize"
+                tools:text="hello you have a message, click to check out" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_eventNotice_listItem_rightArea_dashedLine_height"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/common_content_bg"
+
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/main_txt_eventNotice_listItem_timeStamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:paddingLeft="@dimen/main_eventNotice_listItem_rightArea_card_marginLeft"
+                    android:textSize="@dimen/main_eventNotice_listItem_rightArea_timeStamp_TextSize"
+                    tools:text="2015/9/29 10:12:33" />
+
+                <ImageView
+                    android:id="@+id/main_img_eventNotice_listItem_pic"
+                    android:layout_width="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_height="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_toRightOf="@id/main_txt_eventNotice_listItem_timeStamp"
+                    android:src="@mipmap/notice_pic_flag"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/main_img_eventNotice_listItem_file"
+                    android:layout_width="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_height="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/main_eventTodo_listItem_enterEvent_ImageSize"
+                    android:layout_toRightOf="@id/main_img_eventNotice_listItem_pic"
+                    android:src="@mipmap/notice_attachfile_flag"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/main_img_eventNotice_listItem_enterIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

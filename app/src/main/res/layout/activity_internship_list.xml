@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.app.internship.InternshipListActivity">
+
+    <RelativeLayout
+        style="?attr/actionBarUniformStyle"
+        android:background="@color/actionBar_bg_blue"
+        tools:layout_height="@dimen/common_actionbar_height"
+        tools:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@mipmap/update_close" />
+
+        <TextView
+            style="?attr/actionBar_title"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/internshipList_title"
+            tools:layout_height="wrap_content"
+            tools:layout_width="wrap_content" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/internshipList_swpRef_refresher"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.yineng.ynmessager.view.EmptySupportRecyclerView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        layout="@layout/nodata_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

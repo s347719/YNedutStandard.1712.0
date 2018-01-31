@@ -1,0 +1,103 @@
+<!--外勤签到主页面-->
+<ion-view on-swipe-left="changeTab(record);" on-swipe-right="changeTab(signIn);" class="content-bg fixed-header has-page-tabs has-special-footer-bar outwork-sign" id="main"> <!--如果是打卡页面就注释类outwork-sign-history-->
+    <div class="fixed-header-wrapper">
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item" ng-class="{'active':type==signIn}" href="javascript:;" ng-click="changeTab(signIn);">开始打卡</a>
+            <a class="tab-item" ng-class="{'active':type==record}" href="javascript:;" ng-click="changeTab(record);">
+                <span class="history">
+                    打卡记录
+                </span>
+            </a>
+        </div>
+    </div>
+    <ion-content>
+        <!--打卡模块开始-->
+        <div ng-if="type==signIn">
+            <div class="sign-content-item">
+                <div class="clearfix">
+                    <div class="name pull-left">{{item.userName}}</div>
+                    <a href="javascript:;" class="location pull-right" ng-click="loadGPSAddress();getCurrTime()">刷新时间/位置</a>
+                </div>
+                <div class="location-detail">
+                    <div class="location-time"><i class="clock-icon"></i>{{item.currTime || '-- : -- : --'}}</div>
+                    <!--<div class="location-time"><i class="clock-icon"></i>&#45;&#45; : &#45;&#45; : &#45;&#45;</div>-->
+                    <div class="location-addr">
+                        <i class="location-icon"></i>
+                        <span ng-class="{'text-danger':addressFlag==3}">{{address}}</span>
+                        <!--<p class="text-gray" ng-if="addressFlag==2 && distance">距离学校{{distance}}米</p>-->
+                    </div>
+                </div>
+            </div>
+            <div class="sign-content-item sign-photo-area" >
+                <div class="item-control">
+                    <span class="text-gray font-12">说明&nbsp;{{item.signinDescribe.length || 0}}/50</span>
+                    <textarea class="form-control" maxlength="50" ng-model="item.signinDescribe" rows="3"></textarea>
+                </div>
+                <div class="item-control">
+                    <span class="text-gray font-12">拍照&nbsp;{{photos.length || 0}}/5</span>
+                    <div class="sign-photo-group clearfix">
+                        <div class="sign-photo-list photo-list" ng-repeat="photo in photos">
+                            <img ng-src="{{photo.uri}}" alt="" ng-click="previewPhoto(photo)"/>
+                            <div class="status" ng-click="retry(photo)" ng-if="photo.status!='1'" ng-bind="photo.status=='-1'?'上传':photo.progress"></div>
+                            <div class="delete" ng-if="photo.status!='0'" ng-click="deletePhoto(photo)"><i class="ion-ios-minus"></i></div>
+                        </div>
+                        <div class="sign-photo-list photo-list" ng-repeat="photo in fillPhotos"></div>
+                        <div class="sign-photo-list take-photo" ng-click="takePhoto()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--打卡模块结束-->
+        <!--记录模块开始-->
+        <div class="history-content" ng-class="{'bottom-70':$index+1==pageContent.length}" ng-repeat="item in pageContent" ng-if="type==record">
+            <div class="history-time item item-title-divider" ng-if="$index==0 || item.yearMonth!=pageContent[$index-1].yearMonth">{{item.yearMonth}}</div>
+            <div class="location-detail">
+                <div class="location-time">
+                    <div class="arrow"><em></em><span></span></div>
+                    <i class="clock-icon"></i><span>{{item.day}}</span><span>{{item.weekDay}}</span><span>{{item.time}}</span></div>
+                <div class="location-addr">
+                    <i class="location-icon"></i>{{item.gpsAddress}}
+                    <p class="text-gray">说明：{{item.signinDescribe}}</p>
+                    <div class="photo-show clearfix" ng-if="item.photoList && item.photoList.length>0">
+                        <div class="photo-list" ng-repeat="photo in item.photoList">
+                            <img ng-click="previewPhoto({uri:imgUrl(photo)})" ng-src={{imgUrl(photo)}} alt=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadDataMore.loadMore()" ng-if="!isLoadData && type==record" distance="5%"></ion-infinite-scroll>
+        <div class="text-center font-12" ng-if="errorFlag && type==record">
+            <p class="padding bottom-tips">
+                加载失败，<a href="javascript:;" ng-click="loadDataMore.loadMore()">点击重试！</a>
+            </p>
+        </div>
+
+        <!--记录模块结束-->
+    </ion-content>
+    <ion-footer-bar class="special-footer-txtheight nobg" ng-show="type==signIn">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon text-only" ng-click="saveSignIn()">打卡</div>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--没有外勤打卡记录开始 解开注释可查看效果-->
+    <div class="fullscreen-box" ng-if="type==record && pageContent.length==0">
+        <div class="screen-center">
+            <h4 ng-if="errorFlag"><i class="tips-icon"></i>加载失败</h4>
+            <h4 ng-if="!errorFlag"><i class="tips-icon" ></i>没有外勤打卡记录</h4>
+            <p class="text-theme" ng-click="loadData()">刷新试试</p>
+        </div>
+    </div>
+    <!--签到成功状态框开始-->
+    <script id="sign-success.html" type="text/ng-template">
+        <ion-modal-view class="sign-success-wrap">
+            <div class="sign-success-content">
+                <i class="ion-ios-checkmark-outline"></i>
+                <h4 class="text-theme">打卡成功</h4>
+            </div>
+        </ion-modal-view>
+    </script>
+    <!--签到成功状态框结束-->
+</ion-view>

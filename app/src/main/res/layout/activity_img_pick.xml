@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/imgPick_txt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/imgPick_albums"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+        <TextView
+            android:id="@+id/imgPick_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/imgPick_title_horMargin"
+            android:layout_marginRight="@dimen/imgPick_title_horMargin"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/imgPick_txt_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/imgPick_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_backKey_textSize" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/imgPick_grd_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnWidth="@dimen/imgPick_gridContent_colWidth"
+        android:horizontalSpacing="@dimen/imgPick_gridContent_horizontalSpacing"
+        android:numColumns="auto_fit"
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="@dimen/imgPick_gridContent_verticalSpacing" />
+
+    <Button
+        android:id="@+id/imgPick_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button_bg_red"
+        android:text="@string/imgPick_send"
+        android:textColor="@color/white" />
+
+</LinearLayout>

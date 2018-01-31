@@ -1,0 +1,163 @@
+<!--费用申请-->
+<ion-view class="content-bg">
+    <ion-content>
+        <div class="list no-margin" ng-show="applyData.jyhsMyExpensesInfoDTOList.length ==0">
+            <div class="item item-default item-height-50 item-button-right">
+                <div class="text-gray font-14">请添加申请费用项</div>
+                <button class="button button-outline button-theme button-item-local" ng-click="showAddCost()"><i class="ion-plus"></i>&nbsp;增加费用项</button>
+            </div>
+        </div>
+        <!--费用项列表-->
+        <div class="list no-margin" ng-show="applyData.jyhsMyExpensesInfoDTOList.length >0">
+            <div class="item item-default item-height-50 item-button-right">
+                <div class="font-14">申请费用合计：<span class="text-orange">{{countMoney |number:2}}</span></div>
+                <button class="button button-outline button-theme button-item-local" ng-click="showAddCost()"><i class="ion-plus"></i>&nbsp;增加费用项</button>
+            </div>
+        </div>
+        <div class="list no-margin list-label-text" ng-show="showDataList">
+            <div class="item item-default item-button-right first-boderTop-0" ng-repeat="data in detailList |orderBy:'index':true " ng-click="setDetail(data,1)">
+                <div class="font-14"><span class="label label-primary">第{{data.index}}项</span>{{getNewText(data.column)}}</div>
+                <span class="text-orange right-text font-14">{{data.applyMoney |number:2}}</span>
+            </div>
+        </div>
+        <div class="list no-margin list-label-text" ng-show="showMoreData">
+            <div class="item item-default item-button-right first-boderTop-0" ng-repeat="data in applyData.jyhsMyExpensesInfoDTOList |orderBy:'index':true " ng-click="setDetail(data,1)">
+                <div class="font-14"><span class="label label-primary">第{{data.index}}项</span>{{getNewText(data.column)}}</div>
+                <span class="text-orange right-text font-14">{{data.applyMoney |number:2}}</span>
+            </div>
+        </div>
+        <div class="item-more" ng-click="clickMore()" ng-show="showMore">
+            <div class="more-title">展开更多<i class="ion-arrow-down-b"></i></div>
+        </div>
+
+        <!--费用项列表-->
+        <div class="list list-space">
+            <!--<div class="item item-input"></div>-->
+            <div class="item item-input item-flex-wd">
+                <div class="item-input-flex border-right margin-right-10">
+                    <span class="input-label" aria-label="费用申请人" id="_label-1">费用申请人</span>
+                    <input type="text" class="text-left" placeholder="请选择"  user-selector inServiceStates = "1" title="费用申请人" routingStatusType="YNCostApply" userTypeApp="4" on-select="applyUser(item)" readonly ng-model="applyData.applicationUserName"/>
+                </div>
+                <div class="item-input-flex">
+                    <span class="input-label" aria-label="费用申请类别" id="_label-2">费用申请类别</span>
+                    <input cost-select init-data="feeTypeList" name-field="dictName" slide-title="选择费用申请类别"
+                           ng-model="applyData.feeTypeName" selected-obj="selectModel"
+                           on-select="onSelect(item)" type="text" class="text-left" placeholder="请选择" readonly="readonly">
+                </div>
+            </div>
+            <div class="item item-input item-flex-wd">
+                <div class="item-input-flex border-right margin-right-10">
+                    <span class="input-label" aria-label="预计支出日期(开始)" id="_label-5">预计支出日期(开始)</span>
+                    <input type="text" class="text-left" placeholder="非必选"  ng-model="applyData.expendTimeStart"   datetimepicker datetime-type="date"/>
+                </div>
+                <div class="item-input-flex">
+                    <span class="input-label" aria-label="预计支出日期(结束)" id="_label-4">预计支出日期(结束)</span>
+                    <input type="text" class="text-left" placeholder="非必选"  ng-model="applyData.expendTimeEnd"   datetimepicker datetime-type="date"/>
+                </div>
+            </div>
+            <div class="item item-input item-flex-wd">
+                <div class="item-input-flex border-right margin-right-10">
+                    <span class="input-label" aria-label="费用申请日期" id="_label-3">费用申请日期</span>
+                    <input type="text" class="text-left" placeholder="请选择"  ng-model="applyData.applyDate"   datetimepicker datetime-type="date"  ng-change="addOndeDay()"/>
+                </div>
+                <div class="item-input-flex">
+
+                </div>
+            </div>
+            <label class="item edit-input item-input item-stacked-label">
+                <span class="input-label" aria-label="" id="_label-7">费用用途<span>{{!applyData.expensesUse?0:applyData.expensesUse.length}}/100</span></span>
+                <textarea rows="5" maxlength="100" placeholder="请说明费用用途" ng-model="applyData.expensesUse"></textarea>
+            </label>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <div class="margin-top-5 wd-100 text-center pos-popover-wrap">
+            <button class="button button-theme button-local button-outline pull-left margin-left-10" ng-click="back()">返回</button>
+            <button class="button button-theme button-local button-large" ng-click="approve()">提交审批</button>
+            <h3 class="no-margin input-inline pull-right" ng-click="showHelp()"><i class="ion-ios-help-outline margin-right-10"></i></h3>
+            <!--提示信息-->
+            <div class="popover-content" ng-show="showText">
+                1、根据学校制度规定，申请人可通过“提交审批”提交到下一级审批人审批。<br/>
+                2、审批结束后费用方可发生，执行时费用应控制在“核准金额”范围内，避免超支。
+            </div>
+            <!--提示信息-->
+        </div>
+    </ion-footer-bar>
+    <!--选择费用申请类别模态框 开始-->
+    <script id="select-cost-apply.html" type="text/ng-template">
+        <ion-modal-view class="min-modal-height auto">
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title">选择费用申请类别</h1>
+                <button class="button button-clear button-custom" ng-click="closeCostApply()">取消</button>
+            </ion-header-bar>
+            <div class="padding has-header button-list btn-margin-bottom">
+                <button class="button button-local button-theme button-outline" ng-repeat="data in feeTypeList" ng-click="onSelect(data)">{{data.dictName}}</button>
+            </div>
+        </ion-modal-view>
+    </script>
+    <!--选择费用申请类别模态框 结束-->
+    <!--增加费用项模态框 开始-->
+    <script id="add-cost.html" type="text/ng-template">
+        <ion-modal-view class="modal-amt-left">
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title">第{{index}}项费用</h1>
+                <button class="button button-clear button-custom" ng-click="closeAddCost()">取消</button>
+            </ion-header-bar>
+            <ion-content class="padding has-header button-list">
+                <div class="">
+                    <span class="font-14 margin-right-10">费用项</span>
+                    <span class="ion-help-circled text-orange" ng-click="showCostWarning()"></span>
+                    <input type="text" class="form-control input-border-bottom" placeholder="如：差旅交通费、客户招待费" ng-model="detail.column" maxlength="100"/>
+                </div>
+                <div class="margin-top-20">
+                    <span class="font-14">申请金额</span>
+                    <input type="number" class="form-control input-border-bottom" placeholder="0.00"  ng-change="checkNuber(detail.applyMoney)" ng-model="detail.applyMoney"/>
+                </div>
+                <div class="margin-top-20">
+                    <span class="font-14 margin-right-10">支出详尽说明</span>
+                    <i class="ion-help-circled text-orange" ng-click="showCostMsgWarning()"></i>
+                    <textarea class="form-control textarea-border-bottom" placeholder="请详细填写此项费用的特殊说明" maxlength="500" ng-model="detail.describe"></textarea>
+                </div>
+            </ion-content>
+            <ion-footer-bar>
+                <div class="margin-top-5 text-center wd-100">
+                    <button class="button button-theme button-local button-small" ng-click="sureDetail()">确定</button>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--增加费用项模态框 结束-->
+    <!--编辑费用项开始-->
+    <script id="edit-cost.html" type="text/ng-template">
+        <ion-modal-view class="modal-amt-left">
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title">第{{index}}项费用</h1>
+                <button class="button button-clear button-custom" ng-click="closeEditCost()">取消</button>
+            </ion-header-bar>
+            <div class="padding has-header button-list">
+                <div class="">
+                    <span class="font-14 margin-right-10">费用项</span>
+                    <span class="ion-help-circled text-orange" ng-click="showCostWarning()"></span>
+                    <input type="text" class="form-control input-border-bottom" placeholder="如：差旅交通费、客户招待费" ng-model="detail.column" maxlength="100"/>
+                </div>
+                <div class="margin-top-20">
+                    <span class="font-14">申请金额</span>
+                    <input type="number" class="form-control input-border-bottom" placeholder="0.00" ng-model="detail.applyMoney" maxlength="8"/>
+                </div>
+                <div class="margin-top-20">
+                    <span class="font-14 margin-right-10">支出详尽说明</span>
+                    <i class="ion-help-circled text-orange" ng-click="showCostMsgWarning()"></i>
+                    <textarea class="form-control textarea-border-bottom" placeholder="请详细填写此项费用的特殊说明" maxlength="500" ng-model="detail.describe"></textarea>
+                </div>
+            </div>
+            <ion-footer-bar>
+                <div class="margin-top-5 text-center wd-100">
+                    <button class="button button-theme button-local button-small" ng-click="editDetail(detail)">确定</button>
+                    <button class="button button-theme button-local button-outline button-small" ng-click="delDetail(detail)" ng-show="showIsDel">删除</button>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--编辑费用项模态框 结束-->
+</ion-view>
+<!--费用申请-->

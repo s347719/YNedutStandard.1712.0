@@ -1,0 +1,167 @@
+<!--班级统计主页-->
+<ion-view  ng-controller="ktkqTatisticsController"  class="achievement slide-reconstruct-warp"><!--teacher-->
+    <ion-header-bar class="bar bar-calm">
+        <div class="row dropdown-wrap">
+            <div class="col col-50">
+                <div class="dropdown dropdown-menu-100 border-rt">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{classInfo.name}}<i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="item in classList" ng-class="{'active':classInfo.name == item.name}">
+                            <a href="" ng-click="selectedClass(item)" ng-bind="item.name"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-50">
+                <div class="header-dropdown dropdown" ynui-datetimepicker="YMD" ng-change="doRefresh()" ng-model="conditions.queryDate" range="bbb" type="text">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{conditions.queryDate}}<i class="ion-arrow-down-b"></i></p>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <!--<div align-title="center" class="bar-ynedut header-has-cwrap">-->
+        <!--<div class="row no-space">-->
+        <!--<div class="col no-space" class="col-50">-->
+        <!--<div class="header-dropdown dropdown bor-rt">-->
+        <!--<p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{classInfo.name}}<i class="ion-arrow-down-b"></i></p>-->
+        <!--<ul class="dropdown-menu">-->
+        <!--<li ng-repeat="item in classList">-->
+        <!--<a href="" ng-click="selectedClass(item)" ng-bind="item.name"></a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col col-50 no-space" >-->
+        <!--<div class="header-dropdown dropdown" ynui-datetimepicker="YMD" ng-change="doRefresh()" ng-model="conditions.queryDate" range="bbb" type="text">-->
+        <!--<p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{conditions.queryDate}}<i class="ion-arrow-down-b"></i></p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--课堂考勤统计-->
+        <div ng-show="!emptyInfo">
+            <div class="pos-box-center" ng-if="kqKTCount.mknobList.length>0">
+                <div class="pos-text">
+                    <span>{{kqKTCount.week}} 上午</span>
+                </div>
+            </div>
+            <ion-list class="examine-list-wrap list list-card-text">
+                <ion-item class="examine-list-item no-padding" ng-if="kqKTCount.mknobList.length>0" ng-repeat="item in kqKTCount.mknobList">
+                    <div class="row">
+                        <div class="col-defined">
+                            <div class="list-btn-lt">
+                                <button class="button button-calm">{{item.knob}}</button>
+                            </div>
+                        </div>
+                        <div class="list-text-rt">
+                            <div>{{item.course}}</div>
+                            <ul class="">
+                                <li class="help-inline">{{item.teachers}}</li>
+                                <li class="help-inline">{{item.classRoom}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="defined-btn-list">
+                        <div class="">
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'all')">应到：{{item.ybPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'act')">实到：{{item.sdPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'5')">按时到：{{item.asdPeople}}</button>
+                        </div>
+                        <div class="">
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'3')">迟到：{{item.cdPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'4')">早退：{{item.ztPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'1')">请假：{{item.qjPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'2')">缺席：{{item.qxPeople}}</button>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+
+            <div class="pos-box-center" ng-if="kqKTCount.aknobList.length>0">
+                <div class="pos-text">
+                    <span>{{kqKTCount.week}} 下午</span>
+                </div>
+            </div>
+            <ion-list class="examine-list-wrap list list-card-text">
+                <ion-item class="examine-list-item no-padding" ng-if="kqKTCount.aknobList.length>0" ng-repeat="item in kqKTCount.aknobList">
+                    <div class="row">
+                        <div class="col-defined">
+                            <div class="list-btn-lt">
+                                <button class="button button-calm">{{item.knob}}</button>
+                            </div>
+                        </div>
+                        <div class="list-text-rt">
+                            <div>{{item.course}}</div>
+                            <ul class="">
+                                <li class="help-inline">{{item.teachers}}</li>
+                                <li class="help-inline">{{item.classRoom}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="defined-btn-list">
+                        <div class="">
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'all')">应到：{{item.ybPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'act')">实到：{{item.sdPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'5')">按时到：{{item.asdPeople}}</button>
+                        </div>
+                        <div class="">
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'3')">迟到：{{item.cdPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'4')">早退：{{item.ztPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'1')">请假：{{item.qjPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'2')">缺席：{{item.qxPeople}}</button>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <div class="pos-box-center" ng-if="kqKTCount.nknobList.length>0">
+                <div class="pos-text">
+                    <span>{{kqKTCount.week}} 晚上</span>
+                </div>
+            </div>
+            <ion-list class="examine-list-wrap list list-card-text">
+                <ion-item class="examine-list-item no-padding" ng-if="kqKTCount.nknobList.length>0" ng-repeat="item in kqKTCount.nknobList">
+                    <div class="row">
+                        <div class="col-defined">
+                            <div class="list-btn-lt">
+                                <button class="button button-calm">{{item.knob}}</button>
+                            </div>
+                        </div>
+                        <div class="list-text-rt">
+                            <div>{{item.course}}</div>
+                            <ul class="">
+                                <li class="help-inline">{{item.teachers}}</li>
+                                <li class="help-inline">{{item.classRoom}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="defined-btn-list">
+                        <div class="">
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'all')">应到：{{item.ybPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'act')">实到：{{item.sdPeople}}</button>
+                            <button class="button button-sm button-calm button-outline" ng-click="viewDetails(item.id,'5')">按时到：{{item.asdPeople}}</button>
+                        </div>
+                        <div class="">
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'3')">迟到：{{item.cdPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'4')">早退：{{item.ztPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'1')">请假：{{item.qjPeople}}</button>
+                            <button class="button button-sm btn-bor-orange" ng-click="viewDetails(item.id,'2')">缺席：{{item.qxPeople}}</button>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <!--上午-->
+            <div class="fullscreen-box" ng-show="kqKTCount.message">
+                <div class="screen-center">
+                    <div class="img-no-data"></div>
+                    <p>{{kqKTCount.message}}</p>
+                </div>
+            </div>
+        </div>
+        <!--课堂考勤统计-->
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

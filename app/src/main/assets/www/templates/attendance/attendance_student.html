@@ -1,0 +1,70 @@
+<ion-view ng-controller="attendanceStuCtrl" class="schedule">
+    <ion-header-bar align-title="center" class="bar-ynedut  bar-title-rt-lt" ng-show="isCurTerm">
+        <div class="buttons" ng-click="chooseDay(-1)">
+            <i class="icon ion-chevron-left"></i>
+        </div>
+        <div class="title visible" >
+            <div class="dropdown title-dropdown holdon" id="headDrop1">
+                <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown" >
+                    <p class="title-p">第{{selectedWeek}}周星期{{showDay}}({{judgePar.month}}.{{judgePar.date}})</p>
+                    <i class="ion-arrow-down-b"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="row">
+                        <div class="col col-25">
+                            <div class="week-change">
+                                <p class="dropup" ng-click="chooseWeek(selectedWeek-1)"><i class="ion-android-arrow-dropup-circle"></i></p>
+                                <p class="week">第{{selectedWeek}}周</p>
+                                <p class="dropup" ng-click="chooseWeek(selectedWeek+1)"><i class="ion-android-arrow-dropdown-circle"></i></p>
+                            </div>
+                        </div>
+                        <div class="col col-75">
+                            <ul class="weeklist2">
+                                <li ng-class="{'active':item.isCurrentWeek || showDay == item.id}"  ng-repeat="item in dateArr">
+                                    <a ng-click="chooseBigWeek(item.id)">{{$index+1<=7 ? '星期': '大周'}}{{item.id}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons" ng-click="chooseDay(1)">
+            <i class="icon ion-chevron-right"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content has-header content-bc">
+        <div class="list">
+            <div class="item item-lesson-left item-button-right item-button-two pos-icon-warp" ng-repeat="item in oTimeTableData track by $index">
+                <div class="lesson-wrap">
+                    <div class="lesson-wrap-content text-center padding-button-10">
+                        <label class="calm">{{item.timeStatus}}</label>
+                        <p class="padding-top-10">{{item.sectionName}}</p>
+                    </div>
+                </div>
+                <h2><strong>{{item.courseName}}</strong></h2>
+                <p>{{item.startEndTime}}</p>
+                <img ng-if="item.isElective" src="img/xuan.png"  class="pos-icon">
+                <button class="btn-sm-rotate" ng-if="item.kqStatusName" type="button">{{item.kqStatusName}}</button>
+            </div>
+        </div>
+    </ion-content>
+    <div class="fullscreen-box" ng-click="doRefresh()" ng-show="oTimeTableData.length==0">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>今日没有考勤数据！</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-if="!isCurTerm" ng-click="doRefresh()">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>当前时间不在学期内，没有可查看的考勤数据！</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

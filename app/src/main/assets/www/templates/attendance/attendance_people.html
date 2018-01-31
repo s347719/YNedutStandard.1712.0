@@ -1,0 +1,64 @@
+<ion-view ng-controller="AttendancePeopleCtrl">
+    <div class="bar bar-calm header-title-sty padding-rt-lt" ng-show="!searchBar">
+        <div class="head-title-text">统计：
+            <span>全部{{showHead.ybPeople}}&nbsp;</span>
+            <span>请假{{showHead.qjPeople}}&nbsp;</span>
+            <span>缺席{{showHead.qxPeople}}&nbsp;</span>
+            <span>迟到{{showHead.cdPeople}}&nbsp;</span>
+            <span>早退{{showHead.ztPeople}}</span>
+            <span class="head-search-sty" ng-click="changeShow()">
+                 <i class="ion-android-search"></i>
+            </span>
+        </div>
+    </div>
+    <div class=" bar bar-header bar-calm" ng-show="searchBar">
+        <div class="pos-header-box pos-icon-rt pos-text-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="姓名/别名/学号" id="name" ng-model="name" ng-change="queryKQKtUserInfo(callBackId)" ng-focus="searchBar">
+            <i class="right-icon ion-ios-close-outline" ng-if="name" ng-click="clearName()"></i>
+            <div class="right-text"  ng-click="changeShow()">取消</div>
+        </div>
+    </div>
+    <ion-content class="content has-header content-bc">
+        <div class="search-result-text" ng-if="!isLoad">
+            <span>{{userInfoData.length}}个搜索结果</span>
+        </div>
+        <ion-list class="examine-list-wrap" >
+            <ion-item class="examine-list-item" ng-repeat="item in userInfoData" ng-click="changeShowState(item)">
+                <div class="pos-box-wrap">
+                    <div class="img-box">
+                        <img ng-if="item.imageId" ng-src="{{originBaseUrl}}/file/downloadStream.htm?fastDFSId={{item.imageId}}">
+                        <img ng-if="!item.imageId && item.gender!=2" src="img/userface_0.png">
+                        <img ng-if="!item.imageId && item.gender==2" src="img/userface_1.png">
+                    </div>
+                    <div class="box-wrap right-icon-one">
+                        <span class="box-name">{{item.name}}<span class="help-inline font-size-14">{{item.aliensNumbers}}</span></span>
+                        <span class="box-times"><label class="button-label" ng-class="{'label-orange':item.kqStauts =='2'}">{{item.kqStatusName}}</label></span>
+                    </div>
+                    <div class="right-box">
+                        <div class="right-text-ion">
+                            <i class="ion ion-more"></i>
+                        </div>
+                    </div>
+                    <ul class="card-list-group clearfix" ng-show="item.showStatus" >
+                        <li class="card-list-item">
+                            <button type="button" class="button button-mini bc-white calm"  ng-repeat="dict in ktStatusList" ng-if="dict.dictCode == item.kqStauts" ng-click="commitStatus(item,dict.dictCode)">{{dict.dictName}}</button>
+                            <button type="button" class="button button-mini bc-white calm" ng-repeat="dict1 in ktStatusList" ng-if="dict1.dictCode != item.kqStauts" ng-click="commitStatus(item,dict1.dictCode)">{{dict1.dictName}}</button>
+                        </li>
+                    </ul>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <div class="fullscreen-box" ng-click="doRefresh()" ng-if="isLoad && userInfoData.length ==0">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>没有学生无法进行考勤！</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="back()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="datetimepickerApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>移动端日期时间组件用例 - Fanjiaben</title>
+    <!--  -->
+    <link href="../../../lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="../../../lib/mscroll/css/mobiscroll.animation.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../lib/mscroll/css/mobiscroll.frame.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../lib/mscroll/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css"/>
+    <!--  -->
+    <link rel="stylesheet" href="../../../assets/styles/model.css"/>
+    <link rel="stylesheet" href="../../../assets/styles/nganimate.css"/>
+    <link rel="stylesheet" href="../../../assets/styles/core.css"/>
+    <link rel="stylesheet" href="../../../assets/styles/pageStyle.css"/>
+    <!--  -->
+    <script src="../../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../../lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="../static.directive.js"></script>
+    <!--  -->
+    <script src="../../../lib/mscroll/js/mobiscroll.core.js"></script>
+    <script src="../../../lib/mscroll/js/mobiscroll.frame.js"></script>
+    <script src="../../../lib/mscroll/js/mobiscroll.scroller.js"></script>
+    <script src="../../../lib/mscroll/js/mobiscroll.util.datetime.js"></script>
+    <script src="../../../lib/mscroll/js/mobiscroll.datetimebase.js"></script>
+    <script src="../../../lib/mscroll/js/mobiscroll.datetime.js"></script>
+    <script src="../../../lib/mscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
+    <!--  -->
+    <script src="../datetimepicker/datetimepicker.directive.js"></script>
+</head>
+<body ng-controller="datetimepickerCtrl">
+<ion-header-bar align-title="left" class="bar-stable">
+    <h1 class="title">时间日期组件用例 - Fanjiaben</h1>
+</ion-header-bar>
+<ion-content>
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">基本用法 - 日期</span>
+            <input type="text" placeholder="日期" ng-model="demo1" datetimepicker>
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">基本用法 - 日期时间</span>
+            <input type="text" placeholder="日期时间" ng-model="demo2" datetimepicker datetime-type="datetime">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">基本用法 - 时间</span>
+            <input type="text" placeholder="时间" ng-model="demo3" datetimepicker datetime-type="time">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">日期方式 - 年</span>
+            <input type="text" placeholder="年" ng-model="demo4" datetimepicker datetime-settings="demo4settings">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">日期方式 - 年月</span>
+            <input type="text" placeholder="年月" ng-model="demo5" datetimepicker datetime-settings="demo5settings">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">限定日期选择范围</span>
+            <input type="text" placeholder="日期" ng-model="demo6" datetimepicker datetime-settings="demo6settings">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">自由限定级联日期</span>
+
+            <div class="row">
+                <div class="col col-50">
+                    <input type="text" placeholder="开始日期" ng-model="demo71" datetimepicker
+                           datetime-settings="demo71settings" on-select="demo71select(item)">
+                </div>
+                <div class="col col-50">
+                    <input type="text" placeholder="结束日期" ng-model="demo72" datetimepicker
+                           datetime-settings="demo72settings" on-select="demo72select(item)">
+                </div>
+            </div>
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">回调方法接收已选日期</span>
+            <input type="text" placeholder="日期" ng-model="demo8" datetimepicker on-select="demo7select(item)">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">外部触发组件并回调执行其他操作</span>
+            <button class="button button-assertive block" ng-click="demo9instance.show()">已选日期：{{demo9Txt}}</button>
+            <input type="text" placeholder="日期" ng-model="demo9" datetimepicker on-select="demo9select(item)"
+                   datetime-instance="demo9instance" class="ng-hide">
+        </label>
+
+    </div>
+</ion-content>
+<script>
+    angular.module('datetimepickerApp', ['ionic', 'staticModule'])
+        .controller('datetimepickerCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+
+            //demo1
+            $scope.demo1 = "2017-05-05";
+
+            //demo4
+            $scope.demo4settings = {
+                dateOrder: 'yyyy',
+                dateFormat: 'yyyy'
+            };
+            //demo5
+            $scope.demo5settings = {
+                dateOrder: 'yyyymm',
+                dateFormat: 'yyyy-mm'
+            };
+            //demo6
+            $scope.demo6settings = {
+                minDate: new Date(2015, 4, 1),
+                maxDate: new Date(2017, 4, 31)
+            };
+            //demo7(1、2)
+            $scope.demo71select = function (item) {
+                $timeout(function () {
+                    $scope.demo72settings = {
+                        minDate: new Date(item)
+                    }
+                })
+            };
+            //demo8
+            $scope.demo7select = function (item) {
+                alert('当前选择：' + item);
+            };
+            //demo9
+            $scope.demo9Txt = '未选择';
+            $scope.demo9select = function (item) {
+                $timeout(function () {
+                    $scope.demo9Txt = item;
+                });
+            }
+        }]);
+</script>
+</body>
+</html>

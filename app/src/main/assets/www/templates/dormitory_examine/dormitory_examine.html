@@ -1,0 +1,40 @@
+<ion-view  ng-controller="dormitoryExamineCtrl" class="">
+    <ion-content class="content-bc footer-two-content">
+        <ion-list class="list-text-group border-left pad-right-box" ng-show="!emptyInfo">
+            <ion-item class="list-text-item" ng-repeat="item in scoreTaskList" ng-click="toDormitoryForm(item)">
+                <div class="title-text">{{item.scoreTableName}}</div>
+                <div class="margin-top-10">
+                    <label class="button-label">第{{item.checkMember}}次</label>
+                    <label class="button-label">共{{item.mustChNumber}} 宿舍</label>
+                </div>
+                <p class="margin-top-10">{{item.checkDate}} , {{item.regionName}}</p>
+                <div class="area-right">
+                    剩<span>{{item.notOverClassNumber}}</span>个宿舍
+                    <i class="ion-ios-arrow-forward"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--<div class="creat-wrap" ng-show="emptyInfo">-->
+            <!--<div class="content-body-text text-center">-->
+                <!--<h4 class="" ng-bind="dataErrorMsg"></h4>-->
+                <!--<div class=" text-muted" ng-click="doRefresh()">单击刷新</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="fullscreen-box" ng-if="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p class="" ng-bind="dataErrorMsg"></p>
+                <div class=" text-muted" ng-click="doRefresh()">单击刷新</div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="content-bc footer-two-bt">
+        <div class="pos-btn-bt">
+            <button class="button button-xlg button-calm" ng-click="addScoreTask()">{{addButtonName}}考核任务</button>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

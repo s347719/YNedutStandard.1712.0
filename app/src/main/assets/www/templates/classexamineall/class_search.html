@@ -1,0 +1,32 @@
+<!--班级巡查考核  搜索班级-->
+<ion-view ng-controller="classSearch">
+    <div class="fullscreen-box content-bc class-search">
+        <div class="screen-center">
+            <div class="padding-10">
+                <h5 class="text-center margin-top-10 text-muted">请先查找需要考核的班级</h5>
+                <button class="button button-calm button-outline button-lg margin-top-20" ng-click="inputClassInfoToSearch()"><i class="ion-android-search"></i>输入班级名称/代码查找班级</button>
+                <button class="button button-calm button-outline button-lg margin-top-20" ng-click="toSearchAllClass()"><i class="ion-android-search"></i>从管辖班级中查找</button>
+                <!--<button class="button button-calm button-outline button-lg margin-top-20" ng-click="scanClassCode()"><i class="scan-icon"></i>扫描班牌</button>-->
+            </div>
+        </div>
+    </div>
+    <ion-footer-bar>
+        <button class="button button-outline button-calm" ng-click="showClassListModal()">已选{{selectedClass.length}}个班级&nbsp;<i class="ion-arrow-down-b"></i></button>
+        <button class="button button-xlg button-calm" ng-click="startClassPatrol()">开始考核</button>
+    </ion-footer-bar>
+    <!--浮动框——已选的班级-->
+    <div class="buttom-pop buttom-pop-mini arrow animate-if direction-left" ng-show="classListShow">
+        <div class="modal-list-wrap">
+            <ul class="list-wrap height-overflow-200 border-radius-10" ng-if="selectedClass.length > 0">
+                <li class="list-item item-right-icon" ng-repeat="item in selectedClass">{{item.name}}<i class="ion-close" ng-click="unSelected($index)"></i></li>
+            </ul>
+            <ul class="list-wrap height-overflow-200" ng-if="selectedClass.length == 0">
+                <li class="text-center no-content">
+                    <h5>没有选择的班级！</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--浮动框——已选的班级-->
+</ion-view>
+<!--班级巡查考核  搜索班级-->

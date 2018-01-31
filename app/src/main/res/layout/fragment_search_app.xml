@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/app_main_title_rl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/appSearchBox"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="0.8"
+            android:background="@drawable/searchbox_app_shape"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/icon_app_seacher" />
+
+                <EditText
+                    android:id="@+id/app_search_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="搜索应用"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/app_type_name_text_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/dismiss_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_app_recent_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:minHeight="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_recent"
+            android:textSize="@dimen/app_type_name_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
+
+        <ListView
+            android:id="@+id/app_recent_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_bg"
+            android:divider="@color/loading_fail_color"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/app_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_bg"
+        android:divider="@color/loading_fail_color"/>
+
+    <include
+        android:id="@+id/emptyview"
+        layout="@layout/item_search_app_empty" />
+</LinearLayout>

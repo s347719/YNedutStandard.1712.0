@@ -1,0 +1,59 @@
+<!--评优申请-->
+<ion-view class="commentExcellent-apply">
+    <ion-content class="content-bc">
+        <ion-list class="apply-list">
+            <ion-item class="apply-list-item" ng-repeat="item in MobaileTaskCheckVOList track by $index">
+                <div class="item-padding">
+                    <div class="pos-right-img">
+                        <div class="title" ng-bind="item.rewardName"></div>
+                        <span class="help-block">班级限定名额：{{item.tatolNum}}{{item.tatolNum =='无'?'':'人'}}</span>
+                        <div class="right-img no-apply" ng-if="item.status == 0 || item.status == 1">
+                            <span class="right-bg-text">未申请</span>
+                        </div>
+                        <div class="right-img already-apply"  ng-if="item.status == 2">
+                            <span class="right-bg-text">已申请</span>
+                        </div>
+                        <div class="right-img award" ng-if="item.status == 3"></div>
+                        <div class="right-img no-award" ng-if="item.status == 4"></div>
+                    </div>
+                    <div class="help-block">评优结束日期：{{item.endTime}}<span class="text-danger" ng-if="item.realityEndDate">(已结束 {{item.realityEndDate}})</span><span class="text-danger" ng-if="item.canNotApplyReason">{{item.canNotApplyReason}})</span></div>
+                    <div class="help-block" ng-if="item.headRecommendDesc">班主任推荐理由：</div>
+                    <div class="evaluate-describe text-overflow-two" ng-if="item.headRecommendDesc">{{item.headRecommendDesc}}</div>
+                    <div class="help-block" ng-if="!item.headRecommendDesc && item.ownRecommendDesc">自荐理由({{item.ownRecommendDate}})：</div>
+                    <div class="evaluate-describe text-overflow-two" ng-if="!item.headRecommendDesc && item.ownRecommendDesc">{{item.ownRecommendDesc}}</div>
+                </div>
+                <div class="bottom-btn">
+                    <div class="row">
+                        <div class="col {{item.status == 0?'col-50':''}}" ng-click="showParticulars(item)"><i class="ion-document"></i>详情</div>
+                        <div class="col col-50" ng-click="showApply(item)" ng-if="item.status == 0"><i class="ion-compose"></i>申请</div>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+        </ion-list>
+        <!--没有数据-->
+        <div class="fullscreen-box" ng-if="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>{{dataErrorMsg}}</p>
+                <a class="text-muted" href="" ng-click="doRefresh()">点击重试</a>
+            </div>
+        </div>
+        <!--没有数据-->
+    </ion-content>
+
+    <!--自荐理由-->
+    <ion-content class="content-bc class-patrol"  ng-if="showOwnRecommend">
+        <div class="patrol-tips">
+            <div class="margin-left-10">自荐理由 {{submitVO.ownRecommendDesc.length}}/500</div>
+            <textarea class="form-control margin-top-5" name="" id="" placeholder="请填写自荐理由，不少于20个字" maxlength="500" ng-model="submitVO.ownRecommendDesc"></textarea>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="bar bar-footer" ng-if="showOwnRecommend">
+        <button class="button button-ssm button-calm button-outline" ng-click="back()">返回</button>
+        <button class="button button-xlg button-calm" ng-click="submit()">提交申请</button>
+    </ion-footer-bar>
+    <!--自荐理由-->
+</ion-view>
+<!--评优申请-->

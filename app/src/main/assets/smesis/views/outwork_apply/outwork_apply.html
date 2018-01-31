@@ -1,0 +1,42 @@
+<ion-view class="leave-detail">
+    <div class="fullscreen-box" ng-show="!list || list.length==0">
+        <div class="screen-center">
+            <h4 ng-if="errorFlag"><i class="tips-icon"></i>加载失败</h4>
+            <h4 ng-if="!errorFlag"><i class="tips-icon"></i>没有外勤申请记录</h4>
+            <p class="text-theme" ng-click="doRefresh()">刷新试试</p>
+        </div>
+    </div>
+    <ion-content class="content-bg" ng-show="list && list.length>0">
+         <div class="list list-space bottom-70" >
+            <ion-item class="left-border" ng-class="{'item-button-right':item.processStatus == '返回修改'}" ng-repeat="item in list" ng-click="goTo.gotoFun(item.instruction,1)">
+                <h2>{{item.applyTime}}外勤 <span class="divider">|</span>
+                    <span class="text-blue" ng-if="item.processStatus =='未提交'">保存草稿</span>
+                    <span class="text-green" ng-if="item.processStatus == '结束'">审批通过</span>
+                    <span class="text-danger" ng-if="item.processStatus == '返回修改'">返回修改</span>
+                    <span class="text-theme" ng-if="item.processStatus != '结束' && item.processStatus != '返回修改' && item.processStatus !='未提交'">审批中</span>
+                </h2>
+                <p>{{item.dateStringRange}}</p>
+                <p class="text-overflow-two">
+                    {{item.instruction}}
+                </p>
+                <div class="item-icon-only" ng-if="item.processStatus == '返回修改'" ng-click="goTo.gotoFun(item,2)">
+                    <div class="text-theme">
+                        <span class="ion-edit"></span>
+                    </div>
+                </div>
+            </ion-item>
+        </div>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <ion-infinite-scroll  overflow-scroll="false" immediate-check="false"  on-infinite="loadData()" distance="1%" ng-if="moreData"></ion-infinite-scroll>
+    </ion-content>
+
+    <ion-footer-bar class="special-footer-height nobg" ng-if="!errorFlag&& addSecurityFlag ">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon" ng-click="add()">
+                    <i></i>
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

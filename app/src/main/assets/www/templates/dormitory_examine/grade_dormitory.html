@@ -1,0 +1,118 @@
+<ion-view ng-controller="gradeCtrl" class="grade-wrap">
+    <ion-header-bar class="bar bar-calm bar-header">
+        <div class="pos-header-box pos-icon-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" ng-model="ItemName" placeholder="搜索考核项目">
+            <i class="right-icon ion-ios-close-outline" ng-if="isItemName" ng-click="closeDataClick(ItemName)"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <ion-list class="list-text-group border-left pad-right-box">
+            <ion-item class="list-text-item item-col-2" ng-show="moraleduDormitoryChItemInfoVOs.length > 0"
+                      ng-repeat="item in moraleduDormitoryChItemInfoVOs" ng-click="checkDormitory(item)">
+                <div class="title-text">{{item.checkItemName}}</div>
+                <p class="">
+                    <label class="button-label min-width">{{item.baseScore}}分</label>
+                    {{item.remark}}
+                </p>
+                <div class="area-right">
+                    评<span ng-show="item.score != item.baseScore"  class="text-danger">{{item.score}}</span><span ng-show="item.score == item.baseScore"  class="">{{item.score}}</span>分
+                    <i class="ion-ios-arrow-forward"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="grade-footer">
+        <div class="footer-list">
+            <div class="footer-list-box">
+                <div class="active-arrow" ng-show="MoraleduDormitoryChInfoVO.isCheck == 1">已打分</div>
+                <div class="heading">{{MoraleduDormitoryChInfoVO.dormitoryName}}&nbsp;&nbsp;<button class="btn-label theme" ng-show="MoraleduDormitoryChInfoVO.isMix == 1">混</button></div>
+                <p class="help-block" >
+                    <span ng-if="regionList&&regionList.length>0">{{condition.regionName}}</span>
+                    <span ng-if="regionList.length > 1"></span>
+                </p>
+                <div class="pos-btn-radius" ng-click="sumbitDormitoryScore()"> 提交<br/>
+                    {{MoraleduDormitoryChInfoVO.score}}分
+                </div>
+            </div>
+            <ul class="list-text-btn">
+                <li ng-click="openDormiGrouping()">
+                    <i class="ion-arrow-swap"></i>
+                    切换分组</li>
+                <li ng-click="getDormitory(0)">
+                    <i class="ion-ios-rewind"></i>
+                    上一宿舍</li>
+                <li ng-click="getDormitory(1)">
+                    <i class="ion-ios-fastforward"></i>
+                    下一宿舍</li>
+            </ul>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="goTaskLists()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefreshItems()"></button>
+    </ion-footer-bar>
+    <!--切换分组-->
+    <script id="grouping.html" type="text/ng-template">
+        <div class="grouping-wrap another">
+            <ion-header-bar class="bar-ynedut bar-title-rt-lt" align-title="center">
+                <div class="buttons" ng-click="toLastOrNextRegion(0)">
+                    <i class="icon ion-ios-arrow-left"></i>
+                </div>
+                <div class="title">{{condition.regionName}}</div>
+                <div class="buttons" ng-click="toLastOrNextRegion(1)">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </ion-header-bar>
+            <div class="bar bar-calm bar-subheader">
+                <div class="pos-header-box pos-icon-rt">
+                    <i class="input-left-icon ion-android-search"></i>
+                    <input type="text" class="form-control radius-input border-radius-20" ng-model="condition.dormitoryName" placeholder="搜索宿舍">
+                    <i class="right-icon ion-ios-close-outline" ng-if="isDormitoryName" ng-click="closeDataClick(condition.dormitoryName)"></i>
+                </div>
+            </div>
+            <ion-content class="content-bc has-subheader">
+                <!--有分组-->
+                <ion-list class="list-text-group border-left pad-right-box" ng-if="dormitoryListCopy.length > 0">
+                    <ion-item class="list-text-item item-col-2 mix-button-wrap" ng-repeat="item in dormitoryListCopy" ng-click="searchCheckItem(item)">
+                        <div class="clearfix title-text"><div class="mix-button-title">{{item.dormitoryName}}<label class="button-label" ng-if="item.isMix == 1">混</label></div></div>
+                        <p class="">
+                            <span ng-if="item.checkUser && item.checkClassInfos">{{item.checkUser}}，{{item.checkClassInfos}}</span>
+                            <span ng-if="item.checkUser && !item.checkClassInfos">{{item.checkUser}}</span>
+                            <span ng-if="!item.checkUser && item.checkClassInfos">{{item.checkClassInfos}}</span>
+                        </p>
+                        <div class="area-right" ng-if="item.isCheck==0">
+                            <span>未打分</span>
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                        <div class="area-right" ng-if="item.isCheck == 1">
+                            <span>{{item.score}}</span>分
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </ion-item>
+                </ion-list>
+                <!--无分组-->
+                <div class="fullscreen-box" ng-if="emptyDormitory">
+                    <div class="screen-center">
+                        <div class="img-no-data"></div>
+                        <p ng-bind="dataErrorMsgDormitory"></p>
+                        <p class="dark" ng-click="doRefreshClass()">单击刷新</p>
+                    </div>
+                </div>
+                <div class="fullscreen-box display-none" ng-if="dormitoryList.length == 0">
+                    <div class="screen-center">
+                        <div class="img-no-data"></div>
+                        <p>没有可选择的宿舍!</p>
+                        <p class="dark" ng-click="doRefreshClass()">单击刷新</p>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="">
+                <button class="button button-clear button-stable icon ion-reply" ng-click="goBackToItem()"></button>
+                <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefreshClass()"></button>
+            </ion-footer-bar>
+        </div>
+
+    </script>
+    <!--切换分组-->
+</ion-view>

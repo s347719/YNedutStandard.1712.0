@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+	android:padding="@dimen/common_listItem_padding" >
+
+    <ImageView
+        android:id="@+id/groupMsgNotifySetting_img_listItem_icon"
+        android:layout_width="@dimen/groupMsgNotifySetting_listItem_icon_size"
+        android:layout_height="@dimen/groupMsgNotifySetting_listItem_icon_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/groupMsgNotifySetting_listItem_icon_marginRight" />
+
+    <ImageView
+        android:id="@+id/groupMsgNotifySetting_img_listItem_arrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/groupMsgNotifySetting_listItem_arrowRight_marginLeft"
+        android:src="@mipmap/contact_right_arrow" />
+
+    <TextView
+        android:id="@+id/groupMsgNotifySetting_txt_listItem_groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/groupMsgNotifySetting_img_listItem_arrowRight"
+        android:layout_toRightOf="@id/groupMsgNotifySetting_img_listItem_icon"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/common_listItem_textSize" />
+
+</RelativeLayout>

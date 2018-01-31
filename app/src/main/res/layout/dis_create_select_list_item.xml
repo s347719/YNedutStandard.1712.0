@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_contact_main_org"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_dis_create_item_tag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_bg_gray"
+        android:clickable="true"
+        android:padding="@dimen/contactGroupOrg_listHead_padding"
+        android:text="@string/disAdd_department"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/contactGroupOrg_listHead_textSize" />
+
+    <RelativeLayout
+        android:id="@+id/ll_dis_create_item_org"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_forAvatar_padding"
+        android:background="@drawable/common_listitem_bg_selector"
+        android:orientation="horizontal" >
+        <ImageView
+            android:id="@+id/contactChildOrg_img_listItem_logo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:id="@+id/tv_dis_create_item_orgname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/contactGroupOrg_listItem_horSpacing"
+            android:layout_toRightOf="@id/contactChildOrg_img_listItem_logo"
+            android:maxWidth="@dimen/contactGroupOrg_listItem_text_maxWidth"
+            android:singleLine="true"
+            android:textColor="@drawable/common_listitem_text_selector"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:text="@string/disAdd_org" />
+
+        <TextView
+            android:id="@+id/tv_dis_create_item_personcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/contactGroupOrg_listItem_horSpacing"
+            android:layout_toRightOf="@id/tv_dis_create_item_orgname"
+            android:singleLine="true"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/contactGroupOrg_memberCount_textSize" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/contact_right_arrow" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dis_create_item_person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/common_listitem_bg_selector"
+        android:padding="@dimen/common_listItem_forAvatar_padding"
+        android:orientation="horizontal" >
+
+        <!--         <CheckBox
+                    android:id="@+id/cb_dis_create_item_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" /> -->
+
+        <ImageView
+            android:id="@+id/cb_dis_create_item_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:padding="6dp"
+            android:scaleType="center"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/report_option_not_selelcted" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_dis_create_item_personicon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/common_listItem_icon_marginRight"
+            android:src="@mipmap/user" />
+
+        <TextView
+            android:id="@+id/tv_dis_create_item_personname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:textColor="@drawable/common_listitem_text_selector"/>
+    </LinearLayout>
+
+</LinearLayout>

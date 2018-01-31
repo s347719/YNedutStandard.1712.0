@@ -1,0 +1,75 @@
+<ion-view ng-controller="chooseLessonsCtrl" class="choose-lessons">
+    <div class="fullscreen-box" ng-if="!emptyInfo&&!isInit&&selectedCourseVO.status != 4">
+        <div class="screen-content" ng-class="{'nopadding-bottom':selectedCourseVO.status == 2}">
+            <div class="screen-content-header">
+                <div class="list cllist-header">
+                    <div class="item item-button-right item-right-long">
+                        <label class="button-label label-gray" ng-if="selectedCourseVO.taskDateScope" ng-bind="selectedCourseVO.taskDateScope" ng-click="clickTaskDate(selectedCourseVO.taskDateScope)"></label>
+                        <span class="date"></span>
+                        <h2 ng-bind="selectedCourseVO.defaultTermName" ng-click="clickTaskDate(selectedCourseVO.taskDateScope)"></h2>
+                        <button class="button term" ng-bind="selectedCourseVO.termDesc" ng-if="!selectedCourseVO.isHide" ng-click="switchoverTerm()">
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="center-tips" ng-if="selectedCourseVO.status != 1&&
+                (!selectedCourseVO||selectedCourseVO.xkStuMobileElectiveVOList.length==0)">你还没有进行选课</div>
+            <div class="center-tips" ng-if="selectedCourseVO.status == 1">选课未开始</div>
+            <div class="screen-content-body" ng-if="selectedCourseVO.status != 1" >
+                <ion-scroll zooming="false" direction="y" id="boxHeight" ng-style="{height: windowHeight}">
+                    <ion-list class="examine-list-wrap">
+                        <ion-item class="examine-list-item item no-margin-btm" ng-repeat="item in selectedCourseVO.xkStuMobileElectiveVOList">
+                            <div class="pos-box-wrap right-btn-two">
+                                <div class="box-wrap padding-left-0">
+                                    <span class="box-name" ng-bind="item.electiveCourseNameStr"></span>
+                                    <span class="box-times"><span ng-bind="item.credit+'学分'"></span><span class="divider margin-rtlt-4" ng-if="item.credit&&item.teacherNames">|</span><span ng-bind="item.teacherNames"></span></span>
+                                </div>
+                                <div class="right-box">
+                                    <label class="button-label" ng-if="item.status == 2&&item.remark" ng-click="notGoReason(item)">
+                                        原因
+                                    </label>
+                                    <button class="button button-mini button-default button-outline" ng-if="item.status == 0" ng-click="revocation(item)">
+                                        撤消
+                                    </button>
+                                    <button class="button button-mini button-balanced button-clear" ng-if="item.status == 1">
+                                        已通过
+                                    </button>
+                                    <button class="button button-mini button-assertive button-clear" ng-if="item.status == 2">
+                                        不通过
+                                    </button>
+                                </div>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                </ion-scroll>
+            </div>
+            <div class="screen-content-footer" ng-if="selectedCourseVO.status != 1">
+                <p>
+                    <label>已选课学分：<span ng-bind="selectedCourseVO.selectedCredit"></span></label>
+                    <label>已选课数量：<span ng-bind="selectedCourseVO.selectedCourse"></span></label>
+                    <label class="button-label" ng-click="clickRequire()">要求</label>
+                </p>
+                <button class="button button-calm button-sm button-block" ng-if="selectedCourseVO.status == 0" ng-click="gotoSelectCourse()">选课</button>
+                <!--按钮不可操作样式-->
+                <button class="button button-default button-xlg button-block" ng-if="selectedCourseVO.status == 2" disabled>已结束选课</button>
+                <button class="button button-default button-xlg button-block" ng-if="selectedCourseVO.status == 3" disabled>选课已关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-if="emptyInfo&&!isInit" ng-click="getSelectedCourse(null)">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{dataErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-if="isInit" ng-click="getSelectedCourse(null)">
+        <ion-spinner class="screen-center"></ion-spinner>
+    </div>
+    <div class="creat-wrap" ng-show="!emptyInfo&&!isInit&&selectedCourseVO.status == 4">
+        <div class="content-body-text text-center">
+            <h4 class="">当前时间不在学期内</h4>
+        </div>
+    </div>
+</ion-view>

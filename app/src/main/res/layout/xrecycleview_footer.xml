@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:background="@color/common_content_bg"
+    >
+
+    <RelativeLayout
+        android:id="@+id/listview_header_content"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:paddingTop="10dip">
+
+        <FrameLayout
+            android:id="@+id/progress_view"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_toLeftOf="@+id/mText">
+
+            <ImageView
+                android:id="@+id/progress_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="fitXY" />
+
+            <ProgressBar
+                android:id="@+id/pull_to_refresh_progress"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/progress_color"
+                android:indeterminateDuration="1000"
+                android:visibility="visible" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/mText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="加载中..." />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

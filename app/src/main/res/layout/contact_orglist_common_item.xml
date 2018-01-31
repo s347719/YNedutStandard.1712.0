@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_contact_main_org"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_contactlist_common_item_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_bg_gray"
+        android:clickable="true"
+        android:padding="@dimen/contactGroupOrg_listHead_padding"
+        android:text="@string/main_department"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/contactGroupOrg_listHead_textSize"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/ll_contactlist_common_item_org"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_listitem_bg_selector"
+        android:padding="@dimen/common_listItem_forAvatar_padding"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/contactChildOrg_img_listItem_logo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_contactlist_common_item_orgname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/contactGroupOrg_listItem_horSpacing"
+            android:layout_toRightOf="@id/contactChildOrg_img_listItem_logo"
+            android:maxWidth="@dimen/contactGroupOrg_listItem_text_maxWidth"
+            android:singleLine="true"
+            android:textColor="@drawable/common_listitem_text_selector"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/tv_contactlist_common_item_personcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:singleLine="true"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/contactGroupOrg_memberCount_textSize" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/contact_right_arrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_contactlist_common_item_person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_listitem_bg_selector"
+        android:padding="@dimen/common_listItem_forAvatar_padding"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/cb_contactlist_common_item_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_contactlist_common_item_personicon"
+            android:layout_width="@dimen/common_listItem_avatar_size"
+            android:layout_height="@dimen/common_listItem_avatar_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_listItem_icon_marginRight"
+            android:background="@color/transparent"
+            android:src="@mipmap/user" />
+
+        <TextView
+            android:id="@+id/tv_contactlist_common_item_postname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/common_listitem_text_selector"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_contactlist_common_item_postname"
+            android:layout_toRightOf="@id/iv_contactlist_common_item_personicon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_contactlist_common_item_personname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@drawable/common_listitem_text_selector"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <TextView
+                android:id="@+id/tv_contactlist_common_item_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/allContact_listItem_userState_textSize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/main_listview_divider"
+        android:visibility="visible" />
+
+</LinearLayout>

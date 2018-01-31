@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray" >
+
+    <RelativeLayout
+        android:id="@+id/disInfo_rel_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/tv_disgroup_infop_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/disInfo_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:onClick="back"
+            android:text="@string/disInfo_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/disInfo_lin_topArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disInfo_rel_actionbar"
+        android:layout_marginBottom="@dimen/disInfo_topArea_verMargin"
+        android:layout_marginTop="@dimen/disInfo_topArea_verMargin"
+        android:background="@color/white"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <RelativeLayout
+            android:id="@+id/disInfo_rel_discussRenameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding" >
+
+            <TextView
+                android:id="@+id/disInfo_txt_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/disInfo_discussName"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <ImageView
+                android:id="@+id/disInfo_img_arrowRight1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/disInfo_items_arrowRight_marginLeft"
+                android:src="@mipmap/contact_right_arrow" />
+
+            <TextView
+                android:id="@+id/disInfo_txt_discussName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/disInfo_txt_default"
+                android:layout_toLeftOf="@id/disInfo_img_arrowRight1"
+                android:layout_marginLeft="@dimen/disInfo_items_arrowRight_marginLeft"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/common_listItem_textSize" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/disInfo_rel_discussMembers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disInfo_discussMembers"
+                android:textSize="@dimen/common_listItem_textSize"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/disInfo_img_arrowRight2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/disInfo_items_arrowRight_marginLeft"
+                android:src="@mipmap/contact_right_arrow" />
+
+            <TextView
+                android:id="@+id/disInfo_txt_discussMembers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/disInfo_img_arrowRight2"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/common_listItem_textSize"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/disInfo_rel_addMembersBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding" >
+
+            <ImageView
+                android:id="@+id/disInfo_img_addmore"
+                android:layout_width="@dimen/disInfo_items_addMoreImg_size"
+                android:layout_height="@dimen/disInfo_items_addMoreImg_size"
+                android:layout_marginRight="@dimen/disInfo_items_addMoreImg_marginRight"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/add_more" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/disInfo_img_addmore"
+                android:text="@string/disInfo_discussAddMembers"
+                android:textColor="@color/actionBar_bg"
+                android:textSize="@dimen/common_listItem_textSize" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/disInfo_rel_chatMsgSearchBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disInfo_lin_topArea"
+        android:background="@color/white"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disInfo_chatMsgSearch"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/contact_right_arrow" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/disInfo_btn_quitDiscuss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_padding"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/disInfo_quitDiscussBtn_marginBottom"
+        android:layout_marginLeft="@dimen/disInfo_quitDiscussBtn_horMargin"
+        android:layout_marginRight="@dimen/disInfo_quitDiscussBtn_horMargin"
+        android:background="@drawable/btn_shape_red"
+        android:text="@string/disInfo_quitDiscuss"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_listItem_textSize" />
+
+</RelativeLayout>

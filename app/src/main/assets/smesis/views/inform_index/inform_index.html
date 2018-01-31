@@ -1,0 +1,29 @@
+<ion-view class="inform-index-wrap">
+    <ion-content>
+        <div class="header-wrapper">
+            <h4 class="title"><strong ng-bind="sysNoticeDTO.title"></strong></h4>
+            <h6 class="sub-title">
+                <span>发送人：</span><span ng-bind="sysNoticeDTO.userName"></span>
+            </h6>
+            <h6 class="sub-title">
+                <span>发送时间：</span><span ng-bind="sysNoticeDTO.startDate"></span>
+            </h6>
+            <div class="title-divider"></div>
+        </div>
+        <div class="inform-index-content">
+            <div class="content-area">
+                <div ng-bind-html="sysNoticeDTO.content"></div>
+            </div>
+            <div class="uploader-wrap">
+                <span>附件：</span>
+                <div class="uploader-content">
+                    <div class="file-feeds" ng-repeat="attach in sysNoticeDTO.szglFileAttachmentDTOList">
+                        <div class="file-name" ng-bind="attach.attachmentName"></div>
+                        <div class="file-size" ng-bind="attach.size"></div>
+                        <a href="javascript:;" ng-click="downloadFile(attach)" class="download" ng-bind="attach.download">下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

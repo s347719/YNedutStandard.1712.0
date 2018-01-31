@@ -1,0 +1,43 @@
+<!--选择课程-->
+<div class="class-patrol choose-classroom choose-course top-fixed" ng-controller="courseController">
+    <div class="bar bar-header bar-calm">
+        <div class="pos-header-box pos-icon-rt pos-text-rt">
+            <!--搜索图标-->
+            <i class="input-left-icon ion-android-search" ng-show="!condition.isQuery"></i>
+            <!--搜索进行中图标-->
+            <i class="input-left-icon ion-ios-loop-strong"  ng-show="condition.isQuery"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="输入课程名称查找" ng-model="condition.name">
+            <i class="right-icon ion-ios-close-outline" ng-show="condition.name" ng-click="clearCondition()"></i>
+            <div class="right-text" ng-click="intCourseWatch()">搜索</div>
+        </div>
+    </div>
+    <!--获取的课程列表开始   取消注释即可查看效果-->
+    <ion-content class="has-header content-bc">
+        <ion-list ng-show="courseList.length > 0 && !condition.error">
+            <ion-item class="item-button-right" ng-repeat="item in courseList track by $index">
+                <h2>{{item.courseName}}</h2>
+                <p ng-show="$index ==0">如果没有找到相应课程，可以选择此项</p>
+                <p ng-show="$index !=0">{{item.courseTeachType+','+item.courseNo}}</p>
+                <button class="button button-sm button-calm button-outline" type="button" ng-click="selectCourse(item)">选择</button>
+            </ion-item>
+        </ion-list>
+        <!--获取课程失败&为0开始   取消注释即可查看效果-->
+        <div class="fullscreen-box" ng-show="courseList.length == 0 || condition.error">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>{{condition.title}}</p>
+                <p class="dark" ng-click="doRefresh()">单击刷新</p>
+            </div>
+        </div>
+        <!--获取课程失败&为0结束-->
+    </ion-content>
+    <!--获取的课程列表结束-->
+    <!--获取的课程列表结束-->
+    <ion-infinite-scroll  on-infinite="loadMore()"   distance="1%"></ion-infinite-scroll>
+
+    <ion-footer-bar align-title="center">
+        <button class="button button-calm button-outline button-sm" ng-click="cancelCourse()">取消</button>
+        <button class="button button-clear button-stable icon ion-ios-reload" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</div>
+

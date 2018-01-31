@@ -1,0 +1,183 @@
+<ion-view  ng-controller="dormitoryCtrl" class="dormitory-wrap">
+    <ion-header-bar class="bar bar-head bar-calm input-icon-wrap">
+        <div align-title="center" class="bar-ynedut bar bar-calm">
+            <div class="buttons" ng-show="classDormitoryInfoList&&classDormitoryInfoList.length>1"  ng-click="previousSlide()">
+                <i class="icon ion-ios-arrow-left"></i>
+            </div>
+            <ion-slide-box does-continue="true" on-slide-changed = "slideChange(index)" class="ion-slide-wrap" style="width: 100%">
+                <ion-slide>
+                    <ul class="slide-list-wrap">
+                        <li class="slide-list-item" ng-if="classDormitoryInfoList&&classDormitoryInfoList.length>0">
+                            <p ng-bind="slideList[0].platformSysAdminClassName"></p>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='all'}" ng-click="selectGenderChange('all')"><img class="" src="img/all.jpg" alt=""></span>
+                            <span class="slide-img-after " ng-class="{'active':selectGender=='boy'}" ng-click="selectGenderChange('boy')"><img src="img/boy.jpg" alt=""></span>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='girl'}" ng-click="selectGenderChange('girl')"><img src="img/girl.jpg" alt=""></span>
+                        </li>
+                    </ul>
+                </ion-slide>
+                <ion-slide>
+                    <ul class="slide-list-wrap">
+                        <li class="slide-list-item" ng-if="classDormitoryInfoList&&classDormitoryInfoList.length>0">
+                            <p ng-bind="slideList[1].platformSysAdminClassName"></p>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='all'}" ng-click="selectGenderChange('all')"><img class="" src="img/all.jpg" alt=""></span>
+                            <span class="slide-img-after " ng-class="{'active':selectGender=='boy'}" ng-click="selectGenderChange('boy')"><img src="img/boy.jpg" alt=""></span>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='girl'}" ng-click="selectGenderChange('girl')"><img src="img/girl.jpg" alt=""></span>
+                        </li>
+                    </ul>
+                </ion-slide>
+                <ion-slide>
+                    <ul class="slide-list-wrap">
+                        <li class="slide-list-item" ng-if="classDormitoryInfoList&&classDormitoryInfoList.length>0">
+                            <p ng-bind="slideList[2].platformSysAdminClassName"></p>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='all'}" ng-click="selectGenderChange('all')"><img class="" src="img/all.jpg" alt=""></span>
+                            <span class="slide-img-after " ng-class="{'active':selectGender=='boy'}" ng-click="selectGenderChange('boy')"><img src="img/boy.jpg" alt=""></span>
+                            <span class="slide-img-after" ng-class="{'active':selectGender=='girl'}" ng-click="selectGenderChange('girl')"><img src="img/girl.jpg" alt=""></span>
+                        </li>
+                    </ul>
+                </ion-slide>
+            </ion-slide-box>
+            <div class="buttons" ng-show="classDormitoryInfoList&&classDormitoryInfoList.length>1" ng-click="nextSlide()">
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--有列表-->
+        <ion-list class="examine-list-wrap first-item-top" ng-if="selectGender=='all'">
+            <ion-item class="examine-list-item"  ng-repeat="item in showClassDormitoryInfo.ssMobileDormitoryInfoVOList" ng-click="openDormitory(item)">
+                <div class="pos-box-wrap text-col-4">
+                    <div class="img-box">
+                        <img class="margin-bottom-10" ng-src="{{item.dormitoryRoomGender==1?'img/boy.jpg':'img/girl.jpg'}}" alt="">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="item.dormitoryRoomName"></span>
+                        <span class="box-times" ng-bind= "'宿管员:'+(item.administratorNames?item.administratorNames:'')"></span>
+                        <span class="box-times" ng-bind= "'寝室长:'+(item.monitorName?item.monitorName:'')"></span>
+                        <span class="box-times" ng-bind= "'空床位:'+item.freeBedNum"></span>
+                    </div>
+                    <div class="right-box">
+                        <div class="right-text font-size-14">本班入住 <span class="calm font-size-16" ng-bind="item.moveInNumber"></span>人</div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list class="examine-list-wrap first-item-top" ng-if="selectGender=='boy'">
+            <ion-item class="examine-list-item"  ng-repeat="item in showClassDormitoryInfo.ssMobileManDormitoryInfoVOList" ng-click="openDormitory(item)">
+                <div class="pos-box-wrap text-col-4">
+                    <div class="img-box">
+                        <img class="margin-bottom-10" ng-src="{{item.dormitoryRoomGender==1?'img/boy.jpg':'img/girl.jpg'}}" alt="">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="item.dormitoryRoomName"></span>
+                        <span class="box-times" ng-bind= "'宿管员:'+(item.administratorNames?item.administratorNames:'')"></span>
+                        <span class="box-times" ng-bind= "'寝室长:'+(item.monitorName?item.monitorName:'')"></span>
+                        <span class="box-times" ng-bind= "'空床位:'+item.freeBedNum"></span>
+                    </div>
+                    <div class="right-box">
+                        <div class="right-text font-size-14">本班入住 <span class="calm font-size-16" ng-bind="item.moveInNumber"></span>人</div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list class="examine-list-wrap first-item-top" ng-if="selectGender=='girl'">
+            <ion-item class="examine-list-item"
+                      ng-repeat="item in showClassDormitoryInfo.ssMobileWoManDormitoryInfoVOList" ng-click="openDormitory(item)">
+                <div class="pos-box-wrap text-col-4">
+                    <div class="img-box">
+                        <img class="margin-bottom-10" ng-src="{{item.dormitoryRoomGender==1?'img/boy.jpg':'img/girl.jpg'}}" alt="">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="item.dormitoryRoomName"></span>
+                        <span class="box-times" ng-bind= "'宿管员:'+(item.administratorNames?item.administratorNames:'')"></span>
+                        <span class="box-times" ng-bind= "'寝室长:'+(item.monitorName?item.monitorName:'')"></span>
+                        <span class="box-times" ng-bind= "'空床位:'+item.freeBedNum"></span>
+                    </div>
+                    <div class="right-box">
+                        <div class="right-text font-size-14">本班入住 <span class="calm font-size-16" ng-bind="item.moveInNumber"></span>人</div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--无列表-->
+
+    </ion-content>
+    <div class="fullscreen-box"
+         ng-if="selectGender=='all'&&(!showClassDormitoryInfo.ssMobileDormitoryInfoVOList||showClassDormitoryInfo.ssMobileDormitoryInfoVOList.length==0)" >
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>该班级没有学生入住宿舍!</p>
+            <p class="dark" ng-click="doRefresh()">单击刷新</p>
+        </div>
+    </div>
+    <div class="fullscreen-box"
+         ng-if="selectGender=='boy'&&(!showClassDormitoryInfo.ssMobileManDormitoryInfoVOList||showClassDormitoryInfo.ssMobileManDormitoryInfoVOList.length==0)" >
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>该班级没有男生入住宿舍！</p>
+            <p class="dark" ng-click="doRefresh()">单击刷新</p>
+        </div>
+    </div>
+    <div class="fullscreen-box"
+         ng-if="selectGender=='girl'&&(!showClassDormitoryInfo.ssMobileWoManDormitoryInfoVOList||showClassDormitoryInfo.ssMobileWoManDormitoryInfoVOList.length==0)" >
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>该班级没有女生入住宿舍!</p>
+            <p class="dark" ng-click="doRefresh()">单击刷新</p>
+        </div>
+    </div>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+    <!--显示宿舍成员-->
+    <script id="dormitory_member.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    “{{selectDormitory.dormitoryRoomName}}”&nbsp;宿舍
+                    <span class="calm" ng-click="closeDormitory()">取消</span>
+                </div>
+                <ul class="student-list">
+                    <li  ng-class="{'active':setectBedInfo.bedName == item.bedName,'dot':item.isMyClass,'vacancy':item.isFreeBed}"
+                         ng-repeat="item in bedDetailInfoList.ssMobileBedDetailInfoVOList"
+                         ng-click="clickBedInfo(item)">
+                        {{item.bedName}}<br/>
+                        <span>{{item.isFreeBed?'空':item.platformSysUserName}}</span>
+                    </li>
+                </ul>
+                <div class="student-particulars">
+                    <ul>
+                        <li><span class="lab-title">学生姓名：</span><span class="" ng-bind="setectBedInfo.platformSysUserNameStr"></span></li>
+                        <li><span class="lab-title">入住日期：</span><span class="" ng-bind="setectBedInfo.moveInDate"></span></li>
+                        <li><span class="lab-title">手机号码：</span><a ng-if="setectBedInfo.mobile" href="{{'tel:'+setectBedInfo.mobile}}" class="calm"><i class="ion-ios-telephone"></i>{{setectBedInfo.mobile}}</a></li>
+                        <!--<li><span class="lab-title">监护人联系带电话：</span><a href="{{'tel:'+mobileStr}}" class="calm" ng-repeat="mobileStr in setectBedInfo.guardianMobiles"><i class="ion-ios-telephone"></i>{{mobileStr}}</a></li>-->
+
+                        <li class="clearfix">
+                            <span class="lab-title pull-left">监护人联系电话：</span>
+                            <div class="pull-left">
+                                <a href="{{'tel:'+mobileStr}}" ng-repeat="mobileStr in setectBedInfo.guardianMobiles" class="calm"><i class="ion-ios-telephone"></i>{{mobileStr}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="button button-calm button-lg margin-top-10" ng-click="openAdministrator()">联系宿舍管理员</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!--显示宿舍成员-->
+    <!--选择需要联系的宿管员-->
+    <script id="dormitory_Administrator.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择需要联系的宿管员
+                    <span class="calm" ng-click="closeAdministrator()">取消</span>
+                </div>
+                <ul class="list-wrap">
+                    <li ng-repeat="item in bedDetailInfoList.ssMobileAdministratorVOList" class="list-item"><a href="{{'tel:'+item.mobile}}" >{{item.administratorName+'('+item.mobile+')'}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择需要联系的宿管员-->
+</ion-view>

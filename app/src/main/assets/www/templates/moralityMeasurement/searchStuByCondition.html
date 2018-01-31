@@ -1,0 +1,68 @@
+<!--操行分考核 按学号和姓名搜索学生-->
+<ion-view>
+    <ion-header-bar class="bar-calm">
+        <div class="pos-header-box pos-icon-rt pos-text-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="输入学号/姓名查找学生" ng-model="numberOrName">
+            <i class="right-icon ion-ios-close-outline" ng-click="numberOrName = null"></i>
+            <div class="right-text" ng-click="query()">查询</div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--搜索结果-->
+        <div class="search-result-text">
+            <span>共找到{{searchStuList ? searchStuList.length : 0}}个学生</span>
+        </div>
+        <!--搜索结果-->
+        <!--搜索列表-->
+        <ion-list class="examine-list-wrap">
+            <ion-item class="examine-list-item no-margin-btm" ng-repeat="stu in searchStuList" ng-click="selectStu(stu)">
+                <div class="pos-box-wrap right-icon">
+                    <div class="img-box">
+                        <img ng-src="{{stu.headUrl}}" view-Head="{{stu.artworkUrl}}" alt="">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="stu.stuNameStr"></span>
+                        <span class="box-times" ng-bind="stu.platformSysAdminClassName"></span>
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-ios-checkmark-outline" ng-class="{'calm': stu.isSelected}"></i>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--搜索列表-->
+        <!--加载失败-->
+        <div class="fullscreen-box" ng-if="tips.isError || tips.isNoData">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p ng-if="tips.isError">加载失败</p>
+                <p ng-if="tips.isNoData">没有可选学生</p>
+                <a class="text-muted" href="javascript:;" ng-click="query()" ng-if="tips.isError">点击重试</a>
+            </div>
+        </div>
+        <!--加载失败-->
+    </ion-content>
+    <ion-footer-bar>
+        <div class="footer-pos-button row">
+            <div class="col col-25">
+                <button class="button button-sm button-outline button-calm" ng-click="back()">返回</button>
+            </div>
+            <div class="col text-center" ng-click="showSelectedStu = !showSelectedStu">
+                <button class="button button-outline button-calm">
+                    已选{{selectedStuList.length}}个学生&nbsp;
+                    <i ng-class="{'ion-arrow-up-b': showSelectedStu, 'ion-arrow-down-b': !showSelectedStu}" ></i>
+                </button >
+            </div>
+            <div class="col col-33 text-right">
+                <button class="button button-calm" ng-click="startCheck()">开始考核</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--浮动框——已选的学生-->
+    <selected-stu-viewer></selected-stu-viewer>
+    <!--浮动框——已选的学生-->
+
+
+</ion-view>
+<!--操行分考核 搜索学生列表-->

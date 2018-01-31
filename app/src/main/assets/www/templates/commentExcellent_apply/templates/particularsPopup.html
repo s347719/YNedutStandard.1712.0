@@ -1,0 +1,24 @@
+<!--详情弹窗-->
+<div class="apply-particulars text-left">
+    <strong>●&nbsp;评优起止日期：</strong>
+    <span>{{checkItem.rewardDate}}</span>
+    <strong>●&nbsp;班级限定名额：</strong>
+    <span>{{checkItem.tatolNum}}人</span>
+    <strong>●&nbsp;实际结束日期：</strong>
+    <span>{{checkItem.realityEndDate}}</span>
+    <strong>●&nbsp;评优要求：</strong>
+    <span>{{checkItem.rewardDesc}}</span>
+    <div ng-if="checkItem.headRecommendDesc">
+        <strong>●&nbsp;班主任推荐理由：</strong>
+        <span>{{checkItem.headRecommendDesc}}</span>
+    </div>
+    <div ng-if="checkItem.ownRecommendDate">
+        <strong>●&nbsp;自荐日期：</strong>
+        <span>{{checkItem.ownRecommendDate}}</span>
+    </div>
+    <div ng-if="checkItem.ownRecommendDesc">
+        <strong>●&nbsp;自荐理由：</strong>
+        <span>{{checkItem.ownRecommendDesc}}</span>
+    </div>
+</div>
+<!--详情弹窗-->

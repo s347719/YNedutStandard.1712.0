@@ -1,0 +1,37 @@
+<div ng-controller="testCtrl">
+    <h4>年月日时分</h4>
+
+    <div class="list">
+        <label class="item item-input">
+            <input ynui-datetimepicker range="aaa" type="text" placeholder="开始日期">
+            <input ynui-datetimepicker id="aaa" type="text" placeholder="结束日期">
+        </label>
+    </div>
+    <h4>年月日</h4>
+
+    <div class="list">
+        <label class="item item-input">
+            <input ynui-datetimepicker="YMD" range="bbb" type="text" placeholder="开始日期">
+            <input ynui-datetimepicker="YMD" id="bbb" type="text" placeholder="结束日期">
+        </label>
+    </div>
+    <h4>时分</h4>
+
+    <div class="list">
+        <label class="item item-input">
+            <input ynui-datetimepicker="HI" range="ccc" type="text" placeholder="开始时间">
+            <input ynui-datetimepicker="HI" id="ccc" type="text" placeholder="结束时间">
+        </label>
+    </div>
+
+    <h4>ynuiNotifycation</h4>
+
+    <div class="list">
+        <button class="button" ng-click="notifyTest1()">成功提示</button>
+        <button class="button" ng-click="notifyTest2()">失败提示</button>
+        <button class="button" ng-click="notifyTest3()">警告提示</button>
+        <button class="button" ng-click="notifyTest4()">设置标题</button>
+        <button class="button" ng-click="notifyTest5()">设置延迟</button>
+        <button class="button" ng-click="notifyTest6()">手动消除提示</button>
+    </div>
+</div>

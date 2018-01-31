@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_20">
+
+
+        <LinearLayout
+            android:id="@+id/cv_event_todo_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_10">
+
+
+                <ImageView
+                    android:id="@+id/todo_alarm_image"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+
+                <TextView
+                    android:id="@+id/cerate_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_toRightOf="@+id/todo_alarm_image"
+                    android:textSize="@dimen/common_textSize_small"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="2" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/review_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/common_textSize_xsmall"
+                android:layout_marginLeft="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_5" />
+
+            <TextView
+                android:id="@+id/review_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/common_textSize_xsmall"
+                android:textColor="@color/common_text_color"
+                android:layout_marginLeft="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/has_review_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_5"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/common_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_5"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/review_show_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_35"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/review_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/common_textSize_xsmall"
+                        android:text="@string/pre_checker_info"
+                        android:textColor="@color/actionBar_bg" />
+
+                    <ImageView
+                        android:id="@+id/review_image"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_toRightOf="@+id/review_text_view" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/only_hint_computer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="invisible">
+
+
+
+                    <TextView
+                        android:id="@+id/computer_text_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/common_textSize_xsmall"
+                        android:layout_marginLeft="@dimen/dp_35"
+                        android:text="只能在电脑上审批"
+                        android:textColor="@color/common_text_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/review_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_35"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/review_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/event_review_text_bg"
+                    android:textSize="@dimen/common_textSize_xsmall"
+                    android:padding="@dimen/dp_3"
+                    android:textColor="@color/common_text_color" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/common_content_bg" />
+</LinearLayout>

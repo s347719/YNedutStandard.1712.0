@@ -1,0 +1,115 @@
+<!--报告详情-->
+<ion-view class="fixed-header view-affair report-detail">
+    <div class="fixed-header-wrapper">
+        <div class="list">
+            <ion-item class="item-default">
+                <h2 class="word-break">{{reportData.title}}</h2>
+                <div class="text-gray more-detail-wrapper">
+                    <p class="text-gray more-icon" >
+                        <span>报告人:{{reportData.submitUserName}}</span>
+                        <span>主送人:{{reportData.mainUserName}}</span>
+                        <span>级别:{{reportData.importantName}}</span>
+                    </p>
+                    <p class="text-gray more-icon" >
+                        <span>时间:{{reportData.startReportingTime}}</span>
+                    </p>
+
+                </div>
+            </ion-item>
+        </div>
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item"  ng-class="{'active' : isTab == 1}" ng-click="getDataFun()">
+                基本信息
+            </a>
+            <a class="tab-item"  ng-class="{'active' : isTab == 2}" ng-click="getAppoval()">
+                反馈批示({{appovalData.length}})
+            </a>
+        </div>
+    </div>
+    <ion-content class="content-bg">
+
+        <div class="list list-space" ng-show="isTab == 1">
+            <ion-item class="item-normal has-more">
+                <div class="item-normal-title">
+                    <h3>
+                        <span class="title">报告内容</span>
+                        <span class="attachment" ng-show="reportData.uploadVoList && reportData.uploadVoList.length>0" ng-click="viewFileFun(reportData.uploadVoList)"><i class="ion-paperclip"></i>有<span class="text-theme">{{reportData.uploadVoList.length || 0}}个</span>附件</span>
+                    </h3>
+                    <pre>{{reportData.instructionShow}}</pre>
+                    <!--<p >-->
+                        <!--{{reportData.reportContent}}-->
+                    <!--</p>-->
+                </div>
+                <span class="more font-12 text-theme"
+                      ng-show="reportData.reportContent.length > 50 && reportData.instructionShow.length <= 53" ng-click="showMore(reportData)">
+                    显示更多 <i class="ion-arrow-down-b"></i>
+                </span>
+            </ion-item>
+            <ion-item class="item-normal">
+                <div class="item-normal-title">
+                    <h3><span class="title">抄送人</span></h3>
+                    <p class="word-break">
+                        {{getUserName(reportData.userDTOList)}}
+                    </p>
+                </div>
+            </ion-item>
+        </div>
+        <!--基本信息结束-->
+        <!--反馈批示开始-->
+        <div class="list list-space" ng-show="isTab == 2">
+            <div class="clearfix padding" >
+                <div class="pull-left" ng-click="timeDesc()" ng-show="timedesc">按时间倒序显示&nbsp;<i class="ion-android-arrow-down text-gray"></i></div>
+                <div class="pull-left" ng-click="timeDesc()" ng-show="!timedesc">按时间升序显示&nbsp;<i class="ion-android-arrow-up text-gray"></i></div>
+            </div>
+            <ion-item class="item-normal has-more" ng-repeat="data in appovalData |orderBy:'time':true" ng-show="!timedesc" >
+                <div class="report-thumbnail">
+                    <div class="theme-border-box" ng-show="data.feedType==0">反馈</div>
+                    <div class="theme-border-box" ng-show="data.feedType==1">批示</div>
+                    <h2>{{data.name}}</h2>
+                    <p class="text-gray">
+                        <span>{{data.time}}</span>
+                    </p>
+                    <!--<span class="attachment" ng-click="viewFileFun(data.uploadVoList)"><i class="ion-paperclip"></i>有<span class="text-theme">{{data.uploadVoList.length}}个</span>附件</span>-->
+                </div>
+                <p class="word-break">
+                    {{data.instructionShow}}
+                    <span class="more text-theme" ng-show="data.content.length > 50 && data.instructionShow.length <= 53 " ng-click="showMore(data,2)">显示更多 <i class="ion-arrow-down-b"></i></span>
+                </p>
+            </ion-item>
+            <ion-item class="item-normal has-more" ng-repeat="data in appovalData |orderBy:'time':false" ng-show="timedesc">
+                <div class="report-thumbnail"  ng-show="appovalData.length > 0">
+                    <div class="theme-border-box" ng-show="data.feedType==0">反馈</div>
+                    <div class="theme-border-box" ng-show="data.feedType==1">批示</div>
+                    <h2>{{data.name}}</h2>
+                    <p class="text-gray">
+                        <span>{{data.time}}</span>
+                    </p>
+                    <!--<span class="attachment" ng-show=""><i class="ion-paperclip"></i>有<span class="text-theme">0个</span>附件</span>-->
+                </div>
+                <p class="word-break">
+                    {{data.instructionShow}}
+                    <span class="more text-theme" ng-show="data.content.length > 50 && data.instructionShow.length <= 53 " ng-click="showMore(data,2)">显示更多 <i class="ion-arrow-down-b"></i></span>
+                </p>
+            </ion-item>
+        </div>
+    </ion-content>
+    <div class="fullscreen-box" ng-show="isTab == 2 && appovalData.length==0">
+        <div class="screen-center">
+            <h4>没有反馈批示信息</h4>
+            <p>刷新试试</p>
+        </div>
+    </div>
+    <!--基本信息开始-->
+
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="jumpFun.back()">返回</button>
+                <button class="button button-theme button-local" ng-if="type == 1" ng-click="feedBack(0)">反馈</button>
+                <button class="button button-theme button-local" ng-if="type == 1" ng-click="jumpFun.update()">修改</button>
+                <button class="button button-theme button-local" ng-if="type == 2" ng-click="feedBack(1)">批示</button>
+                <button class="button button-theme button-local" ng-if="type == 1" ng-click="del(id)">删除</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

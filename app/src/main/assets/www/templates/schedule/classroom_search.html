@@ -1,0 +1,35 @@
+<!--教室搜索-->
+<ion-view class="classroom-classify">
+    <ion-header-bar class="pos-list-header bar-calm">
+        <div class="classify-header">
+            <div class="input-pos-icon">
+                <i class="ion-android-search pos-left" ng-if="!isRefreshIcon"></i>
+                <i class="ion-ios-loop-strong pos-left-two" ng-if="isRefreshIcon"></i>
+                <input type="text" class="form-control radius-input border-radius-20" ng-init="getFoucs(this)"   id="inputFocus" ng-keyup="searchClassroomByName()" ng-model="searchNameLike">
+                <i class="ion-ios-close-outline pos-right" ng-click="searchIconClear()"></i>
+            </div>
+            <div class="search-text">
+                找到 {{classroomList.length}} 条匹配结果
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--搜索教室列表-->
+        <div class="search-content">
+            <ul class="classroom-list-group">
+                <li class="classroom-list-item" ng-repeat="nameList in classroomList" ng-click="classroomListClick(nameList)">
+                    {{nameList.name}}
+                </li>
+            </ul>
+        </div>
+        <!--搜索教室列表-->
+        <!--没有您搜索的教室-->
+        <div class="fullscreen-box" ng-show="classroomList.length <= 0">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>没有相关教室，请搜索</p>
+            </div>
+        </div>
+        <!--没有您搜索的教室-->
+    </ion-content>
+</ion-view>

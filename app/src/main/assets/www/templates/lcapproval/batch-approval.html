@@ -1,0 +1,52 @@
+<!--批量审批-->
+<ion-view class="content-bc">
+    <ion-content>
+        <div class="padding text-muted" ng-show="pageParam.isShowOANode">
+            "{{externalParam.procDefName}}"中，您有多个环节需要审批
+            <div>
+                <button
+                        ng-click="clickNode(node.nodeId)"
+                        class="button"
+                        ng-repeat="node in nodes" ng-bind="node.name + '('+node.count+')'"
+                        ng-class="{'button-calm button-outline': pageParam.selectedNode == node.nodeId, 'button-default' : pageParam.selectedNode != node.nodeId}"
+                        id="{{pageParam.selectedNode == node.nodeId }}"
+                        >
+                </button>
+            </div>
+        </div>
+        <ion-list  ng-if="items.length > 0">
+            <ion-checkbox class="item-divider" ng-model="pageParam.checkedAll" ng-click="checkOrUnCheckAll()">
+                <p>全选</p>
+            </ion-checkbox>
+            <ion-checkbox ng-repeat="item in items" ng-model="item.isChecked" ng-click="checkOrUnCheckEach(item.isChecked)">
+                <h2 ng-bind="item.procDefName"></h2>
+                <p class="text-muted">申请时间&nbsp;:&nbsp;{{item.createTime}}</p>
+            </ion-checkbox>
+        </ion-list>
+        <div class="text-center text-muted" ng-if="tips.isShow">
+            <p ng-if="tips.isNoData">没有需要审批的流程！</p>
+            <p ng-if="tips.isError">加载失败，请重试</p>
+            <a class="text-muted" href="" ng-click="reTry()">点击重试</a>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar ng-if="items.length > 0">
+        <div class="footer-pos-button row">
+            <div class="col text-center">
+                <button class="button button-calm" batch-approval>批量审批({{checkedNum}})</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+<script id="batch-approval-modal.html" type="text/ng-template">
+    <div class="approval-advice">
+        <div class="text-left">
+            <label class="radio-inline"><input type="radio" checked/>通过</label>
+        </div>
+        <textarea class="form-control" ng-model="popParam.checkComment" placeholder="输入审批意见" maxlength="500"></textarea>
+        <span class="help-block text-left">{{popParam.checkComment ? popParam.checkComment.length : 0}}/500</span>
+    </div>
+    <!--弹出框结构结束-->
+</script>
+<!--弹出框结构开始-->
+

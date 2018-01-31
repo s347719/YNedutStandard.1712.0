@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/internshipList_item_ovalBtn_corners"/>
+    <solid android:color="@color/button_bg_purple"/>
+    <padding
+        android:bottom="@dimen/internshipList_item_ovalBtn_verPadding"
+        android:left="@dimen/internshipList_item_ovalBtn_horPadding"
+        android:right="@dimen/internshipList_item_ovalBtn_horPadding"
+        android:top="@dimen/internshipList_item_ovalBtn_verPadding"/>
+</shape>

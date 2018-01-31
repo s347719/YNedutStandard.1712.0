@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_listitem_bg_selector"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/app_webview_moremenu_popitem_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_padding"
+        android:textSize="@dimen/common_listItem_textSize"
+        android:textColor="@drawable/common_listitem_text_selector" />
+
+</LinearLayout>

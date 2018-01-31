@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="@dimen/common_listItem_icon_marginRight">
+
+    <LinearLayout
+        android:id="@+id/ll_login_users_icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.9"
+        android:gravity="center"
+        android:paddingLeft="@dimen/common_listItem_icon_marginRight">
+
+        <ImageView
+            android:id="@+id/iv_login_users_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/user"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_login_users_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6.2"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="name/service"
+        android:textColor="#666666"
+        android:textSize="@dimen/login_editer_textsize"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.9"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/ib_login_users_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:padding="@dimen/common_listItem_icon_marginRight"
+            android:src="@mipmap/clear"/>
+
+    </LinearLayout>
+
+</LinearLayout>

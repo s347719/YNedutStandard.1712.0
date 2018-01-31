@@ -1,0 +1,57 @@
+<!--事务交办-->
+<ion-view class="content-bg fixed-header has-page-tabs has-special-footer-bar affair-assign">
+    <div class="fixed-header-wrapper">
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item " ng-class="{'active' : isTab == 1}" ng-click="changeStatus(1)">
+                待办
+            </a>
+            <a class="tab-item" ng-class="{'active' : isTab == 2}" ng-click="changeStatus(2)">
+                交办
+            </a>
+            <a class="tab-item" ng-class="{'active' : isTab == 3}" ng-click="changeStatus(3)">
+                关注
+            </a>
+            <a class="tab-item" ng-class="{'active' : isTab == 4}" ng-click="changeStatus(4)">
+                已办结
+            </a>
+        </div>
+    </div>
+    <ion-content ng-show="dataList.length >0">
+        <div class="list list-space bottom-90">
+            <ion-item class="item-default pass-status" ng-repeat="data in dataList" ng-click="goToShow(data)">
+                <div class="report-thumbnail">
+                    <div class="theme-border-box">{{data.transactionSchedule}}%</div>
+                    <h2>{{data.name}}</h2>
+                    <p class="text-gray">
+                        <span>主办:{{data.mainUserName}}</span>
+                        <span>交办:{{data.handUserName}}</span>
+                    </p>
+                    <p class="text-gray">
+                        <span>时间:{{data.startDate}}{{data.endDate}}</span>
+                    </p>
+                    <div class="pass" ng-if="data.auditStatus==1 && data.transactionSchedule==100"></div>
+                    <div class="unpass" ng-if="data.auditStatus==2 && data.transactionSchedule==100"></div>
+                </div>
+            </ion-item>
+        </div>
+        <ion-infinite-scroll on-infinite="loadData(isTab)" distance="1%" ng-if="!showInfo" ></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar class="special-footer-txtheight nobg">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon text-only more-text" ng-click="goToAdd()">
+                    交办事务
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--内容加载失败或没有内容开始 说明：注释掉<ion-content>...</ion-content>内容,解开下方注释即可-->
+    <div class="fullscreen-box" ng-show="dataList.length==0">
+        <div class="screen-center">
+            <!--<h4>加载失败</h4>-->
+            <h4>没有事务交办</h4>
+            <p>刷新试试</p>
+        </div>
+    </div>
+    <!--内容加载失败或没有内容结束 说明：注释掉<ion-content>...</ion-content>内容,解开下方注释即可-->
+</ion-view>

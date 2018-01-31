@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/p2pChatInfo_actionbarLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/tv_chat_person_infop_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/p2pChatInfo_chatInfo"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/p2pChatInfo_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/common_actionbar_btn_padding"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:text="@string/p2pChatInfo_previous"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/p2pChatInfo_infoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/p2pChatInfo_actionbarLayout"
+        android:layout_marginBottom="@dimen/p2pChatInfo_infoLayout_verMargin"
+        android:layout_marginTop="@dimen/p2pChatInfo_infoLayout_verMargin"
+        android:background="@color/white"
+        android:showDividers="middle"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/p2pChatInfo_rel_userDetailsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/p2pChatInfo_userInfoArea_padding"
+            android:paddingBottom="@dimen/p2pChatInfo_userInfoArea_padding"
+            android:paddingLeft="@dimen/p2pChatInfo_userInfoArea_padding"
+            android:paddingRight="@dimen/p2pChatInfo_chatLogSearchBtn_padding">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/p2pChatInfo_userInfoArea_avatar"
+                android:layout_width="@dimen/p2pChatInfo_userInfoArea_avatar_size"
+                android:layout_height="@dimen/p2pChatInfo_userInfoArea_avatar_size"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/p2pChatInfo_userInfoArea_horSpacing"
+                android:src="@mipmap/session_p2p" />
+
+            <TextView
+                android:id="@+id/p2pChatInfo_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/p2pChatInfo_userInfoArea_avatar"
+                android:layout_toRightOf="@id/p2pChatInfo_userInfoArea_avatar"
+                android:singleLine="true"
+                android:textSize="@dimen/p2pChatInfo_userInfoArea_nickname_textSize" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/contact_right_arrow" />
+
+            <TextView
+                android:id="@+id/p2pChatInfo_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/p2pChatInfo_userInfoArea_avatar"
+                android:layout_alignLeft="@+id/p2pChatInfo_nickname"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="这里是部门名称"
+                android:textColor="#949494"
+                android:textSize="@dimen/p2pChatInfo_userInfoArea_signature_textSize" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/p2pChatInfo_rel_createNewDiscussBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickListener"
+            android:paddingTop="@dimen/p2pChatInfo_addMoreArea_padding"
+            android:paddingBottom="@dimen/p2pChatInfo_addMoreArea_padding"
+            android:paddingRight="@dimen/p2pChatInfo_addMoreArea_padding"
+            android:paddingLeft="@dimen/p2pChatInfo_addMoreArea_paddingLeft" >
+
+            <ImageView
+                android:id="@+id/p2pChatInfo_userInfoArea_addMore"
+                android:layout_width="@dimen/p2pChatInfo_addMore_img_size"
+                android:layout_height="@dimen/p2pChatInfo_addMore_img_size"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/p2pChatInfo_addMore_img_marginRight"
+                android:src="@mipmap/add_more" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/p2pChatInfo_userInfoArea_addMore"
+                android:singleLine="true"
+                android:text="@string/p2pChatInfo_createNewDiscuss"
+                android:textColor="@color/actionBar_bg"
+                android:textSize="@dimen/p2pChatInfo_addMore_textSize" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/p2pChatInfo_txt_chatLogSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/p2pChatInfo_infoLayout"
+        android:background="@color/white"
+        android:drawableRight="@mipmap/contact_right_arrow"
+        android:padding="@dimen/p2pChatInfo_chatLogSearchBtn_padding"
+        android:text="@string/p2pChatInfo_chatLogSearch"
+        android:textSize="@dimen/p2pChatInfo_chatLogSearchBtn_textSize" />
+
+</RelativeLayout>

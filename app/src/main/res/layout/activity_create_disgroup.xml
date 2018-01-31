@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_create_disgroup_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/common_background_color"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/createDisgroup_rel_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:paddingRight="@dimen/common_actionbar_padding"
+        >
+
+        <TextView
+            android:id="@+id/disAdd_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/p2pChatInfo_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+        <TextView
+            android:id="@+id/tv_disAdd_quit_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/main_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_backKey_textSize"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tv_disAdd_quit_view"
+            android:layout_toRightOf="@id/disAdd_previous"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:id="@+id/tv_create_disgroup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/disAdd_title"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                android:scaleY="0.7"
+                android:scaleX="0.7"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/searchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/searchBox_margin"
+        android:background="@drawable/searchbox_shape" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/searchBox_imgSize"
+                android:layout_height="@dimen/searchBox_imgSize"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/searchBox_img_marginRight"
+                android:src="@mipmap/search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/org_search"
+                android:textSize="@dimen/searchBox_textSize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/disAdd_tip_marginBottom"
+        android:layout_marginLeft="@dimen/disAdd_tip_marginLeft"
+        android:text="@string/disAdd_selectContacts"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/common_textSize_xsmall" />
+
+    <ListView
+        android:id="@+id/lv_create_disgroup_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/ll_create_disgroup_thumbnail_layout_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_listItem_forAvatar_padding" >
+
+        <com.yineng.ynmessager.view.HorizontalListView
+            android:id="@+id/gl_create_disgroup_horizontallistView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </com.yineng.ynmessager.view.HorizontalListView>
+
+        <Button
+            android:id="@+id/btn_create_disgroup_createbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/disAdd_footer_sendBtn_height"
+            android:layout_marginLeft="@dimen/disAdd_footer_sendBtn_marginLeft"
+            android:background="@drawable/chat_send_btn_shape"
+            android:text="@string/disAdd_done"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </LinearLayout>
+
+</LinearLayout>

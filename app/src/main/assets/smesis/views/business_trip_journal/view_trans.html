@@ -1,0 +1,41 @@
+
+<ion-view>
+    <ion-content class="content-bg business-journal">
+        <div class="list list-space">
+            <div class="item item-input">
+                <span class="input-label">金额</span>
+                <input type="number" class="form-control" ng-model="trans.money" placeholder="0.00" maxlength="9" readonly/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">日期</span>
+                <input type="text" class="form-control" readonly  ng-model="trans.transDate"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">出行方式</span>
+                <input type="text" class="form-control" readonly  ng-model="trans.vehicleName"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">出发地</span>
+                <input type="text" class="form-control" readonly  ng-model="trans.depart"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">目的地</span>
+                <input type="text" class="form-control" readonly  ng-model="trans.termini"/>
+            </div>
+            <label class="item item-input edit-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="input" rows="5" class="form-control" ng-model="trans.message"  readonly></textarea>
+            </label>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-icon icon ion-reply button-stable" ng-click="goBack()"></button>
+                <button class="button button-theme button-local" ng-show="showDel" ng-click="del()">删除</button>
+                <button class="button button-theme button-local" ng-show="showEdit" ng-click="edit()">修改</button>
+                <button class="button button-icon icon ion-refresh button-stable" ng-click="refreshGrid()"></button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

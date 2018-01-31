@@ -1,0 +1,261 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_lin_rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:paddingRight="@dimen/common_actionbar_padding">
+
+        <TextView
+            android:id="@+id/about_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:gravity="center_vertical"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:text="@string/about_previous"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/about_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_logo"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            />
+
+        <TextView
+            android:id="@+id/about_logo_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="YNedut 1.6"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@string/about_company_name"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_update_version"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/white"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/about_update"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_14" />
+
+
+        <TextView
+            android:id="@+id/about_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/dp_10"
+            android:drawableRight="@mipmap/contact_right_arrow"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="@dimen/sp_14" />
+
+
+        <ImageView
+            android:id="@+id/about_new_version_flag"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:layout_toLeftOf="@id/about_version"
+            android:src="@drawable/num_unread_bg" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_apk_download_address"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center">
+
+                <TextView
+                    android:id="@+id/about_copy_apk_download_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_tv_bg"
+                    android:padding="@dimen/dp_4"
+                    android:text="@string/about_copy_address"
+                    android:textColor="@color/actionBar_bg"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/about_apk_qrcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/about_tv_bg"
+                    android:drawableLeft="@mipmap/icon_about_qrcode"
+                    android:drawablePadding="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_5"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    android:text="@string/about_qrcode"
+                    android:textColor="@color/actionBar_bg"
+                    android:textSize="@dimen/sp_20" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/common_content_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/about_apk_download_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:text="http://cdyineng.smesis.corpsys.cn/smesis"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10"
+        android:weightSum="1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_service_address"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center">
+
+                <TextView
+                    android:id="@+id/about_copy_service_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_tv_bg"
+                    android:padding="@dimen/dp_4"
+                    android:text="@string/about_copy_address"
+                    android:textColor="@color/actionBar_bg"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/about_service_qrcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/about_tv_bg"
+                    android:drawableLeft="@mipmap/icon_about_qrcode"
+                    android:drawablePadding="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_5"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    android:text="@string/about_qrcode"
+                    android:textColor="@color/actionBar_bg"
+                    android:textSize="@dimen/sp_20" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/common_content_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/about_service_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:text="http://cdyineng.smesis.corpsys.cn/smesis"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

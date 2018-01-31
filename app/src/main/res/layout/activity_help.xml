@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/actionBar_bg">
+
+        <RelativeLayout
+            android:id="@+id/dismiss"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/previous"
+                android:scaleX="0.6"
+                android:scaleY="0.6" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/textview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="帮助"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/help_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_server_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_18"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/common_text_line"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/lin_phone_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="超过60秒无法收到短信动态码，可以通过以下方式自助检测"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/dp_20"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="自助检测建议"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp_20"/>
+
+
+                <TextView
+                    android:id="@+id/phone_help_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:lineSpacingExtra="@dimen/dp_3"
+                    android:textColor="@color/black"
+                    android:text="@string/help_phone_content"
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lin_server_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="方法一：有电脑，未登录平台"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    android:text="通过电脑访问YNedut智慧校园平台登录页 --> 鼠标移动到页面右下角“Messenger登录地址” 按钮 -->扫描二维码（建议扫描外网地址）--> 保存地址"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/help_one"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="方法二：有朋友已经安装好，且在你身边"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    android:text="朋友手机已登录Messenger APP --> ”我“ --> ”关于“ --> ”分享登录地址（扫描二维码）“ --> 扫描二维码（建议扫描外网地址）--> 保存地址"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/help_two"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="方法三：有电脑，已登录平台"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    android:text="通过电脑登录YNedut智慧校园平台首页 ——> 鼠标移动到页面右上角二维码图标 ——> 扫描（建议扫描外网地址） ——> 保存地址"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/help_three"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="方法四：向他人（老师、同学）索取登录地址"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    android:text="如果您都没有在上面三种场景中，请向他人（老师、同学）索取登录地址"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,54 @@
+<ion-view>
+    <div class="alert-top">
+        提示：只能添加最近三天的费用信息
+    </div>
+    <ion-content class="content-bg business-journal has-alert-top">
+        <div class="list list-space">
+            <div class="item item-input">
+                <span class="input-label">金额</span>
+                <input type="number" class="form-control" ng-model="JSTXAddTransFeeDTO.money" placeholder="0.00" maxlength="9"/>
+            </div>
+            <div class="item item-input item-input-buttons">
+                <span class="input-label">日期</span>
+                <div class="text-right" ng-if="!id">
+                    <button class="button button-local" ng-class="{'button-theme':item.check,'button-default':!item.check}"
+                            ng-repeat="item in dateTimeList" ng-click="refresh(item)">{{item.name}}</button>
+                </div>
+                <span class="text-right" ng-if="id" ng-click="clickDateBusin()"/>{{dateBusin}}</span>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">出行方式</span>
+                <input slide-select init-data="vehicleCodeData" name-field="dictName" slide-title="选择交通工具"
+                       ng-model="selectModel.dictName" selected-obj="selectModel"
+                       on-select="vehicleSelect(item)" type="text" placeholder="请选择" class="text-right" readonly="readonly">
+            </div>
+            <div class="item item-input choosed-place choosed-place-start">
+                <span class="input-label">出发地</span>
+                <!--<div class="text-only" ng-click="selectArea(1)">-->
+                <!--&lt;!&ndash;<span ng-bind="departName"></span>&ndash;&gt;-->
+                <!--</div>-->
+                <input id="departArea"  area-selector ng-model="departArea.name" province-id="departArea.provinceId" city-id="departArea.cityId" area-id="departArea.areaId"
+                       on-select="areaDepartSelect(item)" type="text" placeholder="请选择" class="text-right" readonly="readonly" ng-click="selectArea(1)">
+            </div>
+
+                <div class="item item-input choosed-place choosed-place-end">
+                    <div class="change-place" ng-click="chooseClick()">&nbsp;</div>
+                    <span class="input-label">目的地</span>
+                    <!--<div class="text-only" ng-click="selectArea(2)">-->
+                    <!--&lt;!&ndash;<span ng-bind="terminiName"></span>&ndash;&gt;-->
+                    <!--</div>-->
+                    <input id="terminiArea"  area-selector ng-model="terminiArea.name" province-id="terminiArea.provinceId" city-id="terminiArea.cityId" area-id="terminiArea.areaId"
+                           on-select="areaTerminiSelect(item)" type="text" placeholder="请选择" class="text-right" readonly="readonly" ng-click="selectArea(2)">
+                </div>
+            <label class="item item-input edit-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="input" rows="5" class="form-control" ng-model="JSTXAddTransFeeDTO.message"  maxlength="50"></textarea>
+            </label>
+        </div>
+        <div class="text-center padding">
+            <button class="button button-theme button-local button-outline btn-min-80" ng-click="showConfirm()">返回</button>
+            <button class="button button-theme button-local button-outline" ng-if="!id" ng-click="submit(0)">保存再添加</button>
+            <button class="button button-theme button-local btn-min-80" ng-click="submit(1)">保存</button>
+        </div>
+    </ion-content>
+</ion-view>

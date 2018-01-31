@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/module_fail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_10"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/fail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/common_text_line"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toLeftOf="@+id/fail_text"
+                android:background="@mipmap/com_loading"
+                />
+            <TextView
+                android:id="@+id/fail_text"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取失败请重试"
+                android:layout_centerInParent="true"
+                android:textColor="@color/common_text_line"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/module_params"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_business_module_image"
+        android:visibility="gone"
+        >
+
+        <ImageButton
+            android:id="@+id/module_left"
+            android:layout_width="@dimen/app_business_module_image"
+            android:layout_height="@dimen/app_business_module_image"
+            android:background="@mipmap/app_business_left"
+            android:layout_marginLeft="@dimen/app_business_module_image_margin"
+            android:scaleY="0.7"
+            android:scaleX="0.7"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/module_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/app_business_module_textsize"
+            />
+
+        <ImageButton
+            android:id="@+id/module_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/app_business_module_image"
+            android:layout_height="@dimen/app_business_module_image"
+            android:background="@mipmap/app_business_right"
+            android:layout_marginRight="@dimen/app_business_module_image_margin"
+            android:scaleY="0.7"
+            android:scaleX="0.7"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,777 @@
+Index: app/src/main/java/com/yineng/ynmessager/view/EvaluateSubmitScoreDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-10-16  上午9:49:35\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.view;\r\n\r\nimport android.app.AlertDialog;\r\nimport android.content.Context;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport com.yineng.ynmessager.R;\r\n\r\n/**\r\n * @author 胡毅\r\n *\r\n */\r\npublic class EvaluateSubmitScoreDialog extends AlertDialog {\r\n\r\n\tpublic ImageView mCloseDialogIV;\r\n\tpublic TextView mMyScoreTV;\r\n\tpublic TextView mQuesTotalScoreTV;\r\n\tpublic TextView mAnsweredCountTV;\r\n\tpublic TextView mQuesTotalCountTV;\r\n\tpublic Button mSubmitScore;\r\n\t\r\n\tprivate int mMyAnswerScore = 0;\r\n\t\r\n\tprivate int mTotalScore = 0;\r\n\t\r\n\tprivate int mMyAnswerCount = 0;\r\n\t\r\n\tprivate int mTotalQuesCount = 0;\r\n\r\n\tpublic EvaluateSubmitScoreDialog(Context context, boolean cancelable,\r\n\t\t\tOnCancelListener cancelListener) {\r\n\t\tsuper(context, cancelable, cancelListener);\r\n\t}\r\n\r\n\tpublic EvaluateSubmitScoreDialog(Context context, int themeResId) {\r\n\t\tsuper(context, themeResId);\r\n\t}\r\n\r\n\tpublic EvaluateSubmitScoreDialog(Context context) {\r\n//\t\tsuper(context);\r\n\t\tthis(context, R.style.mydialog);\r\n\t}\r\n\r\n\t@Override\r\n\tprotected void onCreate(Bundle savedInstanceState) {\r\n\t\tsuper.onCreate(savedInstanceState);\r\n\t\tsetContentView(R.layout.view_evaluate_submit_score_dialog);\r\n\t\tfindViews();\r\n\t\tinitListener();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void findViews() {\r\n\t\tmCloseDialogIV = (ImageView) findViewById(R.id.app_eva_submit_close_dialog_iv);\r\n\t\tmMyScoreTV = (TextView) findViewById(R.id.app_eva_my_score);\r\n\t\tmQuesTotalScoreTV = (TextView) findViewById(R.id.app_eva_question_sum_score);\r\n\t\tmAnsweredCountTV = (TextView) findViewById(R.id.app_eva_answered_count);\r\n\t\tmQuesTotalCountTV = (TextView) findViewById(R.id.app_eva_question_sum);\r\n\t\tmSubmitScore = (Button) findViewById(R.id.app_eva_dialog_submit_score);\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化监听器\r\n\t */\r\n\tprivate void initListener() {\r\n\t\tmCloseDialogIV.setOnClickListener(new View.OnClickListener() {\r\n\t\t\t\r\n\t\t\t@Override\r\n\t\t\tpublic void onClick(View v) {\r\n\t\t\t\tdismiss();\r\n\t\t\t}\r\n\t\t});\r\n\t\tmSubmitScore.setOnClickListener(new View.OnClickListener() {\r\n\t\t\t\r\n\t\t\t@Override\r\n\t\t\tpublic void onClick(View v) {\r\n\t\t\t\tif (onSubmitScoreListener != null) {\r\n\t\t\t\t\tonSubmitScoreListener.onSubmitScore(v);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n\t\r\n\t/**\r\n\t * 设置对话框要显示的数据\r\n\t * @param tempMyAnswerScore\r\n\t * @param tempTotalScore\r\n\t * @param tempMyAnswerCount\r\n\t * @param tempTotalQuesCount\r\n\t */\r\n\tpublic void setDialogData(int tempMyAnswerScore,int tempMyAnswerCount,int tempTotalQuesCount) {\r\n\t\tmMyAnswerScore = tempMyAnswerScore;\r\n\t\tmMyAnswerCount = tempMyAnswerCount;\r\n\t\tmTotalQuesCount = tempTotalQuesCount;\r\n\t}\r\n\t\r\n\t@Override\r\n\tpublic void show() {\r\n\t\tsuper.show();\r\n\t\tmMyScoreTV.setText(mMyAnswerScore+\"\");\r\n//\t\tmQuesTotalScoreTV.setText(\"100分\");\r\n\t\tmAnsweredCountTV.setText(mMyAnswerCount+\"\");\r\n\t\tmQuesTotalCountTV.setText(mTotalQuesCount+\"题\");\r\n\t}\r\n\t\r\n\tpublic interface OnSubmitScoreListener {\r\n\t\tvoid onSubmitScore(View v);\r\n\t}\r\n\t\r\n\tprivate OnSubmitScoreListener onSubmitScoreListener;\r\n\r\n\tpublic void setOnSubmitScoreListener(OnSubmitScoreListener onSubmitScoreListener) {\r\n\t\tthis.onSubmitScoreListener = onSubmitScoreListener;\r\n\t}\r\n\t\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/view/EvaluateSubmitScoreDialog.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/view/EvaluateSubmitScoreDialog.java	(revision )
+@@ -30,7 +30,7 @@
+ 	public TextView mQuesTotalCountTV;
+ 	public Button mSubmitScore;
+ 	
+-	private int mMyAnswerScore = 0;
++	private float mMyAnswerScore = 0;
+ 	
+ 	private int mTotalScore = 0;
+ 	
+@@ -101,7 +101,7 @@
+ 	 * @param tempMyAnswerCount
+ 	 * @param tempTotalQuesCount
+ 	 */
+-	public void setDialogData(int tempMyAnswerScore,int tempMyAnswerCount,int tempTotalQuesCount) {
++	public void setDialogData(float tempMyAnswerScore,int tempMyAnswerCount,int tempTotalQuesCount) {
+ 		mMyAnswerScore = tempMyAnswerScore;
+ 		mMyAnswerCount = tempMyAnswerCount;
+ 		mTotalQuesCount = tempTotalQuesCount;
+Index: app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaNoOptionView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-10-9  上午11:08:56\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.activity.app.evaluate;\r\n\r\n\r\nimport android.content.Context;\r\nimport android.text.Editable;\r\nimport android.text.TextWatcher;\r\nimport android.util.AttributeSet;\r\nimport android.view.LayoutInflater;\r\nimport android.view.MotionEvent;\r\nimport android.view.View;\r\nimport android.view.View.OnClickListener;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.RelativeLayout;\r\nimport android.widget.TextView;\r\n\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaNoOptionsBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaParam;\r\nimport com.yineng.ynmessager.util.L;\r\n\r\n/**\r\n * @author 胡毅\r\n *\r\n */\r\npublic class EvaNoOptionView extends LinearLayout implements OnClickListener{\r\n\r\n\t/**\r\n\t * 没有选项的题目实例\r\n\t */\r\n\tprivate EvaNoOptionsBean mEvaNoOptionsBean;\r\n\t\r\n\tprivate LinearLayout mOptionsRootContainerLL;\r\n\tprivate TextView mQuesContentViewTV;\r\n\tprivate RelativeLayout mAdjustScoreContainViewRl;\r\n\tprivate ImageView mMinuteScoreViewIV;\r\n\tprivate ImageView mPlusScoreViewIV;\r\n\tprivate EditText mGetScoreViewET;\r\n\tprivate EditText mSuggestViewET;\r\n\t/**\r\n\t * 当前题目的索引\r\n\t */\r\n\tprivate int mQuesIndex;\r\n\t\r\n\t/**\r\n\t * 得分输入框的文本变化监听器\r\n\t */\r\n\tprivate TextWatcher mGetScoreEditChangeListener = new TextWatcher() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onTextChanged(CharSequence s, int start, int before,\r\n\t\t\t\tint count) {\r\n\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void beforeTextChanged(CharSequence s, int start, int count,\r\n\t\t\t\tint after) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void afterTextChanged(Editable s) {\r\n\t\t\tif (s.length() > 0) {\r\n\t\t\t\tint editScore = Integer.valueOf(s.toString());\r\n\t\t\t\tif (mEvaNoOptionsBean.getScore() == editScore && editScore == 0) {\r\n\t\t\t\t\tmGetScoreViewET.setSelection(s.length());\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif (mMinScore <= editScore && editScore <= mMaxScore) {\r\n//\t\t\t\t\tsetQuestionScore(editScore);\r\n\t\t\t\t\tmEvaNoOptionsBean.setScore(editScore);\r\n\t\t\t\t\tmGetScoreViewET.setSelection(s.length());\r\n\t\t\t\t} else {\r\n//\t\t\t\t\tsetQuestionScore(mMaxScore);\r\n\t\t\t\t\tif (editScore < mMinScore) {\r\n\t\t\t\t\t\tmGetScoreViewET.setText(mMinScore+\"\");\r\n\t\t\t\t\t} else if (editScore > mMaxScore) {\r\n\t\t\t\t\t\tmGetScoreViewET.setText(mMaxScore+\"\");\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t} \r\n\t\t}\r\n\t};\r\n\t\r\n\t/**\r\n\t * 意见或建议的文本监听\r\n\t */\r\n\tprivate TextWatcher mSuggestEditChangeListener = new TextWatcher() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onTextChanged(CharSequence s, int start, int before,\r\n\t\t\t\tint count) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void beforeTextChanged(CharSequence s, int start, int count,\r\n\t\t\t\tint after) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void afterTextChanged(Editable s) {\r\n\t\t\tL.e(\"EvaNoOptionView 意见 afterTextChanged == \" + s.toString());\r\n\t\t\tif (s.length() > 0) {\r\n\t\t\t\t//文本输入题目,当编辑框有文本输入时，直接满分\r\n\t\t\t\tif (mEvaNoOptionsBean.getType() == EvaParam.EVA_QUES_JUST_ADVICE) {\r\n\t\t\t\t\tmEvaNoOptionsBean.setScore(mMaxScore);\r\n\t\t\t\t}\r\n\t\t\t} else {\r\n\t\t\t\t//文本输入题目,当编辑框没有文本输入时，记0分\r\n\t\t\t\tif (mEvaNoOptionsBean.getType() == EvaParam.EVA_QUES_JUST_ADVICE) {\r\n\t\t\t\t\tsetQuestionScore(0);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\tmEvaNoOptionsBean.setSuggestion(s.toString());\r\n\t\t}\r\n\t};\r\n\r\n\tprivate int mMinScore;\r\n\r\n\tprivate int mMaxScore;\r\n\r\n\tprivate View mScoreDivierView;\r\n\r\n//\tprivate TextView mGetScoreTagTV;\r\n\t\r\n\tpublic void setEvaNoOptionsBean(EvaNoOptionsBean mEvaNoOptionsBean) {\r\n\t\tthis.mEvaNoOptionsBean = mEvaNoOptionsBean;\r\n\t}\r\n\t\r\n\tpublic void setEvaNoOptionsBean(int index, EvaNoOptionsBean mEvaNoOptionsBean) {\r\n\t\tthis.mQuesIndex = index;\r\n\t\tthis.mEvaNoOptionsBean = mEvaNoOptionsBean;\r\n\t}\r\n\t\r\n\tpublic EvaNoOptionView(Context context, AttributeSet attrs, int defStyleAttr) {\r\n\t\tsuper(context, attrs, defStyleAttr);\r\n\t}\r\n\r\n\tpublic EvaNoOptionView(Context context, AttributeSet attrs) {\r\n\t\tsuper(context, attrs);\r\n\t}\r\n\r\n\tpublic EvaNoOptionView(Context context) {\r\n\t\tsuper(context);\r\n\t\tLayoutInflater.from(context).inflate(R.layout.fragment_evaluate_answer_question, this);\r\n\t\tinitView();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initView() {\r\n\t\tfindViews();\r\n\t\tinitViewListener();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void findViews() {\r\n\t\tmOptionsRootContainerLL = (LinearLayout) findViewById(R.id.app_evaluate_ques_root);\r\n\t\tmQuesContentViewTV = (TextView) findViewById(R.id.app_evaluate_ques_content);\r\n\t\tmScoreDivierView = findViewById(R.id.app_evaluate_common_divider);\r\n\t\tmAdjustScoreContainViewRl = (RelativeLayout) findViewById(R.id.app_evaluate_adjust_score_view);\r\n\t\tmMinuteScoreViewIV = (ImageView) findViewById(R.id.app_evaluate_ques_minute_score);\r\n\t\tmPlusScoreViewIV = (ImageView) findViewById(R.id.app_evaluate_ques_plus_score);\r\n\t\tmGetScoreViewET = (EditText) findViewById(R.id.app_evaluate_ques_get_point);\r\n//\t\tmGetScoreTagTV = (TextView) findViewById(R.id.app_evaluate_ques_score_tag);\r\n\t\tmSuggestViewET = (EditText) findViewById(R.id.app_evaluate_ques_suggestion);\r\n\t}\r\n\r\n\t/**\r\n\t * 初始化监听器\r\n\t */\r\n\tprivate void initViewListener() {\r\n\t\t// 加减分按钮的监听\r\n\t\tmMinuteScoreViewIV.setOnClickListener(this);\r\n\t\tmPlusScoreViewIV.setOnClickListener(this);\r\n//\t\tmGetScoreTagTV.setOnClickListener(this);\r\n\t\tmGetScoreViewET.addTextChangedListener(mGetScoreEditChangeListener);\r\n\t\tmGetScoreViewET.setOnFocusChangeListener(new OnFocusChangeListener() {\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void onFocusChange(View v, boolean hasFocus) {\r\n\t\t\t\tL.e(\"hasFocus == \" + hasFocus);\r\n\t\t\t\tif (!hasFocus) {\r\n\t\t\t\t\tif (\"\".equals(mGetScoreViewET.getText().toString())) {\r\n\t\t\t\t\t\tsetQuestionScore(0);\r\n\t\t\t\t\t\treturn;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n//\t\t\t\tif (!hasFocus) {\r\n//\t\t\t\t\tif (\"\".equals(mGetScoreViewET.getText().toString())) {\r\n//\t\t\t\t\t\tsetQuestionScore(mEvaNoOptionsBean.getScore());\r\n//\t\t\t\t\t\treturn;\r\n//\t\t\t\t\t}\r\n//\t\t\t\t\tint editScore = Integer.valueOf(mGetScoreViewET.getText()\r\n//\t\t\t\t\t\t\t.toString());\r\n//\t\t\t\t\tsetQuestionScore(editScore);\r\n//\t\t\t\t} else {\r\n//\t\t\t\t\tmGetScoreViewET.setSelection(mGetScoreViewET.getText().length());\r\n//\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\r\n\t\tmOptionsRootContainerLL.setOnTouchListener(new OnTouchListener() {\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic boolean onTouch(View v, MotionEvent event) {\r\n\t\t\t\tmOptionsRootContainerLL.requestFocus();\r\n\t\t\t\treturn false;\r\n\t\t\t}\r\n\t\t});\r\n\t\t// mSuggestViewET.removeTextChangedListener(mSuggestEditChangeListener);\r\n\t\tmSuggestViewET.addTextChangedListener(mSuggestEditChangeListener);\r\n\t}\r\n\t\r\n\t@Override\r\n\tpublic void onClick(View v) {\r\n\t\tswitch (v.getId()) {\r\n//\t\tcase R.id.app_evaluate_ques_score_tag:\r\n//\t\t\tmGetScoreViewET.requestFocus();\r\n//\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_ques_minute_score:\r\n\t\t\tmGetScoreViewET.clearFocus();\r\n\t\t\tif (mEvaNoOptionsBean.getScore() <= mMinScore) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n//\t\t\tsetQuestionScore(mEvaNoOptionsBean.getScore()-1);\r\n\t\t\tmGetScoreViewET.setText((mEvaNoOptionsBean.getScore()-1)+\"\");\r\n\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_ques_plus_score:\r\n\t\t\tmGetScoreViewET.clearFocus();\r\n\t\t\tif (mEvaNoOptionsBean.getScore() >= mMaxScore) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n//\t\t\tsetQuestionScore(mEvaNoOptionsBean.getScore()+1);\r\n\t\t\tmGetScoreViewET.setText((mEvaNoOptionsBean.getScore()+1)+\"\");\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 设置该题分数\r\n\t */\r\n\tpublic void setQuestionScore(int score) {\r\n//\t\tif (mEvaNoOptionsBean.getScore() == 0) {\r\n//\t\t\t//设置这道题目默认的分数值为最大分数\r\n//\t\t\tscore = Integer.valueOf(mEvaNoOptionsBean.getMaxScore());\r\n//\t\t} else if (score > Integer.valueOf(mEvaNoOptionsBean.getMaxScore())) {\r\n//\t\t\tscore = Integer.valueOf(mEvaNoOptionsBean.getMaxScore());\r\n//\t\t} else if (score < Integer.valueOf(mEvaNoOptionsBean.getMinScore())) {\r\n//\t\t\tscore = Integer.valueOf(mEvaNoOptionsBean.getMinScore());\r\n//\t\t}\r\n\t\tmEvaNoOptionsBean.setScore(score);\r\n\t\tmGetScoreViewET.setText(score+\"\");\r\n\t}\r\n\t\r\n\t/**\r\n\t * 刷新当前界面\r\n\t * @param noOptionQuesObj \r\n\t */\r\n\tpublic void refreshView(EvaNoOptionsBean noOptionQuesObj) {\r\n\t\tmMinScore = 0;\r\n\t\tmMaxScore = 0;\r\n\t\tthis.mEvaNoOptionsBean = noOptionQuesObj;\r\n\t\tmMaxScore = Integer.valueOf(mEvaNoOptionsBean.getMaxScore());\r\n\t\tmMinScore = Integer.valueOf(mEvaNoOptionsBean.getMinScore());\r\n\t\tswitch (mEvaNoOptionsBean.getType()) {\r\n\t\tcase EvaParam.EVA_QUES_INPUT_SCORE://直接打分\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.VISIBLE);\r\n\t\t\tmSuggestViewET.setVisibility(View.GONE);\r\n\t\t\tmScoreDivierView.setVisibility(View.VISIBLE);\r\n\t\t\tbreak;\r\n\t\tcase EvaParam.EVA_QUES_JUST_ADVICE://文本输入\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.GONE);\r\n\t\t\tmSuggestViewET.setVisibility(View.VISIBLE);\r\n\t\t\tmScoreDivierView.setVisibility(View.GONE);\r\n\t\t\tbreak;\r\n\t\tcase EvaParam.EVA_QUES_INPUT_SCORE_ADVICE://打分+文本输入\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.VISIBLE);\r\n\t\t\tmSuggestViewET.setVisibility(View.VISIBLE);\r\n\t\t\tmScoreDivierView.setVisibility(View.VISIBLE);\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t\tinitSuggestView();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initSuggestView() {\r\n\t\t// 问题内容\r\n\t\tmQuesContentViewTV.setText(mEvaNoOptionsBean.getQuestion());\r\n\r\n\t\tL.e(\"mEvaNoOptionsBean.getSuggestion() == \"+ mEvaNoOptionsBean.getSuggestion());\r\n\t\t// 意见或建议\r\n\t\tmSuggestViewET.setText(mEvaNoOptionsBean.getSuggestion() == null ? \"\"\r\n\t\t\t\t: mEvaNoOptionsBean.getSuggestion());\r\n\t\t\r\n\t\t// 设置默认分数\r\n//\t\tsetQuestionScore(mEvaNoOptionsBean.getScore());\r\n\t\t// 设置默认分数\r\n\t\tmGetScoreViewET.setText(mEvaNoOptionsBean.getScore()+\"\");\r\n\t\t\r\n\t\tL.e(\"mEvaNoOptionsBean.getScore() == \" + mEvaNoOptionsBean.getScore());\r\n\t}\r\n\t\r\n\t\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaNoOptionView.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaNoOptionView.java	(revision )
+@@ -27,11 +27,17 @@
+ import com.yineng.ynmessager.bean.app.evaluate.EvaParam;
+ import com.yineng.ynmessager.util.L;
+ 
++import org.apache.commons.lang3.StringUtils;
++
++import java.math.BigDecimal;
++import java.math.RoundingMode;
++
+ /**
+  * @author 胡毅
+  *
+  */
+ public class EvaNoOptionView extends LinearLayout implements OnClickListener{
++    private static final String TAG = "EvaNoOptionView";
+ 
+ 	/**
+ 	 * 没有选项的题目实例
+@@ -45,6 +51,8 @@
+ 	private ImageView mPlusScoreViewIV;
+ 	private EditText mGetScoreViewET;
+ 	private EditText mSuggestViewET;
++    private static final BigDecimal OPERATION_STEP = new BigDecimal("0.1");
++
+ 	/**
+ 	 * 当前题目的索引
+ 	 */
+@@ -69,7 +77,16 @@
+ 		@Override
+ 		public void afterTextChanged(Editable s) {
+ 			if (s.length() > 0) {
+-				int editScore = Integer.valueOf(s.toString());
++                float editScore;
++                try{
++                    editScore = Float.valueOf(s.toString());
++                }catch(NumberFormatException e)
++                {
++                    L.w(TAG,e.getMessage());
++                    s.clear();
++                    return;
++                }
++
+ 				if (mEvaNoOptionsBean.getScore() == editScore && editScore == 0) {
+ 					mGetScoreViewET.setSelection(s.length());
+ 					return;
+@@ -82,9 +99,9 @@
+ 				} else {
+ //					setQuestionScore(mMaxScore);
+ 					if (editScore < mMinScore) {
+-						mGetScoreViewET.setText(mMinScore+"");
++						mGetScoreViewET.setText(String.valueOf(mMinScore));
+ 					} else if (editScore > mMaxScore) {
+-						mGetScoreViewET.setText(mMaxScore+"");
++						mGetScoreViewET.setText(String.valueOf(mMaxScore));
+ 					}
+ 				}
+ 			} 
+@@ -108,7 +125,7 @@
+ 
+ 		@Override
+ 		public void afterTextChanged(Editable s) {
+-			L.e("EvaNoOptionView 意见 afterTextChanged == " + s.toString());
++			L.v("EvaNoOptionView 意见 afterTextChanged == " + s.toString());
+ 			if (s.length() > 0) {
+ 				//文本输入题目,当编辑框有文本输入时，直接满分
+ 				if (mEvaNoOptionsBean.getType() == EvaParam.EVA_QUES_JUST_ADVICE) {
+@@ -124,9 +141,9 @@
+ 		}
+ 	};
+ 
+-	private int mMinScore;
++	private float mMinScore;
+ 
+-	private int mMaxScore;
++	private float mMaxScore;
+ 
+ 	private View mScoreDivierView;
+ 
+@@ -191,12 +208,18 @@
+ 
+ 			@Override
+ 			public void onFocusChange(View v, boolean hasFocus) {
+-				L.e("hasFocus == " + hasFocus);
+ 				if (!hasFocus) {
+-					if ("".equals(mGetScoreViewET.getText().toString())) {
++                    String text = mGetScoreViewET.getText().toString();
++					if (StringUtils.isEmpty(text)) {
+ 						setQuestionScore(0);
+ 						return;
++					}else
++                    {
++                        String roundedNum = new BigDecimal(text)
++                                .setScale(1, RoundingMode.FLOOR)
++                                .toString();
++                        mGetScoreViewET.setText(roundedNum);
+-					}
++                    }
+ 				}
+ //				if (!hasFocus) {
+ //					if ("".equals(mGetScoreViewET.getText().toString())) {
+@@ -231,20 +254,32 @@
+ //			mGetScoreViewET.requestFocus();
+ //			break;
+ 		case R.id.app_evaluate_ques_minute_score:
++            if(StringUtils.isEmpty(mGetScoreViewET.getText())) return;
++
+ 			mGetScoreViewET.clearFocus();
+ 			if (mEvaNoOptionsBean.getScore() <= mMinScore) {
+ 				return;
+ 			}
+ //			setQuestionScore(mEvaNoOptionsBean.getScore()-1);
+-			mGetScoreViewET.setText((mEvaNoOptionsBean.getScore()-1)+"");
++			mGetScoreViewET.setText(
++                    new BigDecimal(
++                    String.valueOf(mEvaNoOptionsBean.getScore()))
++                    .subtract(OPERATION_STEP)
++                    .toString());
+ 			break;
+ 		case R.id.app_evaluate_ques_plus_score:
++            if(StringUtils.isEmpty(mGetScoreViewET.getText())) return;
++
+ 			mGetScoreViewET.clearFocus();
+ 			if (mEvaNoOptionsBean.getScore() >= mMaxScore) {
+ 				return;
+ 			}
+ //			setQuestionScore(mEvaNoOptionsBean.getScore()+1);
+-			mGetScoreViewET.setText((mEvaNoOptionsBean.getScore()+1)+"");
++			mGetScoreViewET.setText(
++                    new BigDecimal(
++                    String.valueOf(mEvaNoOptionsBean.getScore()))
++                    .add(OPERATION_STEP)
++                    .toString());
+ 			break;
+ 		default:
+ 			break;
+@@ -254,7 +289,7 @@
+ 	/**
+ 	 * 设置该题分数
+ 	 */
+-	public void setQuestionScore(int score) {
++	public void setQuestionScore(float score) {
+ //		if (mEvaNoOptionsBean.getScore() == 0) {
+ //			//设置这道题目默认的分数值为最大分数
+ //			score = Integer.valueOf(mEvaNoOptionsBean.getMaxScore());
+@@ -264,7 +299,7 @@
+ //			score = Integer.valueOf(mEvaNoOptionsBean.getMinScore());
+ //		}
+ 		mEvaNoOptionsBean.setScore(score);
+-		mGetScoreViewET.setText(score+"");
++		mGetScoreViewET.setText(String.valueOf(score));
+ 	}
+ 	
+ 	/**
+@@ -272,11 +307,10 @@
+ 	 * @param noOptionQuesObj 
+ 	 */
+ 	public void refreshView(EvaNoOptionsBean noOptionQuesObj) {
+-		mMinScore = 0;
+-		mMaxScore = 0;
+ 		this.mEvaNoOptionsBean = noOptionQuesObj;
+-		mMaxScore = Integer.valueOf(mEvaNoOptionsBean.getMaxScore());
+-		mMinScore = Integer.valueOf(mEvaNoOptionsBean.getMinScore());
++		mMaxScore = Float.valueOf(mEvaNoOptionsBean.getMaxScore());
++		mMinScore = Float.valueOf(mEvaNoOptionsBean.getMinScore());
++
+ 		switch (mEvaNoOptionsBean.getType()) {
+ 		case EvaParam.EVA_QUES_INPUT_SCORE://直接打分
+ 			mAdjustScoreContainViewRl.setVisibility(View.VISIBLE);
+@@ -306,7 +340,7 @@
+ 		// 问题内容
+ 		mQuesContentViewTV.setText(mEvaNoOptionsBean.getQuestion());
+ 
+-		L.e("mEvaNoOptionsBean.getSuggestion() == "+ mEvaNoOptionsBean.getSuggestion());
++		L.v("mEvaNoOptionsBean.getSuggestion() == "+ mEvaNoOptionsBean.getSuggestion());
+ 		// 意见或建议
+ 		mSuggestViewET.setText(mEvaNoOptionsBean.getSuggestion() == null ? ""
+ 				: mEvaNoOptionsBean.getSuggestion());
+@@ -314,9 +348,16 @@
+ 		// 设置默认分数
+ //		setQuestionScore(mEvaNoOptionsBean.getScore());
+ 		// 设置默认分数
+-		mGetScoreViewET.setText(mEvaNoOptionsBean.getScore()+"");
++        float score = mEvaNoOptionsBean.getScore();
++        if(score == 0.0F)
++        {
++            mGetScoreViewET.setText(StringUtils.EMPTY);
++        }else
++        {
++            mGetScoreViewET.setText(String.valueOf(score));
++        }
+ 		
+-		L.e("mEvaNoOptionsBean.getScore() == " + mEvaNoOptionsBean.getScore());
++		L.v("mEvaNoOptionsBean.getScore() == " + mEvaNoOptionsBean.getScore());
+ 	}
+ 	
+ 	
+Index: app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaluateAnswerActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-9-22  下午5:08:06\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.activity.app.evaluate;\r\n\r\nimport android.app.Dialog;\r\nimport android.content.DialogInterface;\r\nimport android.content.Intent;\r\nimport android.graphics.Color;\r\nimport android.os.Bundle;\r\nimport android.os.Handler;\r\nimport android.support.v7.app.AlertDialog;\r\nimport android.support.v7.app.AlertDialog.Builder;\r\nimport android.text.Spannable;\r\nimport android.text.SpannableString;\r\nimport android.text.style.ForegroundColorSpan;\r\nimport android.view.MotionEvent;\r\nimport android.view.View;\r\nimport android.view.View.OnClickListener;\r\nimport android.view.View.OnTouchListener;\r\nimport android.widget.ScrollView;\r\nimport android.widget.TextView;\r\n\r\nimport com.alibaba.fastjson.JSON;\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.activity.app.AppBaseActivity;\r\nimport com.yineng.ynmessager.bean.app.evaluate.BaseEvaluateOptionsBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaAnswerBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaNoOptionsBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaParam;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaPersonBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaSubmitBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaWithOptionsBean;\r\nimport com.yineng.ynmessager.util.L;\r\nimport com.yineng.ynmessager.util.ToastUtil;\r\nimport com.yineng.ynmessager.view.EvaluateSubmitScoreDialog;\r\nimport com.yineng.ynmessager.view.EvaluateSubmitScoreDialog.OnSubmitScoreListener;\r\nimport com.yineng.ynmessager.view.SubmitDialog;\r\n\r\nimport org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.text.MessageFormat;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n/**\r\n * @author 胡毅 答题的ACTIVITY\r\n */\r\npublic class EvaluateAnswerActivity extends AppBaseActivity implements\r\n\t\tOnClickListener {\r\n\r\n\tprivate TextView mTopicViewTV;\r\n\tprivate TextView mTopIndexViewTV;\r\n\tprivate TextView mEvaluatePreQuesTV;\r\n\tprivate TextView mEvaluateNextQuesTV;\r\n\tprivate ScrollView mEvaluateQuesViewSV;\r\n\tprivate View mRootContentView;\r\n\tList<Object> quesObjects = new ArrayList<Object>();\r\n\tprivate int mQuesIndex = 0;\r\n\tprivate EvaNoOptionView mEvaNoOptionView;\r\n\tprivate EvaWithOptionView mEvaWithOptionView;\r\n\tprivate EvaluateSubmitScoreDialog mEvaSubmitDialog;\r\n\t\r\n\tprivate int mMyAnswerScore = 0;\r\n\t\r\n\tprivate int mMyAnswerCount = 0;\r\n\tprivate String mUserType;\r\n\tprivate String mPlanId;\r\n\tprivate EvaPersonBean mEvaPersonObject;\r\n\tprivate String mQuesUrl;\r\n\tprivate SubmitDialog mEvaSubmitStatus;\r\n\tprivate boolean mSubmitScoreIng = false;\r\n\tprivate AlertDialog mFinishActivityDialog; // 退出界面确认对话框\r\n\t\r\n\tprivate EvaSubmitBean mEvaSubmitBean = new EvaSubmitBean();\r\n\t\r\n\tprivate Handler mHandler = new Handler(){};\r\n\t/**\r\n\t * 提交成绩后，自动关闭当前界面\r\n\t */\r\n\tprivate Runnable mDismissFinishRunable = new Runnable() {\r\n\t\t\r\n\t\t@Override\r\n\t\tpublic void run() {\r\n\t\t\tmEvaSubmitStatus.dismiss();\r\n\t\t\tmEvaPersonObject.setEvaluateStatus(1);\r\n\t\t\tIntent intent = new Intent();\r\n\t\t\tintent.putExtra(\"evaedUser\", mEvaPersonObject);\r\n\t\t\tsetResult(RESULT_OK, intent);\r\n\t\t\tfinish();\r\n\t\t}\r\n\t};\r\n\t\r\n\t/**\r\n\t * 强制ScrollView滚动到顶部\r\n\t */\r\n\tprivate Runnable mScrollTopRunable = new Runnable() {\r\n\t\t@Override\r\n\t\tpublic void run() {\r\n\t\t\tmEvaluateQuesViewSV.fullScroll(ScrollView.FOCUS_UP);\r\n\t\t}\r\n\t};\r\n\t\r\n\t@Override\r\n\tprotected void onCreate(Bundle savedInstanceState) {\r\n\t\tsuper.onCreate(savedInstanceState);\r\n\t\tmRootContentView = setAppContentView(R.layout.activity_app_evaluate_answer);\r\n\t\tinitData();\r\n\t\tinitView();\r\n\t\tinitViewListener();\r\n\t}\r\n\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initData() {\r\n\t\tmUserType = getIntent().getStringExtra(\"AppUserType\");\r\n\t\tmPlanId = getIntent().getStringExtra(\"planId\");\r\n\t\tmEvaPersonObject = (EvaPersonBean) getIntent().getSerializableExtra(\"evaUser\");\r\n\t}\r\n\r\n\r\n\tpublic void initView() {\r\n\t\tsetTitleName(mEvaPersonObject != null ? mEvaPersonObject.getEvaluateName() : \"被评人姓名\");\r\n//\t\tsetTitleRightVisible();\r\n\t\tmTopicViewTV = (TextView) findViewById(R.id.app_evaluate_ques_topic);\r\n\t\tmTopIndexViewTV = (TextView) findViewById(R.id.app_evaluate_ques_index);\r\n\t\tmEvaluatePreQuesTV = (TextView) findViewById(R.id.app_evaluate_pre_ques);\r\n\t\tmEvaluateNextQuesTV = (TextView) findViewById(R.id.app_evaluate_next_ques);\r\n\t\tmEvaluateQuesViewSV = (ScrollView) findViewById(R.id.app_evaluate_ques_view);\r\n\t\tmEvaSubmitDialog = new EvaluateSubmitScoreDialog(EvaluateAnswerActivity.this);\r\n\t\tmEvaSubmitStatus = new SubmitDialog(EvaluateAnswerActivity.this);\r\n\t\tAlertDialog.Builder builder = new Builder(this);\r\n\t\tbuilder.setTitle(R.string.common_id_past_title);\r\n\t\tbuilder.setMessage(R.string.eva_back_dialog_msg);\r\n\t\tbuilder.setPositiveButton(R.string.main_confirm,new Dialog.OnClickListener() {\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void onClick(DialogInterface dialog, int which)\r\n\t\t\t{\r\n\t\t\t\tfinish();\r\n\t\t\t}\r\n\t\t});\r\n\t\tbuilder.setNegativeButton(R.string.setting_cancel,null);\r\n\t\tmFinishActivityDialog = builder.create();\r\n\t\t\r\n\t}\r\n\r\n\tpublic void initViewListener() {\r\n\t\tmEvaluatePreQuesTV.setOnClickListener(this);\r\n\t\tmEvaluateNextQuesTV.setOnClickListener(this);\r\n\t\tmEvaSubmitDialog.setOnSubmitScoreListener(new OnSubmitScoreListener() {\r\n\t\t\t\r\n\t\t\t@Override\r\n\t\t\tpublic void onSubmitScore(View v) {\r\n\t\t\t\tmEvaSubmitDialog.dismiss();\r\n\t\t\t\t//提交成绩\r\n\t\t\t\tsubmitMyScoreTask();\r\n\t\t\t}\r\n\t\t});\r\n\t\tmEvaluateQuesViewSV.setOnTouchListener(new OnTouchListener() {\r\n\t\t\t\r\n\t\t\t@Override\r\n\t\t\tpublic boolean onTouch(View v, MotionEvent event) {\r\n\t\t\t\tmEvaluateQuesViewSV.requestFocus();\r\n\t\t\t\treturn false;\r\n\t\t\t}\r\n\t\t});\r\n\t\tloadServiceEvaQuestions();\r\n\t}\r\n\r\n\t/**\r\n\t * 加载服务器题目\r\n\t */\r\n\tprivate void loadServiceEvaQuestions() {\r\n\t\t//......\r\n//\t\tmApplication.CONFIG_YNEDUT_V8_URL = \"http://10.6.23.137/ynedut\";\r\n//\t\tmApplication.mAppTokenStr = \"f5ac410c-6e40-4cad-a7b8-dffc90583abe\";\r\n\t\t//.......\r\n\t\tmQuesUrl = mApplication.CONFIG_YNEDUT_V8_URL+EvaParam.APP_EVALUATE_LOAD_QUESTIONS_API;\r\n\t\tString evaluAtedUserId = mEvaPersonObject !=null ? mEvaPersonObject.getId() : \"\";\r\n\t\tmQuesUrl = MessageFormat.format(mQuesUrl, mLastUserSP.getUserAccount(),mPlanId,evaluAtedUserId,0,mApplication.mAppTokenStr);\r\n\t\tL.e(\"eva mQuesUrl == \"+mQuesUrl);\r\n//\t\tloadDataTask(mQuesUrl, true);\r\n\t\tloadServiceData(mQuesUrl);\r\n\t}\r\n\r\n\r\n\t@Override\r\n\tpublic void titleRightClick(View v) {\r\n\t\tif (!mEvaSubmitDialog.isShowing()) {\r\n\t\t\tshowEvaSubmitDialog();\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 显示提交对话框\r\n\t */\r\n\tprivate void showEvaSubmitDialog() {\r\n\t\tmMyAnswerScore = 0;\r\n\t\tmMyAnswerCount = 0;\r\n\t\t//清空提交对象列表\r\n\t\tmEvaSubmitBean.scoreRecordDetailVOList.clear();\r\n\t\tfor (Object quesObj : quesObjects) {\r\n\t\t\tif (quesObj instanceof EvaNoOptionsBean) {\r\n\t\t\t\tEvaNoOptionsBean noOptionQuesObj = (EvaNoOptionsBean) quesObj;\r\n\t\t\t\t//累计分数\r\n\t\t\t\tif (noOptionQuesObj.getScore() != 0) {\r\n\t\t\t\t\tmMyAnswerScore = mMyAnswerScore+noOptionQuesObj.getScore();\r\n\t\t\t\t\tmMyAnswerCount++;\r\n\t\t\t\t}\r\n\t\t\t} else {\r\n\t\t\t\tEvaWithOptionsBean withOptionQues = (EvaWithOptionsBean) quesObj;\r\n\t\t\t\t//累计分数\r\n\t\t\t\tif (withOptionQues.getScore() != 0) {\r\n\t\t\t\t\tmMyAnswerScore = mMyAnswerScore+withOptionQues.getScore();\r\n\t\t\t\t\tmMyAnswerCount++;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\taddSubmitJsonArrayData(quesObj);\r\n\t\t}\r\n\t\tmEvaSubmitDialog.setDialogData(mMyAnswerScore, mMyAnswerCount, quesObjects.size());\r\n\t\tmEvaSubmitDialog.show();\r\n\t}\r\n\r\n\r\n\t@Override\r\n\tpublic void onPreTask() {\r\n\t\tif (mSubmitScoreIng) {//提交成绩\r\n\t\t\tmEvaSubmitStatus.show();\r\n\t\t} else {\r\n\t\t\tshowLoadingView();\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic Object onDoingTask(String resultJson) {\r\n\t\tif (mSubmitScoreIng) {\r\n\t\t\ttry {\r\n\t\t\t\tJSONObject resultJsonObject = new JSONObject(resultJson);\r\n\t\t\t\tint status = resultJsonObject.optInt(\"status\");\r\n\t\t\t\tif (status != 1) { //成功\r\n\t\t\t\t\tmEvaSubmitStatus.showSubmitSuccessView();\r\n\t\t\t\t\tmHandler.postDelayed(mDismissFinishRunable , 1000);\r\n\t\t\t\t} else {//失败\r\n\t\t\t\t\tmEvaSubmitStatus.dismiss();\r\n\t\t\t\t\tToastUtil.toastAlerMessageBottom(EvaluateAnswerActivity.this, \"提交失败\", 700);\r\n\t\t\t\t}\r\n\t\t\t} catch (JSONException e) {\r\n\t\t\t\te.printStackTrace();\r\n\t\t\t\tmEvaSubmitStatus.dismiss();\r\n\t\t\t\tToastUtil.toastAlerMessageBottom(EvaluateAnswerActivity.this, \"服务器返回的JSON异常\", 700);\r\n\t\t\t}\r\n\t\t\treturn null;\r\n\t\t}\r\n\t\tList<Object> quesObjects = new ArrayList<Object>();\r\n\t\ttry {\r\n//\t\t\tresultJson = getResources().getString(R.string.test_eva);\r\n\t\t\tJSONArray jsArray = new JSONArray(resultJson);\r\n\t\t\tfor (int i = 0; i < jsArray.length(); i++) {\r\n\t\t\t\tJSONObject quesJsObject = jsArray.getJSONObject(i);\r\n\t\t\t\tint type = quesJsObject.getInt(\"type\");\r\n\t\t\t\tString id = quesJsObject.getString(\"id\");\r\n\t\t\t\tString topicName = quesJsObject.getString(\"topicName\");\r\n\t\t\t\tString question = quesJsObject.getString(\"question\");\r\n\t\t\t\tString maxScore = quesJsObject.getString(\"maxScore\");\r\n\t\t\t\tString minScore = quesJsObject.getString(\"minScore\");\r\n\t\t\t\tswitch (type) {\r\n\t\t\t\tcase 2:\r\n\t\t\t\tcase 3:\r\n\t\t\t\tcase 5:\r\n\t\t\t\t\tEvaNoOptionsBean noOptionsBean = new EvaNoOptionsBean();\r\n\t\t\t\t\tnoOptionsBean.setId(id);\r\n\t\t\t\t\tnoOptionsBean.setTopicName(topicName);\r\n\t\t\t\t\tnoOptionsBean.setQuestion(question);\r\n\t\t\t\t\tnoOptionsBean.setMaxScore(maxScore);\r\n\t\t\t\t\tnoOptionsBean.setMinScore(minScore);\r\n\t\t\t\t\tnoOptionsBean.setType(type);\r\n\t\t\t\t\tquesObjects.add(noOptionsBean);\r\n\t\t\t\t\tbreak;\r\n\t\t\t\tcase 0:\r\n\t\t\t\tcase 1:\r\n\t\t\t\tcase 4:\r\n\t\t\t\t\tEvaWithOptionsBean withOptionsBean = new EvaWithOptionsBean();\r\n\t\t\t\t\twithOptionsBean.setId(id);\r\n\t\t\t\t\twithOptionsBean.setTopicName(topicName);\r\n\t\t\t\t\twithOptionsBean.setQuestion(question);\r\n\t\t\t\t\twithOptionsBean.setType(type);\r\n\t\t\t\t\twithOptionsBean.setMaxScore(maxScore);\r\n\t\t\t\t\twithOptionsBean.setMinScore(minScore);\r\n\t\t\t\t\tList<BaseEvaluateOptionsBean> options = new ArrayList<BaseEvaluateOptionsBean>();\r\n\t\t\t\t\tJSONArray optionArray = quesJsObject\r\n\t\t\t\t\t\t\t.getJSONArray(\"options\");\r\n\t\t\t\t\tfor (int j = 0; j < optionArray.length(); j++) {\r\n\t\t\t\t\t\tJSONObject optionObject = optionArray.getJSONObject(j);\r\n\t\t\t\t\t\tString quesContent = optionObject.getString(\"content\");\r\n\t\t\t\t\t\tString optionMaxScore = optionObject\r\n\t\t\t\t\t\t\t\t.getString(\"maxScore\");\r\n\t\t\t\t\t\tString optionMinScore = optionObject\r\n\t\t\t\t\t\t\t\t.getString(\"minScore\");\r\n\t\t\t\t\t\tBaseEvaluateOptionsBean optionItem = new BaseEvaluateOptionsBean();\r\n\t\t\t\t\t\toptionItem.setContent(quesContent);\r\n\t\t\t\t\t\toptionItem.setMaxScore(optionMaxScore);\r\n\t\t\t\t\t\toptionItem.setMinScore(optionMinScore);\r\n\t\t\t\t\t\toptions.add(optionItem);\r\n\t\t\t\t\t}\r\n\t\t\t\t\twithOptionsBean.setOptions(options);\r\n\t\t\t\t\tquesObjects.add(withOptionsBean);\r\n\t\t\t\t\tbreak;\r\n\r\n\t\t\t\tdefault:\r\n\t\t\t\t\tbreak;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t} catch (Exception e) {\r\n\t\t\tToastUtil.toastAlerMessageBottom(EvaluateAnswerActivity.this, \"JSON格式错误\", 800);\r\n\t\t}\r\n\t\tthis.quesObjects.addAll(quesObjects);\r\n\t\treturn quesObjects;\r\n\t}\r\n\r\n\t@Override\r\n\tpublic void onDoneTask(Object result) {\r\n\t\tif (mSubmitScoreIng) {\r\n\t\t\treturn;\r\n\t\t}\r\n//\t\tquesObjects = (List<Object>) result;\r\n\t\tL.e(\"quesObjects == \" + quesObjects.size());\r\n//\t\tdismissContentStatusView();\r\n\t\tif (quesObjects.size() > 0) {\r\n\t\t\t// 设置默认的Fragment\r\n\t\t\tsetTitleRightVisible();\r\n\t\t\tsetQuestionFragment(mQuesIndex);\r\n\t\t} else {\r\n\t\t\tshowEmptyView(\"暂无题目!\");\r\n\t\t}\r\n\t}\r\n\t\r\n\t@Override\r\n\tpublic void onFailedTask(int urlQuesStatusCode) {\r\n\t\tswitch (urlQuesStatusCode) {\r\n\t\tcase 2:\r\n\t\t\t//如果是提交时，因为其他原因失败\r\n\t\t\tif (mSubmitScoreIng) {\r\n\t\t\t\tmEvaSubmitStatus.dismiss();\r\n\t\t\t\tToastUtil.toastAlerMessageBottom(EvaluateAnswerActivity.this, \"提交失败，请稍后重试!\", 700);\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tshowContentFailedView();\r\n\t\t\tbreak;\r\n\t\tcase 3:\r\n\t\t\t//如果是提交时，因为其他原因失败\r\n\t\t\tif (mSubmitScoreIng) {\r\n\t\t\t\tmEvaSubmitStatus.dismiss();\r\n\t\t\t\tToastUtil.toastAlerMessageBottom(EvaluateAnswerActivity.this, \"网络异常，请检查重试!\", 700);\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tshowContentFailedView(\"网络异常，请检查重试!\");\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic void onClick(View v) {\r\n\t\tswitch (v.getId()) {\r\n\t\t// 上一题\r\n\t\tcase R.id.app_evaluate_pre_ques:\r\n\t\t\tif (mQuesIndex == 0) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tmQuesIndex--;\r\n\t\t\tsetQuestionFragment(mQuesIndex);\r\n\t\t\tbreak;\r\n\t\t// 下一题\r\n\t\tcase R.id.app_evaluate_next_ques:\r\n\t\t\tif (mQuesIndex == quesObjects.size()-1) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tmQuesIndex++;\r\n\t\t\tsetQuestionFragment(mQuesIndex);\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * 切换题目\r\n\t * @param i\r\n\t */\r\n\tprivate void setQuestionFragment(int i) {\r\n\t\tif (quesObjects.size() > 0) {\r\n\t\t\t//给题目序号增加颜色效果\r\n\t\t\tSpannableString indexStr = drawQuestionIndexColor((i+1)+\"/\"+quesObjects.size());\r\n\t\t\tmTopIndexViewTV.setText(indexStr);\r\n\t\t\t\r\n\t\t\tObject firstQuesObj = quesObjects.get(i);\r\n\t\t\tmEvaluateQuesViewSV.removeAllViews();\r\n\t\t\tif (firstQuesObj instanceof EvaNoOptionsBean) {\r\n\t\t\t\tEvaNoOptionsBean noOptionQuesObj = (EvaNoOptionsBean) firstQuesObj;\r\n\t\t\t\tmTopicViewTV.setText(noOptionQuesObj.getTopicName());\r\n\t\t\t\tif (mEvaNoOptionView == null) {\r\n\t\t\t\t\tmEvaNoOptionView = new EvaNoOptionView(this);\r\n\t\t\t\t}\r\n\t\t\t\tmEvaluateQuesViewSV.addView(mEvaNoOptionView);\r\n\t\t\t\tmEvaNoOptionView.refreshView(noOptionQuesObj);\r\n\t\t\t} else if (firstQuesObj instanceof EvaWithOptionsBean) {\r\n\t\t\t\tEvaWithOptionsBean withOptionQues = (EvaWithOptionsBean) firstQuesObj;\r\n\t\t\t\tmTopicViewTV.setText(withOptionQues.getTopicName());\r\n\t\t\t\tif (mEvaWithOptionView == null) {\r\n\t\t\t\t\tmEvaWithOptionView = new EvaWithOptionView(this);\r\n\t\t\t\t}\r\n\t\t\t\tmEvaluateQuesViewSV.addView(mEvaWithOptionView);\r\n\t\t\t\tmEvaWithOptionView.refreshView(withOptionQues);\r\n\t\t\t} \r\n\t\t\t//在主线程加载完新题目时，在消息队列里面更新scrollView的位置\r\n\t\t\tmHandler.post(mScrollTopRunable);\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 给字符串增加颜色\r\n\t * @param indexStr 题目序号字符串\r\n\t * @return\r\n\t */\r\n\tpublic SpannableString drawQuestionIndexColor(String indexStr) {\r\n\t\tSpannableString spanString = new SpannableString(indexStr);\r\n\t\tspanString.setSpan(\r\n\t\t\t\tnew ForegroundColorSpan(Color.parseColor(\"#12b5b0\")), 0,\r\n\t\t\t\tindexStr.indexOf(\"/\"), Spannable.SPAN_INCLUSIVE_INCLUSIVE);\r\n\t\treturn spanString;\r\n\t}\r\n\t\r\n\t@Override\r\n\tpublic void backView() {\r\n\t\tif (isTitleRightVisible()) {\r\n\t\t\tmFinishActivityDialog.show();\r\n\t\t} else {\r\n\t\t\tfinish();\r\n\t\t}\r\n\t}\r\n\r\n\r\n//\t@Override\r\n//\tpublic void onScoreChange(int index) {\r\n//\t\tif (index != mQuesIndex) {\r\n//\t\t\treturn;\r\n//\t\t}\r\n//\t\tObject nowQuesObj = quesObjects.get(mQuesIndex);\r\n//\t\tif (nowQuesObj instanceof EvaNoOptionsBean) {\r\n//\t\t\tquesObjects.set(mQuesIndex, mInputScoreFgment.getmEvaNoOptionsBean());\r\n//\t\t} else if (nowQuesObj instanceof EvaWithOptionsBean) {\r\n//\t\t\tquesObjects.set(mQuesIndex, mOptionScoreFgment.getmEvaWithOptionsBean());\r\n//\t\t}\r\n//\t}\r\n\t\r\n\t/**\r\n\t * 提交成绩\r\n\t */\r\n\tprivate void submitMyScoreTask() {\r\n\t\tmSubmitScoreIng  = true;\r\n\t\t//.....\r\n//\t\tmApplication.CONFIG_YNEDUT_V8_URL = \"http://10.6.23.137/ynedut\";\r\n//\t\tmApplication.mAppTokenStr = \"f5ac410c-6e40-4cad-a7b8-dffc90583abe\";\r\n\t\t//.....\r\n\t\tString mSubmitUrl = mApplication.CONFIG_YNEDUT_V8_URL+EvaParam.APP_EVALUATE_SUBMIT_API;\r\n//\t\tString evaluAtedUserId = mEvaPersonObject !=null ? mEvaPersonObject.getId() : \"\";\r\n\t\tString jsonStr = formatSubmitJson();\r\n\t\tmSubmitUrl = MessageFormat.format(mSubmitUrl, jsonStr,mApplication.mAppTokenStr);\r\n\t\tL.e(\"eva mSubmitUrl == \"+mSubmitUrl);\r\n\t\tloadServiceData(mSubmitUrl);\r\n\t}\r\n\r\n\r\n\t/**\r\n\t * 格式化json字符串\r\n\t */\r\n\tprivate String formatSubmitJson() {\r\n\t\tmEvaSubmitBean.setWjTeachingEvaluationPlanId(mPlanId);\r\n\t\tmEvaSubmitBean.setAttendEvalUserId(mLastUserSP.getUserAccount());\r\n\t\tmEvaSubmitBean.setEvaluAtedUserId(mEvaPersonObject !=null ? mEvaPersonObject.getId() : \"\");\r\n\t\tmEvaSubmitBean.setTotalScore(mMyAnswerScore);\r\n\t\tmEvaSubmitBean.setOperateType(\"0\");\r\n\t\tmEvaSubmitBean.setUserType(mUserType);\r\n\t\treturn JSON.toJSONString(mEvaSubmitBean);\t\t\r\n\t}\r\n\r\n\r\n\t/**\r\n\t * 给用于提交的json中的list添加数据\r\n\t * @param quesObj \r\n\t * \r\n\t */\r\n\tprivate void addSubmitJsonArrayData(Object quesObj) {\r\n\t\tEvaAnswerBean tempEvaAnswerBean = new EvaAnswerBean();\r\n\t\t//给json序列化对象添加数据\r\n\t\ttempEvaAnswerBean.setAttendUserId(mLastUserSP.getUserAccount());\r\n\t\tif (quesObj instanceof EvaNoOptionsBean) {\r\n\t\t\tEvaNoOptionsBean noOptionQuesObj = (EvaNoOptionsBean) quesObj;\r\n\t\t\t//给json序列化对象添加数据\r\n\t\t\ttempEvaAnswerBean.setTopicId(noOptionQuesObj.getId());\r\n\t\t\ttempEvaAnswerBean.setScore(noOptionQuesObj.getScore()+\"\");\r\n\t\t\ttempEvaAnswerBean.setAdvice(noOptionQuesObj.getSuggestion() != null ? noOptionQuesObj.getSuggestion() : \"\");\r\n\t\t} else {\r\n\t\t\tEvaWithOptionsBean withOptionQues = (EvaWithOptionsBean) quesObj;\r\n\t\t\t//给json序列化对象添加数据\r\n\t\t\ttempEvaAnswerBean.setTopicId(withOptionQues.getId());\r\n\t\t\ttempEvaAnswerBean.setScore(withOptionQues.getScore()+\"\");\r\n\t\t\ttempEvaAnswerBean.setAdvice(withOptionQues.getSuggestion() != null ? withOptionQues.getSuggestion() : \"\");\r\n\t\t}\r\n\t\tmEvaSubmitBean.scoreRecordDetailVOList.add(tempEvaAnswerBean);\r\n\t}\r\n\r\n\t@Override\r\n\tpublic void onReloadClick(View v) {\r\n\t\tloadServiceEvaQuestions();\r\n\t}\r\n\t\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaluateAnswerActivity.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaluateAnswerActivity.java	(revision )
+@@ -67,7 +67,7 @@
+ 	private EvaWithOptionView mEvaWithOptionView;
+ 	private EvaluateSubmitScoreDialog mEvaSubmitDialog;
+ 	
+-	private int mMyAnswerScore = 0;
++	private float mMyAnswerScore = 0;
+ 	
+ 	private int mMyAnswerCount = 0;
+ 	private String mUserType;
+@@ -187,7 +187,7 @@
+ 		mQuesUrl = mApplication.CONFIG_YNEDUT_V8_URL+EvaParam.APP_EVALUATE_LOAD_QUESTIONS_API;
+ 		String evaluAtedUserId = mEvaPersonObject !=null ? mEvaPersonObject.getId() : "";
+ 		mQuesUrl = MessageFormat.format(mQuesUrl, mLastUserSP.getUserAccount(),mPlanId,evaluAtedUserId,0,mApplication.mAppTokenStr);
+-		L.e("eva mQuesUrl == "+mQuesUrl);
++		L.v("eva mQuesUrl == "+mQuesUrl);
+ //		loadDataTask(mQuesUrl, true);
+ 		loadServiceData(mQuesUrl);
+ 	}
+@@ -213,7 +213,7 @@
+ 				EvaNoOptionsBean noOptionQuesObj = (EvaNoOptionsBean) quesObj;
+ 				//累计分数
+ 				if (noOptionQuesObj.getScore() != 0) {
+-					mMyAnswerScore = mMyAnswerScore+noOptionQuesObj.getScore();
++                    mMyAnswerScore = mMyAnswerScore+noOptionQuesObj.getScore();
+ 					mMyAnswerCount++;
+ 				}
+ 			} else {
+@@ -332,7 +332,7 @@
+ 			return;
+ 		}
+ //		quesObjects = (List<Object>) result;
+-		L.e("quesObjects == " + quesObjects.size());
++		L.v("quesObjects == " + quesObjects.size());
+ //		dismissContentStatusView();
+ 		if (quesObjects.size() > 0) {
+ 			// 设置默认的Fragment
+@@ -476,7 +476,7 @@
+ //		String evaluAtedUserId = mEvaPersonObject !=null ? mEvaPersonObject.getId() : "";
+ 		String jsonStr = formatSubmitJson();
+ 		mSubmitUrl = MessageFormat.format(mSubmitUrl, jsonStr,mApplication.mAppTokenStr);
+-		L.e("eva mSubmitUrl == "+mSubmitUrl);
++		L.v("eva mSubmitUrl == "+mSubmitUrl);
+ 		loadServiceData(mSubmitUrl);
+ 	}
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n\r\n    <!-- app -->\r\n    <string name=\"app_name\">Messenger</string>\r\n    <string name=\"test_app_json\">Messenger</string>\r\n    <!-- 公共文字 -->\r\n\r\n    <string name=\"common_offline_notice_title\">下线通知</string>\r\n    <string name=\"common_offline_notice_msg\">您的帐号已在其他手机上登录，如非本人操作，则密码可能已泄露，建议请尽快在PC端YNmessenger设置中修改密码。</string>\r\n    <string name=\"common_offline_retry\">重新登录</string>\r\n    <string name=\"common_offline_exit\">退出</string>\r\n    <string name=\"common_id_past_title\">提示:</string>\r\n    <string name=\"common_id_past_msg\">您的身份验证已过期，请重新登录</string>\r\n    <string name=\"common_copyToClipboard\">已复制到剪贴板</string>\r\n\r\n    <string-array name=\"common_weekDays\">\r\n        <item>星期日</item>\r\n        <item>星期一</item>\r\n        <item>星期二</item>\r\n        <item>星期三</item>\r\n        <item>星期四</item>\r\n        <item>星期五</item>\r\n        <item>星期六</item>\r\n    </string-array>\r\n\r\n    <string name=\"notification_title\">会话消息</string>\r\n    <string name=\"notification_content\">来自%1$s个联系人的%2$s条消息！</string>\r\n    <string name=\"chatHeader_previous\">消息</string>\r\n    <string name=\"chatFooter_send\">发送</string>\r\n    <string name=\"allContact_listItem_online\">[在线]</string>\r\n    <string name=\"allContact_listItem_offline\">[离线]</string>\r\n\r\n    <!-- main界面 -->\r\n    <string name=\"main_tabitem_home\">主页</string>\r\n    <string name=\"main_tabitem_organization\">联系人</string>\r\n    <string name=\"main_tabitem_notice\">通知</string>\r\n    <string name=\"main_tabitem_setting\">设置</string>\r\n    <string name=\"main_tabitem_session\">会话</string>\r\n    <string name=\"main_99plus\">99+</string>\r\n    <string name=\"title_activity_main\">主页</string>\r\n    <string name=\"splash_logo\">依能科技</string>\r\n    <string name=\"org_search\">搜索</string>\r\n    <string name=\"main_darkMode\">夜间模式</string>\r\n    <string name=\"main_normalMode\">白天模式</string>\r\n    <string name=\"main_mySettings\">我的设置</string>\r\n    <string name=\"main_downloadedFiles\">已下载文件</string>\r\n    <string name=\"main_logout\">退出登录</string>\r\n    <string name=\"main_exit\">退出</string>\r\n    <string name=\"main_exitConfirmMsg\">确定要退出？</string>\r\n    <string name=\"main_pressAgainBackToDesktop\">再按一次返回桌面</string>\r\n    <string name=\"main_confirm\">确定</string>\r\n    <string name=\"main_cancel\">取消</string>\r\n    <string name=\"main_helpAndFeedback\">帮助反馈</string>\r\n    <string name=\"main_session\">消息</string>\r\n    <string name=\"main_contact\">联系人</string>\r\n    <string name=\"main_app\">应用</string>\r\n    <string name=\"main_event\">待办</string>\r\n    <string name=\"main_org\">组织机构</string>\r\n    <string name=\"main_discussion\">讨论组</string>\r\n    <string name=\"main_group\">群</string>\r\n    <string name=\"main_department\">部门</string>\r\n    <string name=\"main_badNetwork\">连接断开，请检查网络</string>\r\n    <string name=\"main_anotherLogin\">已经在其它设备上线！</string>\r\n    <string name=\"main_server_shutdown\">无法连接服务器,请刷新重试.</string>\r\n    <string name=\"main_alreadyOffline\">已经下线！</string>\r\n    <string name=\"main_event_delete\">删除</string>\r\n    <string name=\"main_event_noneChecked\">没有要删除的通知</string>\r\n    <string name=\"main_event_CheckedDeleted\">已删除%1$d条通知</string>\r\n    <string name=\"main_event_todo\">待办</string>\r\n    <string name=\"main_event_notice\">通知</string>\r\n    <string name=\"main_event_my_todo\">我的待办</string>\r\n    <string name=\"main_event_my_demand\">我的申请</string>\r\n    <string name=\"event_demand_detail_loading\">获取中...</string>\r\n    <string name=\"event_demand_detail_load_failed\">获取失败，请重试！</string>\r\n    <string name=\"event_demand_review_person\">审批人%1$s</string>\r\n    <string name=\"event_demand_review_person1\">审批人（%1$s）：%1$s</string>\r\n    <string name=\"event_demand_review_reviewTime\">审批时间：%1$s</string>\r\n    <string name=\"event_demand_review_opinion\">%1$s</string>\r\n    <string name=\"main_event_my_done\">我的已办</string>\r\n    <string name=\"event_done_my_opinion\">我的审批意见：%1$s</string>\r\n    <string name=\"event_done_my_reviewTime\">我的审批时间：%1$s</string>\r\n    <string name=\"event_done_request_time\">申请时间：%1$s</string>\r\n    <string name=\"main_event_newTag\">new&#160;&#160;%1$s</string>\r\n    <string-array name=\"main_eventTabTitle\">\r\n        <item>@string/main_event_my_todo</item>\r\n        <item>@string/main_event_my_demand</item>\r\n        <item>@string/main_event_my_done</item>\r\n    </string-array>\r\n    <string name=\"main_eventCheckAll\">全选</string>\r\n    <string name=\"main_eventNoticeEmpty\">还没有通知事件</string>\r\n    <string name=\"main_eventTodoCannotBeOpen\">还没有待办事件</string>\r\n    <string name=\"main_eventTodoCheckNow\">立即处理</string>\r\n    <string name=\"main_eventNoticeCannotBeOpen\">暂时无法访问事件详情</string>\r\n    <string name=\"main_eventWebLoadingFailed\">事件详情加载失败，请检查网络</string>\r\n    <string-array name=\"main_myapps_title\">\r\n        <item>一卡通</item>\r\n        <item>我的课表</item>\r\n        <item>我的成绩</item>\r\n        <item>学校微网站</item>\r\n        <item>在线考试</item>\r\n        <item>在线学习</item>\r\n        <item>在线办公</item>\r\n        <item>在线评教</item>\r\n        <item>实习报告</item>\r\n    </string-array>\r\n    <string name=\"main_myapps_currentWeek\">当前周</string>\r\n    <string name=\"main_myapps_currentWeek_content\">%1$s / %2$s</string>\r\n    <string name=\"main_myapps_currentWeek_content_def\">--/--</string>\r\n    <string name=\"main_myapps_payCardBalance\">一卡通余额 (元)</string>\r\n    <string name=\"main_myapps_payCardBalance_def\">0.00</string>\r\n    <string name=\"main_myapps_loadingFailed\">加载失败，单击重试！</string>\r\n\r\n    <string name=\"contactGroupOrg_departmentMemberCount\">(%1$d)</string>\r\n    <string name=\"contactChildOrg_member\">成员</string>\r\n    <string name=\"contactChildOrg_department\">部门</string>\r\n    <string name=\"contactChildOrg_group\">群组</string>\r\n    <string name=\"contactChildOrg_discussionGroup\">讨论组</string>\r\n\r\n    <string name=\"contactChildOrg_previous\">返回</string>\r\n    <string name=\"contactChildOrg_jumpToMyOrg\">跳转到我的机构</string>\r\n    <string name=\"contactChildOrg_currentPath\">当前路径</string>\r\n\r\n    <!-- login界面 -->\r\n    <string name=\"login_title\">掌上YNedut</string>\r\n    <string name=\"login_bttext\">登录</string>\r\n    <string name=\"login_evtext_username\">用户名</string>\r\n    <string name=\"login_evtext_passowrd\">密码</string>\r\n    <string name=\"login_evtext_serviceaddress\">服务器地址</string>\r\n    <string name=\"login_tvtext_showserviceaddress\">显示服务器地址</string>\r\n    <string name=\"login_tvtext_hidserviceaddress\">隐藏服务器地址</string>\r\n    <string name=\"login_errortext_emptyusername\">用户名不能为空</string>\r\n    <string name=\"login_errortext_emptypassowrd\">密码不能为空</string>\r\n    <string name=\"login_errortext_emptyserviceaddress\">服务器地址不能为空</string>\r\n    <string name=\"login_errortext_jsondata\">数据解析出错</string>\r\n    <string name=\"login_errortext_neterror\">网络连接出错</string>\r\n    <string name=\"login_errorformat_serviceaddress\">服务器地址格式不正确</string>\r\n    <string name=\"login_confirmDeleteAccount\">确定要删除此帐号?</string>\r\n    <string name=\"login_deleteOnlyAccount\">仅删除帐号</string>\r\n    <string name=\"login_deleteAccountWithData\">删除帐号和本地记录</string>\r\n    <string name=\"login_loginNow\">正在登录……</string>\r\n    <string name=\"login_networkDisconnected\">网络连接已断开</string>\r\n    <string name=\"groupInfo_previous\">返回</string>\r\n    <string name=\"groupInfo_title\">群资料</string>\r\n    <string name=\"disInfo_previous\">返回</string>\r\n    <string name=\"disInfo_title\">聊天信息</string>\r\n    <string name=\"disInfo_discussName\">讨论组名称</string>\r\n    <string name=\"disInfo_discussMembers\">讨论组成员</string>\r\n    <string name=\"disInfo_discussAddMembers\">添加新组员</string>\r\n    <string name=\"disInfo_chatMsgSearch\">查找聊天记录</string>\r\n    <string name=\"disInfo_quitDiscuss\">退出讨论组</string>\r\n    <string name=\"disGroupRename_previous\">返回</string>\r\n    <string name=\"disGroupRename_done\">完成</string>\r\n    <string name=\"disGroupRename_title\">聊天信息</string>\r\n    <string name=\"disGroupRename_textCountLimit\">%1$d/40</string>\r\n    <string name=\"groupInfo_filesShared\">群共享</string>\r\n    <string name=\"groupInfo_members\">群成员</string>\r\n    <string name=\"groupInfo_addNewMembers\">邀请新成员</string>\r\n\r\n    <string-array name=\"chatFooter_otherButtons\">\r\n        <item>图片</item>\r\n        <item>文件</item>\r\n        <item>拍照</item>\r\n    </string-array>\r\n\r\n    <!-- session界面 -->\r\n    <string name=\"session_title\">消息</string>\r\n    <string name=\"session_errortext_network\">! 没有网，怎么任性</string>\r\n    <string name=\"session_serach_hint\">搜索</string>\r\n    <string name=\"session_notifyModeAlarm\">提醒</string>\r\n    <string name=\"session_notifyModeNoAlarm\">不提醒</string>\r\n    <string name=\"session_clearListDone\">已完成清除消息列表</string>\r\n    <string name=\"session_clearAllChatMsgDone\">已完成清除所有聊天记录</string>\r\n    <string name=\"session_clearCacheDone\">已完成清除缓存</string>\r\n    <string name=\"session_yesterday\">昨天</string>\r\n    <string name=\"session_draftPrefix\">草稿：</string>\r\n    <string name=\"pull_to_refresh_pull_label\">下拉刷新</string>\r\n    <string name=\"pull_to_refresh_release_label\">松开加载</string>\r\n    <string name=\"pull_to_refresh_refreshing_label\">正在载入</string>\r\n    <string name=\"session_platform_notice_title\">平台通知</string>\r\n    <!--\r\n    <string name=\"pull_to_refresh_pull_label\">Pull to refresh…</string>\r\n    <string name=\"pull_to_refresh_release_label\">Release to refresh…</string>\r\n    <string name=\"pull_to_refresh_refreshing_label\">Loading…</string>\r\n    -->\r\n\r\n    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->\r\n    <string name=\"pull_to_refresh_from_bottom_pull_label\">@string/pull_to_refresh_pull_label</string>\r\n    <string name=\"pull_to_refresh_from_bottom_release_label\">@string/pull_to_refresh_release_label</string>\r\n    <string name=\"pull_to_refresh_from_bottom_refreshing_label\">@string/pull_to_refresh_refreshing_label</string>\r\n\r\n    <!-- P2PChatActivity 2人会话界面 -->\r\n    <string name=\"p2pChatActivity_contextMenuTitle\">操作</string>\r\n    <string name=\"p2pChatActivity_copyChatMsg\">复制文本</string>\r\n    <string name=\"p2pChatActivity_deleteChatMsg\">删除</string>\r\n    <string name=\"p2pChatActivity_userStatus_phone\">（正在手机上使用）</string>\r\n    <string name=\"p2pChatActivity_userStatus_pc\">（正在电脑上使用）</string>\r\n    <string name=\"p2pChatActivity_userStatus_offline\">离线</string>\r\n    <string name=\"p2pChatInfo_chatInfo\">聊天信息</string>\r\n    <string name=\"p2pChatInfo_previous\">返回</string>\r\n    <string name=\"p2pChatInfo_createNewDiscuss\">创建讨论组</string>\r\n    <string name=\"p2pChatInfo_chatLogSearch\">查找聊天记录</string>\r\n    <string name=\"p2pChatInfo_myDiscussCountOutOfMax\">创建讨论组数量已达到上限（%d）</string>\r\n    <string name=\"findChatRecord_title\">聊天记录</string>\r\n    <string name=\"findChatRecord_previous\">返回</string>\r\n    <string name=\"disAdd_title\">选择联系人</string>\r\n    <string name=\"disAdd_selectContacts\">从各分组中选择</string>\r\n    <string name=\"disAdd_done\">完成</string>\r\n    <string name=\"disAdd_doneWithCount\">完成（%1$d）</string>\r\n    <string name=\"disAdd_department\">部门</string>\r\n    <string name=\"disAdd_org\">组织机构</string>\r\n    <string name=\"contactPersonInfo_previous\">返回</string>\r\n    <string name=\"contactPersonInfo_department\">所在部门</string>\r\n    <string name=\"contactPersonInfo_cellPhoneNumber\">联系手机</string>\r\n    <string name=\"contactPersonInfo_phoneNumber\">办公电话</string>\r\n    <string name=\"contactPersonInfo_email\">使用邮箱</string>\r\n    <string name=\"broadcastChat_title\">广播</string>\r\n    <string name=\"broadcastChat_connectionDisconnect\">断网了</string>\r\n    <string name=\"broadcastChat_previous\">会话</string>\r\n    <string name=\"broadcastChat_sender\">发送人:%1$s</string>\r\n    <string name=\"broadcastChat_delete\">删除</string>\r\n    <string name=\"broadcastChatContent_title\">广播通知</string>\r\n    <string name=\"broadcastChatContent_previous\">返回</string>\r\n    <string name=\"broadcastChatContent_sender\">发送人：%1$s</string>\r\n    <string name=\"broadcastChatContent_sendTime\">发送时间：%1$s</string>\r\n\r\n    <!-- 个人资料页弹出框界面 -->\r\n    <string name=\"personinfo_pop_add_contact\">添加到手机通讯录</string>\r\n    <string name=\"personinfo_pop_call_contact\">拨打号码</string>\r\n    <string name=\"personinfo_pop_sent_sms\">发送短信</string>\r\n    <string name=\"personinfo_pop_cancle_pop\">取消</string>\r\n\r\n    <!-- Setting Activity 设置主界面 -->\r\n    <string name=\"setting_title\">我的设置</string>\r\n    <string name=\"setting_previous\">返回</string>\r\n    <string name=\"setting_msgNotify\">消息提醒</string>\r\n    <string name=\"setting_viewSetting\">浏览设置</string>\r\n    <string name=\"setting_additionalFunction\">辅助功能</string>\r\n    <string name=\"setting_downloadedFiles\">查看已下载的文件</string>\r\n    <string name=\"setting_about\">关于 </string>\r\n    <string name=\"setting_logout\">退出当前帐号</string>\r\n    <string name=\"setting_logoutConfirm\">退出当前帐号将回到登录页面，确认退出？</string>\r\n    <string name=\"setting_logoutWhenDownloadConfirm\">有文件正在下载，确认退出？</string>\r\n    <string name=\"setting_cancel\">取消</string>\r\n    <string name=\"setting_logoutConfirmed\">退出</string>\r\n\r\n    <!-- MsgNotifySetting Activity 消息提醒 -->\r\n    <string name=\"msgNotifySetting_title\">消息提醒</string>\r\n    <string name=\"msgNotifySetting_distractionFree\">免打扰</string>\r\n    <string name=\"msgNotifySetting_timeSetting\">免打扰时间设置</string>\r\n    <string name=\"msgNotifySetting_timeDisplay\">%1$s:%2$s-%3$s:%4$s</string>\r\n    <string name=\"msgNotifySetting_audio\">声音</string>\r\n    <string name=\"msgNotifySetting_groupMsgNotifySetting\">群/讨论组消息设置</string>\r\n    <string name=\"msgNotifySetting_notifyWhenExit\">退出后仍接收消息</string>\r\n\r\n    <!-- DistractionFreeSettingActivity 免打扰时段设置界面 -->\r\n    <string name=\"distractionFreeSetting_title\">免打扰设置</string>\r\n    <string name=\"distractionFreeSetting_previous\">返回</string>\r\n    <string name=\"distractionFreeSetting_beginTime\">开始时间</string>\r\n    <string name=\"distractionFreeSetting_beginTimeDisplay\">%1$s 时  %2$s 分</string>\r\n    <string name=\"distractionFreeSetting_endTime\">结束时间</string>\r\n    <string name=\"distractionFreeSetting_endTimeDisplay\">%1$s 时  %2$s 分</string>\r\n\r\n    <!-- ViewSettingActivity 浏览设置界面 -->\r\n    <string name=\"viewSetting_title\">浏览设置</string>\r\n    <string name=\"viewSetting_previous\">返回</string>\r\n    <string name=\"viewSetting_fontSize\">字体大小</string>\r\n    <string name=\"viewSetting_backgroundSkin\">背景皮肤</string>\r\n    <string name=\"viewSetting_autoRecImg\">在2G/3G/4G环境下自动接收图片</string>\r\n\r\n    <!-- FontSizeSettingActivity 字体设置界面 -->\r\n    <string name=\"fontSizeSetting_title\">字体大小</string>\r\n    <string name=\"fontSizeSetting_small\">小</string>\r\n    <string name=\"fontSizeSetting_medium\">中</string>\r\n    <string name=\"fontSizeSetting_huge\">大</string>\r\n    <string name=\"fontSizeSetting_xhuge\">特大</string>\r\n\r\n    <!-- AdditionalFunctionActivity 辅助功能设置界面 -->\r\n    <string name=\"additionalFunction_title\">辅助功能</string>\r\n    <string name=\"additionalFunction_previous\">返回</string>\r\n    <string name=\"additionalFunction_clearChatMsgList\">清除消息列表</string>\r\n    <string name=\"additionalFunction_clearAllChatMsg\">清除所有聊天记录</string>\r\n    <string name=\"additionalFunction_clearCache\">清除缓存</string>\r\n    <string name=\"additionalFunction_deleteConfirm\">确定清除消息列表？</string>\r\n    <string name=\"additionalFunction_confirmYes\">清除</string>\r\n    <string name=\"additionalFunction_confirmNo\">取消</string>\r\n    <string name=\"additionalFunction_clearSuccessfully\">清除完成！</string>\r\n\r\n    <!-- AboutActivity 关于界面 -->\r\n    <string name=\"about_title\">关于</string>\r\n    <string name=\"about_previous\">返回</string>\r\n    <string name=\"about_update\">版本更新</string>\r\n    <string name=\"about_scanToDownload\">扫描下载</string>\r\n    <string name=\"about_intro\">功能介绍</string>\r\n    <string name=\"about_helpAndFeedback\">帮助与反馈</string>\r\n    <string name=\"about_currentVersionName\">当前版本 %1$s</string>\r\n\r\n    <!-- downloadingversion界面 -->\r\n    <string name=\"downversion_title\">新版更新</string>\r\n    <string name=\"downversion_downloading\">正在下载：</string>\r\n    <string name=\"downversion_bttext_back\">返回</string>\r\n    <string name=\"downversion_bttext_abort\">取消新版</string>\r\n    <string name=\"downversion_bttext_pause\">暂停</string>\r\n    <string name=\"downversion_errortext_dlerror\">下载失败</string>\r\n    <string name=\"downversion_errortext_dlsucess\">下载成功</string>\r\n    <string name=\"downversion_altertext_dling\">正在下载</string>\r\n    <string name=\"downversion_altertext_pause\">下载已暂停</string>\r\n\r\n    <!-- AudioSettingActivity 声音 设置界面 -->\r\n    <string name=\"audioSetting_title\">声音</string>\r\n    <string name=\"audioSetting_previous\">返回</string>\r\n    <string name=\"audioSetting_isAlarm\">声音</string>\r\n    <string name=\"audioSetting_groupIsAlarm\">群/讨论组声音</string>\r\n    <string name=\"audioSetting_isVibrate\">振动</string>\r\n    <string name=\"audioSetting_groupIsVibrate\">群/讨论组振动</string>\r\n\r\n    <!-- GroupMsgNotifySetting 群讨论组消息提醒设置界面 -->\r\n    <string name=\"groupMsgNotifySetting_previous\">返回</string>\r\n    <string name=\"groupMsgNotifySetting_title\">群讨论组消息设置</string>\r\n    <string name=\"groupMsgNotifySetting_receiveNotify\">接收消息并提醒</string>\r\n    <string name=\"groupMsgNotifySetting_receiveWithoutNotify\">接收消息但不提醒</string>\r\n    <string name=\"groupMsgNotifySetting_cancel\">取消</string>\r\n    <string name=\"hello_world\">Hello world!</string>\r\n    <string name=\"action_settings\">Settings</string>\r\n\r\n    <!-- network status -->\r\n    <string name=\"network_is_ok\">网络连接正常</string>\r\n    <string name=\"network_is_error\">网络连接不可用</string>\r\n\r\n    <!-- splash 界面 -->\r\n    <string name=\"splash_dialogtitle_update\">该版本是否更新?</string>\r\n    <string name=\"splash_dialogtitle_mustupdate\">该版本必须升级才能继续使用,\\n是否更新?</string>\r\n    <string name=\"splash_bttext_update\">更新</string>\r\n    <string name=\"splash_bttext_abort\">取消</string>\r\n    <string name=\"splash_bttext_exit\">退出程序</string>\r\n    <string name=\"splash_bttext_continue_update\">继续更新</string>\r\n    <string name=\"splash_bttext_cancel_update\">取消更新</string>\r\n\r\n    <!-- ImgFolder 界面 -->\r\n    <string name=\"imgFolder_title\">选择相册</string>\r\n    <string name=\"imgFolder_cancel\">取消</string>\r\n    <string name=\"imgFolder_folderName\">%1$s (%2$d)</string>\r\n    <string name=\"imgFolder_loading\">加载中......</string>\r\n\r\n    <!-- ImgPick 界面 -->\r\n    <string name=\"imgPick_cancel\">取消</string>\r\n    <string name=\"imgPick_albums\">相册</string>\r\n    <string name=\"imgPick_send\">发送 (%1$d/%2$d)</string>\r\n    <string name=\"imgPick_sending\">发送中......</string>\r\n    <string name=\"imgPick_selectedCountMax\">最多只能发送%1$d张图片哦</string>\r\n\r\n    <!-- ImgViewer 界面 -->\r\n    <string name=\"imageViewer_saveAs\">保存</string>\r\n    <string name=\"imageViewer_saveSuccess\">成功保存到 %1$s</string>\r\n    <string name=\"imageViewer_saveFailed\">保存过程中出现异常</string>\r\n    <string name=\"filePicker_title\">发送文件</string>\r\n    <string name=\"filePicker_cancel\">取消</string>\r\n    <string name=\"filePicker_send\">发送 (%1$d/%2$d)</string>\r\n    <string name=\"filePicker_selectedCountMax\">最多只能发送%1$d个文件哦</string>\r\n\r\n    <string name=\"gallery_title\">选择照片</string>\r\n    <string name=\"gallery_album\">相册</string>\r\n    <string name=\"gallery_otherFolders\">文件夹</string>\r\n    <string name=\"gallery_preview\">预览</string>\r\n    <string name=\"gallery_done\">完成</string>\r\n\r\n    <!-- GroupSharedFile 界面 -->\r\n    <string name=\"groupSharedFiles_title\">群文件</string>\r\n    <string name=\"groupSharedFiles_previous\">返回</string>\r\n    <string name=\"groupSharedFiles_loadingData\">正在加载群文件……</string>\r\n\r\n    <string-array name=\"groupSharedFiles_viewPagerTitle\">\r\n        <item>按时间</item>\r\n        <item>按类型</item>\r\n        <item>按上传者</item>\r\n    </string-array>\r\n\r\n    <string name=\"groupSharedFiles_today\">今天</string>\r\n    <string name=\"groupSharedFiles_inOneWeek\">一周内</string>\r\n    <string name=\"groupSharedFiles_earlier\">更早</string>\r\n    <string name=\"groupSharedFiles_doc\">文档</string>\r\n    <string name=\"groupSharedFiles_img\">图片</string>\r\n    <string name=\"groupSharedFiles_video\">影音</string>\r\n    <string name=\"groupSharedFiles_others\">其他</string>\r\n    <string name=\"groupSharedFiles_openUp\">查看</string>\r\n    <string name=\"groupSharedFiles_download\">下载</string>\r\n    <string name=\"groupSharedFiles_owner\">来自 %1$s</string>\r\n    <string name=\"groupSharedFiles_ownerUnknown\">未知</string>\r\n    <string name=\"groupSharedFiles_deleteConfirm\">确定要删除群文件？</string>\r\n    <string name=\"groupSharedFiles_hasNoPermission\">没有权限删除该文件</string>\r\n    <string name=\"groupSharedFiles_FileIsBeingDownloaded\">该文件正在下载，请稍后……</string>\r\n    <string name=\"groupSharedFiles_insufficientSpace\">本地存储空间不足，无法下载</string>\r\n    <string name=\"groupSharedFiles_waitForDownloading\">当前有文件正在下载，请稍后……</string>\r\n    <string name=\"groupSharedFiles_downloadStart\">%1$s 开始下载</string>\r\n    <string name=\"groupSharedFiles_downloadSuccess\">%1$s 下载完成</string>\r\n    <string name=\"groupSharedFiles_downloadFailed\">%1$s 下载中断</string>\r\n    <string name=\"groupSharedFiles_downloadFailed_ENOSPC\">存储空间不足，下载中断</string>\r\n    <string name=\"groupSharedFiles_downloadFailed_ETIMEDOUT\">网络异常，请检查网络设置</string>\r\n    <string name=\"groupSharedFiles_noAppsForThisFile\">没有合适的程序打开此文件</string>\r\n    <string name=\"groupSharedFiles_fileNotExist\">文件不存在</string>\r\n\r\n    <string name=\"downloadedFiles_previous\">返回</string>\r\n    <string name=\"downloadedFiles_title\">已下载文件</string>\r\n    <string name=\"downloadedFiles_del\">删除</string>\r\n    <string name=\"downloadedFiles_del_success\">删除成功</string>\r\n    <string name=\"downloadedFiles_del_failed\">删除失败，文件可能已经不存在或者被移动</string>\r\n    <string name=\"downloadedFiles_del_failedWhenDownloading\">下载中不能删除</string>\r\n    <string name=\"downloadedFiles_noAppsForThisFile\">没有合适的程序打开此文件</string>\r\n\r\n    <!-- 评教 -->\r\n    <string name=\"evaluateCount\">被评人:%1$s人</string>\r\n    <string name=\"evaluatedCount\">已评:%1$s人</string>\r\n    <string name=\"evaluatePreviousQues\">上一题</string>\r\n    <string name=\"evaluateNextQues\">下一题</string>\r\n    <string name=\"evaluateCheckAllCount\">全部%1$s</string>\r\n    <string name=\"evaluateUncheckCount\">待评%1$s</string>\r\n    <string name=\"evaluateCheckedCount\">已评%1$s</string>\r\n    <string name=\"submit_resut_ing\">正在提交</string>\r\n    <string name=\"submit_resut_success\">提交成功</string>\r\n    <string name=\"eva_back_dialog_msg\">确定要取消当前评教结果吗？</string>\r\n\r\n    <string name=\"noticeDetails_title\">通知详情</string>\r\n    <string name=\"noticeDetails_infoText\">%1$s&#160;&#160;%2$s</string>\r\n    <string name=\"noticeDetails_delete\">删除</string>\r\n    <string name=\"noticeDetails_deleteConfirm\">即将删除</string>\r\n\r\n    <string name=\"internshipList_timeLimit\">%1$s&#160;-&#160;%2$s</string>\r\n    <string name=\"internshipList_title\">实习填报</string>\r\n    <string name=\"internshipList_teacher\">指导老师：%s</string>\r\n    <string name=\"internshipList_company\">实习企业：%s</string>\r\n    <string name=\"internshipList_monthlyReport\">月报</string>\r\n    <string name=\"internshipList_weeklyReport\">周报</string>\r\n    <string name=\"internshipList_dailyReport\">日报</string>\r\n    <string name=\"internshipList_today\">今天</string>\r\n    <string name=\"internshipList_noneToReport\">该实习活动暂不需要填报</string>\r\n\r\n    <string name=\"reportCalendar_dailyReport\">日报</string>\r\n    <string name=\"reportCalendar_weeklyReport\">周报</string>\r\n    <string name=\"reportCalendar_monthlyReport\">月报</string>\r\n    <string name=\"reportCalendar_thisWeek\">本周</string>\r\n    <string name=\"reportCalendar_weekOfYear\">%s周</string>\r\n    <string name=\"reportCalendar_rangeOfWeek\">%1$s-%2$s</string>\r\n    <string name=\"reportCalendar_thisMonth\">本月</string>\r\n    <string name=\"reportCalendar_monthOfYear\">%s月</string>\r\n\r\n    <string name=\"reportContent_title\">%1$s&#160;(%2$d月%3$d日)</string>\r\n    <string name=\"reportContent_contentHint\">请输入日报内容</string>\r\n    <string-array name=\"reportContent_attachments\">\r\n        <item>拍照</item>\r\n        <item>录音</item>\r\n        <item>选择照片</item>\r\n        <item>选择文件</item>\r\n    </string-array>\r\n    <string name=\"reportContent_startAudioRecord\">开始录音</string>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 2955)
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -418,6 +418,8 @@
+     <string name="submit_resut_ing">正在提交</string>
+     <string name="submit_resut_success">提交成功</string>
+     <string name="eva_back_dialog_msg">确定要取消当前评教结果吗？</string>
++    <string name="eva_scoreTooLarge">不能大于%1$.1f分</string>
++    <string name="eva_scoreTooSmall">不能小于%1$.1f分</string>
+ 
+     <string name="noticeDetails_title">通知详情</string>
+     <string name="noticeDetails_infoText">%1$s&#160;&#160;%2$s</string>
+\ No newline at end of file
+Index: app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/BaseEvaluateBean.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-9-22  下午4:20:17\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.bean.app.evaluate;\r\n\r\n/**\r\n * 答题-题目数据结构模型\r\n * @author 胡毅\r\n * @des 题目类型：0：单选题+打分  1：多选题+打分  2： 直接打分 3：文本输入  4：单选+文本输入+打分 5：打分+文本输入\r\n */\r\npublic class BaseEvaluateBean {\r\n\t\r\n\t/**\r\n\t * 题目id\r\n\t */\r\n\tprivate String id;\r\n\t\r\n\t/**\r\n\t * 该题所属的大题\r\n\t */\r\n\tprivate String topicName;\r\n\t\r\n\t/**\r\n\t * 题目问题，如：你觉得改老师要授课过程中，是否有违规行为?（2~10分）\r\n\t */\r\n\tprivate String question;\r\n\t\r\n\t/**\r\n\t * 每题的得分\r\n\t */\r\n\tprivate int score = 0;\r\n\t\r\n\t/**\r\n\t * 题目类型：0：单选题+打分  1：多选题+打分  2： 直接打分 3：文本输入  4：单选+文本输入+打分 5：打分+文本输入\r\n\t */\r\n\tprivate int type = -1;\r\n\t\r\n\tpublic String getId() {\r\n\t\treturn id;\r\n\t}\r\n\r\n\tpublic void setId(String id) {\r\n\t\tthis.id = id;\r\n\t}\r\n\r\n\tpublic String getTopicName() {\r\n\t\treturn topicName;\r\n\t}\r\n\r\n\tpublic void setTopicName(String topicName) {\r\n\t\tthis.topicName = topicName;\r\n\t}\r\n\r\n\tpublic String getQuestion() {\r\n\t\treturn question;\r\n\t}\r\n\r\n\tpublic void setQuestion(String question) {\r\n\t\tthis.question = question;\r\n\t}\r\n\r\n\tpublic int getScore() {\r\n\t\treturn score;\r\n\t}\r\n\r\n\tpublic void setScore(int score) {\r\n\t\tthis.score = score;\r\n\t}\r\n\r\n\tpublic int getType() {\r\n\t\treturn type;\r\n\t}\r\n\r\n\tpublic void setType(int type) {\r\n\t\tthis.type = type;\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/BaseEvaluateBean.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/BaseEvaluateBean.java	(revision )
+@@ -32,7 +32,7 @@
+ 	/**
+ 	 * 每题的得分
+ 	 */
+-	private int score = 0;
++	private float score = 0.0F;
+ 	
+ 	/**
+ 	 * 题目类型：0：单选题+打分  1：多选题+打分  2： 直接打分 3：文本输入  4：单选+文本输入+打分 5：打分+文本输入
+@@ -63,11 +63,11 @@
+ 		this.question = question;
+ 	}
+ 
+-	public int getScore() {
++	public float getScore() {
+ 		return score;
+ 	}
+ 
+-	public void setScore(int score) {
++	public void setScore(float score) {
+ 		this.score = score;
+ 	}
+ 
+Index: app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaWithOptionView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-10-9  上午11:40:49\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.activity.app.evaluate;\r\n\r\nimport android.content.Context;\r\nimport android.content.res.ColorStateList;\r\nimport android.graphics.Color;\r\nimport android.text.Editable;\r\nimport android.text.InputType;\r\nimport android.text.SpannableStringBuilder;\r\nimport android.text.Spanned;\r\nimport android.text.TextWatcher;\r\nimport android.text.method.NumberKeyListener;\r\nimport android.text.style.TextAppearanceSpan;\r\nimport android.util.AttributeSet;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.View.OnClickListener;\r\nimport android.widget.CompoundButton;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RelativeLayout;\r\nimport android.widget.TextView;\r\n\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.bean.app.evaluate.BaseEvaluateOptionsBean;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaParam;\r\nimport com.yineng.ynmessager.bean.app.evaluate.EvaWithOptionsBean;\r\nimport com.yineng.ynmessager.util.L;\r\nimport com.yineng.ynmessager.util.ToastUtil;\r\nimport com.yineng.ynmessager.view.MyRadioGroup;\r\nimport com.yineng.ynmessager.view.MyRadioGroup.OnCheckedChangeListener;\r\nimport com.yineng.ynmessager.view.OptionMultCheckBX;\r\nimport com.yineng.ynmessager.view.OptionMultCheckBX.optionCheckListener;\r\nimport com.yineng.ynmessager.view.OptionSingleRadioBT;\r\n\r\nimport java.util.List;\r\n\r\n/**\r\n * @author 胡毅\r\n * \r\n */\r\npublic class EvaWithOptionView extends LinearLayout implements OnClickListener{\r\n\t/**\r\n\t * 带选项的题目实例\r\n\t */\r\n\tprivate EvaWithOptionsBean mEvaWithOptionsBean;\r\n\tprivate TextView mQuesContentViewTV;\r\n\tprivate RelativeLayout mAdjustScoreContainViewRl;\r\n\tprivate EditText mGetScoreViewET;\r\n\tprivate EditText mSuggestViewET;\r\n\tprivate ImageView mMinuteScoreViewIV;\r\n\tprivate ImageView mPlusScoreViewIV;\r\n\t/**\r\n\t * 当前题目的索引\r\n\t */\r\n\tprivate int mQuesIndex;\r\n\tprivate View rootView;\r\n\t/**\r\n\t * 选项布局容器\r\n\t */\r\n\tprivate LinearLayout mOptionsContainerLL;\r\n\tprivate MyRadioGroup mSingleOptionRG;\r\n\t/**\r\n\t * 选项\r\n\t */\r\n\tprivate List<BaseEvaluateOptionsBean> mOptionList;\r\n\r\n\t/**\r\n\t * 可编辑或输入的最小分数\r\n\t */\r\n\tprivate int mMinScore = 0;\r\n\r\n\t/**\r\n\t * 可编辑或输入的最大分数\r\n\t */\r\n\tprivate int mMaxScore = 0;\r\n\r\n\tprivate NumberKeyListener mScoreEditNumberListener = new NumberKeyListener() {\r\n\t\tpublic int getInputType() {\r\n\t\t\treturn InputType.TYPE_CLASS_NUMBER;\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tprotected char[] getAcceptedChars() {\r\n\t\t\tchar[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6',\r\n\t\t\t\t\t'7', '8', '9' };\r\n\t\t\treturn numbers;\r\n\t\t}\r\n\t};\r\n\r\n\t/**\r\n\t * 得分输入框的文本变化监听器\r\n\t */\r\n\tprivate TextWatcher mGetScoreEditChangeListener = new TextWatcher() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onTextChanged(CharSequence s, int start, int before,\r\n\t\t\t\tint count) {\r\n\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void beforeTextChanged(CharSequence s, int start, int count,\r\n\t\t\t\tint after) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void afterTextChanged(Editable s) {\r\n\t\t\tif (s.length() > 0) {\r\n\t\t\t\tint editScore = Integer.valueOf(s.toString());\r\n\t\t\t\tif (mEvaWithOptionsBean.getScore() == editScore && editScore == 0) {\r\n\t\t\t\t\tmGetScoreViewET.setSelection(s.length());\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif (mMinScore <= editScore && editScore <= mMaxScore) {\r\n//\t\t\t\t\tsetQuestionScore(editScore);\r\n\t\t\t\t\tmEvaWithOptionsBean.setScore(editScore);\r\n\t\t\t\t\tmGetScoreViewET.setSelection(s.length());\r\n\t\t\t\t} else {\r\n//\t\t\t\t\tsetQuestionScore(mMaxScore);\r\n\t\t\t\t\tif (editScore < mMinScore) {\r\n\t\t\t\t\t\tmGetScoreViewET.setText(mMinScore+\"\");\r\n\t\t\t\t\t} else if (editScore > mMaxScore) {\r\n\t\t\t\t\t\tmGetScoreViewET.setText(mMaxScore+\"\");\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t} \r\n\t\t}\r\n\t};\r\n\tprivate LinearLayout mOptionsRootContainerLL;\r\n\t/**\r\n\t * 多选题的选择项视图\r\n\t */\r\n\tprivate LinearLayout mMultOptionsContainerLL;\r\n\t/**\r\n\t * 单选选项选中监听器\r\n\t */\r\n\tprivate OnCheckedChangeListener mSingleOptionCheckListener = new MyRadioGroup.OnCheckedChangeListener() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onCheckedChanged(MyRadioGroup group, int checkedId) {\r\n\t\t\tL.e(\"checkedId == \"+checkedId+\" \"+group.getTag());\r\n\t\t\tif (checkedId == -1) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tmGetScoreViewET.clearFocus();\r\n\t\t\t// 消除之前被选中的选项状态\r\n\t\t\tif (group.getTag() != null) {\r\n\t\t\t\tint checkedBefore = (Integer) group.getTag();\r\n\t\t\t\tupdateRadioGroupSelector(group,checkedBefore,false);\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t\t// 更新被选中的选项状态\r\n//\t\t\tgroup.check(checkedId);\r\n\t\t\tgroup.setTag(checkedId);\r\n\t\t\tupdateRadioGroupSelector(group,checkedId,true);\r\n\t\t\t\r\n\t\t\tupdateSingleOptionScoreArea(checkedId);\r\n\r\n\t\t}\r\n\t};\r\n\t/**\r\n\t * 多选题的选项选择监听器\r\n\t */\r\n\tprivate optionCheckListener mMultOptionCheckListener = new optionCheckListener() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onChecked(CompoundButton buttonView, boolean isChecked) {\r\n\t\t\tint checkedId = buttonView.getId();\r\n\t\t\tBaseEvaluateOptionsBean tempOption = mOptionList.get(checkedId);\r\n\t\t\tif (tempOption == null) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\ttempOption.setSelected(isChecked);\r\n\t\t\tupdateMultOptionScoreArea();\r\n\t\t}\r\n\t};\r\n\r\n\t/**\r\n\t * 意见或建议的文本监听\r\n\t */\r\n\tprivate TextWatcher mSuggestEditChangeListener = new TextWatcher() {\r\n\r\n\t\t@Override\r\n\t\tpublic void onTextChanged(CharSequence s, int start, int before,\r\n\t\t\t\tint count) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void beforeTextChanged(CharSequence s, int start, int count,\r\n\t\t\t\tint after) {\r\n\t\t}\r\n\r\n\t\t@Override\r\n\t\tpublic void afterTextChanged(Editable s) {\r\n\t\t\tL.e(\"mEvaWithOptionsBean mSuggestViewET afterTextChanged == \"\r\n\t\t\t\t\t+ s.toString());\r\n\t\t\tmEvaWithOptionsBean.setSuggestion(s.toString());\r\n\t\t}\r\n\t};\r\n\tprivate Context mContext;\r\n\t\r\n\t/**\r\n\t * 是否是初始化已有选择的单选题目分数\r\n\t */\r\n\tprivate boolean isInitSingleCheckedScore = false;\r\n\t\r\n\t/**\r\n\t * 是否是初始化已有选择的多选题目分数\r\n\t */\r\n\tprivate boolean isInitMultCheckedScore = false;\r\n//\tprivate TextView mGetScoreTagTV;\r\n\r\n\t/**\r\n\t * 设置该界面的对象数据\r\n\t * \r\n\t * @param index\r\n\t * @param mEvaWithOptionsBean\r\n\t */\r\n\tpublic void setmEvaNoOptionsBean(EvaWithOptionsBean mEvaWithOptionsBean) {\r\n\t\tthis.mEvaWithOptionsBean = mEvaWithOptionsBean;\r\n\t}\r\n\t\r\n\t/**\r\n\t * @param group\r\n\t * @param checkedBefore\r\n\t * @param b\r\n\t */\r\n\tprotected void updateRadioGroupSelector(MyRadioGroup group,\r\n\t\t\tint checkedId, boolean isChecked) {\r\n\t\tRadioButton optionBt = (RadioButton) group.findViewById(checkedId);\r\n\t\tView optionContainer = (View) optionBt.getParent();\r\n\t\tImageView mSelectIV = (ImageView) optionContainer\r\n\t\t\t\t.findViewById(R.id.item_app_evaluate_option_bt);\r\n\t\tmSelectIV.setSelected(isChecked);\r\n\t\toptionBt.setChecked(isChecked);\r\n\t\tmOptionList.get(checkedId).setSelected(isChecked);\r\n//\t\tif (mGetScoreViewET.getKeyListener() == null) {\r\n//\t\t\tmGetScoreViewET.setKeyListener(mScoreEditNumberListener);\r\n//\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * 设置该界面的对象数据\r\n\t * \r\n\t * @param index\r\n\t * @param mEvaWithOptionsBean\r\n\t */\r\n\tpublic void setmEvaNoOptionsBean(int index,\r\n\t\t\tEvaWithOptionsBean mEvaWithOptionsBean) {\r\n\t\tthis.mQuesIndex = index;\r\n\t\tthis.mEvaWithOptionsBean = mEvaWithOptionsBean;\r\n\t\t// refreshView();\r\n\t}\r\n\r\n\tpublic EvaWithOptionView(Context context, AttributeSet attrs, int defStyle) {\r\n\t\tsuper(context, attrs, defStyle);\r\n\t}\r\n\r\n\tpublic EvaWithOptionView(Context context, AttributeSet attrs) {\r\n\t\tsuper(context, attrs);\r\n\t}\r\n\r\n\tpublic EvaWithOptionView(Context context) {\r\n\t\tsuper(context);\r\n\t\tmContext = context;\r\n\t\tLayoutInflater.from(context).inflate(R.layout.fragment_evaluate_answer_question, this);\r\n\t\tinitView();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initView() {\r\n\t\tfindViews();\r\n\t\tinitViewListener();\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void findViews() {\r\n\t\tmOptionsRootContainerLL = (LinearLayout) findViewById(R.id.app_evaluate_ques_root);\r\n\t\tmQuesContentViewTV = (TextView) findViewById(R.id.app_evaluate_ques_content);\r\n\t\tmOptionsContainerLL = (LinearLayout) findViewById(R.id.app_evluate_options_container);\r\n\t\tmOptionsContainerLL.setVisibility(VISIBLE);\r\n\t\tmSingleOptionRG = (MyRadioGroup) findViewById(R.id.app_evaluate_single_options_rg);\r\n\t\tmMultOptionsContainerLL = (LinearLayout) findViewById(R.id.app_evaluate_mult_options_ll);\r\n\t\tmAdjustScoreContainViewRl = (RelativeLayout) findViewById(R.id.app_evaluate_adjust_score_view);\r\n\t\tmMinuteScoreViewIV = (ImageView) findViewById(R.id.app_evaluate_ques_minute_score);\r\n\t\tmPlusScoreViewIV = (ImageView) findViewById(R.id.app_evaluate_ques_plus_score);\r\n\t\tmGetScoreViewET = (EditText) findViewById(R.id.app_evaluate_ques_get_point);\r\n//\t\tmGetScoreTagTV = (TextView) findViewById(R.id.app_evaluate_ques_score_tag);\r\n\t\tmSuggestViewET = (EditText) findViewById(R.id.app_evaluate_ques_suggestion);\r\n\t}\r\n\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initViewListener() {\r\n\t\tmMinuteScoreViewIV.setOnClickListener(this);\r\n\t\tmPlusScoreViewIV.setOnClickListener(this);\r\n\t\tmAdjustScoreContainViewRl.setOnClickListener(this);\r\n//\t\tmGetScoreViewET.setKeyListener(null);\r\n\t\tmGetScoreViewET.setOnClickListener(this);\r\n//\t\tmGetScoreTagTV.setOnClickListener(this);\r\n\t\tmGetScoreViewET.addTextChangedListener(mGetScoreEditChangeListener);\r\n\t\tmGetScoreViewET.setOnFocusChangeListener(new OnFocusChangeListener() {\r\n\t\t\t\r\n\t\t\t@Override\r\n\t\t\tpublic void onFocusChange(View v, boolean hasFocus) {\r\n\t\t\t\tL.e(\"hasFocus == \"+hasFocus);\r\n\t\t\t\tif (!hasFocus) {\r\n\t\t\t\t\tif (\"\".equals(mGetScoreViewET.getText().toString())) {\r\n\t\t\t\t\t\tsetQuestionScore(0);\r\n\t\t\t\t\t\treturn;\r\n\t\t\t\t\t}\r\n//\t\t\t\t\tint editScore = Integer.valueOf(mGetScoreViewET.getText().toString());\r\n//\t\t\t\t\tif (mMinScore <= editScore && editScore <= mMaxScore) {\r\n//\t\t\t\t\t\tsetQuestionScore(editScore);\r\n//\t\t\t\t\t} else {\r\n//\t\t\t\t\t\tsetQuestionScore(mMaxScore);\r\n//\t\t\t\t\t}\r\n\t\t\t\t}/* else {\r\n\t\t\t\t\tmGetScoreViewET.setSelection(mGetScoreViewET.getText().length());\r\n\t\t\t\t}*/\r\n\t\t\t}\r\n\t\t});\r\n//\t\tmOptionsRootContainerLL.setOnTouchListener(new OnTouchListener() {\r\n//\t\t\t\r\n//\t\t\t@Override\r\n//\t\t\tpublic boolean onTouch(View v, MotionEvent event) {\r\n//\t\t\t\tmOptionsRootContainerLL.requestFocus();\r\n//\t\t\t\treturn false;\r\n//\t\t\t}\r\n//\t\t});\r\n\t\tmSuggestViewET.addTextChangedListener(mSuggestEditChangeListener);\r\n\t}\r\n\r\n\t@Override\r\n\tpublic void onClick(View v) {\r\n\t\tswitch (v.getId()) {\r\n//\t\tcase R.id.app_evaluate_ques_score_tag:\r\n////\t\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n////\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n////\t\t\t\treturn;\r\n////\t\t\t}\r\n//\t\t\tmOptionsRootContainerLL.clearFocus();\r\n//\t\t\tmGetScoreViewET.requestFocus();\r\n//\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_ques_minute_score:\r\n//\t\t\tif (mSingleOptionRG.getCheckedRadioButtonId() == -1) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(getActivity(), \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n//\t\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n\t\t\tmGetScoreViewET.clearFocus();\r\n\t\t\tif (mEvaWithOptionsBean.getScore() <= mMinScore) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tmGetScoreViewET.setText((mEvaWithOptionsBean.getScore()-1)+\"\");\r\n//\t\t\tmEvaWithOptionsBean.setScore(mEvaWithOptionsBean.getScore()-1);\r\n//\t\t\tsetQuestionScore(mEvaWithOptionsBean.getScore());\r\n\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_ques_plus_score:\r\n//\t\t\tif (mSingleOptionRG.getCheckedRadioButtonId() == -1) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n//\t\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n\t\t\tmGetScoreViewET.clearFocus();\r\n\t\t\tif (mEvaWithOptionsBean.getScore() >= mMaxScore) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tmGetScoreViewET.setText((mEvaWithOptionsBean.getScore()+1)+\"\");\r\n//\t\t\tmEvaWithOptionsBean.setScore(mEvaWithOptionsBean.getScore()+1);\r\n//\t\t\tsetQuestionScore(mEvaWithOptionsBean.getScore());\r\n\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_adjust_score_view:\r\n//\t\t\tif (mSingleOptionRG.getCheckedRadioButtonId() == -1) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n//\t\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n\t\t\tbreak;\r\n\t\tcase R.id.app_evaluate_ques_get_point:\r\n//\t\t\tif (mSingleOptionRG.getCheckedRadioButtonId() == -1) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n//\t\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n//\t\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"请先选择选项\", 1000);\r\n//\t\t\t\treturn;\r\n//\t\t\t}\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 刷新当前界面\r\n\t * @param noOptionQuesObj \r\n\t */\r\n\tpublic void refreshView(EvaWithOptionsBean withOptionQuesObj) {\r\n\t\tthis.mEvaWithOptionsBean = withOptionQuesObj;\r\n\t\tresetViews();\r\n\t\tinitCommonView();\r\n\t\tswitch (mEvaWithOptionsBean.getType()) {\r\n\t\tcase EvaParam.EVA_QUES_SINGLE_OPTION://单选题+打分\r\n\t\t\tmSingleOptionRG.setVisibility(View.VISIBLE);\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.VISIBLE);\r\n\t\t\tmSuggestViewET.setVisibility(View.GONE);\r\n\t\t\tinitSingleOptionRgView();\r\n\t\t\tbreak;\r\n\t\tcase EvaParam.EVA_QUES_MULT_OPTION://多选题+打分\r\n\t\t\tmSingleOptionRG.setVisibility(View.GONE);\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.VISIBLE);\r\n\t\t\tmSuggestViewET.setVisibility(View.GONE);\r\n\t\t\tmMultOptionsContainerLL.setVisibility(View.VISIBLE);\r\n\t\t\tinitMultOptionCbView();\r\n\t\t\tbreak;\r\n\t\tcase EvaParam.EVA_QUES_SINGLE_ADVICE://单选+文本输入+打分\r\n\t\t\tmSingleOptionRG.setVisibility(View.VISIBLE);\r\n\t\t\tmAdjustScoreContainViewRl.setVisibility(View.VISIBLE);\r\n\t\t\tmSuggestViewET.setVisibility(View.VISIBLE);\r\n\t\t\tinitSingleOptionRgView();\r\n\t\t\t// 意见或建议\r\n\t\t\tmSuggestViewET.setText(mEvaWithOptionsBean.getSuggestion() == null ? \"\": mEvaWithOptionsBean.getSuggestion());\r\n\t\t\tbreak;\r\n\t\tdefault:\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 重置View\r\n\t */\r\n\tprivate void resetViews() {\r\n\t\tmMinScore = 0;\r\n\t\tmMaxScore = 0;\r\n\t\tmSingleOptionRG.removeAllViews();\r\n//\t\tmSingleOptionRG.clearCheck();\r\n\t\tmSingleOptionRG.setTag(null);\r\n\t\tmMultOptionsContainerLL.removeAllViews();\r\n\t\tmGetScoreViewET.clearFocus();\r\n\t}\r\n\t\r\n\t/**\r\n\t * \r\n\t */\r\n\tprivate void initCommonView() {\r\n\t\tmOptionList = mEvaWithOptionsBean.getOptions();\r\n\t\t// 问题内容\r\n\t\tmQuesContentViewTV.setText(mEvaWithOptionsBean.getQuestion());\r\n\t\tif (mEvaWithOptionsBean.getMaxScore().isEmpty() || mEvaWithOptionsBean.getMinScore().isEmpty()) {\r\n\t\t\tToastUtil.toastAlerMessageBottom(mContext, \"题目没有分数区间\", 800);\r\n\t\t\treturn;\r\n\t\t}\r\n\t\tmMaxScore = Integer.valueOf(mEvaWithOptionsBean.getMaxScore());\r\n\t\tmMinScore = Integer.valueOf(mEvaWithOptionsBean.getMinScore());\r\n\t\t\r\n//\t\tif (mEvaWithOptionsBean.getScore() == 0) {\r\n//\t\t\tint defaultScore = Integer.valueOf(mEvaWithOptionsBean.getMaxScore());\r\n//\t\t\tmEvaWithOptionsBean.setScore(defaultScore);\r\n//\t\t}\r\n\t\t\r\n\t\t// 设置默认分数\r\n\t\tmGetScoreViewET.setText(mEvaWithOptionsBean.getScore()+\"\");\r\n//\t\tsetQuestionScore(mEvaWithOptionsBean.getScore());\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化单选选项界面和选项监听器\r\n\t */\r\n\tprivate void initSingleOptionRgView() {\r\n\t\tif (mOptionList != null) {\r\n\t\t\tfor (int i = 0; i < mOptionList.size(); i++) {\r\n\t\t\t\tBaseEvaluateOptionsBean tempOption = mOptionList.get(i);\r\n\t\t\t\t//初始化每一个选项内容\r\n\t\t\t\tOptionSingleRadioBT singleRadioBT = initEachOneSingleOptionView(i,tempOption);\r\n\t\t\t\tmSingleOptionRG.addView(singleRadioBT);\r\n\t\t\t}\r\n\t\t\tinitEachOneSingleOptionViewListener();\r\n\t\t\tfor (int i = 0; i < mOptionList.size(); i++) {\r\n\t\t\t\tBaseEvaluateOptionsBean tempOption = mOptionList.get(i);\r\n\t\t\t\tif (tempOption.isSelected()) {\r\n//\t\t\t\t\tmSingleOptionRG.check(i);\r\n\t\t\t\t\tisInitSingleCheckedScore = true;\r\n\t\t\t\t\tOptionSingleRadioBT selectRB = (OptionSingleRadioBT) mSingleOptionRG.getChildAt(i);\r\n\t\t\t\t\tselectRB.mSelectRB.setChecked(true);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化每一个单选选项内容\r\n\t * @param i \r\n\t * @param tempOption\r\n\t * @return \r\n\t */\r\n\tprivate OptionSingleRadioBT initEachOneSingleOptionView(int i, BaseEvaluateOptionsBean tempOption) {\r\n\t\tfinal OptionSingleRadioBT singleRadioBT = new OptionSingleRadioBT(mContext);\r\n\t\tsingleRadioBT.mSelectRB.setId(i);\r\n\t\tSpannableStringBuilder spanBuilder = initEachOptionContent(tempOption);\r\n\t\tsingleRadioBT.mSelectRB.setText(spanBuilder);\r\n\t\treturn singleRadioBT;\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化单选选项监听器\r\n\t */\r\n\tprivate void initEachOneSingleOptionViewListener() {\r\n\t\tmSingleOptionRG.setOnCheckedChangeListener(mSingleOptionCheckListener);\t\t\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化多选题的选择项视图\r\n\t */\r\n\tprivate void initMultOptionCbView() {\r\n\t\tif (mOptionList != null) {\r\n\t\t\tisInitMultCheckedScore = true;\r\n\t\t\tfor (int i = 0; i < mOptionList.size(); i++) {\r\n\t\t\t\tBaseEvaluateOptionsBean tempOption = mOptionList.get(i);\r\n\t\t\t\t//初始化每一个选项内容\r\n\t\t\t\tOptionMultCheckBX multCheckBT = initEachOneMultOptionView(i,tempOption);\r\n\t\t\t\tinitEachOneMultOptionViewListener(multCheckBT);\r\n\t\t\t\tmMultOptionsContainerLL.addView(multCheckBT);\r\n\t\t\t\tif (tempOption.isSelected()) {\r\n\t\t\t\t\tmultCheckBT.setChecked(true);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\tisInitMultCheckedScore = false;\r\n\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化每一个多选选项的视图\r\n\t * @param i 索引，id\r\n\t * @param tempOption 选项数据对象\r\n\t * @return 一个选项的视图\r\n\t */\r\n\tprivate OptionMultCheckBX initEachOneMultOptionView(int i, BaseEvaluateOptionsBean tempOption) {\r\n\t\tfinal OptionMultCheckBX multOptionBT = new OptionMultCheckBX(mContext);\r\n\t\tmultOptionBT.mCheckCB.setId(i);\r\n\t\tSpannableStringBuilder spanBuilder = initEachOptionContent(tempOption);\r\n\t\tmultOptionBT.mCheckCB.setText(spanBuilder);\r\n\t\treturn multOptionBT;\r\n\t}\r\n\r\n\t/**\r\n\t * 初始化每个多选按钮的监听器\r\n\t * @param multCheckBT \r\n\t * \r\n\t */\r\n\tprivate void initEachOneMultOptionViewListener(OptionMultCheckBX multCheckBT) {\r\n\t\tmultCheckBT.setOnOptionCheckListener(mMultOptionCheckListener);\r\n\t}\r\n\t\r\n\t/**\r\n\t * 初始化每个选项的文本显示格式\r\n\t * @param tempOption 选项数据对象\r\n\t * @return 格式化后的选项文本\r\n\t */\r\n\tpublic SpannableStringBuilder initEachOptionContent(BaseEvaluateOptionsBean tempOption) {\r\n\t\t//初始化选项内容格式\r\n\t\tColorStateList redColors = ColorStateList.valueOf(Color\r\n\t\t\t\t.parseColor(\"#a0a0a0\"));\r\n\t\tSpannableStringBuilder spanBuilder = new SpannableStringBuilder();\r\n\t\tspanBuilder.append(tempOption.getContent());\r\n\t\tspanBuilder.append(\"\\n\");\r\n\t\tspanBuilder.append(tempOption.getMinScore() + \"分~\");\r\n\t\tspanBuilder.append(tempOption.getMaxScore() + \"分\");\r\n\t\t// style 为0 即是正常的，还有Typeface.BOLD(粗体) Typeface.ITALIC(斜体)等\r\n\t\t// size 为0 即采用原始的正常的 size大小\r\n\t\tint contentSize = (int) getResources().getDimension(\r\n\t\t\t\tR.dimen.common_listItem_textSize);\r\n\t\tTextAppearanceSpan textStyle = new TextAppearanceSpan(null, 0, contentSize - 3,\r\n\t\t\t\tredColors, null);\r\n\t\tspanBuilder.setSpan(textStyle, tempOption.getContent().length(), spanBuilder\r\n\t\t\t\t.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);\r\n\t\treturn spanBuilder;\r\n\t}\r\n\t\r\n\t/**\r\n\t * 设置该题分数\r\n\t */\r\n\tpublic void setQuestionScore(int score) {\r\n\t\tmEvaWithOptionsBean.setScore(score);\r\n\t\tmGetScoreViewET.setText(score+\"\");\r\n\t}\r\n\t\r\n\t/**\r\n\t * 更新单选分数区间\r\n\t * @param checkedId\r\n\t */\r\n\tprotected void updateSingleOptionScoreArea(int checkedId) {\r\n\t\tBaseEvaluateOptionsBean optionScore = mOptionList.get(checkedId);\r\n\t\tint mMaxScore = Integer.valueOf(optionScore.getMaxScore());\r\n\t\t//当选中选项时，不更新最大最小值区间\r\n//\t\tmMinScore = Integer.valueOf(optionScore.getMinScore());\r\n\t\tif (isInitSingleCheckedScore) {\r\n\t\t\tisInitSingleCheckedScore = false;\r\n\t\t\treturn;\r\n\t\t}\r\n\t\t//当用户选中选项时，将选项的最高分作为默认值，变更此输入框的分数\r\n\t\tmGetScoreViewET.setText(mMaxScore+\"\");\r\n//\t\tsetQuestionScore(mMaxScore);\r\n//\t\tif (mMinScore <= mEvaWithOptionsBean.getScore() && mEvaWithOptionsBean.getScore() <= mMaxScore) {\r\n//\t\t\tsetQuestionScore(mEvaWithOptionsBean.getScore());\r\n//\t\t} else {\r\n//\t\t\tsetQuestionScore(mMaxScore);\r\n//\t\t}\r\n\t}\r\n\t\r\n\t/**\r\n\t * 更新多选分数区间\r\n\t */\r\n\tprotected void updateMultOptionScoreArea() {\r\n//\t\tmMinScore = 0;\r\n\t\tint mMaxScore = 0;\r\n\t\tfor (BaseEvaluateOptionsBean checkOption : mOptionList) {\r\n\t\t\tif (checkOption.isSelected()) {\r\n\t\t\t\tint tempMaxScore = Integer.valueOf(checkOption.getMaxScore());\r\n\t\t\t\tint tempMinScore = Integer.valueOf(checkOption.getMinScore());\r\n\t\t\t\tL.i(\"tempMaxScore == \" + tempMaxScore + \" tempMinScore == \"\r\n\t\t\t\t\t\t+ tempMinScore);\r\n//\t\t\t\tif (tempMinScore < mMinScore || mMinScore == 0) {\r\n//\t\t\t\t\tmMinScore = tempMinScore;\r\n//\t\t\t\t}\r\n\t\t\t\tif (tempMaxScore > mMaxScore) {\r\n\t\t\t\t\tmMaxScore = tempMaxScore;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tL.i(\"isInitMultCheckedScore == \" + isInitMultCheckedScore);\r\n\t\tif (isInitMultCheckedScore) {\r\n\t\t\treturn;\r\n\t\t}\r\n\t\tif (mMaxScore == 0) {\r\n\t\t\tsetQuestionScore(mMaxScore);\r\n\t\t} else {\r\n\t\t\tmGetScoreViewET.setText(mMaxScore+\"\");\r\n\t\t}\r\n\t\t\r\n//\t\tsetQuestionScore(mMaxScore);\r\n//\t\tif (mMinScore <= mEvaWithOptionsBean.getScore()\r\n//\t\t\t\t&& mEvaWithOptionsBean.getScore() <= mMaxScore) {\r\n//\t\t\tsetQuestionScore(mEvaWithOptionsBean.getScore());\r\n//\t\t} else {\r\n//\t\t\tsetQuestionScore(mMaxScore);\r\n//\t\t}\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaWithOptionView.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/activity/app/evaluate/EvaWithOptionView.java	(revision )
+@@ -28,6 +28,7 @@
+ import android.widget.RadioButton;
+ import android.widget.RelativeLayout;
+ import android.widget.TextView;
++import android.widget.Toast;
+ 
+ import com.yineng.ynmessager.R;
+ import com.yineng.ynmessager.bean.app.evaluate.BaseEvaluateOptionsBean;
+@@ -41,6 +42,10 @@
+ import com.yineng.ynmessager.view.OptionMultCheckBX.optionCheckListener;
+ import com.yineng.ynmessager.view.OptionSingleRadioBT;
+ 
++import org.apache.commons.lang3.StringUtils;
++
++import java.math.BigDecimal;
++import java.math.RoundingMode;
+ import java.util.List;
+ 
+ /**
+@@ -48,6 +53,7 @@
+  * 
+  */
+ public class EvaWithOptionView extends LinearLayout implements OnClickListener{
++    private static final String TAG = "EvaWithOptionView";
+ 	/**
+ 	 * 带选项的题目实例
+ 	 */
+@@ -58,7 +64,9 @@
+ 	private EditText mSuggestViewET;
+ 	private ImageView mMinuteScoreViewIV;
+ 	private ImageView mPlusScoreViewIV;
++    private static final BigDecimal OPERATION_STEP = new BigDecimal("0.1");
++
+-	/**
++    /**
+ 	 * 当前题目的索引
+ 	 */
+ 	private int mQuesIndex;
+@@ -76,12 +84,12 @@
+ 	/**
+ 	 * 可编辑或输入的最小分数
+ 	 */
+-	private int mMinScore = 0;
++	private float mMinScore = 0.0F;
+ 
+ 	/**
+ 	 * 可编辑或输入的最大分数
+ 	 */
+-	private int mMaxScore = 0;
++	private float mMaxScore = 0.0F;
+ 
+ 	private NumberKeyListener mScoreEditNumberListener = new NumberKeyListener() {
+ 		public int getInputType() {
+@@ -115,8 +123,18 @@
+ 		@Override
+ 		public void afterTextChanged(Editable s) {
+ 			if (s.length() > 0) {
+-				int editScore = Integer.valueOf(s.toString());
++
++				float editScore;
++                try{
++                    editScore = Float.valueOf(s.toString());
++                }catch(NumberFormatException e)
++                {
++                    L.w(TAG,e.getMessage());
++                    s.clear();
++                    return;
++                }
++
+-				if (mEvaWithOptionsBean.getScore() == editScore && editScore == 0) {
++                if (mEvaWithOptionsBean.getScore() == editScore && editScore == 0) {
+ 					mGetScoreViewET.setSelection(s.length());
+ 					return;
+ 				}
+@@ -128,9 +146,9 @@
+ 				} else {
+ //					setQuestionScore(mMaxScore);
+ 					if (editScore < mMinScore) {
+-						mGetScoreViewET.setText(mMinScore+"");
++						mGetScoreViewET.setText(String.valueOf(mMinScore));
+ 					} else if (editScore > mMaxScore) {
+-						mGetScoreViewET.setText(mMaxScore+"");
++						mGetScoreViewET.setText(String.valueOf(mMaxScore));
+ 					}
+ 				}
+ 			} 
+@@ -148,7 +166,7 @@
+ 
+ 		@Override
+ 		public void onCheckedChanged(MyRadioGroup group, int checkedId) {
+-			L.e("checkedId == "+checkedId+" "+group.getTag());
++			L.v("checkedId == "+checkedId+" "+group.getTag());
+ 			if (checkedId == -1) {
+ 				return;
+ 			}
+@@ -202,7 +220,7 @@
+ 
+ 		@Override
+ 		public void afterTextChanged(Editable s) {
+-			L.e("mEvaWithOptionsBean mSuggestViewET afterTextChanged == "
++			L.v("mEvaWithOptionsBean mSuggestViewET afterTextChanged == "
+ 					+ s.toString());
+ 			mEvaWithOptionsBean.setSuggestion(s.toString());
+ 		}
+@@ -222,19 +240,11 @@
+ 
+ 	/**
+ 	 * 设置该界面的对象数据
+-	 * 
+-	 * @param index
+-	 * @param mEvaWithOptionsBean
+ 	 */
+ 	public void setmEvaNoOptionsBean(EvaWithOptionsBean mEvaWithOptionsBean) {
+ 		this.mEvaWithOptionsBean = mEvaWithOptionsBean;
+ 	}
+ 	
+-	/**
+-	 * @param group
+-	 * @param checkedBefore
+-	 * @param b
+-	 */
+ 	protected void updateRadioGroupSelector(MyRadioGroup group,
+ 			int checkedId, boolean isChecked) {
+ 		RadioButton optionBt = (RadioButton) group.findViewById(checkedId);
+@@ -318,12 +328,18 @@
+ 			
+ 			@Override
+ 			public void onFocusChange(View v, boolean hasFocus) {
+-				L.e("hasFocus == "+hasFocus);
+ 				if (!hasFocus) {
+-					if ("".equals(mGetScoreViewET.getText().toString())) {
+-						setQuestionScore(0);
++                    String text = mGetScoreViewET.getText().toString();
++					if (StringUtils.isEmpty(text)) {
++                        mEvaWithOptionsBean.setScore(0);
+ 						return;
++					}else
++                    {
++                        String roundedNum = new BigDecimal(text)
++                                .setScale(1,RoundingMode.FLOOR)
++                                .toString();
++                        mGetScoreViewET.setText(roundedNum);
+-					}
++                    }
+ //					int editScore = Integer.valueOf(mGetScoreViewET.getText().toString());
+ //					if (mMinScore <= editScore && editScore <= mMaxScore) {
+ //						setQuestionScore(editScore);
+@@ -348,6 +364,8 @@
+ 
+ 	@Override
+ 	public void onClick(View v) {
++        float score = mEvaWithOptionsBean.getScore();
++
+ 		switch (v.getId()) {
+ //		case R.id.app_evaluate_ques_score_tag:
+ ////			if (mEvaWithOptionsBean.getScore() == 0) {
+@@ -366,11 +384,22 @@
+ //				ToastUtil.toastAlerMessageBottom(mContext, "请先选择选项", 1000);
+ //				return;
+ //			}
++
++            if(StringUtils.isEmpty(mGetScoreViewET.getText())) return;
++
+ 			mGetScoreViewET.clearFocus();
+-			if (mEvaWithOptionsBean.getScore() <= mMinScore) {
++
++			if (score <= mMinScore) {
++                Toast.makeText(getContext(),
++                        getResources().getString(R.string.eva_scoreTooSmall,mMinScore),
++                        Toast.LENGTH_SHORT).show();
+-				return;
++                return;
+ 			}
+-			mGetScoreViewET.setText((mEvaWithOptionsBean.getScore()-1)+"");
++			mGetScoreViewET.setText(
++                    new BigDecimal(
++                    String.valueOf(score))
++                    .subtract(OPERATION_STEP)
++                    .toString());
+ //			mEvaWithOptionsBean.setScore(mEvaWithOptionsBean.getScore()-1);
+ //			setQuestionScore(mEvaWithOptionsBean.getScore());
+ 			break;
+@@ -383,11 +412,24 @@
+ //				ToastUtil.toastAlerMessageBottom(mContext, "请先选择选项", 1000);
+ //				return;
+ //			}
++
++            if(StringUtils.isEmpty(mGetScoreViewET.getText())) return;
++
+-			mGetScoreViewET.clearFocus();
++            mGetScoreViewET.clearFocus();
+-			if (mEvaWithOptionsBean.getScore() >= mMaxScore) {
++
++
++            if (score >= mMaxScore)
++            {
++                Toast.makeText(getContext(),
++                        getResources().getString(R.string.eva_scoreTooLarge, mMaxScore),
++                        Toast.LENGTH_SHORT).show();
+-				return;
+-			}
++                return;
++            }
+-			mGetScoreViewET.setText((mEvaWithOptionsBean.getScore()+1)+"");
++            mGetScoreViewET.setText(
++                    new BigDecimal(
++                    String.valueOf(score))
++                    .add(OPERATION_STEP)
++                    .toString());
+ //			mEvaWithOptionsBean.setScore(mEvaWithOptionsBean.getScore()+1);
+ //			setQuestionScore(mEvaWithOptionsBean.getScore());
+ 			break;
+@@ -418,7 +460,6 @@
+ 	
+ 	/**
+ 	 * 刷新当前界面
+-	 * @param noOptionQuesObj 
+ 	 */
+ 	public void refreshView(EvaWithOptionsBean withOptionQuesObj) {
+ 		this.mEvaWithOptionsBean = withOptionQuesObj;
+@@ -455,8 +496,8 @@
+ 	 * 重置View
+ 	 */
+ 	private void resetViews() {
+-		mMinScore = 0;
+-		mMaxScore = 0;
++		mMinScore = 0.0F;
++		mMaxScore = 0.0F;
+ 		mSingleOptionRG.removeAllViews();
+ //		mSingleOptionRG.clearCheck();
+ 		mSingleOptionRG.setTag(null);
+@@ -475,16 +516,26 @@
+ 			ToastUtil.toastAlerMessageBottom(mContext, "题目没有分数区间", 800);
+ 			return;
+ 		}
+-		mMaxScore = Integer.valueOf(mEvaWithOptionsBean.getMaxScore());
+-		mMinScore = Integer.valueOf(mEvaWithOptionsBean.getMinScore());
++        //现在不根据题目的最大和最小分值来确定能填的分值范围
++/*		mMaxScore = Float.valueOf(mEvaWithOptionsBean.getMaxScore());
++		mMinScore = Float.valueOf(mEvaWithOptionsBean.getMinScore());*/
+ 		
+ //		if (mEvaWithOptionsBean.getScore() == 0) {
+ //			int defaultScore = Integer.valueOf(mEvaWithOptionsBean.getMaxScore());
+ //			mEvaWithOptionsBean.setScore(defaultScore);
+ //		}
++		mMaxScore = Float.valueOf(mEvaWithOptionsBean.getMaxScore());
++        mMinScore = Float.valueOf(mEvaWithOptionsBean.getMinScore());
+-		
++
+ 		// 设置默认分数
+-		mGetScoreViewET.setText(mEvaWithOptionsBean.getScore()+"");
++        float score = mEvaWithOptionsBean.getScore();
++        if(score == 0.0F)
++        {
++            mGetScoreViewET.setText(StringUtils.EMPTY);
++        }else
++        {
++            mGetScoreViewET.setText(String.valueOf(score));
++        }
+ //		setQuestionScore(mEvaWithOptionsBean.getScore());
+ 	}
+ 	
+@@ -602,20 +653,17 @@
+ 	}
+ 	
+ 	/**
+-	 * 设置该题分数
+-	 */
+-	public void setQuestionScore(int score) {
+-		mEvaWithOptionsBean.setScore(score);
+-		mGetScoreViewET.setText(score+"");
+-	}
+-	
+-	/**
+ 	 * 更新单选分数区间
+ 	 * @param checkedId
+ 	 */
+ 	protected void updateSingleOptionScoreArea(int checkedId) {
+ 		BaseEvaluateOptionsBean optionScore = mOptionList.get(checkedId);
+-		int mMaxScore = Integer.valueOf(optionScore.getMaxScore());
++		float maxScore = Float.valueOf(optionScore.getMaxScore());
++        float minScore = Float.valueOf(optionScore.getMinScore());
++
++        mMaxScore = maxScore;
++        mMinScore = minScore;
++
+ 		//当选中选项时，不更新最大最小值区间
+ //		mMinScore = Integer.valueOf(optionScore.getMinScore());
+ 		if (isInitSingleCheckedScore) {
+@@ -623,12 +671,12 @@
+ 			return;
+ 		}
+ 		//当用户选中选项时，将选项的最高分作为默认值，变更此输入框的分数
+-		mGetScoreViewET.setText(mMaxScore+"");
+-//		setQuestionScore(mMaxScore);
+-//		if (mMinScore <= mEvaWithOptionsBean.getScore() && mEvaWithOptionsBean.getScore() <= mMaxScore) {
++		mGetScoreViewET.setText(String.valueOf(maxScore));
++//		setQuestionScore(maxScore);
++//		if (mMinScore <= mEvaWithOptionsBean.getScore() && mEvaWithOptionsBean.getScore() <= maxScore) {
+ //			setQuestionScore(mEvaWithOptionsBean.getScore());
+ //		} else {
+-//			setQuestionScore(mMaxScore);
++//			setQuestionScore(maxScore);
+ //		}
+ 	}
+ 	
+@@ -636,38 +684,41 @@
+ 	 * 更新多选分数区间
+ 	 */
+ 	protected void updateMultOptionScoreArea() {
+-//		mMinScore = 0;
+-		int mMaxScore = 0;
++		float maxScore = 0.0F;
++        float minScore = 0.0F;
++
+ 		for (BaseEvaluateOptionsBean checkOption : mOptionList) {
+ 			if (checkOption.isSelected()) {
+-				int tempMaxScore = Integer.valueOf(checkOption.getMaxScore());
+-				int tempMinScore = Integer.valueOf(checkOption.getMinScore());
+-				L.i("tempMaxScore == " + tempMaxScore + " tempMinScore == "
+-						+ tempMinScore);
+-//				if (tempMinScore < mMinScore || mMinScore == 0) {
+-//					mMinScore = tempMinScore;
+-//				}
+-				if (tempMaxScore > mMaxScore) {
+-					mMaxScore = tempMaxScore;
++                maxScore = new BigDecimal(checkOption.getMaxScore())
++                        .add(new BigDecimal(String.valueOf(maxScore)))
++                        .floatValue();
++
++                minScore = new BigDecimal(checkOption.getMinScore())
++                        .add(new BigDecimal(String.valueOf(minScore)))
++                        .floatValue();
+-				}
+-			}
++			}
++		}
+-		}
++
++        mMaxScore = maxScore;
++        mMinScore = minScore;
++
+ 		L.i("isInitMultCheckedScore == " + isInitMultCheckedScore);
+ 		if (isInitMultCheckedScore) {
+ 			return;
+ 		}
+-		if (mMaxScore == 0) {
+-			setQuestionScore(mMaxScore);
++		if (maxScore == 0) {
++            mEvaWithOptionsBean.setScore(0.0F);
++            mGetScoreViewET.setText(StringUtils.EMPTY);
+ 		} else {
+-			mGetScoreViewET.setText(mMaxScore+"");
++			mGetScoreViewET.setText(String.valueOf(maxScore));
+ 		}
+ 		
+-//		setQuestionScore(mMaxScore);
++//		setQuestionScore(maxScore);
+ //		if (mMinScore <= mEvaWithOptionsBean.getScore()
+-//				&& mEvaWithOptionsBean.getScore() <= mMaxScore) {
++//				&& mEvaWithOptionsBean.getScore() <= maxScore) {
+ //			setQuestionScore(mEvaWithOptionsBean.getScore());
+ //		} else {
+-//			setQuestionScore(mMaxScore);
++//			setQuestionScore(maxScore);
+ //		}
+ 	}
+ }
+Index: app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/EvaSubmitBean.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//***************************************************************\r\n//*    2015-10-19  下午2:00:22\r\n//*    成都依能科技有限公司\r\n//*    Copyright© 2015-2025 All Rights Reserved\r\n//*    Author HuYi\r\n//*    Des:\r\n//***************************************************************\r\npackage com.yineng.ynmessager.bean.app.evaluate;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n/**\r\n * @author 胡毅\r\n * \r\n */\r\npublic class EvaSubmitBean {\r\n\r\n\tpublic List<EvaAnswerBean> scoreRecordDetailVOList = new ArrayList<EvaAnswerBean>();\r\n\r\n\tprivate String wjTeachingEvaluationPlanId;\r\n\r\n\tprivate String attendEvalUserId;\r\n\r\n\tprivate String evaluAtedUserId;\r\n\r\n\tprivate int totalScore;\r\n\r\n\tprivate String operateType;\r\n\t// private String wjEvaluatedPersonAndAttendEvaluationPersonScoreRecordId;\r\n\tprivate String userType;\r\n\r\n\tpublic List<EvaAnswerBean> getScoreRecordDetailVOList() {\r\n\t\treturn scoreRecordDetailVOList;\r\n\t}\r\n\r\n\tpublic void setScoreRecordDetailVOList(\r\n\t\t\tList<EvaAnswerBean> scoreRecordDetailVOList) {\r\n\t\tthis.scoreRecordDetailVOList = scoreRecordDetailVOList;\r\n\t}\r\n\r\n\tpublic String getWjTeachingEvaluationPlanId() {\r\n\t\treturn wjTeachingEvaluationPlanId;\r\n\t}\r\n\r\n\tpublic void setWjTeachingEvaluationPlanId(String wjTeachingEvaluationPlanId) {\r\n\t\tthis.wjTeachingEvaluationPlanId = wjTeachingEvaluationPlanId;\r\n\t}\r\n\r\n\tpublic String getAttendEvalUserId() {\r\n\t\treturn attendEvalUserId;\r\n\t}\r\n\r\n\tpublic void setAttendEvalUserId(String attendEvalUserId) {\r\n\t\tthis.attendEvalUserId = attendEvalUserId;\r\n\t}\r\n\r\n\tpublic String getEvaluAtedUserId() {\r\n\t\treturn evaluAtedUserId;\r\n\t}\r\n\r\n\tpublic void setEvaluAtedUserId(String evaluAtedUserId) {\r\n\t\tthis.evaluAtedUserId = evaluAtedUserId;\r\n\t}\r\n\r\n\tpublic int getTotalScore() {\r\n\t\treturn totalScore;\r\n\t}\r\n\r\n\tpublic void setTotalScore(int totalScore) {\r\n\t\tthis.totalScore = totalScore;\r\n\t}\r\n\r\n\tpublic String getOperateType() {\r\n\t\treturn operateType;\r\n\t}\r\n\r\n\tpublic void setOperateType(String operateType) {\r\n\t\tthis.operateType = operateType;\r\n\t}\r\n\r\n\tpublic String getUserType() {\r\n\t\treturn userType;\r\n\t}\r\n\r\n\tpublic void setUserType(String userType) {\r\n\t\tthis.userType = userType;\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/EvaSubmitBean.java	(revision 2955)
++++ app/src/main/java/com/yineng/ynmessager/bean/app/evaluate/EvaSubmitBean.java	(revision )
+@@ -24,7 +24,7 @@
+ 
+ 	private String evaluAtedUserId;
+ 
+-	private int totalScore;
++	private float totalScore;
+ 
+ 	private String operateType;
+ 	// private String wjEvaluatedPersonAndAttendEvaluationPersonScoreRecordId;
+@@ -63,11 +63,11 @@
+ 		this.evaluAtedUserId = evaluAtedUserId;
+ 	}
+ 
+-	public int getTotalScore() {
++	public float getTotalScore() {
+ 		return totalScore;
+ 	}
+ 
+-	public void setTotalScore(int totalScore) {
++	public void setTotalScore(float totalScore) {
+ 		this.totalScore = totalScore;
+ 	}
+ 
+Index: app/src/main/res/layout/common_evaluate_input_score.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:focusable=\"true\"\r\n    android:focusableInTouchMode=\"true\"\r\n    android:orientation=\"vertical\" >\r\n\r\n    <include\r\n        android:id=\"@+id/app_evaluate_common_divider\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        layout=\"@layout/common_evaluate_divider_score\" />\r\n\r\n    <RelativeLayout\r\n        android:id=\"@+id/app_evaluate_adjust_score_view\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginLeft=\"@dimen/common_listItem_padding\"\r\n        android:layout_marginRight=\"@dimen/common_listItem_padding\"\r\n        android:focusable=\"true\"\r\n    \tandroid:focusableInTouchMode=\"true\"\r\n        android:background=\"@drawable/evaluate_adjust_scorce_bg\"\r\n        android:padding=\"5dp\" >\r\n\r\n        <ImageView\r\n            android:id=\"@+id/app_evaluate_ques_minute_score\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_centerVertical=\"true\"\r\n            android:onClick=\"onAdjustScoreListener\"\r\n            android:src=\"@mipmap/app_evaluate_minute_score\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/app_evaluate_ques_plus_score\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentRight=\"true\"\r\n            android:layout_centerVertical=\"true\"\r\n            android:onClick=\"onAdjustScoreListener\"\r\n            android:src=\"@mipmap/app_evaluate_plus_score\" />\r\n\r\n<!--         <TextView\r\n            android:id=\"@+id/app_evaluate_ques_score_tag\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_toLeftOf=\"@id/app_evaluate_ques_plus_score\"\r\n            android:layout_toRightOf=\"@id/app_evaluate_ques_minute_score\"\r\n            android:layout_centerInParent=\"true\"\r\n            android:clickable=\"false\"\r\n            android:gravity=\"center\"\r\n            android:paddingLeft=\"@dimen/common_actionbar_height\"\r\n            android:text=\"分\"\r\n            android:textColor=\"@color/app_actionBar_bg\"\r\n            android:textSize=\"@dimen/common_listItem_textSize\" /> -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/app_evaluate_ques_get_point\"\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_centerInParent=\"true\"\r\n            android:layout_toLeftOf=\"@id/app_evaluate_ques_plus_score\"\r\n            android:layout_toRightOf=\"@id/app_evaluate_ques_minute_score\"\r\n            android:background=\"@null\"\r\n            android:digits=\"0123456789\"\r\n            android:gravity=\"center\"\r\n            android:maxLength=\"3\"\r\n            android:text=\"0\"\r\n            android:paddingTop=\"5dp\"\r\n            android:paddingBottom=\"5dp\"\r\n            android:textColor=\"@color/app_actionBar_bg\"\r\n            android:textSize=\"@dimen/common_listItem_textSize\" />\r\n\r\n<!--         <LinearLayout\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_centerInParent=\"true\"\r\n            android:layout_toLeftOf=\"@id/app_evaluate_ques_plus_score\"\r\n            android:layout_toRightOf=\"@id/app_evaluate_ques_minute_score\"\r\n            android:orientation=\"horizontal\" >\r\n\r\n            <EditText\r\n                android:id=\"@+id/app_evaluate_ques_get_point\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:background=\"@null\"\r\n                android:digits=\"0123456789\"\r\n                android:gravity=\"right|center_vertical\"\r\n                android:maxLength=\"3\"\r\n                android:text=\"0\"\r\n                android:textColor=\"@color/app_actionBar_bg\"\r\n                android:textSize=\"@dimen/common_listItem_textSize\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/app_evaluate_ques_score_tag\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"1\"\r\n                android:clickable=\"true\"\r\n                android:text=\"分\"\r\n                android:textColor=\"@color/app_actionBar_bg\"\r\n                android:textSize=\"@dimen/common_listItem_textSize\" />\r\n        </LinearLayout> -->\r\n    </RelativeLayout>\r\n\r\n    <EditText\r\n        android:id=\"@+id/app_evaluate_ques_suggestion\"\r\n        android:layout_width=\"fill_parent\"\r\n        android:layout_height=\"150dp\"\r\n        android:layout_margin=\"@dimen/common_listItem_padding\"\r\n        android:background=\"@drawable/app_evaluate_suggestion_bg\"\r\n        android:gravity=\"top\"\r\n        android:hint=\"请输入意见或建议\"\r\n        android:padding=\"10dp\"\r\n        android:scrollbars=\"vertical\"\r\n        android:textSize=\"@dimen/common_listItem_textSize\"\r\n        android:visibility=\"gone\" />\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/common_evaluate_input_score.xml	(revision 2955)
++++ app/src/main/res/layout/common_evaluate_input_score.xml	(revision )
+@@ -56,16 +56,16 @@
+ 
+         <EditText
+             android:id="@+id/app_evaluate_ques_get_point"
+-            android:layout_width="fill_parent"
++            android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_centerInParent="true"
+             android:layout_toLeftOf="@id/app_evaluate_ques_plus_score"
+             android:layout_toRightOf="@id/app_evaluate_ques_minute_score"
+             android:background="@null"
+-            android:digits="0123456789"
++            android:digits=".0123456789"
++            android:maxLength="4"
+             android:gravity="center"
+-            android:maxLength="3"
+-            android:text="0"
++            android:inputType="number"
+             android:paddingTop="5dp"
+             android:paddingBottom="5dp"
+             android:textColor="@color/app_actionBar_bg"
+\ No newline at end of file

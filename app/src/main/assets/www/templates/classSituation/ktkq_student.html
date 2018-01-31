@@ -1,0 +1,47 @@
+<!--班级情况统计 请假学生-->
+<ion-view class="achievement teacher" ng-controller="ktkqStudentCtrl">
+    <ion-content>
+        <ion-list class="examine-list-wrap" ng-show="!emptyInfo">
+            <ion-item class="examine-list-item list-item-content item" ng-repeat="item in stuList">
+                <div class="pos-box-wrap">
+                    <div class="img-box" ng-click="clickUnfold(item)">
+                        <img class="border-radius-100" ng-src="{{item.headUrl}}" width="40" height="40" alt="" ng-if="item.headUrl">
+                        <img class="border-radius-100" src="img/userface_0.png" width="40" height="40" alt="" ng-if="!item.headUrl&&item.gender != 2">
+                        <img class="border-radius-100" src="img/userface_1.png" width="40" height="40" alt="" ng-if="!item.headUrl&&item.gender == 2">
+                    </div>
+                    <div class="box-wrap" ng-class="{'box-text-one':!item.alias && !item.number}">
+                        <span class="box-name">{{item.name}}</span>
+                        <span class="box-times" ng-if="item.alias||item.number">({{item.alias}}{{item.alias&&item.number?",":""}}{{item.number}})</span>
+                    </div>
+                    <div class="right-box right-box-text" ng-show="item.leave">
+                        <a class="right-text" href="">查看原因</a>
+                        <i ng-class="{'ion-chevron-up':item.isUnfold,'ion-chevron-down':!item.isUnfold}"></i>
+                    </div>
+                </div>
+                <div class="item-content-wrap yellow-bc" ng-show="item.isUnfold">
+                    <ul>
+                        <li>请假时间：{{item.leaveStartTime}}至 {{item.leaveEndTime}}</li>
+                        <li>请假原因：{{item.leaveReason}}</li>
+                    </ul>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="fullscreen-box" ng-show="!emptyInfo && !isExistStu">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p class="">没有学生信息</p>
+            </div>
+        </div>
+        <div class="fullscreen-box" ng-show="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p class="" ng-bind="dataErrorMsg"></p>
+                <div class=" text-muted margin-top-10" ng-click="doRefresh()">单击重试</div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_dis_create_gallary_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical" >
+
+    <ImageView
+        android:id="@+id/iv_dis_create_gallary_item_head"
+		android:layout_width="@dimen/common_listItem_avatar_size"
+		android:layout_height="@dimen/common_listItem_avatar_size"
+        android:clickable="true"
+        android:padding="@dimen/disAdd_horListViewItem_avatarImg_padding"
+        android:layout_margin="@dimen/disAdd_horListViewItem_padding"
+        android:src="@mipmap/user" />
+
+    <TextView
+        android:id="@+id/tv_dis_create_gallary_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
+
+</LinearLayout>

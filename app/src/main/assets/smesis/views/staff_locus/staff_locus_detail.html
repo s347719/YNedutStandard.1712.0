@@ -1,0 +1,39 @@
+<!--出差人员轨迹详情-->
+<ion-view class="fixed-header staff-locus-detail">
+    <div class="fixed-header-wrapper">
+        <ion-list>
+            <ion-item class="item-avatar">
+                <img src="assets/images/userface_0.png" alt="">
+                <h2>{{userName}}<span class="text-gray">（{{orgName}}）</span></h2>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-content class="content-bg">
+        <div class="locus-wrap">
+            <div class="locus-content clearfix">
+                <div ng-repeat="info in showList">
+                    <div class="locus-title clearfix">
+                        <p class="text-gray"><i class="calender-icon"></i>{{info.dateTime}} <span>{{info.name}}</span></p>
+                        <div class="arrow">
+                            <em></em>
+                            <span></span>
+                        </div>
+                    </div>
+                    <ul class="locus-circle"  >
+                        <li  ng-class="{'locus-blue':!item.showFlag,'locus-red':item.showFlag,'clearfix':item.showFlag}" ng-repeat="item in info.messlist " >
+                            <span class="time" ng-if="!item.showFlag">{{item.positionTime.substring(10,item.positionTime.length-3)}}</span>
+                            <span ng-if="!item.showFlag">{{item.address}}</span>
+                            <span class="stay-time" ng-if="item.showFlag" >在上一个定位点附近停留时间为{{item.showTime}}</span>
+                            <!--<div class="otherdevice" ng-if="item.isAbnormal==0">定位由其他手机提交</div>-->
+                            <!--<span ng-show="$index==messageList.length-1" class="pos-qd">起点</span>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <button class="button text-gray button-icon icon ion-reply" onclick="window.history.back()"></button>
+        <button class="button text-gray button-icon icon ion-refresh" onclick="location.reload()"></button>
+    </ion-footer-bar>
+</ion-view>

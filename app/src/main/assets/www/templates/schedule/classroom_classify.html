@@ -1,0 +1,34 @@
+<!--教室分类-->
+<ion-view class="classroom-classify">
+    <ion-header-bar class="pos-list-header">
+        <div class="classify-header">
+            <div class="classify-title">搜索教室查课表</div>
+            <div class="content-box input-pos-icon">
+                <input type="text" readonly class="form-control radius-input border-radius-20 input-border" placeholder="输入教室名称查找" ng-click="classifyInputClick()">
+                <i class="ion-android-search pos-left"></i>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <ion-list class="classify-list ">
+            <ion-item class="classify-item">
+                <div class="classify-title">按教室分类查找课表</div>
+                <!--有分类-->
+                <div class="content-box text-left" ng-if="isClassroomType">
+                    <button class="button button-calm" ng-repeat="type in classroomTypeList" ng-click="classroomClassifyClick(type)">{{type.name}}</button>
+                </div>
+                <!--有分类-->
+            </ion-item>
+        </ion-list>
+        <!--无分类-->
+        <div class="fullscreen-box" ng-if="!isClassroomType">
+           <div class="screen-center">
+               <div class="img-no-data"></div>
+               <p ng-if="noClassroomType">没有教室分类</p>
+               <p>{{loadErrorMsg}}</p>
+               <p class="help-block">刷新重试</p>
+           </div>
+        </div>
+        <!--无分类-->
+    </ion-content>
+</ion-view>

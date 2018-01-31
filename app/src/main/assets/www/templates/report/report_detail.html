@@ -1,0 +1,125 @@
+<!--学生报到有数据-->
+<ion-view ng-controller="reportCtrl" class="schedule student-report">
+    <ion-header-bar align-title="center">
+        <div class="bar bar-header bar-ynedut report-header padding-rt-lt" ng-show="!report.table_serach && report.tasks.length > 0">
+            <div class="row">
+                <div class="col" ng-class="{'col-67':report.isAdjust,'col-90':!report.isAdjust}">
+                    <div class="dropdown dropdown-menu-100 border-rt">
+                        <p class="dropdown-btn dropdown-toggle dropdown-text-col-2" data-toggle="dropdown">
+                            {{currentClass.name}}
+                            <span class="block-text">{{currentTask.name}}</span><i class="ion-arrow-down-b"></i>
+                        </p>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="t in report.tasks">
+                                <a href="" class="report-title" title="[{{t.reportTypeName}}]{{t.name}}">[{{t.reportTypeName}}]{{t.name}}</a>
+                                <p ng-repeat="c in t.adminClassList" ng-class="{'active':c.isSelect}" title="{{c.name}}" ng-click="selectClass(t,c,report.tasks)">
+                                    {{c.name}}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col padding-left-0"  ng-show="report.isAdjust" ng-click="to_add_stu()">
+                    <div class="dropdown dropdown-menu-100 border-rt">
+                        <p class="text-box"><i class="ion-ios-plus-outline"></i>学生</p>
+                    </div>
+                </div>
+                <div class="col col-10" ng-click="to_serach()">
+                    <div class="header-rt-icon">
+                        <i class="ion-android-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--学生精细搜索-->
+        <div class="item-input-inset bar bar-header bar-ynedut" ng-show="report.table_serach">
+            <div class="pos-header-box pos-icon-rt pos-text-rt">
+                <i class="input-left-icon ion-android-search"></i>
+                <input type="text" class="form-control radius-input border-radius-20" placeholder="姓名/别名/学号" ng-model="report.queryValue" input-timer-serach times="1000" bshade="true" shadetimes="500" on-send="serachByInfo(report.queryValue)">
+                <i class="right-icon ion-ios-close-outline"  ng-click="clearInfo('queryValue')"></i>
+                <div class="right-text"  ng-click="cancel()">取消</div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc has-header report-content" ng-class="{'footer-two-content':!report.table_serach && report.tasks.length > 0}">
+        <div class="search-result-text" ng-show="report.table_serach">
+            <span>{{report.table_content.length}}个搜索结果</span>
+        </div>
+        <ion-list class="examine-list-wrap" ng-repeat="s in report.table_content">
+            <ion-item class="examine-list-item" ng-init="s.updateStatus=false" ng-click="changePanel(s,report.table_content)">
+                <div class="pos-box-wrap right-btn-two">
+                    <div class="img-box">
+                        <img ng-if="s.gender != 2 && !s.headUrl" ng-src="img/userface_0.png">
+                        <img ng-if="s.gender == 2 && !s.headUrl" ng-src="img/userface_1.png">
+                        <img ng-if="s.headUrl" ng-src="{{originBaseUrl}}/file/downloadStream.htm?view=1&fastDFSId={{s.headUrl}}" alt="">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name">{{s.name}}</span>
+                        <span class="box-times">{{(s.nameForApp ? s.nameForApp : '') + (s.userNumber ? ',' + s.userNumber : '') ? '('+(s.nameForApp ? s.nameForApp : '') + (s.userNumber ? ',' + s.userNumber : '')+')' : ''}}</span>
+                    </div>
+                    <div class="right-box">
+                        <button class="button button-mini button-calm button-outline" type="button" ng-if="s.reportStatus==1 && !s.isChange" ng-click="_updateStatus(s,3)">未报到</button>
+                        <button class="button button-mini button-calm" type="button" ng-if="s.reportStatus==1 && !s.isChange" ng-click="_updateStatus(s,2)">已报到</button>
+
+                        <button class="button button-mini button-calm" ng-class="{'button-calm':s.reportStatus != 3,'button-outline':s.reportStatus == 3}" type="button" ng-if="s.isChange" ng-disabled="s.reportStatus == 3" ng-click="_updateStatus(s,3)">未报到</button>
+                        <button class="button button-mini button-calm" ng-class="{'button-calm':s.reportStatus != 2,'button-outline':s.reportStatus == 2}" type="button" ng-if="s.isChange" ng-disabled="s.reportStatus == 2" ng-click="_updateStatus(s,2)">已报到</button>
+                        <!--已报到状态-->
+                        <div class="right-text-ion" ng-if="s.reportStatus==2&&!s.isChange">
+                            <span class="text-muted">已报到</span><i class="ion ion-more"></i>
+                        </div>
+                        <!--未报到状态-->
+                        <div class="right-text-ion" ng-if="s.reportStatus==3&&!s.isChange">
+                            <span class="text-danger">未报到</span><i class="ion ion-more"></i>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="box-center-radius" ng-show="report.table_content.length === report.totalElements && report.table_content.length > 0">
+            <span>没有更多!</span>
+        </div>
+        <div ng-if="report.table_serach">
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="report.table_content.length !== report.totalElements" distance="1%"></ion-infinite-scroll>
+        </div>
+        <div ng-if="!report.table_serach">
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="report.table_content.length !== report.totalElements" distance="1%"></ion-infinite-scroll>
+        </div>
+    </ion-content>
+    <div class="fullscreen-box" ng-show="!report.table_serach && report.table_content.length == 0 && report.tasks.length > 0">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>该班级没有需要报到的学生，请添加！</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-show="report.tasks.length == 0 && !report.table_serach">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>没有需要处理的报到任务！</p>
+        </div>
+    </div>
+    <div class="bar bar-footer bar-subfooter" ng-show="!report.table_serach"  ng-if="report.tasks.length > 0">
+        <div class="status">
+            已报到{{report.statistic.reported}}人<br>未报到{{report.statistic.unReport}}人
+            <div class="button-right">
+                <span>待确认{{report.statistic.confirming}}人</span><button class="button button-sm button-calm" ng-disabled="report.statistic.confirming == 0" ng-click="updateAllStatus(report.table_content)">设为已报到</button>
+            </div>
+        </div>
+    </div>
+    <ion-footer-bar align-title="left" class="bar-ynedut">
+        <div class="buttons" ng-if="report.table_serach">
+            <button class="button button-clear button-stable icon ion-reply" ng-click="cancel()"></button>
+        </div>
+        <h1 class="title">&nbsp;</h1>
+
+        <div class="buttons" ng-if="!report.table_serach" ng-click="doFresh()">
+            <button class="button button-clear">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+        <div class="buttons" ng-if="report.table_serach" ng-click="to_serach()">
+            <button class="button button-clear">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

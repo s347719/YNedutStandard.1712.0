@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/regist_pwd" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/reportContent_confirmExit"
+            android:textColor="@color/common_hint_text_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="没有开启照相机权限,是否去开启！"
+            android:textColor="#676767"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/ll_above"
+            android:background="@color/common_gray_line_color" />
+
+        <LinearLayout
+            android:id="@+id/ll_above"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/tv_camera_cancle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/camera_take_picture_cancle"
+                android:textColor="@color/blue" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/common_gray_line_color" />
+
+            <TextView
+                android:id="@+id/tv_camera_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/camera_take_picture_ok"
+                android:textColor="@color/blue" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

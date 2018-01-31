@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f3f7f8" >
+
+    <include
+        android:id="@+id/group_chat_title_layout"
+        layout="@layout/common_view_chat_title_layout" />
+
+    <LinearLayout
+        android:id="@+id/rl_group_chat_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <!-- 聊天输入框 -->
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/chat_bottom_relativelayout" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/group_chat_title_layout"
+        android:layout_above="@id/rl_group_chat_bottom" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/chat_pull_refresh_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:divider="@null"
+            android:smoothScrollbar="true"
+            android:transcriptMode="normal" />
+
+        <TextView
+            android:id="@+id/tv_p2p_chat_tips"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

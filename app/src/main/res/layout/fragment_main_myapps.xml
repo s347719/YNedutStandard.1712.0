@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.yineng.ynmessager.view.ViewPagerCompat
+            android:id="@+id/main_pgr_myapps_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_myapps_bannerTextArea_height"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.4"
+            android:src="@color/darkgray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_myapps_bannerTextArea_height"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/main_myapps_bannerTextArea_padding" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/calendar"
+                    android:drawablePadding="@dimen/main_myapps_bannerTextArea_title_drawablePadding"
+                    android:drawableStart="@mipmap/calendar"
+                    android:singleLine="true"
+                    android:text="@string/main_myapps_currentWeek"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_myapps_bannerTextArea_title_textSize" />
+
+                <TextView
+                    android:id="@+id/main_txt_myapps_currentWeek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/main_myapps_currentWeek_content_def"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_myapps_bannerTextArea_content_textSize" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/main_myapps_bannerTextArea_dividerLine_horMargin"
+                android:layout_marginRight="@dimen/main_myapps_bannerTextArea_dividerLine_horMargin"
+                android:background="@color/whitesmoke" />
+
+            <RelativeLayout
+                android:id="@+id/main_onecard_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/pay_card"
+                    android:drawablePadding="@dimen/main_myapps_bannerTextArea_title_drawablePadding"
+                    android:drawableStart="@mipmap/pay_card"
+                    android:singleLine="true"
+                    android:text="@string/main_myapps_payCardBalance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_myapps_bannerTextArea_title_textSize" />
+
+                <TextView
+                    android:id="@+id/main_txt_myapps_oneCardBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="@string/main_myapps_payCardBalance_def"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_myapps_bannerTextArea_content_textSize" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/main_txt_myapps_oneCardBalance"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/more_details_white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.36"
+        android:background="@color/white" >
+
+        <com.yineng.ynmessager.view.ExpandableHeightGridView
+            android:id="@+id/main_grd_myapps_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="4"
+            android:stretchMode="columnWidth" />
+
+        <ProgressBar
+            android:id="@+id/main_grd_myapps_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:max="100"
+            android:progress="0"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/main_grd_myapps_loading_failed_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/common_listItem_forAvatar_padding"
+            android:drawableTop="@mipmap/loading_fail"
+            android:text="@string/main_myapps_loadingFailed"
+            android:textColor="@color/loading_fail_color"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

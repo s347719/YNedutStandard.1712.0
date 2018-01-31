@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/event_hole_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray">
+
+
+    <RelativeLayout
+        android:id="@+id/event_send_hint"
+        android:layout_width="match_parent"
+        android:background="@color/event_send_hint_bg"
+        android:layout_height="@dimen/dp_50"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_5"
+            android:text="提示:目前手机端只支持以下流程申请,其他申请请用电脑登录YNedut平台操作！"
+            android:gravity="center|left"
+            android:layout_toLeftOf="@+id/send_request_image_close"
+            android:textColor="@color/event_send_hint_text"
+            android:visibility="visible"
+            />
+        <RelativeLayout
+            android:id="@+id/send_request_image_close"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentRight="true"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/app_evaluate_submit_score_dialog_close"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <com.yineng.ynmessager.view.xrecyclerview.XRecyclerView
+        android:id="@+id/main_rcy_todoEventList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/event_send_hint"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        />
+
+    <include
+        layout="@layout/nodata_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/view_delete"
+        android:layout_width="@dimen/main_eventtodo_multi_dispole_width"
+        android:layout_height="@dimen/main_eventtodo_multi_dispole"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+
+        <RelativeLayout
+            android:id="@+id/tv_delete"
+            android:layout_width="@dimen/main_eventtodo_multi_dispole_bg"
+            android:layout_height="@dimen/main_eventtodo_multi_dispole_bg"
+            android:background="@drawable/event_todo_multipe_dispole"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxLines="2"
+                android:maxEms="2"
+                android:textColor="@color/white"
+                android:text="@string/todo_multipe_dispole" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

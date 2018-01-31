@@ -1,0 +1,186 @@
+<!--工作绩效主页面-->
+<ion-view>
+    <ion-content class="content-bg">
+        <ion-list class="job-interview" ng-repeat="data in conditions" ng-if="conditions.length>0">
+            <ion-item class="item-title-divider"><strong><i class="calender-theme-icon"></i>{{data.interviewMonth}}</strong></ion-item>
+            <div class="job-interview-list">
+
+                <div ng-if="data.workCofficientStatus==1" ng-class="{true:'interview-list-item signal-wrap',false:'interview-list-item button-right text-only-right'}[data.workCofficientStatus==3]">
+                    <h2>月工作业绩面谈</h2>
+                    <p class="text-gray">考核结果:<span >{{data.workCofficient}}</span>
+                    <span ng-if="data.workStatus">
+                        <span ng-if="data.workStatus!=3" class="margin-left-5">
+                            (比上月<span ng-class="{'text-green':data.workStatus==2,'text-orange':data.workStatus==1}">
+                            <i ng-class="{'ion-arrow-down-a':data.workStatus==2,'ion-arrow-up-a':data.workStatus==1}"></i></span>)
+                        </span>
+                        <span ng-if="data.workStatus==3" class="margin-left-5">(与上月持平)</span>
+                    </span>
+                    </p>
+                    <div class="interview-status" >
+                        <span class="text-danger font-12">等待面谈/考核</span>
+                    </div>
+                </div>
+
+                <div ng-if="data.workCofficientStatus==2||data.workCofficientStatus==3" ng-click="openModalOne(data,1)" ng-class="{true:'interview-list-item signal-wrap',false:'interview-list-item button-right text-only-right'}[data.workCofficientStatus==3]">
+                    <h2>月工作业绩面谈</h2>
+                    <p class="text-gray">考核结果:<span ng-class="{'text-green':data.workCofficient<1,'text-orange':data.workCofficient>=1}">{{data.workCofficient}}</span>
+                    <span ng-if="data.workStatus">
+                        <span ng-if="data.workStatus!=3" class="margin-left-5">
+                            (比上月<span ng-class="{'text-green':data.workStatus==2,'text-orange':data.workStatus==1}">
+                            <i ng-class="{'ion-arrow-down-a':data.workStatus==2,'ion-arrow-up-a':data.workStatus==1}"></i></span>)
+                        </span>
+                        <span ng-if="data.workStatus==3" class="margin-left-5">(与上月持平)</span>
+                    </span>
+                    </p>
+                    <div class="interview-status"  ng-if="data.workCofficientStatus==2">
+                        <button class="button button-theme button-item-local">待确认</button>
+                    </div>
+                    <div class="signal sured" ng-if="data.workCofficientStatus==3"></div>
+                </div>
+
+                <div ng-if="data.interviewStatus==1" ng-class="{true:'interview-list-item signal-wrap',false:'interview-list-item button-right text-only-right'}[data.interviewStatus==3]">
+                    <h2>月岗位履职面谈</h2>
+                    <p class="text-gray">考核结果:<span >{{data.assessmentCofficient}}</span>
+                        <!--(比上月<span class="text-green"><i class="ion-arrow-down-a"></i>&nbsp;-0.05</span>)-->
+                          <span ng-if="data.assessmentStatus">
+                            <span ng-if="data.assessmentStatus!=3" class="margin-left-5">
+                                (比上月<span ng-class="{'text-green':data.assessmentStatus==2,'text-orange':data.assessmentStatus==1}">
+                                <i ng-class="{'ion-arrow-down-a':data.assessmentStatus==2,'ion-arrow-up-a':data.assessmentStatus==1}"></i></span>)
+                            </span>
+                            <span ng-if="data.assessmentStatus==3" class="margin-left-5">(与上月持平)</span>
+                         </span>
+                    </p>
+                    <div class="interview-status">
+                        <span class="text-danger font-12">等待面谈/考核</span>
+                    </div>
+                </div>
+
+                <div ng-if="data.interviewStatus==2||data.interviewStatus==3" ng-click="openModalOne(data)" ng-class="{true:'interview-list-item signal-wrap',false:'interview-list-item button-right text-only-right'}[data.interviewStatus==3]">
+                    <h2>月岗位履职面谈</h2>
+                    <p class="text-gray">考核结果:<span ng-class="{'text-green':data.assessmentCofficient<1,'text-orange':data.assessmentCofficient>=1}">{{data.assessmentCofficient}}</span>
+                        <!--(比上月<span class="text-green"><i class="ion-arrow-down-a"></i>&nbsp;-0.05</span>)-->
+                          <span ng-if="data.assessmentStatus">
+                            <span ng-if="data.assessmentStatus!=3" class="margin-left-5">
+                                (比上月<span ng-class="{'text-green':data.assessmentStatus==2,'text-orange':data.assessmentStatus==1}">
+                                <i ng-class="{'ion-arrow-down-a':data.assessmentStatus==2,'ion-arrow-up-a':data.assessmentStatus==1}"></i></span>)
+                            </span>
+                            <span ng-if="data.assessmentStatus==3" class="margin-left-5">(与上月持平)</span>
+                         </span>
+                    </p>
+                    <div class="interview-status"  ng-if="data.interviewStatus==2">
+                        <button class="button button-theme button-item-local">待确认</button>
+                    </div>
+                    <div class="signal sured" ng-if="data.interviewStatus==3" ></div>
+                </div>
+            </div>
+
+        </ion-list>
+        <div class="text-center font-12"  ng-if="conditions.length>0">
+            <p class="padding bottom-tips">只显示近1年的数据<br>查看更多内容，请使用电脑访问SMEsis</p>
+        </div>
+
+    </ion-content>
+    <div class="fullscreen-box" ng-if="conditions.length==0">
+        <div class="screen-center"  >
+            <h4>{{showError?"加载工作绩效失败":"没有面谈考核记录"}}</h4>
+            <p><span ng-click="search()">刷新试试</span></p>
+        </div>
+    </div>
+
+    <!--没有工作绩效开始 解开注释可查看效果-->
+    <!--<div class="fullscreen-box">
+        <div class="screen-center">
+            <h4><i class="tips-icon"></i>加载工作绩效失败</h4>
+            <h4><i class="tips-icon"></i>没有面谈考核记录</h4>
+            <p class="text-theme">刷新试试</p>
+        </div>
+    </div>-->
+
+    <!--考核详情开始-->
+    <script id="check-detail.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header job-interview-modal">
+            <div class="fixed-header-wrapper">
+                <div class="list">
+                    <ion-item class="item-default signal-wrap">
+                        <h2>{{item.interviewMonth}}&nbsp;月{{searchCondition.performanceInterviewType==1?"岗位履职":"工作业绩"}}面谈</h2>
+                        <p class="text-gray"><span>考核人:{{searchCondition.performanceInterviewType==1?searchCondition.resumptionInterviewUserName:searchCondition.performanceInterviewUserName}}</span>
+                            <span>结果:{{searchCondition.performanceInterviewType==1?item.assessmentCofficient:item.workCofficient}}</span>
+                            <!--<span class="text-green"><i class="ion-arrow-down-a"></i>&nbsp;-0.05</span>-->
+                             <span ng-if="searchCondition.performanceInterviewType==1&&item.assessmentStatus!=3">
+                                <span ng-class="{'text-green':item.assessmentStatus==2,'text-orange':item.assessmentStatus==1}">
+                                <i ng-class="{'ion-arrow-down-a':item.assessmentStatus==2,'ion-arrow-up-a':item.assessmentStatus==1}"></i>&nbsp;{{item.assessmentValue}}</span>
+                            </span>
+                             <span ng-if="searchCondition.performanceInterviewType==2&&item.workStatus!=3">
+                                <span ng-class="{'text-green':item.workStatus==2,'text-orange':item.workStatus==1}">
+                                <i ng-class="{'ion-arrow-down-a':item.workStatus==2,'ion-arrow-up-a':item.workStatus==1}"></i>&nbsp;{{item.workValue}}</span>
+                             </span>
+                            <span ng-if="(searchCondition.performanceInterviewType==1&&item.assessmentStatus==3)||(searchCondition.performanceInterviewType==2&&item.workStatus==3)">(与上月持平)</span>
+                        </p>
+                        <div class="signal unsure" ng-if="searchCondition.performanceInterviewType==1?item.interviewStatus==2:item.workCofficientStatus==2"></div>
+                        <div class="signal sured"  ng-if="searchCondition.performanceInterviewType==1?item.interviewStatus==3:item.workCofficientStatus==3"></div>
+                    </ion-item>
+                </div>
+            </div>
+            <ion-content>
+                <div class="check-content">
+                    <div class="check-group" ng-if="searchCondition.performanceInterviewType==1">
+                        <div class="check-title text-gray">本月主要工作亮点:</div>
+                        <div class="check-main text-indent">
+                            {{searchCondition.currentMonthWorkingPoint?searchCondition.currentMonthWorkingPoint:"无"}}
+                        </div>
+                    </div>
+                    <div class="check-group" ng-if="searchCondition.performanceInterviewType==1">
+                        <div class="check-title text-gray">本月主要存在问题:</div>
+                        <div class="check-main text-indent">
+                            {{searchCondition.currentMonthWorkingQuestion?searchCondition.currentMonthWorkingQuestion:"无"}}
+                        </div>
+                    </div>
+                    <div class="check-group" ng-if="searchCondition.performanceInterviewType==1">
+                        <div class="check-title text-gray">下月工作要点:</div>
+                        <div class="check-main text-indent">
+                            {{searchCondition.nextMonthPoint?searchCondition.nextMonthPoint:"无"}}
+                        </div>
+                    </div>
+                    <div class="check-group">
+                        <div class="check-title text-gray">指标考核情况:</div>
+                        <div class="check-main">
+                            <div class="performance-group clearfix">
+                                <div class="performance-list" ng-if="searchCondition.performanceInterviewType==2" ng-repeat="data in searchCondition.jxglWorkAchievementsDTOList"  on-finish-render = "performanceGroup">
+                                    <p>{{data.jxglIndexLibraryDTO.name}}</p>
+                                    <p ng-class="{true:'text-orange',false:'text-green'}[data.jxglLevelContentDTO.coefficient>=1]">{{data.jxglLevelContentDTO.coefficient}}</p>
+                                    <p ng-class="{true:'text-orange',false:'text-green'}[data.jxglLevelContentDTO.coefficient>=1]">{{data.jxglLevelContentDTO.appDescription}}</p>
+                                </div>
+                                <div class="performance-list " ng-if="searchCondition.performanceInterviewType==1" ng-repeat="data in searchCondition.jxglPersonAchievementsDTOList" on-finish-render = "performanceGroup">
+                                    <p>{{data.jxglLevelContentDTO.jxglIndexLibraryDTO.name}}</p>
+                                    <p ng-class="{true:'text-orange',false:'text-green'}[data.jxglLevelContentDTO.coefficient>=1]">{{data.jxglLevelContentDTO.coefficient}}</p>
+                                    <p ng-class="{true:'text-orange',false:'text-green'}[data.jxglLevelContentDTO.coefficient>=1]">{{getCodeName(data.jxglLevelContentDTO.postPerformIndexCode)}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-local button-outline" ng-click="closeModalOne()">返回</button>
+                        <button class="button button-theme button-local" ng-if="searchCondition.performanceInterviewType==1?item.interviewStatus==2:item.workCofficientStatus==2" ng-click="save()">确认面谈结果</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--考核详情结束-->
+
+    <!--保存成功状态框开始-->
+    <script id="save-success.html" type="text/ng-template">
+        <ion-modal-view class="sign-success-wrap">
+            <div class="sign-success-content">
+                <i class="ion-ios-checkmark-outline"></i>
+                <h4 class="text-theme">操作成功</h4>
+            </div>
+        </ion-modal-view>
+    </script>
+    <!--保存成功状态框结束-->
+</ion-view>

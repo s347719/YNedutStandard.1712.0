@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <title>掌上Ynedut</title>
+
+    <!-- build:css pages/ynedutapp/css/ynedutapp.css -->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/toastr/toastr.min.css" rel="stylesheet">
+    <link href="lib/swiper/css/swiper.min.css" rel="stylesheet">
+    <link href="lib/mscroll/css/mobiscroll.animation.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/mscroll/css/mobiscroll.frame.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/mscroll/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/fex-webuploader/dist/webuploader.css" rel="stylesheet" type="text/css"/>
+    <link href="css/ynedut_main.css" rel="stylesheet">
+    <!--endbuild-->
+
+    <!-- build:js assets/scripts/ynedutappvender.js -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/underScore/underscore-min.js"></script>
+    <script src="lib/toastr/toastr.min.js"></script>
+    <script src="lib/swiper/js/swiper.min.js"></script>
+    <script src="lib/swiper/js/angular-swiper.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.core.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.frame.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.scroller.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.util.datetime.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.datetimebase.js"></script>
+    <script src="lib/mscroll/js/mobiscroll.datetime.js"></script>
+    <script src="lib/mscroll/js/i18n/mobiscroll.i18n.zh.js"></script>
+    <script src="lib/fex-webuploader/dist/webuploader.html5only.min.js"></script>
+    <!--endbuild-->
+    <!-- build:js assets/scripts/ynedutapp.js -->
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/handlers/strings.constant.js"></script>
+    <script src="js/pinchzoom.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/components/static.directive.js"></script>
+    <!-- components -->
+    <script src="js/components/datetimepicker/datetimepicker.directive.js"></script>
+    <script src="js/components/webuploader/webuploader.directive.js"></script>
+    <!-- components end-->
+    <script src="js/reportCtrl.js"></script>
+    <script src="js/addReportStu.js"></script>
+    <script src="js/reportPromise.js"></script>
+    <script src="js/reportService.js"></script>
+    <!--endbuild-->
+
+
+
+</head>
+<body ng-app="starter">
+
+<ion-nav-view></ion-nav-view>
+<!--操行分考核-->
+<script src="templates/moralityMeasurement/js/index.js"></script>
+<!--<script src="templates/moralityMeasurement/js/moralityMeasurement.js"></script>-->
+<script src="templates/classexamineall/js/classexamineall.js"></script>
+<script src="templates/moralityMeasurement/js/searchStuByCondition.js"></script>
+<script src="templates/moralityMeasurement/js/searchStuByClass.js"></script>
+<script src="templates/moralityMeasurement/js/selectCheckItem.js"></script>
+<script src="templates/moralityMeasurement/js/fillInCheckInfo.js"></script>
+<!--课表-->
+<script src="templates/schedule/schedule.js"></script>
+<script src="templates/schedule/schedule_class.js"></script>
+<script src="templates/schedule/schedule_classroom.js"></script>
+<script src="templates/schedule/schedule-directive.js"></script>
+<!--听课登记-->
+<script src="templates/register/js/register.js"></script>
+<script src="templates/register/js/basicMsg.js"></script>
+<script src="templates/register/js/chooseTeacher.js"></script>
+<script src="templates/register/js/classroomClassify.js"></script>
+<script src="templates/register/js/classroomCheck.js"></script>
+<script src="templates/register/js/classroomSearch.js"></script>
+<script src="templates/register/js/registerCtrl.js"></script>
+<script src="templates/register/js/lessonsPlanCtrl.js"></script>
+<script src="templates/register/js/projectGradeCtrl.js"></script>
+<script src="templates/register/js/fillRemarkCtrl.js"></script>
+<!--教师巡查-->
+<script src="templates/classpatrol/js/classpatrol.js"></script>
+<!--样式模板-->
+<script src="templates/doc/doc.js"></script>
+<!--查看登录模式报表-->
+<!--<script src="templates/report_login_view/js/reportLoginView.js"></script>-->
+<!--<script src="templates/report_login_view/js/reportLogin.js"></script>-->
+<!--通知公告-->
+<script src="templates/notice/js/notice_detail.js"></script>
+<!--评优申请-->
+<script src="templates/commentExcellent_apply/js/commentExcellent_apply.js"></script>
+<!--流程-批量审批-->
+<script src="templates/lcapproval/js/batch-approval.js"></script>
+<!--打卡-->
+<script src="templates/sign_in/js/sign_in.js"></script>
+</body>
+
+</html>

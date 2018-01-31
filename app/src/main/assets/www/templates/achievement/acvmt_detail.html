@@ -1,0 +1,83 @@
+<ion-view ng-controller="AchievementDetailCtrl" class="achievement detail">
+
+    <ion-header-bar align-title="center" class="bar-ynedut no-space">
+        <div class="row default-bar" ng-show="!searchBar">
+            <div class="col col-20 search text-left padding-left-10">
+                <button class="button button-clear" ng-click="searchBar = !searchBar"><i class="ion-ios-search"></i></button>
+            </div>
+            <div class="col pass text-center">
+                <div class="button-group input-inline">
+                    <button class="button button-default" ng-class="{'active':status==0}" ng-click="changeStatus(0)">全部</button>
+                    <button class="button button-default" ng-class="{'active':status==1}" ng-click="changeStatus(1)">及格</button>
+                    <button class="button button-default" ng-class="{'active':status==2}" ng-click="changeStatus(2)">不及格</button>
+                </div>
+            </div>
+            <div class="col col-20 sort">
+                <button class="button button-clear" ng-click="sortData('asc')">升序 <i class="ion ion-arrow-up-c"></i></button>
+            </div>
+        </div>
+    </ion-header-bar>
+    <div class="item-input-inset bar bar-header bar-ynedut padding-rt-lt-10" ng-show="searchBar">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="姓名或别名" ng-model="name" ng-change="search()" ng-focus="searchBar">
+        </label>
+        <button class="button button-clear" ng-click="cancelBack()">取消</button>
+    </div>
+
+    <ion-content class="content-bc">
+        <div class="" ng-show="name">
+            <div class="search-result-text">{{items.length}}个搜索结果</div>
+        </div>
+        <div class="achievement-list-wrap">
+            <div class="list list-student">
+                <div class="item item-thumbnail-left" ng-repeat="item in items track by $index" ng-class="{'pass':item.percentScore<60}">
+                    <!--添加已上传头像的学生-->
+                    <img class="border-radius-100 img-border" ng-src="{{originBaseUrl}}/file/downloadStream.htm?view=1&fastDFSId={{item.headUrl}}" width="40" height="40" alt="" ng-if="item.headUrl">
+                    <img class="img-border" src="img/userface_0.png" ng-if="!item.headUrl && item.gender !=2">
+                    <img class="img-border" src="img/userface_1.png" ng-if="!item.headUrl && item.gender ==2">
+                    <div class="row margin-top-10">
+                        <div class="col col-50">
+                            <h2>{{item.stuName}}</h2>
+                            <p>{{(item.alias?item.alias+",":"")+(item.stuNumber?item.stuNumber:"")}}</p>
+                        </div>
+                        <div class="col col-25 text-center lheight">
+                            <span class="high-low high" ng-if="item.isHightest==1">最高分</span>
+                            <span class="high-low low" ng-if="item.isLowest==1">最低分</span>
+                        </div>
+                        <div class="col score col-25 text-right lheight padding-top-0">
+                            <span class="score-num">{{item.displayScore?item.displayScore:"--"}}<span class="two-line"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+
+    <ion-spinner class="screen-center" ng-if="dataLoading"></ion-spinner>
+
+    <div class="fullscreen-box" ng-if="loadError" ng-click="doRefresh()">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+
+    <ion-footer-bar align-title="left" class="bar-ynedut">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="doBack()">
+                <i class="icon ion-chevron-left"></i>
+            </button>
+        </div>
+        <h1 class="title">&nbsp;</h1>
+
+        <div class="buttons">
+            <button class="button button-clear" ng-click="doRefresh()">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

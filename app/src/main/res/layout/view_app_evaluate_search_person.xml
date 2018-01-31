@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee" >
+
+    <RelativeLayout
+        android:id="@+id/app_eva_search_person_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/app_actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <LinearLayout
+            android:id="@+id/app_eva_choose_search_titleview_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/common_actionbar_padding"
+            android:paddingRight="@dimen/common_actionbar_padding" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/common_actionbar_btn_padding"
+                android:src="@mipmap/app_evaluate_choose_search" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/app_eva_choose_search_titleview_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/common_actionbar_padding"
+            android:paddingRight="@dimen/common_actionbar_padding" >
+
+            <TextView
+                android:id="@+id/app_eva_choose_search_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_actionbar_title_textSize" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/app_eva_choose_search_et"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@id/app_eva_choose_search_titleview_right"
+            android:layout_toRightOf="@id/app_eva_choose_search_titleview_left"
+            android:background="@drawable/app_evaluate_search_edit_bg"
+            android:hint="@string/org_search"
+            android:paddingLeft="12dp"
+            android:singleLine="true"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/app_eva_search_person_result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_eva_search_person_title_layout"
+        android:background="#eeeeee"
+        android:gravity="center"
+        android:paddingBottom="@dimen/common_listItem_forAvatar_padding"
+        android:paddingTop="@dimen/common_listItem_forAvatar_padding"
+        android:text="0个搜索结果"
+        android:textColor="#434343"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/app_eva_search_person_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/app_eva_search_person_result"
+        android:background="#d2d2d2" />
+
+    <RelativeLayout
+        android:id="@+id/app_eva_search_person_content_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/app_eva_search_person_divider" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+            android:id="@+id/app_eva_search_person_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+        </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+
+        <ProgressBar
+            android:id="@+id/app_eva_search_person_content_loading_data"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:max="100"
+            android:progress="0"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

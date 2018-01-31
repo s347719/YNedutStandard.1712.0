@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding">
+
+        <TextView
+            android:id="@+id/noticeDetails_txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/noticeDetails_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize"/>
+
+        <ImageView
+            android:id="@+id/noticeDetails_txt_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+
+        <TextView
+            android:id="@+id/noticeDetails_txt_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/noticeDetails_delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_textSize"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/noticeDetails_contentArea_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/noticeDetails_txt_content_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/noticeDetails_title_textSize"
+                tools:text="通知公告测试Testtest"/>
+
+            <TextView
+                android:id="@+id/noticeDetails_txt_content_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/noticeDetails_contentArea_verSpacing"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/noticeDetails_info_textSize"
+                tools:text="前天 11:39  张总"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dashed_line_height"
+                android:layout_marginTop="@dimen/noticeDetails_dashedLine_marginTop"
+                android:src="@drawable/dashed_line"
+                android:layerType="software"/>
+
+            <TextView
+                android:id="@+id/noticeDetails_txt_content_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/noticeDetails_contentArea_verSpacing"
+                android:textSize="@dimen/noticeDetails_content_textSize"
+                tools:text="通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest通知公告测试Testtest"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

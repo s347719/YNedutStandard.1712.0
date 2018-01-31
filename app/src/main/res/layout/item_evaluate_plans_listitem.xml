@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_evaluate_plan_item_height"
+    android:background="@drawable/app_evaluate_suggestion_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/app_evaluate_plan_name_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.943"
+        android:gravity="center"
+        android:text="2014.02-2015.09督导组听课评教"
+        android:textColor="@color/app_actionBar_bg"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:textSize="@dimen/common_actionbar_title_textSize" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.82" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.36"
+            android:background="@drawable/app_evaluate_plans_dash_line" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.82" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7.056"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.417"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.9" />
+
+            <TextView
+                android:id="@+id/app_evaluate_plan_eva_count"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3.133"
+                android:gravity="center_vertical"
+                android:text="@string/evaluateCount"
+                android:textColor="#434343"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.752" />
+
+            <TextView
+                android:id="@+id/app_evaluate_plan_evaed_count"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="4.215"
+                android:gravity="center_vertical"
+                android:text="@string/evaluatedCount"
+                android:textColor="#434343"
+                android:textSize="@dimen/common_listItem_textSize" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.006" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.361"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.4" />
+
+            <TextView
+                android:id="@+id/app_evaluate_plan_count_down"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="7.2"
+                android:background="@drawable/app_evaluate_countdown_bg"
+                android:gravity="center"
+                android:text="12天10分52秒后结束"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.4" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.753" />
+
+        <TextView
+            android:id="@+id/app_evaluate_plan_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2.463"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:text="04/11 10:00 ~ 04/12 10:00"
+            android:textColor="#a1a1a1"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </LinearLayout>
+
+</LinearLayout>

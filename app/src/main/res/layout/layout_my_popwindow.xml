@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/v_popwin_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/personinfo_phone_pop_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="选择方式:"
+            android:textColor="@color/person_info_cancle"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/view_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickListener">
+
+                <ImageView
+                    android:id="@+id/image_send"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:background="@mipmap/icon_send_message" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_send"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="短信"
+                    android:textSize="@dimen/sp_14" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_copy_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:onClick="onClickListener">
+
+                <ImageView
+                    android:id="@+id/image_copy"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:background="@mipmap/icon_copy_persion_info" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_copy"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="复制名片"
+                    android:textSize="@dimen/sp_14" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.5"
+            android:layout_marginTop="@dimen/dp_30"
+            android:background="@color/devide_line" />
+
+        <TextView
+            android:id="@+id/view_cancle_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="center"
+            android:onClick="onClickListener"
+            android:text="取消"
+            android:textColor="@color/person_info_cancle"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
+
+</RelativeLayout>

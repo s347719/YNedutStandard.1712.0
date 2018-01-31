@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.app.internship.report.ReportContentActivity"
+    >
+
+    <RelativeLayout
+        android:background="@color/actionBar_bg_blue"
+        android:padding="@dimen/common_actionbar_padding"
+        tools:layout_height="@dimen/common_actionbar_height"
+        tools:layout_width="match_parent"
+        style="?attr/actionBarUniformStyle"
+        >
+
+        <TextView
+            android:id="@+id/reportContent_txt_title"
+            android:layout_centerInParent="true"
+            tools:layout_height="wrap_content"
+            tools:layout_width="wrap_content"
+            tools:text="日报 (10月16日)"
+            style="?attr/actionBar_title"
+            />
+
+        <ImageButton
+            android:id="@+id/reportContent_imgb_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:padding="@dimen/common_actionbar_btn_padding"
+            android:src="@mipmap/app_evaluate_submit_result"
+            />
+
+        <ImageButton
+            android:id="@+id/reportContent_imgb_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:padding="@dimen/common_actionbar_btn_padding"
+            android:src="@mipmap/app_evaluate_choose_back"
+            />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
+                <EditText
+                    android:id="@+id/reportContent_edt_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/reportContent_text_margin"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="start"
+                    android:hint="@string/reportContent_contentHint"
+                    android:imeOptions="flagNoFullscreen"
+                    android:maxLength="2000"
+                    android:padding="@dimen/reportContent_text_padding"
+                    android:scrollbars="vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/reportContent_txt_textCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/reportContent_textCount_margin"
+                    tools:text="已输入0字"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/reportContent_bottomArea_verPadding"
+                android:paddingLeft="@dimen/reportContent_bottomArea_horPadding"
+                android:paddingRight="@dimen/reportContent_bottomArea_horPadding"
+                android:paddingTop="@dimen/reportContent_bottomArea_verPadding"
+                >
+                <ImageButton
+                    android:id="@+id/reportContent_imgb_requirementText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    />
+            </RelativeLayout>
+            <!--<TextView
+                android:id="@+id/reportContent_tv_attachfile_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:layout_marginLeft="8dp"
+                tools:text="附件3/10(254M)"
+                android:drawableLeft="@mipmap/attachment_icon"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reportContent_rv_attachfiles"
+                android:layout_width="match_parent"
+                android:layout_height="140dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/reportContent_bottomArea_verPadding"
+                android:paddingLeft="@dimen/reportContent_bottomArea_horPadding"
+                android:paddingRight="@dimen/reportContent_bottomArea_horPadding"
+                android:paddingTop="@dimen/reportContent_bottomArea_verPadding">
+
+
+                <ImageButton
+                    android:id="@+id/reportContent_imgb_attachment"
+                    android:layout_width="@dimen/reportContent_bottomArea_attachmentBtn_size"
+                    android:layout_height="@dimen/reportContent_bottomArea_attachmentBtn_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/fabutton_bg"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/ic_menu_add"/>
+            </RelativeLayout>-->
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/reportContent_frm_recorderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
+</LinearLayout>

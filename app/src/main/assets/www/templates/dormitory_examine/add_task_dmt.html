@@ -1,0 +1,148 @@
+<ion-view  ng-controller="addTaskCtrlDorm" class="manage-task">
+    <ion-content class="content-bc footer-two-content">
+        <ion-list class="list list-text-rt-lt text-overflow-box">
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>打分表</li>
+                    <li class="calm" ng-click="chooseTable()">
+                       <span class="default-color" ng-if="taskConditions.scoreTable == ''" >请选择</span>
+                        {{showTask.scoreTableName}}
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核区域</li>
+                    <li class="calm" ng-click="showRegion()">
+                         <span class="default-color" ng-if="taskConditions.checkRegion == ''" >{{showRegionInfo}}</span>
+                        {{showTask.checkRegionName}}
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核次数</li>
+                    <li class="calm" ng-click="chooseNember(taskConditions.scoreTable)">
+                        <span class="default-color" ng-if="taskConditions.checkNumber == ''" >请先选择打分表</span>
+                        {{showTask.checkNumberName}}
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>学期</li>
+                    <li class="calm" ng-click="chooseTerm()">
+                        <span class="default-color" ng-if="showTask.termName == ''" >请选择</span>
+                        {{showTask.termName}}
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核日期</li>
+                    <li class="calm">
+                        <input class="input-text-sty pull-right" ynui-datetimepicker="YMD" range="bbb" type="text" ng-model="taskConditions.checkDate">
+                    </li>
+                </ul>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="content-bc footer-two-bt">
+        <div class="pos-btn-bt">
+            <button class="button button-xlg button-outline button-calm" ng-click="closeAddTask()">取消</button>
+            <button class="button button-xlg button-calm" ng-click="generateTask()">生成考核任务</button>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+    <!--选择打分表-->
+    <script id="show_score_table.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择打分表
+                    <span class="calm" ng-click="hideTable()">取消</span>
+                </div>
+                <ul class="list-wrap" ng-if="selectScoreTable.length > 0" ng-repeat="item in selectScoreTable" ng-click="confirmTable(item)">
+                    <li ng-class="item.id == taskConditions.scoreTable ? 'list-item active':'list-item'">{{item.name}}</li>
+                </ul>
+                <ul class="list-wrap" ng-if="selectScoreTable == 0">
+                    <li class="text-center margin-top-10 margin-bottom-10">
+                        <h5>没有可选择的打分表！</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择打分表-->
+    <!--选择区域-->
+    <script id="show_check_region.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择考核区域
+                    <span class="calm" ng-click="hideRegion()">取消</span>
+                </div>
+                <ul class="list-wrap" ng-if="selectArea.length > 0">
+                    <li class="list-item item-btn-box text-center">
+                        <button class="button button-xlg button-calm" ng-class="checkType == 0?'btn-arrow active':'button-outline'" ng-click="chengeArea(0)">管理员的考核区</button>
+                        <button class="button button-xlg button-calm" ng-class="checkType == 1?'btn-arrow active':'button-outline'" ng-click="chengeArea(1)">我的考核区</button>
+                    </li>
+                    <li ng-class="item.id == taskConditions.checkRegion ? 'list-item active':'list-item'" ng-repeat="item in selectArea" ng-click="confirmRegion(item)" >{{item.name}}</li>
+                </ul>
+                <ul class="list-wrap" ng-if="selectArea.length == 0">
+                    <li class="list-item item-btn-box text-center">
+                        <button class="button button-xlg button-calm" ng-class="checkType == 0?'btn-arrow active':'button-outline'" ng-click="chengeArea(0)">管理员的考核区</button>
+                        <button class="button button-xlg button-calm" ng-class="checkType == 1?'btn-arrow active':'button-outline'" ng-click="chengeArea(1)">我的考核区</button>
+                    </li>
+                    <li class="text-center margin-top-10 margin-bottom-10">
+                        <h5>没有可选择的区域！</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择区域-->
+    <!--选择次数-->
+    <script id="show_check_number.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择次数
+                    <span class="calm" ng-click="hideNumber()">取消</span>
+                </div>
+                <div class="list-body" >
+                    <span ng-repeat="item in selectFrequency" ng-if="selectFrequency.length > 0">
+                        <button id="item.id" ng-class="item.id == taskConditions.checkNumber ? 'button button-sm button-calm btn-maxwd-sm' : 'button button-sm button-calm btn-maxwd-sm button-outline'" ng-click="confirmFrequency(item)">{{item.name}}</button>
+                    </span>
+                </div>
+                <div class="list-body text-center" ng-if="selectFrequency.length == 0" >
+                    没有可选择的次数！
+                </div>
+            </div>
+        </div>
+    </script>
+    <!--选择次数-->
+    <!--选择学期-->
+    <script id="show_term.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择学期
+                    <span class="calm" ng-click="hideTerm()">取消</span>
+                </div>
+                <ul class="list-wrap" ng-if="selectPlatformSysTerm.length > 0" ng-repeat="item in selectPlatformSysTerm">
+                    <li id="item.id" ng-class="item.id == taskConditions.term ? 'list-item active' : 'list-item'" ng-click="confirmTerm(item)">{{item.name}}</li>
+                </ul>
+                <ul class="list-wrap" ng-if="selectPlatformSysTerm.length == 0 || selectPlatformSysTerm == null">
+                    <li class="text-center margin-top-10 margin-bottom-10">
+                        <h5>没有可选择的学期！</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择学期-->
+</ion-view>

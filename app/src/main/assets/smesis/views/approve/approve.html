@@ -1,0 +1,64 @@
+<!--审批-->
+<ion-view class="content-bg fixed-header has-page-tabs approve-wrap">
+    <div class="fixed-header-wrapper">
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item " ng-class="{'active':isTab==false}" ng-click="loadData(false)">待审批</a>
+            <a class="tab-item"  ng-class="{'active':isTab==true}" ng-click="loadData(true)">已处理</a>
+        </div>
+    </div>
+    <ion-content ng-show="!isTab">
+        <!--待审批区域 开始-->
+        <div class="alert-top close" ng-show="showInfo">
+            提示：目前手机端只支持 "出差、请假、外勤、超标费用、费用" 申请的审批，其他申请请在SMEsis学校运营管理平台电脑端操作！
+            <i class="ion-close-round" ng-click="closeInfo()"></i>
+        </div>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(isTab)"></ion-refresher>
+        <div class="list list-space">
+            <ion-item class="item-default" ng-class="{'pc-item-signal':!data.isPcOrApp}" ng-click="showApproveModal(data)" ng-repeat="data in dataList">
+                <h2>{{data.activityTitle}}</h2>
+                <div class="font-12 text-gray">流程申请时间&nbsp;:&nbsp;{{data.applyTime}}</div>
+                <div class="text-gray font-12" ng-if="isTab">我的审批&nbsp;:&nbsp;<span class="text-orange">{{data.state}}</span>（{{data.handingTime}}）</div>
+                <div class="pc-text font-12" ng-show="!data.isPcOrApp">电脑上审批</div>
+            </ion-item>
+            <span ng-show="isNoMoreData" class="infinite-more block">没有更多数据了!</span>
+            <ion-infinite-scroll  ng-if="approveData" on-infinite="loadMore()"  distance="1%"></ion-infinite-scroll>
+        </div>
+    </ion-content>
+    <!--已处理区域 开始-->
+    <ion-content ng-show="isTab">
+        <div class="alert-top close" ng-show="showInfo">
+            提示：目前手机端只支持 "出差、请假、外勤、超标费用、费用" 申请的审批，其他申请请在SMEsis学校运营管理平台电脑端操作！
+            <i class="ion-close-round" ng-click="closeInfo()"></i>
+        </div>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doAlreadyRefresh()"></ion-refresher>
+        <div class="list list-space">
+            <ion-item class="item-default" ng-class="{'pc-item-signal':!data.isPcOrApp}" ng-click="showApproveModal(data)" ng-repeat="data in alreadyDataList">
+                <h2>{{data.activityTitle}}</h2>
+                <div class="font-12 text-gray">流程申请时间&nbsp;:&nbsp;{{data.applyTime}}</div>
+                <div class="text-gray font-12" ng-if="isTab">我的审批&nbsp;:&nbsp;<span class="text-orange">{{data.state}}</span>（{{data.handingTime}}）</div>
+                <div class="pc-text font-12" ng-show="!data.isPcOrApp">电脑上审批</div>
+            </ion-item>
+            <span ng-show="isNoMoreAlreadyData" class="infinite-more block">没有更多数据了!</span>
+            <ion-infinite-scroll  ng-if="alreadyApproveData" on-infinite="loadAlreadyMore(isTab)"  distance="1%"></ion-infinite-scroll>
+        </div>
+    </ion-content>
+    <!--已处理区域 结束-->
+    <!--待审批页面无数据-->
+    <div class="fullscreen-box" ng-if="showNoData">
+        <div class="screen-center">
+            <h4 ng-show="!isTab">暂无审批</h4>
+            <h4  ng-show="showError">加载失败，请重试</h4>
+            <button class="button button-local retry-button" ng-click="loadMore(isTab)" ng-show="showError">点击重试</button>
+        </div>
+    </div>
+    <!--已处理页面无数据-->
+    <div class="fullscreen-box" ng-if="showNoAlreadyData">
+        <div class="screen-center">
+            <h4 ng-show="isTab">没有已处理的审批</h4>
+            <h4  ng-show="showError">加载失败，请重试</h4>
+            <button class="button button-local retry-button" ng-click="loadAlreadyMore(isTab)" ng-show="showError">点击重试</button>
+        </div>
+    </div>
+
+
+</ion-view>

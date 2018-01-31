@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/reportCalendarDaily_calenderItem_height"
+    app:cardCornerRadius="@dimen/reportCalendarDaily_calenderItem_corners"
+    app:cardElevation="@dimen/reportCalendarDaily_calenderItem_elevation"
+    app:cardUseCompatPadding="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/reportCalendarDaily_calenderItem_padding"
+        >
+
+        <TextView
+            android:id="@+id/reportCalendarDaily_img_calendarItem_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"
+            android:textSize="@dimen/reportCalendarDaily_calenderItem_date_textSize"
+            tools:text="3日"
+            />
+
+        <TextView
+            android:id="@+id/reportCalendarDaily_img_calendarItem_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/reportCalendarDaily_calenderItem_date_textSize"
+            tools:text="今天"
+            tools:textColor="@color/gray"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/reportCalendarDaily_img_calenderItem_tag"
+        android:layout_width="@dimen/reportCalendar_calenderItem_tagImg_size"
+        android:layout_height="@dimen/reportCalendar_calenderItem_tagImg_size"
+        tools:src="@mipmap/report_passed"
+        />
+</android.support.v7.widget.CardView>

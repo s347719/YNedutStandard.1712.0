@@ -1,0 +1,170 @@
+<!--查看事务-->
+<ion-view class="fixed-header content-bg affair-assign view-affair">
+    <div class="fixed-header-wrapper">
+        <div class="list">
+            <ion-item class="item-default pass-status">
+                <div class="report-thumbnail no-attachment">
+                    <div class="theme-border-box">{{assign.transactionSchedule}}%</div>
+                    <h2 class="word-break">{{assign.name}}</h2>
+                    <p class="text-gray">
+                        <span>主办:{{assign.mainUserName}}</span>
+                        <span>交办:{{assign.handUserName}}</span>
+                    </p>
+                    <p class="text-gray">
+                        <span>时间:{{assign.startDate}}{{assign.endDate}}</span>
+                    </p>
+                </div>
+                <div class="pass" ng-show="assign.auditStatus==1"></div>
+                <div class="unpass" ng-show="assign.auditStatus==2"></div>
+            </ion-item>
+        </div>
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item"  ng-class="{'active' : isTab == 1}" ng-click="loadData()">
+                基本信息
+            </a>
+            <a class="tab-item"  ng-class="{'active' : isTab == 2}" ng-click="getAppoval(1)">
+                反馈批示({{appovalData.length}})
+            </a>
+            <a class="tab-item " ng-class="{'active' : isTab == 3}" ng-click="getAppoval(2)">
+                审核记录({{submitList.length}})
+            </a>
+        </div>
+    </div>
+    <ion-content class="">
+        <!--基本信息开始-->
+        <div class="list list-space" ng-show="isTab == 1">
+            <ion-item class="item-normal has-more">
+                <div class="item-normal-title">
+                    <h3>
+                        <span class="title">事务描述</span>
+                        <span class="attachment" ng-show="baseInfo.uploadVoList && baseInfo.uploadVoList.length > 0" ng-click="viewFileFun(baseInfo.uploadVoList)"><i class="ion-paperclip"></i>有<span class="text-theme">{{baseInfo.uploadVoList.length || 0}}个</span>附件</span>
+                    </h3>
+                    <p class="word-break">
+                        {{baseInfo.instructionShow}}
+                    </p>
+                </div>
+                <span class="more font-12 text-theme"
+                      ng-show="baseInfo.instruction.length > 50 && baseInfo.instructionShow.length <= 53" ng-click="showMore(baseInfo)">
+                    显示更多 <i class="ion-arrow-down-b"></i>
+                </span>
+            </ion-item>
+            <ion-item class="item-normal">
+                <div class="item-normal-title">
+                    <h3><span class="title">协办人</span></h3>
+                    <p class="word-break">
+                        {{baseInfo.teamUserName}}
+                    </p>
+                </div>
+                <div class="item-normal-title margin-top-10">
+                    <h3><span class="title">关注人</span></h3>
+                    <p class="word-break">
+                        {{baseInfo.attentionUserName}}
+                    </p>
+                </div>
+                <div class="item-normal-title margin-top-10">
+                    <h3><span class="title">事务来源</span></h3>
+                    <p class="word-break">
+                        {{baseInfo.transactionSourceCode}}
+                    </p>
+                </div>
+                <div class="item-normal-title margin-top-10">
+                    <h3><span class="title">事务类型</span></h3>
+                    <p class="word-break">
+                        {{baseInfo.transactionTypeCode}}
+                    </p>
+                </div>
+                <div class="item-normal-title margin-top-10">
+                    <h3><span class="title">是否重要/紧急</span></h3>
+                    <p class="word-break">
+                       {{showdata}}
+                    </p>
+                </div>
+            </ion-item>
+        </div>
+        <!--基本信息结束-->
+        <!--反馈批示开始-->
+        <div class="list list-space" ng-show="isTab == 2">
+            <div class="clearfix padding">
+                <div class="pull-left" ng-click="timeDesc()" ng-show="timedesc">按时间倒序显示&nbsp;<i class="ion-android-arrow-down text-gray"></i></div>
+                <div class="pull-left" ng-click="timeDesc()" ng-show="!timedesc">按时间升序显示&nbsp;<i class="ion-android-arrow-up text-gray"></i></div>
+                <div class="pull-right">
+                    <ion-checkbox class="checkbox-square-inline" ng-click="showUpload(appovalData)" ng-model="upload.show">只显示有附件的记录</ion-checkbox>
+                </div>
+            </div>
+            <ion-item class="item-normal has-more" ng-repeat="data in appovalData" ng-show="!timedesc">
+                <div class="report-thumbnail">
+                    <div class="theme-border-box" ng-show="data.instructionsStarus==2">反馈</div>
+                    <div class="theme-border-box" ng-show="data.instructionsStarus==3">批示</div>
+                    <h2>{{data.affairsassignedUser}}</h2>
+                    <p class="text-gray">
+                        <span>{{data.startDate}}</span>
+                        <span>{{data.endDate}}</span>
+                    </p>
+                    <span class="attachment" ng-show="data.uploadVoList && data.uploadVoList.length > 0" ng-click="viewFileFun(data.uploadVoList)"><i class="ion-paperclip"></i>有<span class="text-theme">{{data.uploadVoList.length || 0}}个</span>附件</span>
+                </div>
+                <p class="word-break">
+                    {{data.instructionShow}}
+                    <span class="more text-theme" ng-show="data.instructions.length > 50 && data.instructionShow.length <= 53 " ng-click="showMore(data,2)">显示更多 <i class="ion-arrow-down-b"></i></span>
+                </p>
+            </ion-item>
+            <ion-item class="item-normal has-more" ng-repeat="data in appovalData |orderBy:'opretionTime':false" ng-show="timedesc">
+                <div class="report-thumbnail">
+                    <div class="theme-border-box" ng-show="data.instructionsStarus==2">反馈</div>
+                    <div class="theme-border-box" ng-show="data.instructionsStarus==3">批示</div>
+                    <h2>{{data.affairsassignedUser}}</h2>
+                    <p class="text-gray">
+                        <span>{{data.startDate}}</span>
+                        <span>{{data.endDate}}</span>
+                    </p>
+                    <span class="attachment" ng-show="data.uploadVoList && data.uploadVoList.length > 0" ng-click="viewFileFun(data.uploadVoList)"><i class="ion-paperclip"></i>有<span class="text-theme">{{data.uploadVoList.length || 0}}个</span>附件</span>
+                </div>
+                <p class="word-break">
+                    {{data.instructionShow}}
+                    <span class="more text-theme" ng-show="data.instructions.length > 50 && data.instructionShow.length <= 53 " ng-click="showMore(data,2)">显示更多 <i class="ion-arrow-down-b"></i></span>
+                </p>
+            </ion-item>
+        </div>
+        <!--反馈批示结束-->
+        <!--审批记录开始-->
+        <div class="list list-space" ng-show="isTab == 3">
+            <ion-item class="item-normal" ng-repeat="data in submitList">
+                <div class="report-thumbnail no-attachment">
+                    <div class="theme-border-box green" ng-show="data.auditStatus==1">通过</div>
+                    <div class="theme-border-box orange three" ng-show="data.auditStatus==2">不通过</div>
+                    <h2>审核人:{{data.affairsassignedUser}}</h2>
+                    <p class="text-gray">
+                        <span>时间:{{data.startDate}}</span>
+                        <span>{{data.endDate}}</span>
+                    </p>
+                </div>
+                <div class="item-normal-title">
+                    <h3><span class="title">审核意见</span></h3>
+                    <p class="word-break">
+                        {{data.instructionShow ?data.instructionShow:"无"}}
+                        <span class="more text-theme" ng-show="data.instructions.length > 50 && data.instructionShow.length <= 53 " ng-click="showMore(data,2)">显示更多 <i class="ion-arrow-down-b"></i></span>
+                    </p>
+                </div>
+            </ion-item>
+        </div>
+        <!--审批记录结束-->
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="back()">返回</button>
+                <button class="button button-theme button-local" ng-click="feedBack()" ng-if="showfeedBack">反馈</button>
+                <button class="button button-theme button-local" ng-click="approval()" ng-if="showapproval">批示</button>
+                <button class="button button-theme button-local button-outline button-more" ng-click="moreButton()" ng-if="showMoreButton">
+                    更多&nbsp;<i class="ion-more"></i>
+                    <ul class="more" ng-show="show">
+                        <li ng-click="submit()" ng-if="showSubmit">审核</li>
+                        <li ng-click="edit()" ng-if="showEdit">修改</li>
+                        <li ng-click="del()" ng-if="showDel">删除</li>
+                        <li ><i class="ion-ios-arrow-down"></i></li>
+                    </ul>
+                </button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+

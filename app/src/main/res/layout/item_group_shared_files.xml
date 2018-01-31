@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="beforeDescendants"
+    android:padding="@dimen/groupSharedFiles_listItem_padding" >
+
+
+
+    <ImageView
+        android:id="@+id/groupSharedFiles_img_listItem_thumb"
+        android:layout_width="@dimen/groupSharedFiles_listItem_thumb_size"
+        android:layout_height="@dimen/groupSharedFiles_listItem_thumb_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+         />
+
+    <Button
+        android:id="@+id/groupSharedFiles_btn_listItem_openUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:focusable="true"
+        android:clickable="true"
+        tools:text="@string/start"
+        android:textSize="@dimen/groupSharedFiles_listItem_openup_textSize" />
+
+    <TextView
+        android:id="@+id/groupSharedFiles_txt_listItem_fileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/groupSharedFiles_img_listItem_thumb"
+        android:layout_toLeftOf="@id/groupSharedFiles_btn_listItem_openUp"
+        android:layout_toRightOf="@id/groupSharedFiles_img_listItem_thumb"
+        android:layout_toStartOf="@id/groupSharedFiles_btn_listItem_openUp"
+
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textSize="@dimen/groupSharedFiles_listItem_normalTextSize" />
+
+    <TextView
+        android:id="@+id/groupSharedFiles_txt_listItem_fileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupSharedFiles_txt_listItem_fileName"
+        android:layout_marginEnd="@dimen/groupSharedFiles_listItem_horSpacing"
+        android:layout_marginRight="@dimen/groupSharedFiles_listItem_horSpacing"
+        android:layout_toEndOf="@id/groupSharedFiles_img_listItem_thumb"
+        android:layout_toRightOf="@id/groupSharedFiles_img_listItem_thumb"
+        android:singleLine="true"
+        android:textSize="@dimen/groupSharedFiles_listItem_smallTextSize" />
+
+    <TextView
+        android:id="@+id/groupSharedFiles_txt_listItem_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupSharedFiles_txt_listItem_fileName"
+        android:layout_toEndOf="@id/groupSharedFiles_txt_listItem_fileSize"
+        android:layout_toRightOf="@id/groupSharedFiles_txt_listItem_fileSize"
+        android:singleLine="true"
+        android:textSize="@dimen/groupSharedFiles_listItem_smallTextSize" />
+
+    <TextView
+        android:id="@+id/groupSharedFiles_txt_listItem_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/groupSharedFiles_listItem_horSpacing"
+        android:layout_below="@id/groupSharedFiles_txt_listItem_fileName"
+        android:layout_toEndOf="@id/groupSharedFiles_txt_listItem_owner"
+        android:layout_toRightOf="@id/groupSharedFiles_txt_listItem_owner"
+        android:singleLine="true"
+        android:textSize="@dimen/groupSharedFiles_listItem_smallTextSize" />
+
+    <TextView
+        android:id="@+id/groupSharedFiles_txt_listItem_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupSharedFiles_txt_listItem_fileSize"
+        android:layout_toRightOf="@id/groupSharedFiles_img_listItem_thumb"
+        android:textSize="@dimen/groupSharedFiles_listItem_smallTextSize"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/groupSharedFiles_prg_listItem_downloadBar"
+        style="@style/Progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/groupSharedFiles_txt_listItem_status"
+        android:layout_marginTop="@dimen/groupSharedFiles_listItem_downloadBar_marginTop"
+        android:max="100"
+        android:visibility="visible" />
+
+</RelativeLayout>

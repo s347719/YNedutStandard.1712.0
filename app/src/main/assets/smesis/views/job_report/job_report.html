@@ -1,0 +1,55 @@
+<!--工作报告-->
+<ion-view class="content-bg fixed-header has-page-tabs has-special-footer-bar job-report">
+    <div class="fixed-header-wrapper">
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item " ng-class="{'active' : isTab == 2}" ng-click="setIsTabFun(2)">
+                我收到的报告
+            </a>
+            <a class="tab-item" ng-class="{'active' : isTab == 1}"  ng-click="setIsTabFun(1)">
+                我提交的报告
+            </a>
+        </div>
+    </div>
+    <ion-content>
+        <div class="list list-space bottom-90">
+            <ion-item class="item-default" ng-class="{'item-default new':(!info.readingState&&isTab==2)}" ng-repeat="info in reportList track by $index " ng-click="jumpFun.view(info)">
+                <div class="report-thumbnail">
+                    <div class="theme-border-box" ng-class="{'five':info.reportTypeName.length===5,'four':info.reportTypeName.length===4}">{{info.reportTypeName}}</div>
+                    <h2> {{info.title}}</h2>
+                    <p class="text-gray">
+                        <span>时间:{{info.startReportingTime}}</span>
+                        <span>级别:{{info.importantName}}</span>
+                        <span ng-show="isTab == 2">报告人:{{info.submitUserName}}</span>
+                        <span ng-show="isTab == 1">主送人:{{info.mainUserName}}</span>
+                    </p>
+                </div>
+                <p class="text-overflow-two">
+                   {{info.reportContent}}
+                </p>
+            </ion-item>
+            <ion-infinite-scroll  ng-if="!isMoreData" on-infinite="loadMoreData()"  distance="1%"></ion-infinite-scroll>
+            <div class="infinite-scroll-warning" ng-if="isMoreData">
+                <span>没有了</span>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="special-footer-txtheight nobg">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon text-only more-text" ng-click="jumpFun.add()">
+                    提交报告
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--内容加载失败或没有内容开始 说明：注释掉<ion-content>...</ion-content>内容,解开下方注释即可-->
+    <div class="fullscreen-box" ng-show="isError || isNoData">
+        <div class="screen-center">
+            <h4 ng-show="isError">加载失败</h4>
+            <h4 ng-show="isNoData">没有工作报告</h4>
+            <p ng-show="isError">刷新试试</p>
+        </div>
+    </div>
+    <!--内容加载失败或没有内容结束 说明：注释掉<ion-content>...</ion-content>内容,解开下方注释即可-->
+
+</ion-view>

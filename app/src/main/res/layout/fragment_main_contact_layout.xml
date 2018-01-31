@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_contact_org_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_content_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_contact_org_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/bt_contact_org_title_return_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:ellipsize="middle"
+            android:gravity="center_vertical"
+            android:onClick="back"
+            android:scaleType="center"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:singleLine="true"
+            android:text="@string/main_contact"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize"
+            android:visibility="invisible" />
+
+
+        <ImageView
+            android:id="@+id/contact_org_create_dis_group"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="center"
+            android:padding="@dimen/common_actionbar_btn_padding"
+            android:src="@mipmap/add_new_discussion"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/bt_contact_org_title_right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/main_contact"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_backKey_textSize"
+            android:visibility="invisible" />
+
+
+        <TextView
+            android:id="@+id/contact_org_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:ellipsize="middle"
+            android:gravity="center_vertical"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:singleLine="true"
+            android:text="@string/main_contact"
+            android:textColor="@color/white"
+            android:textSize="23sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/searchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_contact_org_title_layout"
+        android:layout_margin="@dimen/searchBox_margin"
+        android:background="@drawable/searchbox_shape" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/searchBox_imgSize"
+                android:layout_height="@dimen/searchBox_imgSize"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/searchBox_img_marginRight"
+                android:src="@mipmap/search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/org_search"
+                android:textSize="@dimen/searchBox_textSize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/contact_org_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBox"
+        android:divider="@null"
+        android:background="@color/white" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_listview_data_empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/searchBox"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/loading_fail_color"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/downloadedFiles_listItem_padding">
+
+
+        <ImageView
+            android:id="@+id/downloadFiles_check"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/downloadedFiles_listItem_thumb_image"
+            android:layout_width="@dimen/downloadedFiles_listItem_thumb_size"
+            android:layout_height="@dimen/downloadedFiles_listItem_thumb_size"
+            android:layout_toRightOf="@+id/downloadFiles_check"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/downloadedFiles_listItem_horSpacing"
+            android:background="@drawable/item_background_d2"
+            >
+            <ImageView
+                android:id="@+id/downloadedFiles_img_listItem_thumb"
+                android:layout_width="@dimen/downloadedFiles_listItem_thumb_size"
+                android:layout_height="@dimen/downloadedFiles_listItem_thumb_size"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/file" />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/downloadedFiles_txt_listItem_fileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_toLeftOf="@+id/downloadFiles_more"
+            android:layout_alignTop="@id/downloadedFiles_listItem_thumb_image"
+            android:layout_toRightOf="@id/downloadedFiles_listItem_thumb_image"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:textSize="@dimen/downloadedFiles_listItem_backView_btn_textSize" />
+
+        <TextView
+            android:id="@+id/downloadedFiles_txt_listItem_timeStamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/downloadedFiles_listItem_thumb_image"
+            android:layout_toRightOf="@id/downloadedFiles_listItem_thumb_image"
+            android:textSize="@dimen/downloadedFiles_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/downloadedFiles_txt_listItem_fileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/downloadedFiles_listItem_thumb_image"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/downloadedFiles_txt_listItem_timeStamp"
+            android:singleLine="true"
+            android:textSize="@dimen/downloadedFiles_listItem_textSize" />
+        <TextView
+            android:id="@+id/downloadedFiles_txt_listItem_fileSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/downloadedFiles_listItem_thumb_image"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/downloadedFiles_txt_listItem_fileSize"
+            android:layout_toLeftOf="@+id/downloadFiles_more"
+            android:singleLine="true"
+            android:textSize="@dimen/downloadedFiles_listItem_textSize" />
+
+
+        <RelativeLayout
+            android:id="@+id/downloadFiles_more"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/downloadedFiles_listItem_thumb_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/files_more" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/common_content_bg"/>
+
+</LinearLayout>

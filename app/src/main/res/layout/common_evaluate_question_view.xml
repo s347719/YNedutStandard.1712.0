@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:id="@+id/app_evaluate_ques_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="六、 团队价值与使命"
+            android:textColor="#434343"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/app_evaluate_ques_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1/7"
+            android:textColor="#434343"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#d2d2d2" />
+
+    <TextView
+        android:id="@+id/app_evaluate_ques_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="你觉得改老师要授课过程中，是否有违规行为?（2~10分）"
+        android:textColor="#434343"
+        android:textSize="@dimen/common_listItem_textSize" />
+
+</LinearLayout>

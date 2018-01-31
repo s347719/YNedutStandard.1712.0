@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groupMsgNotifySetting_rel_rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray"
+    tools:context=".activity.settings.GroupMsgNotifySettingActivity" >
+
+    <RelativeLayout
+        android:id="@+id/groupMsgNotifySetting_rel_actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/groupMsgNotifySetting_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/groupMsgNotifySetting_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/groupMsgNotifySetting_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/groupMsgNotifySetting_lst_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/groupMsgNotifySetting_rel_actionBar" >
+    </ListView>
+
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/pk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:clickable="true"
+             android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:background="@color/black"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/reportContent_rlt_recorderView"
+            android:layout_width="@dimen/reportContent_recorder_recorderView_size"
+            android:layout_height="@dimen/reportContent_recorder_recorderView_size"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <com.gelitenight.waveview.library.WaveView
+                android:id="@+id/reportContent_wav_recorder_wave"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/reportContent_img_recorder_recording"
+                android:layout_width="@dimen/reportContent_recorder_recordingImg_size"
+                android:layout_height="@dimen/reportContent_recorder_recordingImg_size"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/audio_recording"/>
+
+            <TextView
+                android:id="@+id/reportContent_txt_recorder_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reportContent_img_recorder_recording"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/reportContent_recorder_timer_textSize"
+                tools:text="01:18"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/reportContent_txt_recorder_startRecorder"
+            android:layout_width="@dimen/reportContent_recorder_recordBtn_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/reportContent_bottomArea_verPadding"
+            android:background="@drawable/button_shape"
+            android:gravity="center"
+            android:paddingBottom="@dimen/reportContent_recorder_recordBtn_verPadding"
+            android:paddingLeft="@dimen/reportContent_recorder_recordBtn_horPadding"
+            android:paddingRight="@dimen/reportContent_recorder_recordBtn_horPadding"
+            android:paddingTop="@dimen/reportContent_recorder_recordBtn_verPadding"
+            android:text="@string/reportContent_startAudioRecord"
+            android:textColor="@color/actionBar_bg_blue"
+            android:textSize="@dimen/reportContent_recorder_recordBtn_textSize"/>
+
+    </RelativeLayout>
+</FrameLayout>

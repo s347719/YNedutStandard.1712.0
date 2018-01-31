@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#7eccc9" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/app_actionBar_bg"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.624" />
+
+        <RadioGroup
+            android:id="@+id/app_evaluate_choose_person_radiogroup"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="8.752"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/app_evaluate_choose_person_rb_all"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/app_evaluate_choose_all_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/evaluateCheckAllCount"
+                android:textColor="@drawable/app_evaluate_choose_radio_txt_selector"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <RadioButton
+                android:id="@+id/app_evaluate_choose_person_rb_not_eva"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="2px"
+                android:layout_marginRight="2px"
+                android:layout_weight="1"
+                android:background="@drawable/app_evaluate_choose_radio_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/evaluateUncheckCount"
+                android:textColor="@drawable/app_evaluate_choose_radio_txt_selector"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <RadioButton
+                android:id="@+id/app_evaluate_choose_person_rb_evaed"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/app_evaluate_choose_evaed_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/evaluateCheckedCount"
+                android:textColor="@drawable/app_evaluate_choose_radio_txt_selector"
+                android:textSize="@dimen/common_listItem_textSize" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.624" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+            android:id="@+id/app_evaluate_choose_person_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#eeeeee" >
+        </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+
+        <ProgressBar
+            android:id="@+id/app_evaluate_choose_person_loading_data"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:max="100"
+            android:progress="0"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/app_evaluate_choose_person_content_empty_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="加载失败，单击重试！"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

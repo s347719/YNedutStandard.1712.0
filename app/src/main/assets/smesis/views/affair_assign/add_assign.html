@@ -1,0 +1,133 @@
+<!--添加/修改事务交办-->
+<ion-view class="add-report">
+    <ion-content class="content-bg">
+        <div class="list list-space edit-input" ng-show="!showMore">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">事务名称</span>
+                <input type="text" placeholder="输入事务名称" ng-model="assign.name"/>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">描述 <span class="text-gray font-12">{{min}}/1000</span></span>
+                <textarea type="input" rows="5" class="form-control" ng-change="checkText(assign.instruction)" placeholder="请描述事务内容" maxlength="1000" ng-model="assign.instruction"></textarea>
+            </label>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">起止日期</span>
+                <div class="date-group">
+                    <input type="text" placeholder="选择开始日期"  ng-model="assign.startDate" datetimepicker   ng-change="addOndeDay()"/>
+                    <span class="date-group-addon">至</span>
+                    <input type="text" placeholder="选择结束日期"  ng-model="assign.endDate"   datetimepicker   ng-change="addOndeDay()"/>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">主办人</span>
+                <input type="text" placeholder="请选择"  user-selector inServiceStates = "1,3" title="主办人" routingStatusType="affair_assign" userTypeApp="2" on-select="selectUser(item)"  readonly ng-model="assign.mainUserName"/>
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">事务类型</span>
+                <input cost-select init-data="transactionType" name-field="name" slide-title="选择事务类型"
+                       ng-model="assign.typeName" selected-obj="selectModel"
+                       on-select="typeSelect(item)" type="text" placeholder="请选择" readonly="readonly">
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <!--更多内容区域开始-->
+            <div class="item-more" ng-click="clickMore()" ng-show="!showMore">
+                <div class="more-title">展开更多 <i class="ion-arrow-down-b"></i></div>
+                <!--<p>关注人、协办人、事务来源、重要程度、上传附件</p>-->
+                <p>关注人、协办人、事务来源、重要程度</p>
+            </div>
+
+
+            <!--<div class="item item-input item-stacked-label">-->
+                <!--<span class="input-label">上传附件</span>-->
+                <!--<ul class="attachement-area">-->
+                    <!--<li></li>-->
+                    <!--<li></li>-->
+                    <!--<li></li>-->
+                    <!--<li></li>-->
+                    <!--&lt;!&ndash;添加好的图片&ndash;&gt;-->
+                    <!--<li class="add"><i class="ion-plus-round"></i></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--更多内容区域结束-->
+        </div>
+        <div class="list list-space edit-input" ng-show="showMore">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">事务名称</span>
+                <input type="text" placeholder="输入事务名称" ng-model="assign.name"/>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">描述 <span class="text-gray font-12">{{min}}/1000</span></span>
+                <textarea type="input" rows="5" class="form-control" ng-change="checkText(assign.instruction)" placeholder="请描述事务内容" maxlength="1000" ng-model="assign.instruction"></textarea>
+            </label>
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">起止日期</span>
+                <div class="date-group">
+                    <input type="text" placeholder="选择开始日期"  ng-model="assign.startDate" datetimepicker   ng-change="addOndeDay()"/>
+                    <span class="date-group-addon">至</span>
+                    <input type="text" placeholder="选择结束日期"  ng-model="assign.endDate"   datetimepicker   ng-change="addOndeDay()"/>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">主办人</span>
+                <input type="text" placeholder="请选择"  user-selector inServiceStates = "1,3" title="主办人" routingStatusType="affair_assign" userTypeApp="2" on-select="selectUser(item)"  readonly ng-model="assign.mainUserName"/>
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">事务类型</span>
+                <input cost-select init-data="transactionType" name-field="name" slide-title="选择事务类型"
+                       ng-model="assign.typeName" selected-obj="selectModel"
+                       on-select="typeSelect(item)" type="text" placeholder="请选择" readonly="readonly">
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <!--更多内容区域开始-->
+            <div>
+                <div class="item item-input item-stacked-label item-button-right">
+                    <span class="input-label">事务来源</span>
+                    <input slide-select init-data="transactionSource" name-field="dictName" slide-title="选择事务来源"
+                           ng-model="assign.fromName" selected-obj="selectModel"
+                           on-select="sourceSelect(item)" type="text" placeholder="非必选" readonly="readonly">
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-input">
+                    <div class="item-input-flex border-right margin-right-10">
+                        <span class="input-label">关注人({{assign.watchUserSize}})</span>
+                        <input type="text" class="text-left" placeholder="非必选"  user-selector inServiceStates ="1" ismore="true" title="关注人"  on-select="selectUserWatch(item)" select-list="assign.watchUserList" readonly ng-model="assign.watchUserName"/>
+                    </div>
+                    <div class="item-input-flex">
+                        <span class="input-label">协办人({{assign.helpUserSize}})</span>
+                        <input type="text" class="text-left" placeholder="非必选"  user-selector inServiceStates ="1" ismore="true" title="协办人"   on-select="selectUserHelp(item)" select-list="assign.helpUserList" readonly ng-model="assign.helpUserName"/>
+                    </div>
+                </div>
+                <div class="item item-input">
+                    <span class="input-label">重要/紧急</span>
+                    <div class="status no-margin">
+                        <ion-checkbox class="checkbox-square-inline" ng-model="flagObj.important">重要</ion-checkbox>
+                        <ion-checkbox class="checkbox-square-inline" ng-model="flagObj.urgent">紧急</ion-checkbox>
+                    </div>
+                </div>
+            </div>
+
+            <div file-uploader init-files="assign.fsAnnexIDs" init-broadcast="filesDone"></div>
+            <!--更多内容区域结束-->
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="backToMain()">返回</button>
+                <button class="button button-theme button-local" ng-click="save()" ng-disabled="opreation.canSubmit">提交</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

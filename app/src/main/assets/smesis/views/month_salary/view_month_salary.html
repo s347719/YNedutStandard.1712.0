@@ -1,0 +1,120 @@
+<!--月薪酬查看-->
+<ion-view class="month-salary content-bg fixed-header">
+    <div class="fixed-header-wrapper">
+        <h3 class="every-month">
+            <span ng-click="changeMonth(pageData.monthList[0])">
+                {{pageData.monthList[0] === null ? '' : '上一月'}}
+            </span>
+            {{formatShowDate(pageData.monthList[1])}}
+            <span ng-click="changeMonth(pageData.monthList[2])">
+                {{pageData.monthList[2] === null ? '' : '下一月'}}
+            </span>
+        </h3>
+        <div class="amount-area-wrap">
+            <div class="amount-area">
+                <div class="amount-list">
+                    <p>应发（元）</p>
+                    <h5 ng-if="!pageData.onlyImport && pageData.salary.monthSalaryPayableTotal">
+                        {{pageData.salary.monthSalaryPayableTotal | number : 2}}
+                    </h5>
+                    <h5 ng-if="pageData.onlyImport || pageData.salary.monthSalaryPayableTotal === null">——</h5>
+                </div>
+                <div class="amount-list">
+                    <p>应扣（元）</p>
+                    <h5 ng-if="!pageData.onlyImport && pageData.salary.monthDeductTotal">
+                        {{pageData.salary.monthDeductTotal | number : 2}}
+                    </h5>
+                    <h5 ng-if="pageData.onlyImport || pageData.salary.monthDeductTotal === null">——</h5>
+                </div>
+                <div class="amount-list">
+                    <p>实发（元）</p>
+                    <h5 ng-if="pageData.salary.monthActualSalaryTotal">
+                        {{pageData.salary.monthActualSalaryTotal | number : 2}}
+                    </h5>
+                    <h5 ng-if="pageData.salary.monthActualSalaryTotal === null">——</h5>
+                </div>
+            </div>
+        </div>
+        <!--标签页部分-->
+        <div class="page-tabs page-tabs-color-theme" ng-if="!pageData.onlyImport">
+            <a class="tab-item" ng-class="{'active': pageData.tabNumber === 1}" ng-click="changeTab(1)">
+                应发明细
+            </a>
+            <a class="tab-item" ng-class="{'active': pageData.tabNumber === 2}" ng-click="changeTab(2)">
+                应扣明细
+            </a>
+            <a class="tab-item" ng-class="{'active': pageData.tabNumber === 3}"
+               ng-if="null !== pageData.salary.salaryTableNames && pageData.salary.salaryTableNames.length !== 0"
+               ng-click="changeTab(3)">
+                其他明细
+            </a>
+            <a class="tab-item" ng-class="{'active': pageData.tabNumber === 4}" ng-click="changeTab(4)">
+                发放方式
+            </a>
+        </div>
+        <!--单模块部分-->
+        <div class="salary-detail" ng-if="pageData.onlyImport">
+            <i class="ion-clipboard"></i>薪酬明细
+        </div>
+    </div>
+    <ion-content>
+        <!--应发明细开始-->
+        <div class="send-way-content" ng-if="pageData.tabNumber === 1">
+            <div class="send-way-list no-icon" ng-repeat="(index, name) in pageData.salary.incomeItemNames">
+                <label class="title">
+                    {{name}}
+                </label>
+                <label class="number">{{pageData.salary.incomeItemValues[index] | number : 2}}</label>
+            </div>
+        </div>
+        <!--应发明细结束-->
+
+        <!--应扣明细开始-->
+        <div class="send-way-content" ng-if="pageData.tabNumber === 2">
+            <div class="alert-top close" ng-show="pageData.salary.isByeSocialSecurity || pageData.salary.isByeProvident">
+                应扣总额包含{{getSocialSecurityShow(pageData.salary.isByeSocialSecurity , pageData.salary.isByeProvident)}}学校缴纳部分
+            </div>
+            <div class="alert-top close" ng-show="pageData.salary.leaveIsNegative || pageData.salary.absenteeismIsNegative">
+                {{getLeavelAbsenteeismShow(pageData.salary.leaveIsNegative , pageData.salary.absenteeismIsNegative)}}由于算法原因为负数，详见PC端说明
+            </div>
+            <div class="send-way-list no-icon" ng-repeat="(index, name) in pageData.salary.deductItemNames">
+                <label class="title">
+                    {{name}}
+                </label>
+                <label class="number">{{pageData.salary.deductItemValues[index] | number : 2}}</label>
+            </div>
+        </div>
+        <!--应扣明细结束-->
+
+        <!--薪酬明细 or 其他明细开始-->
+        <div class="send-way-content" ng-if="pageData.tabNumber === 3">
+            <div class="send-way-list send-way-list-title" ng-repeat-start="(nameIndex, name) in pageData.salary.salaryTableNames">
+                <i class="ion-record"></i>
+                {{name}}
+            </div>
+            <div class="send-way-list no-icon" ng-repeat-end ng-repeat="(titleIndex, title) in pageData.salary.salaryTableTitles[nameIndex]">
+                <label class="title">
+                    {{title}}
+                </label>
+                <label class="number">{{pageData.salary.salaryTableValues[nameIndex][titleIndex]}}</label>
+            </div>
+        </div>
+        <!--薪酬明细 or 其他明细结束-->
+
+        <!--发放方式开始-->
+        <div class="send-way-content" ng-if="pageData.tabNumber === 4">
+            <div class="send-way-list no-icon" ng-repeat="way in pageData.salary.gzglBonusPaywayDTOS">
+                <label class="title">
+                    {{way.salaryBonusPayWayName}}
+                </label>
+                <label class="number">{{way.money | number : 2}}</label>
+            </div>
+        </div>
+        <!--发放方式结束-->
+    </ion-content>
+    <div class="fullscreen-box" ng-if="pageData.noData">
+        <div class="screen-center">
+            <h4>无明细</h4>
+        </div>
+    </div>
+</ion-view>

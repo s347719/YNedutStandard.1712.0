@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingTop="@dimen/activity_vertical_margin">
+
+    <!--
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/main_cirImg_avatar"
+        android:layout_width="@dimen/main_avatar_imgSize"
+        android:layout_height="@dimen/main_avatar_imgSize"
+        android:src="@mipmap/user_center"
+        app:border_color="@color/whitesmoke"
+        app:border_width="@dimen/main_avatar_borderWidth" />
+    -->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/main_img_avatar"
+        android:layout_width="@dimen/main_userCenter_avatar_imgSize"
+        android:layout_height="@dimen/main_userCenter_avatar_imgSize"
+        android:src="@mipmap/user_center_avatar"/>
+
+    <TextView
+        android:id="@+id/main_txt_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_userCenter_verSpacing"
+        android:textColor="@color/black"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_userCenter_verSpacing"
+        android:orientation="vertical"
+        app:divider="?android:attr/listDivider"
+        app:showDividers="middle|beginning|end">
+
+        <Button
+            android:id="@+id/main_btn_darkMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/main_darkMode"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/main_btn_mySettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_leftmenu_buttons_selector"
+            android:drawableLeft="@mipmap/settings"
+            android:drawablePadding="@dimen/main_userCenter_menuButtons_drawablePadding"
+            android:drawableStart="@mipmap/settings"
+            android:gravity="center"
+            android:text="@string/main_mySettings"/>
+
+        <Button
+            android:id="@+id/main_btn_downloadedFilesManagement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_leftmenu_buttons_selector"
+            android:drawableLeft="@mipmap/downloaded"
+            android:drawablePadding="@dimen/main_userCenter_menuButtons_drawablePadding"
+            android:drawableStart="@mipmap/downloaded"
+            android:gravity="center"
+            android:text="@string/main_downloadedFiles"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</LinearLayout>

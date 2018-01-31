@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_group_person_list_item_catalog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/layout_bg_gray"
+		android:padding="@dimen/contactGroupOrg_listHead_padding"
+        android:text="A"
+        android:textSize="@dimen/contactGroupOrg_listHead_textSize"
+        android:textColor="@color/gray"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#f0f0f0" >
+    </View>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_listItem_forAvatar_padding"
+        android:gravity="center_vertical" >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_group_person_list_item_head"
+            android:layout_width="@dimen/common_listItem_avatar_size"
+            android:layout_height="@dimen/common_listItem_avatar_size"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/common_listItem_icon_marginRight"
+            android:src="@mipmap/user" />
+
+        <TextView
+            android:id="@+id/tv_group_person_list_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_group_person_list_item_head"
+            android:layout_centerVertical="true"
+            android:text="hhhh"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/tv_group_person_list_item_groupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="hhhh"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </RelativeLayout>
+
+<!--     <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#f0f0f0" >
+    </View> -->
+
+</LinearLayout>

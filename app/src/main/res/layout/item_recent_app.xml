@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true">
+
+    <ImageView
+        android:id="@+id/recent_icon_img"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/app_onecard" />
+
+    <ImageButton
+        android:id="@+id/recent_check"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/recent_icon_img"
+        android:layout_alignRight="@+id/recent_icon_img"
+        android:background="#00000000"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_app_checkbox_normal" />
+
+    <ImageView
+        android:id="@+id/icon_new_flag"
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_alignEnd="@+id/recent_icon_img"
+        android:layout_alignRight="@+id/recent_icon_img"
+        android:layout_below="@+id/recent_check"
+        android:background="#00000000"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_app_new"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recent_icon_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="题目"
+        android:textSize="@dimen/app_item_title_text_size" />
+
+
+</RelativeLayout>

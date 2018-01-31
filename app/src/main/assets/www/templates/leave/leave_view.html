@@ -1,0 +1,64 @@
+<!--创建请假类型--事假-->
+<ion-view class="leave-creat content-bc" ng-controller="leaveViewCtrl" cache-view="false">
+    <ion-content scroll="false">
+        <div class="creat-wrap" ng-if="leaveInfo.length==0">
+            <a class="content-body" ng-click="createLeave()">
+                <div class="creat-edit text-center">
+                    <span><i class="ion ion-plus-round"></i></span>
+                    <h4>创建请假条</h4>
+                </div>
+            </a>
+
+            <div class="text-center text-muted">您没有请假记录，点击上方创建</div>
+        </div>
+        <ks-swiper-container class="swiper-list-wrap"
+                             slides-per-view="1"
+                             space-between="30"
+                             override-parameters="{'observer':'true','pagination': '.swiper-pagination','paginationType': 'fraction'}">
+            <ks-swiper-slide class="swiper-slide" ng-repeat="item in leaveInfo track by $index">
+                <div class="header-del" ng-click="del(item.id)" ng-if="item.status!=1&&item.status!=3">
+                    <i class="ion-ios-trash-outline"></i>
+                </div>
+                <div class="header-title text-center" ng-bind="item.dictCode"></div>
+                <div class="leave-reason-content padding-top-10">
+                    <p>
+                    {{item.leaveReason}}
+                    <label class="button-label" ng-if="item.isOutSchoolFlag">出校</label>
+                    <label class="button-label" ng-if="!item.isOutSchoolFlag">不出校</label>
+                    <label class="button-label" ng-if="item.isBackSleep">归寝</label>
+                    <label class="button-label" ng-if="!item.isBackSleep">不归寝</label>
+                    <!--<img src="img/chuxiao.png"/>-->
+                    <!--<img src="img/buchuxiao.png"/>-->
+                    <!--<img src="img/a1.png" ng-if=""/>-->
+                    <!--<img src="img/a2.png" ng-if="!item.isBackSleep"/>-->
+                    </p>
+                </div>
+                <div class="leave-reason-edit">
+                    <p class="time">{{item.showStartTime}} 至 {{item.showEndTime}}（{{item.leaveDays}}天）</p>
+                    <p class="audits" ng-bind="item.checkContent" ng-class="{'assertive':item.status == 0||item.status == 2||item.status == 4,'balanced':item.status == 1,
+                    'positive':item.status == 3}"></p>
+                    <div class="footer-btn">
+                        <button class="margin-bottom-20 button button-light button-outline button-block" ng-if="item.status == 1||item.status == 2||item.status == 3">修改</button>
+                        <button class="margin-bottom-20 button button-calm button-outline button-block" ng-click="showModifyLeave($index)" ng-if="item.status == 4||item.status == 0">修改</button>
+                    </div>
+                </div>
+            </ks-swiper-slide>
+        </ks-swiper-container>
+        <div class="">
+            <div class="fullscreen-box" ng-if="loadingError" ng-click="queryLeaveInfo()">
+                <div class="screen-center">
+                    <div class="img-no-data"></div>
+                    <p>{{loadingErrorInfo}}</p>
+                    <p class="dark">单击刷新</p>
+                </div>
+            </div>
+        </div>
+        <div class="leave-reason-add" ng-if="leaveInfo.length>0" ng-click="createLeave()">
+            <i class="ion-ios-plus-empty"></i>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="queryLeaveInfoRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

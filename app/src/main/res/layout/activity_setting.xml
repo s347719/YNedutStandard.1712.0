@@ -1,0 +1,151 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/layout_bg_gray"
+              android:orientation="vertical"
+              tools:context=".activity.settings.SettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding">
+
+        <TextView
+            android:id="@+id/setting_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/setting_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/setting_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/setting_rel_topArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/setting_topArea_verMargin"
+            android:layout_marginTop="@dimen/setting_topArea_verMargin"
+            android:background="@color/white"
+            android:divider="?android:attr/listDivider"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <RelativeLayout
+                android:id="@+id/setting_rel_msgNotifySetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_msgNotify"
+                    android:textSize="@dimen/common_listItem_textSize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setting_rel_viewSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/setting_viewSetting"
+                    android:textSize="@dimen/common_listItem_textSize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setting_rel_additionalFunction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/setting_additionalFunction"
+                    android:textSize="@dimen/common_listItem_textSize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/setting_rel_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setting_rel_topArea"
+            android:background="@color/white"
+            android:padding="@dimen/common_listItem_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_about"
+                android:textSize="@dimen/common_listItem_textSize"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/contact_right_arrow"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/setting_txt_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/setting_logout_margin"
+            android:background="@drawable/btn_shape_red"
+            android:gravity="center"
+            android:padding="@dimen/common_listItem_padding"
+            android:text="@string/setting_logout"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/common_listItem_textSize"/>
+    </RelativeLayout>
+
+</LinearLayout>

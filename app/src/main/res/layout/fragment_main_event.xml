@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding">
+
+        <RelativeLayout
+            android:id="@+id/main_rel_event_ActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/main_img_showUserCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:padding="@dimen/common_actionbar_btn_padding"
+                android:src="@mipmap/user_center_main"/>
+
+            <RadioGroup
+                android:id="@+id/main_radG_event_switcher"
+                android:layout_width="@dimen/main_event_switcher_width"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:checkedButton="@+id/main_rad_event_switchTodo"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/main_rad_event_switchTodo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/event_switcher_todo_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/main_event_todo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_event_switcher_textSize"/>
+
+
+                <RadioButton
+                    android:id="@+id/main_rad_event_switchNotice"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/event_switcher_notice_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/main_event_notice"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_event_switcher_textSize"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/main_txt_eventNotice_unreadBadger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/main_radG_event_switcher"
+                android:layout_alignRight="@id/main_radG_event_switcher"
+                android:background="@drawable/main_notice_bg"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:paddingBottom="@dimen/redUnreadBubble_verPadding"
+                android:paddingLeft="@dimen/redUnreadBubble_horPadding"
+                android:paddingRight="@dimen/redUnreadBubble_horPadding"
+                android:paddingTop="@dimen/redUnreadBubble_verPadding"
+                android:textColor="@color/white"
+                android:textSize="@dimen/redUnreadBubble_textSize"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_rel_event_deleteModeActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            tools:visibility="invisible">
+
+            <TextView
+                android:id="@+id/main_txt_eventNotice_checkAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center_vertical"
+                android:text="@string/main_eventCheckAll"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_actionbar_textSize"/>
+
+            <TextView
+                android:id="@+id/main_txt_eventNotice_cancelDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:text="@string/main_cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_actionbar_textSize"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.yineng.ynmessager.view.ViewPagerCompat
+        android:id="@+id/main_pager_eventContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

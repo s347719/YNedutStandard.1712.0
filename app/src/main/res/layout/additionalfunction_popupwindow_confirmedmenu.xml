@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/optionmenu_btn_shape"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/additionalFunction_txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/common_listItem_padding"
+            android:text="@string/additionalFunction_deleteConfirm"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/additionalFunction_txt_confirmYes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/common_listItem_padding"
+            android:text="@string/main_confirm"
+            android:textColor="@color/red"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/additionalFunction_txt_confirmNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/additionalFunction_popupwindow_cancelBtn_marginBottom"
+        android:layout_marginTop="@dimen/additionalFunction_popupwindow_cancelBtn_marginTop"
+        android:background="@drawable/optionmenu_btn_shape"
+        android:gravity="center"
+        android:padding="@dimen/common_listItem_padding"
+        android:text="@string/additionalFunction_confirmNo"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/common_listItem_textSize" />
+
+</LinearLayout>

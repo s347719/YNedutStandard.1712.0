@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yineng.ynmessager.view.SwipeListViewItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_listitem_bg_selector"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/ll_main_session_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingRight="15dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_main_session_item_headicon"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/session_p2p_men"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/item_contanct_isline"
+                        android:visibility="gone"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="#c8ffffff"
+                        android:layout_alignTop="@+id/iv_main_session_item_headicon"
+                        android:layout_toLeftOf="@+id/tv_main_session_item_title"
+                        android:layout_toStartOf="@+id/tv_main_session_item_title" />
+
+                    <TextView
+                        android:id="@+id/tv_main_session_item_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/iv_main_session_item_headicon"
+                        android:layout_marginLeft="@dimen/main_recentSession_listItem_horSpacing"
+                        android:layout_toRightOf="@id/iv_main_session_item_headicon"
+                        android:layout_toLeftOf="@+id/tv_main_session_item_datetime"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/main_recentSession_listItem_title_textSize" />
+
+                    <TextView
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:id="@+id/tv_main_session_item_content"
+                        android:layout_width="@dimen/main_recentSession_listItem_title_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-20dp"
+                        android:layout_alignBottom="@id/iv_main_session_item_headicon"
+                        android:layout_toEndOf="@id/iv_main_session_item_headicon"
+                        android:layout_toRightOf="@id/iv_main_session_item_headicon"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:singleLine="true"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_main_session_item_datetime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:layout_alignTop="@id/iv_main_session_item_headicon"
+                        android:singleLine="true"
+                        android:textSize="@dimen/main_recentSession_listItem_dateTime_textSize" />
+
+                    <TextView
+                        android:id="@+id/tv_main_session_item_unreadcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/iv_main_session_item_headicon"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/num_unread_bg"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:id="@+id/item_session_online_type"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@mipmap/session_online_compete"
+                        android:layout_alignBottom="@+id/iv_main_session_item_headicon"
+                        android:layout_toLeftOf="@+id/tv_main_session_item_title"
+                        android:layout_toStartOf="@+id/tv_main_session_item_title" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_main_session_item_top"
+                    android:layout_width="@dimen/main_recentSession_listItem_topIcon_size"
+                    android:layout_height="@dimen/main_recentSession_listItem_topIcon_size"
+                    android:layout_alignEnd="@id/ll_main_session_front"
+                    android:layout_alignRight="@id/ll_main_session_front"
+                    android:src="@mipmap/set_top"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+
+            </RelativeLayout>
+            <!-- 隐藏的布局 -->
+
+            <LinearLayout
+                android:id="@+id/ll_session_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/bt_session_item_settop"
+                    android:layout_width="@dimen/main_recentSession_listItem_backView_button_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/swipeMenuList_btn_bg_gray">
+
+                    <ImageView
+                        android:layout_width="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_height="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/session_settop" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bt_session_item_alert"
+                    android:layout_width="@dimen/main_recentSession_listItem_backView_button_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/swipeMenuList_btn_bg_darkGray">
+
+                    <ImageView
+                        android:layout_width="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_height="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/session_alarm" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bt_session_item_delete"
+                    android:layout_width="@dimen/main_recentSession_listItem_backView_button_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_red_delete">
+
+                    <ImageView
+                        android:layout_width="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_height="@dimen/main_recentSession_listItem_backView_buttonImg_size"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/session_delete" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/item_black"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/common_content_bg" />
+
+    </LinearLayout>
+
+
+</com.yineng.ynmessager.view.SwipeListViewItem>

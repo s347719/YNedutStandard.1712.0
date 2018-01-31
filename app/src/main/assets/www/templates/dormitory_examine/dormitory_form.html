@@ -1,0 +1,132 @@
+<ion-view ng-controller="fromCtrl" class="">
+    <ion-content class="content-bc">
+        <div class="header-bt-text bar margin-top">
+            <ul>
+                <li class="text">{{MoraleduDormitoryCheckDetailVO.checkProItemCode}}{{MoraleduDormitoryCheckDetailVO.checkProItemName}}</li>
+                <li class="content" ng-show="MoraleduDormitoryCheckDetailVO.remarks">
+                    <!--加 open 显示更多--><span class="{{isOpen?'help-inline open':'help-inline'}}">{{MoraleduDormitoryCheckDetailVO.remarks}}</span>
+                    <a href="" class="pos-link" ng-click="isOpen=!isOpen">{{isOpen?'收起':'全部'}}</a>
+                </li>
+            </ul>
+            <div class="buttons buttons-icon-20" ng-click="backItemLists()">
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </div>
+        <ion-list class="list list-text-rt-lt list-item-height-50">
+            <ion-item class="item margin-bottom-0">
+                <div class="text-center">
+                    <button ng-class="{'button button-ssm button-calm':MoraleduDormitoryCheckDetailVO.scoreType == 1,'button button-ssm button-outline button-calm':MoraleduDormitoryCheckDetailVO.scoreType == 0}"
+                            ng-click="changeScoreType(1)">加分
+                    </button>
+                    <button ng-class="{'button button-ssm button-calm':MoraleduDormitoryCheckDetailVO.scoreType == 0,'button button-ssm button-outline button-calm':MoraleduDormitoryCheckDetailVO.scoreType == 1}"
+                            ng-click="changeScoreType(0)">扣分
+                    </button>
+                </div>
+            </ion-item>
+            <ion-item class="item no-hover">
+                <ul class="clearfix margin-bottom-10">
+                    <li class="margin-top-10">
+                        <label class="">{{scoreTypeName}}</label>
+                    </li>
+                    <li class="">
+                        <i ng-class="{'ion-android-remove-circle calm':!totalScoreDeductDisable,'ion-android-remove-circle calm disabled':totalScoreDeductDisable}"
+                           ng-click="addScore(0)"></i>
+                        <div class="center-text">
+                            <input type="text" ng-model="MoraleduDormitoryCheckDetailVO.score"
+                                   ng-blur="changeScore()"><span>分</span></div>
+                        <i ng-class="{'ion-android-add-circle calm':!totalScoreAddDisable,'ion-android-add-circle calm disabled':totalScoreAddDisable}"
+                           ng-click="addScore(1)"></i>
+                    </li>
+                </ul>
+                    <!--<div class="pos-line-title">班级{{showInfo}}&nbsp;<i class="ion-arrow-down-c"></i></div>-->
+                <ul class="clearfix" ng-repeat="clazz in MoraleduDormitoryCheckDetailVO.moraleduDormitoryCheckDetailClassItemVOs">
+                    <li class=" pos-border-box pos-right-160 wd-100 margin-top-10">
+                        <i class="pos-line-left-btm"></i>
+                        <div class="margin-left-20 text-overflow text-left margin-top-10">
+                            <span class="font-size-12">{{clazz.platformSysAdminClassName}}</span>
+                        </div>
+                    </li>
+                    <li class="pos-right-ctt">
+                        <div class="">
+                            <i ng-class="{'ion-android-remove-circle calm':!clazz.totalScoreDeductDisable,'ion-android-remove-circle calm disabled':clazz.totalScoreDeductDisable}"
+                               ng-click="addClassScore(0,clazz)"></i>
+                            <div class="center-text">
+                                <input type="text" ng-model="clazz.score" ng-blur="changeClazzScore(clazz)" ng-change="changeClazzScoreChange()"><span>分</span>
+                            </div>
+                            <i ng-class="{'ion-android-add-circle calm':!clazz.totalScoreAddDisable,'ion-android-add-circle calm disabled':clazz.totalScoreAddDisable}"
+                               ng-click="addClassScore(1,clazz)"></i>
+                        </div>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="">
+                <ul class="list-pos-wrap no-space">
+                    <li class="margin-top-10">
+                        <ul class="clearfix">
+                            <li>
+                                <span class="margin-top-5 display-inline">影响宿舍考核学生（{{MoraleduDormitoryCheckDetailVO.moraleduDormitoryCheckDetailStulItemVOs.length}}）</span>
+                            </li>
+                            <li style="margin-top: -4px;">
+                                <div class="txm-box theme-bc-radius margin-right-10"  ng-click="scanCode()">
+                                    <img class="right-img" src="img/s1s_01.png" alt="">
+                                </div>
+                                <button class="button button-mini button-calm margin-top-5" ng-click="selectStudentList()">选择
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="left-wrap">
+                            <button class="btn-label theme btn-label-wd-105 margin-right-5"
+                                    ng-repeat="student in MoraleduDormitoryCheckDetailVO.moraleduDormitoryCheckDetailStulItemVOs  track by $index">
+                                {{student.bedInfo}}:{{student.name}}
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item no-hover">
+                <textarea class="form-control textarea-border textarea-wd height-60" placeholder="填写描述"
+                          ng-model="MoraleduDormitoryCheckDetailVO.remark" maxlength="1000"></textarea>
+            </ion-item>
+
+            <ion-item class="item">
+                <div web-uploader on-uploader-change="getDfsIds(data)" init-files="fileIds" options="options"></div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="">
+        <div class="pos-btn-bt">
+            <button class="button button-ssm button-outline button-calm" ng-click="backItemLists()">取消</button>
+            <button class="button button-xlg button-calm" ng-click="saveScoreDetail()">
+                保存评分（{{MoraleduDormitoryCheckDetailVO.lastScore}}分）
+            </button>
+        </div>
+    </ion-footer-bar>
+    <!--选择学生-->
+    <script id="student.html" type="text/ng-template">
+        <div class="modal modal-btm grade-wrap modal-amt-left" style="">
+            <ion-content  style="bottom: 44px;">
+                <ion-list class="list-item-pd-10 list-click-icon">
+                    <ion-item class="item-checkbox-ion" ng-click="selectStu(stu)" ng-repeat="stu in MoraleduDormitoryCheckDetailVO.moraleduDormitoryStuInfoVOs">
+                        <div class="wd-100">
+                            <i class="icon-checkbox ion-android-radio-button-off" ng-class="{'active':stu.select}"></i>
+                            {{stu.bedInfo}}
+                        </div>
+                        <div class="margin-top-5 margin-left-20 text-overflow">{{stu.name}} <span class="help-inline" ng-if="stu.alias">（{{stu.alias}}，{{stu.userNumber}}）</span><span class="help-inline" ng-if="!stu.alias">（{{stu.userNumber}}）</span>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+            <ion-footer-bar>
+                <div class="pos-btn-bt">
+                    <button class="button button-sm padding-rt-lt button-outline button-calm" ng-click="closeName()">
+                        取消
+                    </button>
+                    <button class="button button-xlg padding-rt-lt button-calm" ng-click="finishSelectSu()">
+                        完成（{{selectStudent.length}}）
+                    </button>
+                </div>
+            </ion-footer-bar>
+        </div>
+    </script>
+    <!--选择学生-->
+</ion-view>

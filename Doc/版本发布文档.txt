@@ -1,0 +1,16 @@
+
+下面是发布app的步骤：
+
+一，通过eclipse生成apk
+1.首先在AndroidManifest.xml文件里修改版本号，主要是改android:versionCode=""，android:versionName=""属性； 
+
+２.如果是第一次发布，则需要创建签名的私钥文件及私钥的别名，一个私钥文件可以存入多个别名，创建好后保存下来，以后发布时就可以直接选择此文件。
+目前私钥文件已经创建好了，放在工程keystore目录下面，命名为android；私钥文件的密码是coursedev；私钥的别名是ynedut，私钥别名对应的密码是coursedev。此步骤可以省略；
+
+３.直接在eclipse里面生成APK: 右键项目工程->Android Tools->Export Signed Application Package->选择需要打包的工程（ynedutmobile）->选择下一步
+->选择（Using existing keystore）->选择私钥文件的路径（工程/keysotre/android）->输入私钥文件的蜜码（coursedev）->选择下一步->选择私钥的别名（ynedut）
+->输入私钥别名对应的密码（coursedev）->选择下一步->选择APK存放的路径->完成。到此APK已经生成。下一步只需要把apk放到生升服务器上面。
+
+二将打包好的APK发布到升级服务器上面：
+１.把apk文件上传到升级服务器上面
+

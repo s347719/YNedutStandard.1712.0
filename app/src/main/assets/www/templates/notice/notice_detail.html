@@ -1,0 +1,30 @@
+<ion-view class="inform-index-wrap">
+    <ion-content>
+        <div class="inform-index-content">
+            <div class="fixed-header-wrapper">
+                <h4 class="title"><strong ng-bind="noticeDetail.title"></strong></h4>
+                <h6 class="sub-title">
+                    <span>发布人：</span><span ng-bind="noticeDetail.publisherName"></span>
+                </h6>
+                <h6 class="sub-title">
+                    <span>张贴日期：</span><span ng-bind="noticeDetail.pubStartTimeStr"></span>
+                </h6>
+                <div class="title-divider"></div>
+            </div>
+            <div class="content-area">
+                <div ng-bind-html="noticeDetail.noticeContent"></div>
+                <div class="text-right" ng-bind-html="noticeDetail.messageNoticeSignedTemplateVO.signedContent"></div>
+            </div>
+            <div class="uploader-wrap">
+                <span>附件：</span>
+                <div class="uploader-content">
+                    <div class="file-feeds" ng-repeat="attachment in attachmentList">
+                        <div class="file-name" ng-bind="attachment.attachmentName"></div>
+                        <div class="file-size" ng-bind="attachment.size"></div>
+                        <a href="javascript:;"  class="download" ng-click="downloadAttachment(attachment)" ng-bind="attachment.download"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

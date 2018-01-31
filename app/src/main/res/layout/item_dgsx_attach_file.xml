@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_actionbar_height">
+
+    <View
+        android:id="@+id/attachfile_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/main_listview_divider"
+        android:layout_alignParentBottom="true"/>
+
+    <ProgressBar
+        android:id="@+id/pb_attachfile_download"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/attach_file_download_progbar_bg"
+        android:progress="0"
+        android:max="100"
+        android:indeterminate="false"
+        android:layout_above="@id/attachfile_divider"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_above="@id/attachfile_divider">
+
+        <TextView
+            android:id="@+id/tv_attachfile_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/session_group" />
+
+        <TextView
+            android:id="@+id/tv_attachfile_download_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="0%"
+            android:textColor="@color/app_actionBar_bg"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@id/tv_attachfile_download_percent"
+            android:layout_toRightOf="@id/tv_attachfile_thumb"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_attachfile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:singleLine="true"
+                android:text="实习生活实录判断1.amr"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <TextView
+                android:id="@+id/tv_attachfile_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="156KB"
+                android:textSize="@dimen/contactGroupOrg_listHead_textSize" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/item_event_grid_relat"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/event_bg">
+
+        <TextView
+            android:id="@+id/item_event_num_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="2"
+            android:textColor="@color/event_selected_text_color"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_event_title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_event_grid_relat"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="代缴交"
+        android:textColor="@color/event_text_color"
+        android:textSize="12sp" />
+
+</RelativeLayout>

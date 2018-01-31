@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/personinfo_phone_pop_bg"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:id="@+id/tv_personinfo_email_send"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/persion_pop_email_send"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:clickable="true"
+            android:onClick="onClickListener" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/devide_line" />
+
+
+        <TextView
+            android:id="@+id/tv_personinfo_pop_email_copy"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/persion_pop_email_copy"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:clickable="true"
+            android:onClick="onClickListener" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/devide_line" />
+
+        <RelativeLayout
+            android:id="@+id/tv_personinfo_pop_email_cancle"
+            android:layout_width="match_parent"
+            android:onClick="onClickListener"
+            android:clickable="true"
+            android:layout_height="70dp">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/item_background_white_cornor"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/persion_pop_email_cancle"
+                android:textSize="@dimen/common_listItem_textSize"
+                 />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<!--超标费用 页面-->
+<ion-view class="content-bg fixed-header has-page-tabs apply-wrap has-special-footer-bar">
+    <!--超标费用申请 开始-->
+    <script id="excessiv-apply.html" type="text/ng-template">
+        <ion-modal-view class="add-leave">
+            <ion-content class="content-bg">
+                <div class="list list-space">
+                    <div class="list list-space">
+                        <label class="item item-input edit-input item-stacked-label">
+                            <span class="input-label">超标原因({{excessivCost.overproofReason.length || 0}}/500)</span>
+                            <textarea rows="5" cols="30" maxlength="500" ng-model="excessivCost.overproofReason" placeholder="请说明费用超标原因"></textarea>
+                        </label>
+
+                        <div class="item item-input">
+                            <span class="input-label">超标金额</span>
+                            <input type="text" ng-model="excessivCost.excessiveAmount" placeholder="0.00" maxlength="16" ng-change="checkNumber(excessivCost, 'excessiveAmount')"/>
+                        </div>
+                        <div class="item item-input">
+                            <span class="input-label">费用发生人</span>
+                            <input type="text" placeholder="请选择"  user-selector ng-model="excessivCost.approvalNameAndJobNumber" inServiceStates = "1,3" title="费用发生人" routingStatusType="YNExcessivCost" userTypeApp="3" on-select="selectUser(item)"  readonly />
+                        </div>
+                        <div class="item item-input">
+                            <span class="input-label">费用发生日期</span>
+                            <input type="text" placeholder="费用发生日期"  ng-model="excessivCost.costOccurDate"   datetimepicker datetime-type="date"  ng-change="addOndeDay()"/>
+                        </div>
+                        <node-selector node="nodeData" options="nodeOptions"></node-selector>
+                    </div>
+                </div>
+            </ion-content>
+            <activity-apply options="options" ></activity-apply>
+        </ion-modal-view>
+    </script>
+    <!--超标费用申请 结束-->
+    <!--审批进行时开始-->
+    <script id="excessiv-view.html" type="text/ng-template">
+        <ion-modal-view class="approving-wrap has-special-footer-bar">
+            <ion-content>
+                <div class="padding">
+                    <activity-view options="optionsView"></activity-view>
+                    <div class="approving-content">
+                        <p class="text-gray">申请人&nbsp;:&nbsp;<span>{{excessivCost.rsglSysUserDTO.name}}({{excessivCost.rsglSysUserDTO.jobNumber}},{{excessivCost.orgName}})</span></p>
+                        <p class="text-gray">申请单号&nbsp;:&nbsp;<span>{{excessivCost.applyNumber}}</span></p>
+                        <p class="text-gray">申请时间&nbsp;:&nbsp;<span>{{excessivCost.applicationTime}}</span></p>
+                        <p class="text-gray">超标费用&nbsp;:&nbsp;<span>{{excessivCost.excessiveAmount}}</span></p>
+                        <p class="text-gray">费用发生人&nbsp;:&nbsp;<span>{{excessivCost.costRsglSysUserDTO.name}}({{excessivCost.costSpendOrgName}})</span></p>
+                        <p class="text-gray">费用发生时间&nbsp;:&nbsp;<span>{{excessivCost.costOccurDate}}</span></p>
+                        <p class="text-gray">超标原因&nbsp;:&nbsp;<span>{{excessivCost.overproofReason}}</span></p>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow" ng-show="!type || type=='already'">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap" >
+                        <button class="button button-theme button-local button-outline" ng-click="backHome()">返回</button>
+                        <button class="button button-theme button-local" ng-click="editData()" ng-show="!type && processScheduleStates ==2">修改</button>
+                        <button class="button button-theme button-local" ng-click="deleteflow()" ng-show="!type && processScheduleStates ==2">删除</button>
+                        <button class="button button-theme button-local" ng-click="urgeData(excessivCost)" ng-show="!type && processScheduleStates ==3">催办</button>
+                        <button class="button button-theme button-local" ng-click="revert()" ng-show="!type && processScheduleStates ==3">撤销</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+            <activity-approve options="options" ng-show="type && type=='approve'"></activity-approve>
+        </ion-modal-view>
+    </script>
+    <!--审批进行时结束-->
+</ion-view>

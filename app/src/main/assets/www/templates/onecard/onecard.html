@@ -1,0 +1,106 @@
+<ion-view ng-controller="OnecardCtrl" class="onecard">
+    <ion-content>
+        <div class="balance">
+            <div class="overall-balance" ng-if="!loadECardInfoError">
+                <p><span class="img-card"></span>一卡通总余额</p>
+
+                <h1 ng-if="eCardInfo.totalBalance == null">0.00</h1>
+                <h1 ng-if="eCardInfo.totalBalance != null">{{eCardInfo.totalBalance}}</h1>
+                <div class="overall-balance-img"></div>
+            </div>
+            <div class="balance-detail" ng-if="!loadECardInfoError">
+                <ul class="list list-justified" ng-show="balanceDetailToggle">
+                    <li class="item">
+                        <div class="consumption-item">
+                            <p>现金余额</p>
+                            <p class="price" ng-if="eCardInfo.accountBalance != null">{{eCardInfo.accountBalance}}</p>
+                            <p class="price" ng-if="!eCardInfo.accountBalance || eCardInfo.accountBalance == ''">0.00</p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="consumption-item">
+                            <p>补助余额</p>
+
+                            <p class="price" ng-if="eCardInfo.allowanceBalance && eCardInfo.allowanceBalance!=''">{{eCardInfo.allowanceBalance}}</p>
+                            <p class="price" ng-if="!eCardInfo.allowanceBalance || eCardInfo.allowanceBalance==''">0.00</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="balance-detail-toggle" ng-class="{close:!balanceDetailToggle}" ng-click="balanceDetailToggle = !balanceDetailToggle"></div>
+            </div>
+            <div class="consumption" ng-if="!loadECardInfoError">
+                <ul class="list list-justified">
+                    <li class="item">
+                        <div class="consumption-item">
+                            <p>今日消费</p>
+
+                            <p class="price">{{eCardInfo.todayTotalMoney ? eCardInfo.todayTotalMoney : '0.00'}}</p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="consumption-item">
+                            <p>本周消费</p>
+
+                            <p class="price">{{eCardInfo.weekTotalMoney ? eCardInfo.weekTotalMoney : '0.00'}}</p>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="consumption-item">
+                            <p>本月消费</p>
+
+                            <p class="price">{{eCardInfo.monthTotalMoney ? eCardInfo.monthTotalMoney : '0.00'}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="consumption-detail" ng-if="items&&items.length>0&&!loadECardInfoError">
+                <ul class="list">
+                    <li class="item" ng-repeat="item in items track by $index">
+                        <div class="date">
+                            <h2>{{item.name}}</h2>
+
+                            <p>{{item.weekDay}}</p>
+                            <span class="circle"></span>
+                        </div>
+                        <div class="time-body">
+                            <p ng-repeat="subItem in item.arr" ng-if="subItem">
+                                <span class="timecirle">{{subItem.time}}</span>{{subItem.address}}<span ng-class="{'price plus':subItem.money>=0,'price':subItem.money<0}" >{{subItem.money}}</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="data-error fullscreen-box" ng-if="dataError&&!loadECardInfoError" ng-click="doRefresh()">
+                <div class="screen-center top-30">
+                    <div class="img-no-data"></div>
+                    <p>{{dataErrorMsg}}</p>
+                    <p class="dark">单击刷新</p>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+
+    <ion-spinner class="screen-center" ng-if="dataLoading"></ion-spinner>
+    <div class="fullscreen-box" ng-if="loadECardInfoError" ng-click="doRefresh()">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+    <ion-footer-bar align-title="left" class="bar-ynedut">
+        <div class="buttons" ng-if="isBack">
+            <button class="button button-clear" ng-click="doBack()">
+                <i class="icon ion-chevron-left"></i>
+            </button>
+        </div>
+        <h1 class="title">&nbsp;</h1>
+        <div class="buttons" ng-click="doRefresh()">
+            <button class="button button-clear">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,378 @@
+<!--PDCA主界面-->
+<ion-view>
+    <ion-content class="content-bg pdca">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="getAllTask({showData: ''})"></ion-refresher>
+        <div class="week" ng-repeat="infoList in pageData.allDateList">
+            <div class="list">
+                <div class="item item-default item-button-right" ng-repeat="info in infoList track by info.showDay"
+                     ng-click="clickRow(info)">
+                    <h2>
+                        <span ng-bind="getMonthAndDay(info.showDate)"></span>
+                        <span ng-bind="info.showWeek"></span>
+                        <span ng-class="{'text-green': info.showDay == -1, 'text-theme': info.showDay == 0, 'text-gray': info.showDay == 1}"
+                              ng-bind="getDayStr(info.showDay)"></span>
+                    </h2>
+                    <p class="text-gray">
+                        <span ng-bind="getTaskCountStr(info.teskQuantity)"></span>
+                        <span ng-if="info.teskQuantity > 0"
+                              ng-bind="info.status == 1 ? '已总结' : info.status == 2 ? '未总结' : '已超时不允许总结'">
+                        </span>
+                        <i class="ion-ios-alarm-outline" ng-if="info.teskQuantity > 0 && info.status == 2"></i>
+                    </p>
+                    <div class="item-icon-only" ng-if="info.teskQuantity > 0">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                    <button class="button button-theme button-item-local"
+                            ng-if="info.teskQuantity == 0 && info.showDay <= 1">
+                        添加计划
+                    </button>
+                    <button class="button button-default button-item-local"
+                            ng-if="info.teskQuantity == 0 && info.showDay > 1">
+                        添加计划
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" distance="5%" ng-show="!isLoadData"></ion-infinite-scroll>
+        <div class="text-center font-12" ng-if="showMore">
+            <p class="padding bottom-tips">已经到底了，最多显示100天<br>查看更多内容，请使用电脑访问SMEsis</p>
+        </div>
+    </ion-content>
+
+    <!--添加任务 start-->
+    <script id="add-task.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header pdca-add-task">
+            <div class="fixed-header-wrapper">
+                <div class="item item-default">
+                    <h2><span ng-bind="currentRowData.formatShowDate + '工作计划'"></span></h2>
+                    <p class="clearfix">
+                        <span class="pull-left text-gray">可以从交办和项目管理中获取任务</span>
+                        <a href="javascript:;" class="pull-right" ng-click="getTaskByProject()">获取</a>
+                    </p>
+                </div>
+            </div>
+            <ion-content>
+                <div class="alert-top close" ng-if="pageData.showTip">
+                    用好PDCA有助于提高工作质量与效率，帮助我们养成做事有始有终的习惯
+                    <i class="ion-close-round" ng-click="pageData.showTip = false"></i>
+                </div>
+                <div class="item item-title-divider" ng-if="pageData.beforeTask.length > 0">以下任务属于事先计划</div>
+                <div class="pre-plan-group">
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.beforeTask"
+                         ng-if="!detail.isAdd && !detail.del">
+                        <span class="serial active">{{$index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="pragraph-tips tips-right font-12">
+                            <div class="text-gray">
+                                <span>{{detail.isUrgent ? '紧急' : ''}}</span>
+                                <span>{{detail.isImportant ? '重要' : ''}}</span>
+                                <span>{{null == detail.consumptionTime ? '0h' : detail.consumptionTime + 'h'}}</span>
+                                <span ng-class="{'text-green': detail.completeState == 2, 'text-danger': detail.completeState != 2}">
+                                    {{detail.completeState == 2 ? '已完成' : detail.completeState == 1 ? '未完成' : '任务取消'}}
+                                </span>
+                                <span ng-show="detail.remind"><i class="ion-ios-alarm-outline"
+                                                                 ng-click="showRemindTime(detail)"></i></span>
+                            </div>
+                            <div class="right-action">
+                                <a href="" ng-click="deleteTaskDetail('beforeTask', $index)">删除</a>
+                                <a href="" ng-click="showAddTaskDetail(detail, 'beforeTask', $index)">修改</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-task-group">
+                    <div class="item-customized ion-icon dashed-border task-tips-edit" ng-repeat="detail in pageData.beforeTask"
+                         ng-click="showAddTaskDetail(detail, 'beforeTask', $index)"
+                         ng-if="detail.isAdd">
+                        <i class="ion-edit"></i>{{'添加第' + ($index + 1) + '项任务'}}</div>
+                    <div class="item-customized ion-icon dashed-border task-tips-edit more-task"
+                         ng-if="pageData.beforeTask.length > 0 && pageData.afterTask.length == 0"
+                         ng-click="addOneTaskDetail()">
+                        <i class="ion-plus"></i>增加1项任务
+                    </div>
+                </div>
+                <div class="item item-title-divider" ng-if="pageData.afterTask.length > 0">以下任务属于延后登记</div>
+                <div class="pre-plan-group">
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.afterTask"
+                         ng-if="!detail.isAdd && !detail.del">
+                        <span class="serial">{{pageData.beforeTask.length + $index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="pragraph-tips tips-right font-12">
+                            <div class="text-gray">
+                                <span>{{detail.isUrgent ? '紧急' : ''}}</span>
+                                <span>{{detail.isImportant ? '重要' : ''}}</span>
+                                <span>{{null == detail.consumptionTime ? '0h' : detail.consumptionTime + 'h'}}</span>
+                                <span ng-class="{'text-green': detail.completeState == 2, 'text-danger': detail.completeState != 2}">
+                                    {{detail.completeState == 2 ? '已完成' : detail.completeState == 1 ? '未完成' : '任务取消'}}
+                                </span>
+                                <span ng-show="detail.remind"><i class="ion-ios-alarm-outline"
+                                                                 ng-click="showRemindTime(detail)"></i></span>
+                            </div>
+                            <div class="right-action">
+                                <a href="" ng-click="deleteTaskDetail('afterTask', $index)">删除</a>
+                                <a href="" ng-click="showAddTaskDetail(detail, 'afterTask', $index)">修改</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-task-group">
+                    <div class="item-customized ion-icon dashed-border task-tips-edit" ng-repeat="detail in pageData.afterTask"
+                         ng-click="showAddTaskDetail(detail, 'afterTask', $index)"
+                         ng-if="detail.isAdd">
+                        <i class="ion-edit"></i>{{'添加第' + ($index + 1) + '项任务'}}</div>
+                    <div class="item-customized ion-icon dashed-border task-tips-edit more-task"
+                         ng-if="pageData.afterTask.length > 0 && pageData.beforeTask.length == 0"
+                         ng-click="addOneTaskDetail()">
+                        <i class="ion-plus"></i>增加1项任务
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow bar bar-footer">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-outline button-local"
+                                ng-click="closeAddTask()">返回</button>
+                        <button class="button button-theme button-local" ng-click="submitPlan()">提交计划</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--添加任务 end-->
+
+    <!--添加任务模态框 start-->
+    <script id="add-task-modal.html" type="text/ng-template">
+        <ion-modal-view class="modal-amt-left">
+            <div class="bar bar-header bar-stable">
+                <h1 class="title text-left" align="left">第{{pageData.selectedAllTaskIndex + 1}}项任务</h1>
+                <button class="button button-clear button-custom" ng-click="closeAddTaskDetail()">取消</button>
+            </div>
+            <ion-content class="padding has-header button-list">
+                <div class="add-task-detail">
+                    <label>任务名称</label>
+                    <textarea class="form-control" placeholder="请按照3W原则填写：与何人(Who)、在何地(Where)、做何事 (What)"
+                              ng-model="pageData.selectedTaskDetail.taskName"
+                              ng-disabled="!pageData.selectedTaskDetail.modify" maxlength="50"></textarea>
+                    <label>计划耗用工时<span class="text-gray">(小时，保留1位小数)</span></label>
+                    <div class="cost-time-group">
+                        <input ng-show="pageData.selectedTaskDetail.id"
+                               class="form-control" type="text" ng-model="pageData.selectedTaskDetail.actualConsumptionTime"
+                               maxlength="6"/>
+                        <input ng-show="!pageData.selectedTaskDetail.id"
+                               class="form-control" type="text" ng-model="pageData.selectedTaskDetail.consumptionTime"
+                               maxlength="6"/>
+                        <label ng-show="pageData.selectedTaskDetail.id" class="left"
+                               ng-click="addConsumptionTime(-0.5, pageData.selectedTaskDetail, 1)">
+                            <i class="ion-minus"></i></label>
+                        <label ng-show="pageData.selectedTaskDetail.id" class="right"
+                               ng-click="addConsumptionTime(0.5, pageData.selectedTaskDetail, 1)">
+                            <i class="ion-plus"></i></label>
+                        <label ng-show="!pageData.selectedTaskDetail.id" class="left"
+                               ng-click="addConsumptionTime(-0.5)"><i class="ion-minus"></i></label>
+                        <label ng-show="!pageData.selectedTaskDetail.id" class="right"
+                               ng-click="addConsumptionTime(0.5)"><i class="ion-plus"></i></label>
+                    </div>
+                    <ion-checkbox class="checkbox-square-inline"
+                                  ng-model="pageData.selectedTaskDetail.isUrgent">紧急</ion-checkbox>
+                    <ion-checkbox class="checkbox-square-inline"
+                                  ng-model="pageData.selectedTaskDetail.isImportant">重要</ion-checkbox>
+                    <ion-checkbox class="checkbox-square-inline" ng-true-value="2"
+                                  ng-model="pageData.selectedTaskDetail.completeState">已完成</ion-checkbox>
+                    <div class="alarm-alert-wrap">
+                        <ion-checkbox class="checkbox-square-inline"
+                                      ng-model="pageData.selectedTaskDetail.remind">到时提醒我</ion-checkbox>
+                        <input type="text" placeholder="00:00" class="form-control"
+                               ng-show="pageData.selectedTaskDetail.remind" datetimepicker datetime-type="time"
+                               ng-model="pageData.selectedTaskDetail.remindTime" readonly/>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-local" ng-click="confirmDetail()">确定</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--添加任务模态框 end-->
+
+    <!--查看任务 start-->
+    <script id="task-view.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header pdca-add-task task-conclusion">
+            <div class="fixed-header-wrapper">
+                <div class="item item-default">
+                    <h2><span>{{currentRowData.formatShowDate}}工作计划</span></h2>
+                    <p class="text-gray">{{pageData.taskCountMsg}}</p>
+                    <p class="text-orange">{{pageData.viewTips}}</p>
+                </div>
+            </div>
+            <ion-content>
+                <div class="item item-title-divider" ng-if="pageData.beforeTask.length > 0">以下任务属于事先计划</div>
+                <div class="pre-plan-group" ng-if="pageData.beforeTask.length > 0">
+                    <!--展示开始-->
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.beforeTask"
+                         ng-show="!detail.del">
+                        <span class="serial active">{{$index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="pragraph-tips tips-right font-12">
+                            <div class="text-gray">
+                                <span>{{detail.isUrgent ? '紧急' : ''}}</span>
+                                <span>{{detail.isImportant ? '重要' : ''}}</span>
+                                <span ng-if="null == detail.actualConsumptionTime">
+                                    {{null == detail.consumptionTime ? '0h' : detail.consumptionTime + 'h'}}</span>
+                                <span ng-if="null != detail.actualConsumptionTime">
+                                    {{null == detail.actualConsumptionTime ? '0h' : detail.actualConsumptionTime + 'h'}}</span>
+                                <span ng-class="{'text-green': detail.completeState == 2, 'text-danger': detail.completeState != 2}">
+                                    {{detail.completeState == 2 ? '已完成' : detail.completeState == 1 ? '未完成' : '任务取消'}}
+                                </span>
+                                <span ng-show="detail.remind"><i class="ion-ios-alarm-outline"
+                                                                 ng-click="showRemindTime(detail)"></i></span>
+                            </div>
+                            <div class="right-action" ng-show="pageData.canModify">
+                                <a href="" ng-click="deleteTaskDetail('beforeTask', $index)">删除</a>
+                                <a href="" ng-click="showAddTaskDetail(detail, 'beforeTask', $index)">修改</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-title-divider" ng-if="pageData.afterTask.length > 0">以下任务属于延后登记</div>
+                <div class="pre-plan-group" ng-show="!detail.isAdd">
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.afterTask"
+                         ng-show="!detail.del">
+                        <span class="serial">{{pageData.beforeTask.length + $index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="pragraph-tips font-12" ng-class="{'tips-right':pageData.canModify}">
+                            <div class="text-gray">
+                                <span>{{detail.isUrgent ? '紧急' : ''}}</span>
+                                <span>{{detail.isImportant ? '重要' : ''}}</span>
+                                <span ng-if="null == detail.actualConsumptionTime">
+                                    {{null == detail.consumptionTime ? '0h' : detail.consumptionTime + 'h'}}</span>
+                                <span ng-if="null != detail.actualConsumptionTime">
+                                    {{null == detail.actualConsumptionTime ? '0h' : detail.actualConsumptionTime + 'h'}}</span>
+                                <span ng-class="{'text-green': detail.completeState == 2, 'text-danger': detail.completeState != 2}">
+                                    {{detail.completeState == 2 ? '已完成' : detail.completeState == 1 ? '未完成' : '任务取消'}}
+                                </span>
+                                <span ng-show="detail.remind"><i class="ion-ios-alarm-outline"
+                                                                 ng-click="showRemindTime(detail)"></i></span>
+                            </div>
+                            <div class="right-action" ng-show="pageData.canModify">
+                                <a href="" ng-click="deleteTaskDetail('afterTask', $index)">删除</a>
+                                <a href="" ng-click="showAddTaskDetail(detail, 'afterTask', $index)">修改</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-task-group"
+                     ng-show="pageData.canModify && pageData.beforeTask.length + pageData.afterTask.length < 10">
+                    <div class="item-customized ion-icon dashed-border task-tips-edit more-task" ng-click="modifyPageAddTask()">
+                        <i class="ion-plus"></i>增加1项任务</div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow bar bar-footer">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-outline button-local"
+                                ng-click="closeViewTask()">返回</button>
+                        <button class="button button-theme button-outline button-local button-local"
+                                ng-show="currentRowData.showDay == '0' || currentRowData.showDay == '-1' || currentRowData.showDay == '1'"
+                                ng-click="deleteTask()">删除整个计划</button>
+                        <button class="button button-theme button-local" ng-click="showConclusionTask()"
+                                ng-show="pageData.canSummary">
+                            总结计划
+                        </button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--查看任务 end-->
+
+    <!--总结任务 start-->
+    <script id="task-conclusion.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header pdca-add-task task-conclusion task-conclusion-modify">
+            <div class="fixed-header-wrapper">
+                <div class="item item-default">
+                    <h2><span>总结{{currentRowData.formatShowDate}}工作计划</span></h2>
+                    <!--<p class="text-gray">{{pageData.taskCountMsg}}</p>-->
+                    <p class="text-orange">{{pageData.conclusionTips}}</p>
+                </div>
+            </div>
+            <ion-content>
+                <div class="alert-top close" ng-if="pageData.showTip">
+                    用好PDCA有助于提高工作质量与效率，帮助我们养成做事有始有终的习惯
+                    <i class="ion-close-round" ng-click="pageData.showTip = false"></i>
+                </div>
+                <div class="item item-title-divider" ng-if="pageData.beforeTask.length > 0">以下任务属于事先计划</div>
+                <div class="pre-plan-group" ng-if="pageData.beforeTask.length > 0">
+                    <!--编辑开始-->
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.beforeTask"
+                         ng-show="!detail.del">
+                        <span class="serial active">{{$index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="plan-wrap">
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="3">任务取消</ion-checkbox>
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="1" ng-false-value="1">未完成</ion-checkbox>
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="2">已完成</ion-checkbox>
+                        </div>
+                        <div class="task-tips-edit">
+                            <div class="cost-time-group wrap-lable">
+                                <span>耗时</span>
+                                <input class="form-control" type="text" title="" ng-model="detail.actualConsumptionTime"
+                                       maxlength="6"/>
+                                <label class="left" ng-click="addConsumptionTime(-0.5, detail, 1)">
+                                    <i class="ion-minus"></i></label>
+                                <label class="right" ng-click="addConsumptionTime(0.5, detail, 1)">
+                                    <i class="ion-plus"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--编辑结束-->
+                </div>
+                <div class="item item-title-divider" ng-if="pageData.afterTask.length > 0">以下任务属于延后登记</div>
+                <div class="pre-plan-group" ng-show="!detail.isAdd">
+                    <!--编辑开始-->
+                    <div class="item-customized ion-icon solid-border" ng-repeat="detail in pageData.afterTask"
+                         ng-show="!detail.del">
+                        <span class="serial">{{$index + 1}}</span>
+                        <h6>{{detail.taskName}}</h6>
+                        <div class="plan-wrap">
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="3">任务取消</ion-checkbox>
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="1">未完成</ion-checkbox>
+                            <ion-checkbox class="checkbox-square-inline" ng-model="detail.completeState"
+                                          ng-true-value="2">已完成</ion-checkbox>
+                        </div>
+                        <div class="task-tips-edit">
+                            <div class="cost-time-group wrap-lable">
+                                <span>耗时</span>
+                                <input class="form-control" type="text" title="" ng-model="detail.actualConsumptionTime"
+                                       maxlength="6"/>
+                                <label class="left" ng-click="addConsumptionTime(-0.5, detail, 1)">
+                                    <i class="ion-minus"></i></label>
+                                <label class="right" ng-click="addConsumptionTime(0.5, detail, 1)">
+                                    <i class="ion-plus"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--编辑结束-->
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow bar bar-footer">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-outline button-local"
+                                ng-click="closeConclusionTask()">返回</button>
+                        <button class="button button-theme button-local" ng-click="submitConclusion()">提交总结</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--总结任务 end-->
+</ion-view>

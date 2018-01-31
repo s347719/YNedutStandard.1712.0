@@ -1,0 +1,148 @@
+<!--登记额外任务-基本信息-->
+<ion-view>
+    <ion-content class="content-bc register-item-name-sty">
+        <ion-list class="examine-list-wrap item-margin-bottom">
+            <ion-item class="examine-list-item item">
+                <div class="pos-box-wrap right-icon">
+                    <div class="box-wrap padding-left-0">
+                        <span class="box-name">学期</span>
+                        <span class="box-datas">{{term.currenTerm ? '[当前]' : ''}}{{term.termName}}</span>
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-exchange" ng-click="changeTerm()" ng-if="termList.length > 1"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <span ng-if="isExist">
+                 <ion-item class="examine-list-item item" ng-click="xunchariqi.show()">
+                     <div class="pos-box-wrap right-icon">
+                         <div class="box-wrap padding-left-0">
+                             <span class="box-name">听课日期</span>
+                             <!--<span class="box-times">请选择</span>-->
+                             <span class="box-datas" ng-bind="tkBasicInfo.tkDateDesc"></span>
+                             <input type="text" ng-show="!date.tempDate"
+                                    placeholder="请选择日期" ng-model="date.tempDate" datetimepicker
+                                    on-select="selectedDate(item)" datetime-instance="xunchariqi">
+
+                         </div>
+                         <div class="right-box">
+                             <i class="ion-ios-arrow-forward"></i>
+                         </div>
+                     </div>
+                 </ion-item>
+                <ion-item class="examine-list-item list-item-content item">
+                    <div class="pos-box-wrap height-55 right-icon">
+                        <div class="box-wrap box-text-one padding-left-0">
+                            <span class="box-name">听课节次</span>
+                        </div>
+                    </div>
+                    <div class="circle-number-list margin-bottom-10">
+                        <a class="" href="javascript:;" ng-repeat="item in knobList"
+                           ng-class="{'active': $index == tkBasicInfo.selectedKnobIndex}" ng-click="selectKnob($index)">{{item.sequence}}</a>
+                        <!--<a class="active" href="javascript:;">4</a>-->
+                    </div>
+                </ion-item>
+               <ion-item class="examine-list-item item" ng-click="chooseTeacher()">
+                   <div class="pos-box-wrap right-icon  height-auto">
+                       <div class="box-wrap margin-bottom-10 padding-left-0">
+                           <span class="box-name">授课教师</span>
+                           <span class="box-times" ng-if="!tkBasicInfo.teacherId">请选择授课教师</span>
+                           <span class="box-datas" ng-bind="tkBasicInfo.teacherName" ng-if="tkBasicInfo.teacherId"></span>
+                           <span class="box-times" ng-bind="tkBasicInfo.courseName"></span>
+                           <span class="box-times" ng-bind="tkBasicInfo.buildAndClassRoomNameStr"></span>
+                       </div>
+                       <div class="right-box">
+                           <i class="ion-ios-arrow-forward"></i>
+                       </div>
+                   </div>
+               </ion-item>
+                <!--只有一个教室-->
+                <ion-item class="examine-list-item item"
+                          ng-if="!canChooseRoom && tkBasicInfo.classRoomList && tkBasicInfo.classRoomList.length == 1">
+                    <div class="pos-box-wrap right-icon">
+                        <div class="box-wrap padding-left-0">
+                            <span class="box-name">教室</span>
+                            <span class="box-datas" ng-bind="tkBasicInfo.selectedClassRoomName"></span>
+                        </div>
+                    </div>
+                </ion-item>
+                <!--只有一个教室-->
+                <!--切换教室-->
+                <ion-item class="examine-list-item item"
+                          ng-if="tkBasicInfo.classRoomList && tkBasicInfo.classRoomList.length > 1">
+                    <div class="pos-box-wrap right-icon">
+                        <div class="box-wrap padding-left-0">
+                            <span class="box-name">教室</span>
+                            <span class="box-times" ng-if="!tkBasicInfo.selectedClassRoomName">请选择教室</span>
+                            <span class="box-datas" ng-bind="tkBasicInfo.selectedClassRoomName"></span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-exchange" ng-click="changeClassRoom()"></i>
+                        </div>
+                    </div>
+                </ion-item>
+                <!--切换教室-->
+                <!--选择教室-->
+                <ion-item class="examine-list-item item"
+                          ng-if="canChooseRoom||(tkBasicInfo.classRoomList && tkBasicInfo.classRoomList.length == 0)"
+                          ng-click="chooseClassRoom()">
+                    <div class="pos-box-wrap right-icon">
+                        <div class="box-wrap padding-left-0">
+                            <span class="box-name">教室</span>
+                            <span class="box-times" ng-if="!tkBasicInfo.selectedClassRoomName">请选择教室</span>
+                            <span class="box-datas" ng-bind="tkBasicInfo.selectedClassRoomName"></span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </div>
+                </ion-item>
+                <!--选择教室-->
+                <ion-item class="examine-list-item item" ng-click="bottomModalClick()"
+                          ng-if="tableList.length == 0 || tableList.length > 1 || tips.isError">
+                    <div class="pos-box-wrap right-icon">
+                        <div class="box-wrap padding-left-0">
+                            <span class="box-name">听课记录表</span>
+                            <span class="box-times" ng-if="!tkBasicInfo.selectedTableId">请选择</span>
+                            <span class="box-datas" ng-bind="tkBasicInfo.selectedTableName"></span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </div>
+                </ion-item>
+            </span>
+
+            <div class="fullscreen-box" ng-if="isExist != null && !isExist">
+                <div class="screen-center">
+                    <p ng-if="isExist == false">
+                        所选学期未设置教学周历，无法进行听课登记!
+                    </p>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+    <script id="template.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    单选操作
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                </div>
+                <ul class="list-wrap text-center">
+                    <li class="list-item margin-top-10" ng-if="tips.isNoData">没有相关听课记录表！</li>
+                    <li class="list-item margin-top-10" ng-if="tips.isError">加载听课记录表失败！</li>
+                    <li class="list-item" ng-repeat="item in tableList"
+                        ng-bind="item.name"
+                        ng-class="{'active': item.id == tkBasicInfo.selectedTableId}"
+                        ng-click="selectTable(item)"></li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <ion-footer-bar>
+        <button class="button button-sm button-calm button-outline" ng-click="cancle()">取消</button>
+        <button class="button button-calm" ng-click="nextStep()" ng-disabled="!isExist">下一步</button>
+    </ion-footer-bar>
+</ion-view>
+<!--登记额外任务-基本信息-->

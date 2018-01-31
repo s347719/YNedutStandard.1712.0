@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/internshipList_item_horPadding"
+    android:layout_marginLeft="@dimen/internshipList_item_horPadding"
+    android:layout_marginRight="@dimen/internshipList_item_horPadding"
+    android:layout_marginStart="@dimen/internshipList_item_horPadding"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/internshipList_item_corners"
+        app:cardElevation="@dimen/internshipList_item_elevation"
+        app:cardUseCompatPadding="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/internshipList_item_card_padding"
+            android:paddingLeft="@dimen/internshipList_item_card_padding"
+            android:paddingRight="@dimen/internshipList_item_card_padding"
+            >
+
+            <TextView
+                android:id="@+id/internshipList_txt_contentList_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/app_actionBar_bg"
+                android:textSize="@dimen/internshipList_item_textSize_large"
+                tools:text="2015级计算机系实习活动"
+                />
+
+            <View
+                android:id="@+id/internshipList_view_contentList_item_line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                android:background="@color/gray"
+                />
+
+            <TextView
+                android:id="@+id/internshipList_txt_contentList_item_teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="@dimen/internshipList_item_textSize_mid"
+                tools:text="指导老师：扛把子"
+                tools:visibility="visible"
+                />
+
+            <TextView
+                android:id="@+id/internshipList_txt_contentList_item_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="@dimen/internshipList_item_textSize_mid"
+                tools:text="实习企业：深圳腾讯科技公司"
+                tools:visibility="visible"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                android:background="@color/gray"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/internshipList_item_child_verSpacing"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/internshipList_txt_contentList_item_monthlyReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/internship_oval_btn_bg"
+                        android:text="@string/internshipList_monthlyReport"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/internshipList_item_textSize_large"
+                        />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/internshipList_txt_contentList_item_weeklyReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/internship_oval_btn_bg"
+                        android:text="@string/internshipList_weeklyReport"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/internshipList_item_textSize_large"
+                        />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/internshipList_txt_contentList_item_dailyReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/internship_oval_btn_bg"
+                        android:text="@string/internshipList_dailyReport"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/internshipList_item_textSize_large"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/internshipList_txt_contentList_item_noneToReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/internshipList_noneToReport"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/internshipList_item_textSize_large"
+                    android:visibility="invisible"
+                    tools:visibility="visible"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/internshipList_txt_contentList_item_timeLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/internship_oval_text_small_bg"
+        android:elevation="@dimen/internshipList_item_timeLimit_elevation"
+        android:textColor="@color/white"
+        android:textSize="@dimen/internshipList_item_textSize_small"
+        tools:text="2015/09/22 - 2015/09/24"
+        />
+</RelativeLayout>

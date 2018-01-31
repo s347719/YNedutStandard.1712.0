@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@android:color/background_light">
+
+    <include
+        android:id="@+id/main_layout_title"
+        layout="@layout/common_view_app_title_layout" />
+
+    <org.apache.cordova.engine.SystemWebView
+        android:id="@+id/cordovaWebView"
+        android:layout_below="@id/main_layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/cordove_progress"
+        android:layout_below="@+id/main_layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="invisible"
+        >
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_centerInParent="true"
+            android:indeterminateDuration="800"
+            android:indeterminateDrawable="@drawable/progress_bar"
+            android:indeterminate="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

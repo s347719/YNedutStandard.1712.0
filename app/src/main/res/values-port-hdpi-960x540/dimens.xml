@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="common_actionbar_height">48dp</dimen>
+    <dimen name="common_actionbar_padding">8dp</dimen>
+    <dimen name="common_actionbar_btn_padding">4dp</dimen>
+    <dimen name="common_actionbar_title_textSize">17sp</dimen>
+    <dimen name="common_actionbar_backKey_width">36dp</dimen><!-- 过时 -->
+    <dimen name="common_actionbar_backKey_height">30dp</dimen><!-- 过时 -->
+    <dimen name="common_actionbar_backKey_textSize">15sp</dimen>
+    <dimen name="common_actionbar_backKey_paddingLeft">4dp</dimen><!-- 过时 -->
+    <dimen name="common_actionbar_backKey_drawableLeftPadding">6dp</dimen>
+    <dimen name="common_textSize_xlarge">20sp</dimen>
+    <dimen name="common_textSize_large">18sp</dimen>
+    <dimen name="common_textSize_normal">16sp</dimen>
+    <dimen name="common_textSize_small">14sp</dimen>
+    <dimen name="common_textSize_xsmall">12sp</dimen>
+    <dimen name="common_textSize_xxsmall">10sp</dimen>
+    <dimen name="common_listItem_padding">14dp</dimen>
+    <dimen name="common_listItem_padding_hor">12dp</dimen>
+    <dimen name="common_listItem_padding_ver">12dp</dimen>
+    <dimen name="common_listItem_textSize">14sp</dimen>
+    <dimen name="common_listItem_avatar_size">28dp</dimen>
+    <dimen name="common_listItem_forAvatar_padding">9dp</dimen>
+    <dimen name="common_listItem_icon_size">24dp</dimen>
+    <dimen name="common_listItem_icon_marginRight">8dp</dimen>
+    
+        
+    <!-- PullToRefreshListView -->
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+    <dimen name="searchBox_margin">7dp</dimen>
+    <dimen name="searchBox_textSize">12sp</dimen>
+    
+    
+    <dimen name="chatFooter_height">44dp</dimen>
+    <dimen name="chatFooter_padding">8dp</dimen>
+    <dimen name="chatFooter_btnSize">26dp</dimen>
+    <dimen name="chatFooter_chatText_height">28dp</dimen>
+    <dimen name="chatFooter_chatText_textSize">16sp</dimen>
+    <dimen name="chatFooter_each_spacing">10dp</dimen>
+    <dimen name="chatFooter_sendBtn_width">52dp</dimen>
+    <dimen name="chatFooter_sendBtn_height">28dp</dimen>
+    <dimen name="chatFooter_sendBtn_textSize">12sp</dimen>
+    <dimen name="chatFooter_sendBtn_shape_corners">2dp</dimen>
+    <dimen name="chatFooter_popupBar_height">136dp</dimen>
+    <dimen name="chatFooter_popupBar_face_size">32dp</dimen>
+    <dimen name="chatFooter_popupBar_face_padding">3dp</dimen>
+    <dimen name="chatFooter_popupBar_indicator_size">5dp</dimen>
+    <dimen name="chatFooter_popupBar_indicator_horSpacing">10dp</dimen>
+    <dimen name="chatFooter_popupBar_indicator_marginBottom">6dp</dimen>
+    
+    <dimen name="redUnreadBubble_textSize">11sp</dimen>
+    <dimen name="redUnreadBubble_horPadding">5dp</dimen>
+    <dimen name="redUnreadBubble_verPadding">0dp</dimen>
+    <dimen name="redUnreadBubble_tab_marginBottom">-22dp</dimen>
+    <dimen name="redUnreadBubble_tab_marginRight">12dp</dimen>
+    <dimen name="redUnreadBubble_img_tab_marginRight">15dp</dimen>
+    
+    <dimen name="redButtonShape_corners">4dp</dimen>
+    <dimen name="redButtonShape_verPadding">12dp</dimen>
+    
+    <dimen name="chatMsg_listItem_padding">6dp</dimen>
+    <dimen name="chatMsg_listItem_senderName_textSize">12sp</dimen>
+    <dimen name="chatMsg_listItem_senderName_paddingLeft">5dp</dimen>
+    <dimen name="chatMsg_listItem_msg_marginTop">2dp</dimen>
+    <dimen name="chatMsg_listItem_msg_textSize">14sp</dimen>
+    <dimen name="chatMsg_listItem_msg_textLineSpacing">2dp</dimen>
+    <dimen name="chatMsg_listItem_sendTime_marginBottom">4dp</dimen>
+    <dimen name="chatMsg_listItem_sendTime_textSize">10sp</dimen>
+    <dimen name="chatMsg_listItem_avatar_size">34dp</dimen>
+    <dimen name="chatMsg_listItem_horSpacing">4dp</dimen>
+    
+	<dimen name="p2pChatInfo_infoLayout_verMargin">26dp</dimen>
+	<dimen name="p2pChatInfo_userInfoArea_padding">11dp</dimen>
+	<dimen name="p2pChatInfo_userInfoArea_horSpacing">@dimen/main_recentSession_listItem_horSpacing</dimen>
+	<dimen name="p2pChatInfo_userInfoArea_avatar_size">@dimen/main_recentSession_listItem_avatar_size</dimen>
+	<dimen name="p2pChatInfo_userInfoArea_nickname_textSize">@dimen/main_recentSession_listItem_title_textSize</dimen>
+	<dimen name="p2pChatInfo_userInfoArea_signature_textSize">@dimen/main_recentSession_listItem_content_textSize</dimen>
+	<dimen name="p2pChatInfo_addMoreArea_padding">9dp</dimen>
+	<dimen name="p2pChatInfo_addMoreArea_paddingLeft">17dp</dimen>
+	<dimen name="p2pChatInfo_addMore_img_size">@dimen/common_listItem_icon_size</dimen>
+	<dimen name="p2pChatInfo_addMore_textSize">@dimen/common_listItem_textSize</dimen>
+	<dimen name="p2pChatInfo_addMore_img_marginRight">@dimen/common_listItem_icon_marginRight</dimen>
+	<dimen name="p2pChatInfo_chatLogSearchBtn_padding">@dimen/common_listItem_padding</dimen>
+	<dimen name="p2pChatInfo_chatLogSearchBtn_textSize">@dimen/common_listItem_textSize</dimen>
+    
+   	<dimen name="broadcastChat_listItem_shape_corner">2dp</dimen>
+	<dimen name="broadcastChat_listItem_padding">8dp</dimen>
+	<dimen name="broadcastChat_listItem_timestamp_textSize">10sp</dimen>
+	<dimen name="broadcastChat_listItem_timestamp_marginBottom">6dp</dimen>
+	<dimen name="broadcastChat_listItem_contentArea_padding">6dp</dimen>
+	<dimen name="broadcastChat_listItem_contentArea_verSpacing">4dp</dimen>
+	<dimen name="broadcastChat_listItem_title_textSize">13sp</dimen>
+	<dimen name="broadcastChat_listItem_sender_textSize">11sp</dimen>
+	<dimen name="broadcastChat_listItem_content_textSize">@dimen/broadcastChat_listItem_sender_textSize</dimen>
+    
+	<dimen name="broadcastChatContent_pagePrevious_marginRight">4dp</dimen>
+	<dimen name="broadcastChatContent_pageButtons_horPadding">2dp</dimen>
+	<dimen name="broadcastChatContent_contentArea_padding">12dp</dimen>
+	<dimen name="broadcastChatContent_contentArea_title_textSize">16sp</dimen>
+	<dimen name="broadcastChatContent_contentArea_title_marginBottom">8dp</dimen>
+	<dimen name="broadcastChatContent_contentArea_content_textSize">13sp</dimen>
+	
+    <dimen name="contactPersonInfo_topArea_height">120dp</dimen>
+    <dimen name="contactPersonInfo_avatarImg_size">56dp</dimen>
+    <dimen name="contactPersonInfo_avatarImg_marginLeft">12dp</dimen>
+    <dimen name="contactPersonInfo_avatarImg_marginRight">20dp</dimen>
+    <dimen name="contactPersonInfo_nickname_marginRight">15dp</dimen>
+    <dimen name="contactPersonInfo_items_padding">10dp</dimen>
+    <dimen name="contactPersonInfo_itemsTitle_marginRight">28dp</dimen>
+    
+    <dimen name="disAdd_tip_marginLeft">@dimen/searchBox_margin</dimen>
+    <dimen name="disAdd_tip_marginBottom">6dp</dimen>
+    <dimen name="disAdd_footer_height">54dp</dimen>
+    <dimen name="disAdd_footer_padding">8dp</dimen>
+    <dimen name="disAdd_footer_sendBtn_height">34dp</dimen>
+    <dimen name="disAdd_footer_sendBtn_marginLeft">10dp</dimen>
+    <dimen name="disAdd_horListViewItem_padding">1dp</dimen>
+    <dimen name="disAdd_horListViewItem_avatarImg_padding">0dp</dimen>
+    
+    <dimen name="disInfo_topArea_verMargin">26dp</dimen>
+    <dimen name="disInfo_items_padding">12dp</dimen>
+    <dimen name="disInfo_items_arrowRight_marginLeft">4dp</dimen>
+    <dimen name="disInfo_items_addMoreImg_size">32dp</dimen>
+    <dimen name="disInfo_items_addMoreImg_marginRight">8dp</dimen>
+    <dimen name="disInfo_quitDiscussBtn_horMargin">12dp</dimen>
+    <dimen name="disInfo_quitDiscussBtn_marginBottom">30dp</dimen>
+    
+    <dimen name="disGroupRename_editTextArea_height">70dp</dimen>
+    <dimen name="disGroupRename_editTextArea_verMargin">26dp</dimen>
+    <dimen name="disGroupRename_editTextArea_padding">12dp</dimen>
+    
+    <dimen name="groupInfo_topArea_verMargin">26dp</dimen>
+    <dimen name="groupInfo_items_padding">12dp</dimen>
+    <dimen name="groupInfo_items_arrowRight_marginLeft">4dp</dimen>
+    <dimen name="groupInfo_items_addMoreImg_size">32dp</dimen>
+    <dimen name="groupInfo_items_addMoreImg_marginRight">8dp</dimen>
+    
+    <!-- 主界面 -->
+    <dimen name="main_tab_padding">6dp</dimen>
+    <dimen name="main_tab_height">48dp</dimen>
+    <dimen name="main_tabItem_icon_height">22dp</dimen>
+    <dimen name="main_tabItem_icon_width">22dp</dimen>
+    <dimen name="main_tabItem_textSize">11sp</dimen>
+    <dimen name="main_userCenter_verSpacing">18dp</dimen>
+    <dimen name="main_userCenter_avatar_imgSize">80dp</dimen>
+    <dimen name="main_userCenter_avatar_borderWidth">2dp</dimen>
+    <dimen name="main_alertBox_height">30dp</dimen>
+    <dimen name="main_alertBox_padding">4dp</dimen>
+    <dimen name="main_alertBox_img_size">16dp</dimen>
+    <dimen name="main_alertBox_text_marginLeft">8dp</dimen>
+    <dimen name="main_alertBox_textSize">11sp</dimen>
+    <dimen name="main_recentSession_listItem_padding">5dp</dimen>
+    <dimen name="main_recentSession_listItem_avatar_size">39dp</dimen>
+    <dimen name="main_recentSession_listItem_title_width">220dp</dimen>
+    <dimen name="main_recentSession_listItem_title_textSize">13sp</dimen>
+    <dimen name="main_recentSession_listItem_content_textSize">13sp</dimen>
+    <dimen name="main_recentSession_listItem_dateTime_textSize">10sp</dimen>
+    <dimen name="main_recentSession_listItem_horSpacing">6dp</dimen>
+    <dimen name="main_recentSession_listItem_topIcon_size">10dp</dimen>
+    
+    
+    
+    <dimen name="contactGroupOrg_listItem_horSpacing">4dp</dimen>
+    <dimen name="contactGroupOrg_memberCount_textSize">12sp</dimen>
+    <dimen name="contactGroupOrg_listItem_text_maxWidth">@dimen/main_recentSession_listItem_title_width</dimen>
+    <dimen name="contactGroupOrg_listHead_textSize">12sp</dimen>
+    <dimen name="contactGroupOrg_listHead_padding">4dp</dimen>
+    
+    <!-- login activity  320X480 -->
+    <dimen name="login_right_left_padding">14dp</dimen>
+    <dimen name="login_titleicon_paddingtop">42dp</dimen>
+    <dimen name="login_editer_height">42dp</dimen>
+    <dimen name="login_editer_textsize">16sp</dimen>
+    <dimen name="login_server_address_label_text_size">14sp</dimen>
+    <dimen name="login_editer_up_paddingtop">20dp</dimen>
+    <dimen name="login_editeicon_margin_left">16dp</dimen>
+    <dimen name="login_editeicon_margin_right">10dp</dimen>
+    <dimen name="login_usericon_padding">15dp</dimen>
+    <dimen name="login_editeicon_width">15dp</dimen>
+    <dimen name="login_editeicon_height">19dp</dimen>
+    <dimen name="login_serversstatus_paddingtop">12dp</dimen>
+    <dimen name="login_loginbt_paddingtop">30dp</dimen>
+    <dimen name="login_inputEditText_PaddingRight">10dp</dimen>
+    <dimen name="login_inputEditText_PaddingLeft">20dp</dimen>
+    <dimen name="login_password_margintop">10dp</dimen>
+    <dimen name="slidingmenu_offset">120dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <dimen name="common_title_bar_icon_height">48dp</dimen>
+    <dimen name="common_title_bar_icon_with">48dp</dimen>
+    <dimen name="notice_list_item_publishdate_text_size">12sp</dimen>
+
+    <integer name="num_cols">1</integer>
+    
+    <!-- Setting Activity 设置主界面-->
+	<dimen name="setting_topArea_verMargin">@dimen/disInfo_topArea_verMargin</dimen>
+	<dimen name="setting_topArea_item_padding">16dp</dimen>
+	<dimen name="setting_btn_shape_padding">14dp</dimen>
+	<dimen name="setting_btn_shape_stroke_width">1dp</dimen>
+	<dimen name="setting_downloadedFiles_marginTop">50dp</dimen>
+	<dimen name="setting_logout_margin">12dp</dimen>
+	<dimen name="setting_divideLine_height">1dp</dimen>
+	
+	<!-- MsgNotifyActivity 消息提醒设置界面 -->
+	<dimen name="msgNotifySetting_divideLine_verMargin">16dp</dimen>
+	<dimen name="msgNotifySetting_arrowRight_size">16dp</dimen>
+	<dimen name="msgNotifySetting_eachArea_marginTop">20dp</dimen>
+	<dimen name="msgNotifySetting_items_padding">16dp</dimen>
+	<dimen name="msgNotifySetting_largeItems_verPadding">10dp</dimen>
+	<dimen name="msgNotifySetting_largeItems_horPadding">16dp</dimen>
+
+	<!-- DistractionFreeSettingActivity 免打扰时段设置界面 -->
+	<dimen name="distractionFreeSetting_area_marginTop">20dp</dimen>
+	<dimen name="distractionFreeSetting_items_padding">16dp</dimen>
+	
+	<!-- ViewSettingActivity 浏览设置界面 -->
+	<dimen name="viewSetting_area_marginTop">20dp</dimen>
+	<dimen name="viewSetting_items_padding">16dp</dimen>
+	<dimen name="viewSetting_largeItems_verPadding">10dp</dimen>
+	<dimen name="viewSetting_largeItems_horPadding">16dp</dimen>
+	<dimen name="viewSetting_toggleBtn_width">80dp</dimen>
+	<dimen name="viewSetting_toggleBtn_height">32dp</dimen>
+	<dimen name="viewSetting_toggleBtn_marginLeft">18dp</dimen>
+	
+	<!-- FontSizeSettingActivity 字体大小设置界面 -->
+	<dimen name="fontSizeSetting_divideLine_verMargin">16dp</dimen>
+	
+	<!-- AdditionalFunctionActivity 辅助功能设置界面 -->
+	<dimen name="additionalFunction_area_marginTop">20dp</dimen>
+	<dimen name="additionalFunction_items_padding">12dp</dimen>
+	<dimen name="additionalFunction_popupwindow_horMargin">12dp</dimen>
+	<dimen name="additionalFunction_popupwindow_button_Padding">12dp</dimen>
+	<dimen name="additionalFunction_popupwindow_cancelBtn_marginTop">10dp</dimen>
+	<dimen name="additionalFunction_popupwindow_cancelBtn_marginBottom">10dp</dimen>
+	<dimen name="additionalFunction_popupwindow_title_textSize">16sp</dimen>
+	
+	<!-- AboutActivity 关于界面 -->
+	<dimen name="about_items_padding">14dp</dimen>
+	<dimen name="about_qrcode_imgSize">130dp</dimen>
+	<dimen name="about_qrcode_verMargin">20dp</dimen>
+	<dimen name="about_mainArea_marginTop">20dp</dimen>
+	
+	<!-- AudioSettingActivity 声音 设置界面 -->
+	<dimen name="audioSetting_eachArea_marginTop">20dp</dimen>
+	<dimen name="audioSetting_items_padding">10dp</dimen>
+	
+	<!-- GroupMsgNotifySettingActivity 群讨论组消息设置界面 -->
+	<dimen name="groupMsgNotifySetting_listItem_horPadding">14dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_verPadding">8dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_icon_size">36dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_icon_marginRight">8dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_arrowRight_marginLeft">8dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_textSize">16sp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_title_padding">6dp</dimen>
+	<dimen name="groupMsgNotifySetting_listItem_title_textSize">14sp</dimen>
+	<dimen name="groupMsgNotifySetting_popupwindow_button_Padding">18dp</dimen>
+	<dimen name="groupMsgNotifySetting_popupwindow_title_textSize">16sp</dimen>
+	
+</resources>

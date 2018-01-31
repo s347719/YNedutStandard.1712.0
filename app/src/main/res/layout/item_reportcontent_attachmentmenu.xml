@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/reportContent_bottomArea_attachmentItem_verPadding"
+              android:paddingLeft="@dimen/reportContent_bottomArea_attachmentItem_horPadding"
+              android:paddingRight="@dimen/reportContent_bottomArea_attachmentItem_horPadding"
+              android:paddingTop="@dimen/reportContent_bottomArea_attachmentItem_verPadding">
+
+    <ImageView
+        android:id="@+id/reportContent_txt_attachmentMenuItem_icon"
+        android:layout_width="@dimen/reportContent_bottomArea_attachmentItem_icon_size"
+        android:layout_height="@dimen/reportContent_bottomArea_attachmentItem_icon_size"
+        android:layout_marginEnd="@dimen/reportContent_bottomArea_attachmentItem_icon_marginRight"
+        android:layout_marginRight="@dimen/reportContent_bottomArea_attachmentItem_icon_marginRight"
+        tools:src="@mipmap/attachment_audio"/>
+
+    <TextView
+        android:id="@+id/reportContent_txt_attachmentMenuItem_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/reportContent_bottomArea_attachmentItem_title_size"
+        tools:text="录音"
+        tools:textColor="@color/black"/>
+
+</LinearLayout>

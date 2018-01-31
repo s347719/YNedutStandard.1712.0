@@ -1,0 +1,30 @@
+.modal.right.half,
+.modal.left.half {
+  width: 80%;
+}
+.modal.right {
+  left: 20%;
+  -webkit-box-shadow: -3px 0px 5px #999;
+  box-shadow: -3px 0px 5px #999;
+}
+.modal.auto {
+  top: auto;
+  bottom: 0;
+  min-height: 1px;
+}
+.modal.bottom-half {
+  top: 40%;
+  min-height: 60%;
+}
+.modal.bottom-minhalf {
+  top: 65%;
+  min-height: 35%;
+}
+.modal.bottom-half-hidden {
+  top: 57%;
+  min-height: 43%;
+}
+.modal.bottom-half-hidden .item {
+  padding: 14px 20px;
+  text-align: center;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <corners
+        android:radius="@dimen/redButtonShape_corners" />
+	
+    <solid
+        android:color="@color/button_bg_red" />
+    
+    <!-- 
+    <padding 
+		android:top="@dimen/redButtonShape_verPadding"
+		android:bottom="@dimen/redButtonShape_verPadding"/>
+	-->
+</shape>

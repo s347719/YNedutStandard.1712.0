@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray"
+    android:orientation="vertical"
+    tools:context=".activity.settings.MsgNotifySettingActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/msgNotifySetting_imgb_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:drawableStart="@mipmap/previous"
+            android:gravity="center_vertical"
+            android:text="@string/setting_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/msgNotifySetting_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/msgNotifySetting_rel_1stArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_topArea_verMargin"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/msgNotifySetting_distractionFree"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/msgNotifySetting_chk_distractionFree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/msgNotifySetting_rel_timeSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding" >
+
+                <ImageView
+                    android:id="@+id/msgNotifySetting_img_arrowRight"
+                    android:layout_width="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_height="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow" />
+
+                <TextView
+                    android:id="@+id/msgNotifySetting_txt_timeSettingDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/msgNotifySetting_img_arrowRight"
+                    android:layout_toStartOf="@id/msgNotifySetting_img_arrowRight"
+                    android:text="@string/msgNotifySetting_timeDisplay"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:id="@+id/msgNotifySetting_txt_timeSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/msgNotifySetting_timeSetting"
+                    android:textSize="@dimen/common_listItem_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/msgNotifySetting_rel_2edArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/msgNotifySetting_rel_1stArea"
+            android:layout_marginTop="@dimen/setting_topArea_verMargin"
+            android:background="@color/white"
+            android:divider="?android:attr/listDivider"
+            android:orientation="vertical"
+            android:showDividers="middle" >
+
+            <RelativeLayout
+                android:id="@+id/msgNotifySetting_rel_audio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding" >
+
+                <ImageView
+                    android:layout_width="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_height="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/msgNotifySetting_audio"
+                    android:textSize="@dimen/common_listItem_textSize" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/msgNotifySetting_rel_groupMsgNotifySetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_listItem_padding" >
+
+                <ImageView
+                    android:layout_width="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_height="@dimen/msgNotifySetting_arrowRight_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_right_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/msgNotifySetting_groupMsgNotifySetting"
+                    android:textSize="@dimen/common_listItem_textSize" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/msgNotifySetting_rel_3rdArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/msgNotifySetting_rel_2edArea"
+            android:layout_marginTop="@dimen/setting_topArea_verMargin"
+            android:background="@color/white"
+            android:padding="@dimen/common_listItem_padding" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/msgNotifySetting_notifyWhenExit"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/msgNotifySetting_chk_notifyWhenExit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

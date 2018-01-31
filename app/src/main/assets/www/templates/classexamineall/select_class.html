@@ -1,0 +1,65 @@
+<!--选择班级-->
+<ion-view ng-controller="selectClass">
+    <ion-header-bar class="bar-calm">
+            <div class="header-title-sty bar bar-calm">
+                <ion-scroll direction="x" class="no-scroll">
+                    <div class="head-all-text">
+                        <span ng-class="{'header-box-active':item.selected}" ng-repeat="item in gradeList"  ng-click="getAllClassList(item)">{{item.name}}</span>
+                    </div>
+                </ion-scroll>
+            </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--搜索列表-->
+        <ion-list class="examine-list-wrap" ng-if="classList.length > 0">
+            <ion-item class="examine-list-item no-margin-btm" ng-class="{'right-check-active':item.selected}" ng-repeat="item in classList">
+                <div class="pos-box-wrap height-45 right-icon">
+                    <div class="col-one-text">
+                        {{item.name}}
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-ios-circle-outline" ng-class="{'calm':item.selected}" ng-click="selectItemClass(item)"></i>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--搜索列表-->
+        <!--没有数据-->
+        <div class="fullscreen-box" ng-if="classList.length == 0">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>没有可选班级！</p>
+                <!--<a class="text-muted" href="">刷新重试</a>-->
+            </div>
+        </div>
+        <!--没有数据-->
+    </ion-content>
+    <ion-footer-bar>
+        <div class="footer-pos-button row">
+            <div class="col col-25">
+                <button class="button button-sm button-outline button-calm" ng-click="lastStep()">返回</button>
+            </div>
+            <div class="col text-center">
+                <button class="button button-outline button-calm" ng-click="showClassListModal()">已选{{selectedClass.length}}个班级&nbsp;<i class="ion-arrow-down-b"></i></button>
+            </div>
+            <div class="col col-25 text-right">
+                <button class="button button-calm" ng-click="startClassPatrol()">开始考核</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--浮动框——已选的班级-->
+    <div class="buttom-pop buttom-pop-mini arrow animate-if direction-center" ng-show="classListShow">
+        <div class="modal-list-wrap">
+            <ul class="list-wrap height-overflow-200 border-radius-10" ng-if="selectedClass.length > 0">
+                <li class="list-item item-right-icon" ng-repeat="item in selectedClass track by $index">{{item.name}}<i class="ion-close" ng-click="unSelected($index)"></i></li>
+            </ul>
+            <ul class="list-wrap height-overflow-200" ng-if="selectedClass.length == 0">
+                <li class="text-center no-content">
+                    <h5>没有选择的班级！</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--浮动框——已选的班级-->
+</ion-view>
+<!--选择班级-->

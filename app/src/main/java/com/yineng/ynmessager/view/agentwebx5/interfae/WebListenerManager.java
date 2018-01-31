@@ -1,0 +1,21 @@
+package com.yineng.ynmessager.view.agentwebx5.interfae;
+
+
+import com.tencent.smtt.sdk.DownloadListener;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
+
+/**
+ * Created by cenxiaozhong on 2017/5/13.
+ * source CODE  https://github.com/Justson/AgentWebX5
+ */
+
+public interface WebListenerManager {
+
+
+    WebListenerManager setWebChromeClient(WebView webview, WebChromeClient webChromeClient);
+    WebListenerManager setWebViewClient(WebView webView, WebViewClient webViewClient);
+    WebListenerManager setDownLoader(WebView webView, DownloadListener downloadListener);
+
+}

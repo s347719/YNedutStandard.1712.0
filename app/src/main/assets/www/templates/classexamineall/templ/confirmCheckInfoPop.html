@@ -1,0 +1,5 @@
+<!--确认考核信息-->
+<strong>考核班级</strong>
+<p ng-repeat="name in confirmPopParam.classNameStr track by $index">{{name}}<P>
+    <strong>考核项目</strong>
+<p>{{confirmPopParam.checkItemName}}<span style="color: red;">{{confirmPopParam.scoreStr}}</span><P>

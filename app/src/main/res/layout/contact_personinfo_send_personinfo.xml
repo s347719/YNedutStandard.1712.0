@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.9">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/personinfo_phone_pop_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="选择方式:"
+            android:textColor="@color/person_info_cancle"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/view_send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickListener">
+
+                <ImageView
+                    android:id="@+id/image_send"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/send_persion_ionfo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_send"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="短信"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/view_copy_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:onClick="onClickListener">
+
+                <ImageView
+                    android:id="@+id/image_copy"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/copy_persion_ionfo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_copy"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="复制名片"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/devide_line" />
+
+
+        <TextView
+            android:id="@+id/view_cancle_message"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:onClick="onClickListener"
+            android:text="取消"
+            android:textColor="@color/person_info_cancle"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

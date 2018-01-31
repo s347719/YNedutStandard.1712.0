@@ -1,0 +1,177 @@
+<!--登记-->
+<ion-view>
+    <ion-header-bar ng-show="!emptyInfo" class="header-white-70 bar-calm pos-right-icon">
+        <div class="left-wrap">
+            <div class="title-strong" ng-bind="saveTKResultRegisterVO.taskId?saveTKResultRegisterVO.showValueName.tkTaskName:saveTKResultRegisterVO.showValueName.courseName"></div>
+            <div class="title-col-2">{{saveTKResultRegisterVO.dateStr}}&nbsp;&nbsp;{{saveTKResultRegisterVO.weekDayName}}&nbsp;&nbsp;{{saveTKResultRegisterVO.showValueName.showKnob}}</div>
+            <div class="msg-col-3 help-block">{{saveTKResultRegisterVO.showValueName.lectureTeacherName}}  {{saveTKResultRegisterVO.showValueName.teachingAdminClassName?', '+saveTKResultRegisterVO.showValueName.teachingAdminClassName:""}} {{saveTKResultRegisterVO.showValueName.classRoomName?', '+saveTKResultRegisterVO.showValueName.classRoomName:""}}</div>
+        </div>
+    </ion-header-bar>
+    <ion-content   class="content-top-70 content-bc register-item-name-sty">
+        <ion-list ng-show="!emptyInfo" class="examine-list-wrap item-margin-bottom">
+            <ion-item class="examine-list-item item" ng-if="showItem.tkTypeCode"  ng-click="showChoiceModal(saveTKResultRegisterVO.tkTypeCode,tkTypeCodeItem)">
+                <div class="pos-box-wrap right-icon">
+                    <div class="box-wrap padding-left-0" >
+                        <span class="box-name">听课类型</span>
+                        <span  class="box-times" ng-if="!saveTKResultRegisterVO.tkTypeCode">请选择</span>
+                        <span class="box-datas" ng-if="saveTKResultRegisterVO.tkTypeCode">{{saveTKResultRegisterVO.showValueName.tkTypeCode}}</span>
+                    </div>
+                    <div class="right-box" ng-if="queryType!=1">
+                        <i class="ion-ios-arrow-forward"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="examine-list-item item no-hover" ng-if="showItem.number != 0">
+                <ul class="list-edit-wrap clearfix item-col-3" ng-class="{'item-col-3':showItem.number==3,'item-col-2':showItem.number==2,'item-col-1':showItem.number==1}"><!--如只有两个li 且把item-col-3 改成item-col-2-->
+                    <li class="item-box-wrap" ng-if="showItem.shouldStuNum">
+                        <div class="title-name">应到学生</div>
+                        <div class="clearfix">
+                            <label class="left-box">
+                                <input type="text" class="form-control input-mini" maxlength="4" ng-blur="validStuNum(1)" ng-model="saveTKResultRegisterVO.shouldStuNum" >
+                                <span>人</span>
+                            </label>
+                            <div class="right-box">
+                                <i class="ion-edit"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-box-wrap" ng-if="showItem.actStuNum">
+                        <div class="title-name">实到学生</div>
+                        <div class="clearfix">
+                            <label class="left-box">
+                                <input type="text" class="form-control input-mini" maxlength="4" ng-blur="validStuNum(2)" ng-model="saveTKResultRegisterVO.actStuNum">
+                                <span>人</span>
+                            </label>
+                            <div class="right-box">
+                                <i class="ion-edit"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-box-wrap" ng-if="showItem.isPlanStudy">
+                        <div class="title-name">按计划上课</div>
+                        <div class="clearfix">
+                            <label class="left-box">
+                                <input type="checkbox" name="isPlanStudy" ng-model="saveTKResultRegisterVO.isPlanStudy" class="">是
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="examine-list-item item" ng-click="gotoLessonsPlan()" ng-if="showItem.lmsStudyChapterInfoId">
+                <div class="pos-box-wrap right-icon">
+                    <div class="box-wrap padding-left-0">
+                        <span class="box-name">计划讲解内容</span>
+                        <span  class="box-times" ng-if="!isSelectStudyPlan">无对应授课计划，不支持选择</span>
+                        <span  class="box-times" ng-if="!saveTKResultRegisterVO.lmsStudyChapterInfoId&&isSelectStudyPlan">请选择</span>
+                        <span class="box-datas" ng-if="saveTKResultRegisterVO.lmsStudyChapterInfoId">{{saveTKResultRegisterVO.lmsStudyChapterInfoShowValue}}</span>
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-ios-arrow-forward" ng-if="isSelectStudyPlan"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="examine-list-item item" ng-if="showItem.actContent" ng-click="gotoContent('actContent')">
+                <div class="pos-box-wrap right-icon">
+                    <div class="box-wrap padding-left-0">
+                        <span class="box-name">实际讲解内容</span>
+                        <span class="box-times" ng-if="!saveTKResultRegisterVO.actContent">请填写实际计划内容（非必填）</span>
+                        <span class="box-datas" ng-if="saveTKResultRegisterVO.actContent">{{saveTKResultRegisterVO.actContent}}</span>
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-ios-arrow-forward"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="examine-list-item item item-pos-icon no-hover" ng-if="showItem.scoreItem">
+                <ul class="list-edit-wrap clearfix item-col-2 padding-right-40">
+                    <li class="item-box-wrap">
+                        <div class="title-name">总评分</div>
+                        <div class="clearfix">
+                            <label class="left-box">
+                                <input type="text" ng-blur="verifyScore()" ng-model="saveTKResultRegisterVO.totalScore" class="form-control input-mini">
+                            </label>
+                            <div class="right-box">
+                                <i class="ion-edit"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-box-wrap" ng-click="gotoProjectGrade()">
+                        <div class="title-name">按项目打分</div>
+                        <div class="clearfix">
+                            <label class="left-box">
+                                <span class="edit" ng-bind="saveTKResultRegisterVO.itemTotalScore"></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+            <ion-item class="examine-list-item item" ng-if="showItem.suggestion" ng-click="gotoContent('suggestion')">
+                <div class="pos-box-wrap right-icon">
+                    <div class="box-wrap padding-left-0">
+                        <span class="box-name">建议/意见</span>
+                        <span class="box-times" ng-if="!saveTKResultRegisterVO.suggestion">非必填</span>
+                        <span class="box-datas" ng-if="saveTKResultRegisterVO.suggestion" ng-bind="saveTKResultRegisterVO.suggestion"></span>
+                    </div>
+                    <div class="right-box">
+                        <i class="ion-ios-arrow-forward"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="examine-list-item item"  ng-if="showItem.tkSysUserId">
+                <div class="pos-box-wrap">
+                    <div class="box-wrap padding-left-0 padding-right-0">
+                        <span class="box-name">听课人</span>
+                        <span class="box-datas" ng-bind="saveTKResultRegisterVO.showValueName.tkSysUserId"></span>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="examine-list-item item no-hover" ng-click="showChoiceModal(saveTKResultRegisterVO.customItemMap[item.id],item)"  ng-repeat="item in registerItemList">
+                <div class="pos-box-wrap right-icon margin-bottom-10 height-auto">
+                    <div class="box-wrap padding-left-0 padding-right-0">
+                        <span class="box-name" ng-bind="item.name"></span>
+                        <span class="box-times"  ng-if="item.itemType == 4&&!saveTKResultRegisterVO.customItemMap[item.id]">非必选</span>
+                        <textarea ng-if="item.itemType == 2" class="wd-100" ng-blur="verifyNumber(item)"  ng-model="saveTKResultRegisterVO.customItemMap[item.id]" placeholder="非必填" maxlength="{{item.limitMaxLength}}" ></textarea>
+                        <!--日期时间-->
+                        <input type="text" ng-if="item.itemType == 3&&item.inputLimit == 2" placeholder="非必填" ng-model="saveTKResultRegisterVO.customItemMap[item.id]" datetime-instance="item.dateVO" datetimepicker datetime-type="datetime">
+                        <!--时间-->
+                        <input type="text" ng-if="item.itemType == 3&&item.inputLimit == 1" placeholder="非必填"  ng-model="saveTKResultRegisterVO.customItemMap[item.id]" datetime-instance="item.dateVO"  datetimepicker datetime-type="time">
+                        <!--日期-->
+                        <input type="text" ng-if="item.itemType == 3&&item.inputLimit == 0" placeholder="非必填" ng-model="saveTKResultRegisterVO.customItemMap[item.id]"  datetime-instance="item.dateVO"  datetimepicker>
+                        <span class="box-datas"  ng-if="item.itemType == 4&&saveTKResultRegisterVO.customItemMap[item.id]" ng-bind="saveTKResultRegisterVO.showValueName[item.id]"></span>
+                    </div>
+                    <div class="right-box" ng-if="item.itemType != 2">
+                        <i class="ion-ios-arrow-forward"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+        </ion-list>
+    </ion-content>
+    <script id="template.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    单选操作
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                </div>
+                <ul class="list-wrap text-center">
+                    <li class="list-item" ng-click="clickChoice(option)" ng-class="{'active':choiceInfo.value == option.id}"  ng-repeat="option in choiceInfo.item.optionList" ng-bind="option.name">选项1</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+
+    <ion-footer-bar ng-show="!emptyInfo">
+        <button class="button button-sm button-calm button-outline" ng-click="back()" ng-bind="queryType==2?'上一步':'取消'">取消</button>
+        <button class="button button-calm" ng-click="sub()">提交登记结果</button>
+    </ion-footer-bar>
+    <div class="fullscreen-box content-bc" ng-if="emptyInfo">
+        <div class="screen-center top-30">
+            <div class="img-no-data"></div>
+            <p>{{dataErrorMsg}}</p>
+            <p class="dark" ng-click="getTableItem(queryId ,queryType )">刷新试试</p>
+        </div>
+    </div>
+</ion-view>
+<!--登记-->

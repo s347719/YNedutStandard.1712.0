@@ -1,0 +1,62 @@
+<!--选择教师-->
+<ion-view>
+    <div class="header-two-wrap wd-100">
+        <div class="bar bar-header bar-calm">
+            <div class="pos-header-box pos-icon-rt">
+                <i class="input-left-icon"  ng-class="{'ion-android-search': !isLoading, 'ion-ios-loop-strong': isLoading}"></i>
+                <input type="text" class="form-control radius-input border-radius-20"
+                       placeholder="输入教师姓名/别名/工号查找"
+                       ng-model="queryConditions.queryTeacherVal" ng-change="changeQueryVal(queryConditions.queryTeacherVal)">
+                <i class="right-icon ion-ios-close-outline" ng-if="queryConditions.queryTeacherVal" ng-click="cleanQueryVal()"></i>
+            </div>
+        </div>
+        <div class="header-title-sty bar bar-calm bar-two">
+            <div class="head-title-text padding-right-0">
+                <ion-scroll direction="x" class="no-scroll">
+                    <div class="scroll-box-inline">
+                        <a href="javascript:;" ng-repeat="item in characterList" ng-bind="item"
+                           ng-class="{'active': queryConditions.character == item}"
+                           ng-click="clickCharacter(item)"></a>
+                    </div>
+                </ion-scroll>
+            </div>
+        </div>
+    </div>
+    <ion-content class="content-bar-two content-bc" >
+        <ion-list class="examine-list-wrap item-margin-bottom padding-rt-lt-15" ng-if="page">
+            <ion-item class="examine-list-item item" ng-repeat="item in content" >
+                <div class="pos-box-wrap right-btn-one">
+                    <div class="img-box">
+                        <img ng-src="{{basePath}}/file/downloadStream.htm?fastDFSId={{item.headFsId}}" ng-if="item.headFsId && item.gender != 2" onerror="this.src='img/userface_0.png'" alt="" ng-if="item.headFsId">
+                        <img ng-src="{{basePath}}/file/downloadStream.htm?fastDFSId={{item.headFsId}}" ng-if="item.headFsId && item.gender == 2" onerror="this.src='img/userface_1.png'" alt="" ng-if="item.headFsId">
+                        <img ng-src="img/userface_0.png"  ng-if="!item.headFsId && item.gender != 2">
+                        <img ng-src="img/userface_1.png"  ng-if="!item.headFsId && item.gender == 2">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="item.name"></span>
+                        <span class="box-times" ng-bind="item.desc"></span>
+                    </div>
+                    <div class="right-box">
+                        <button class="button button-sm button-calm button-outline" ng-click="chooseTeacher(item)">选择</button>
+                    </div>
+                </div>
+            </ion-item>
+
+        </ion-list>
+        <!--加载失败-->
+        <div class="fullscreen-box" ng-if="tips.isError || tips.isNoData">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p ng-if="tips.isError">加载失败</p>
+                <p ng-if="tips.isNoData">没有可选教师</p>
+                <a class="text-muted" href="javascript:;" ng-click="refreshAndRetry()">刷新试试</a>
+            </div>
+        </div>
+        <!--加载失败-->
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="page && (page.number+1)  < page.totalPages" distance="1%" immediate-check="false"></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-sm button-calm button-outline" ng-click="cancle()">取消</button>
+    </ion-footer-bar>
+</ion-view>
+<!--选择教师-->

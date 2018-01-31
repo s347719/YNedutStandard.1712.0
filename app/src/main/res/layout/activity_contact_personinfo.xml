@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_contact_personinfo_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:paddingBottom="@dimen/common_actionbar_padding"
+        android:paddingRight="@dimen/common_actionbar_padding"
+        android:paddingTop="@dimen/common_actionbar_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="详细资料"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/contactPersonInfo_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/contactPersonInfo_previous"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:scaleY="0.7"
+            android:scaleX="0.7"/>
+
+        <ImageButton
+            android:id="@+id/bt_contact_personinfo_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:scaleY="0.7"
+            android:scaleX="0.7"
+            android:onClick="onClickListener"
+            android:src="@mipmap/refresh" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/contactPersonInfo_topArea_height"
+        android:background="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/contactPersonInfo_avatar"
+            android:layout_width="@dimen/contactPersonInfo_avatarImg_size"
+            android:layout_height="@dimen/contactPersonInfo_avatarImg_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/contactPersonInfo_avatarImg_marginRight"
+            android:layout_marginLeft="@dimen/contactPersonInfo_avatarImg_marginLeft"
+            android:layout_marginRight="@dimen/contactPersonInfo_avatarImg_marginRight"
+            android:layout_marginStart="@dimen/contactPersonInfo_avatarImg_marginLeft"
+            android:src="@mipmap/user" />
+
+        <TextView
+            android:id="@+id/contactPersonInfo_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/contactPersonInfo_avatar"
+            android:layout_marginEnd="@dimen/contactPersonInfo_nickname_marginRight"
+            android:layout_marginRight="@dimen/contactPersonInfo_nickname_marginRight"
+            android:layout_toEndOf="@id/contactPersonInfo_avatar"
+            android:layout_toRightOf="@id/contactPersonInfo_avatar"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/contactPersonInfo_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/contactPersonInfo_avatar"
+            android:layout_toEndOf="@id/contactPersonInfo_nickname"
+            android:layout_toRightOf="@id/contactPersonInfo_nickname"
+            android:text="22"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/contactPersonInfo_employeeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/contactPersonInfo_avatar"
+            android:layout_toEndOf="@id/contactPersonInfo_avatar"
+            android:layout_toRightOf="@id/contactPersonInfo_avatar"
+            android:textColor="@color/gray"
+            android:text="22"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="visible"
+            />
+
+        <TextView
+            android:id="@+id/tv_contact_personinfo_mainOrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="22"
+            android:layout_alignBottom="@+id/contactPersonInfo_avatar"
+            android:layout_toRightOf="@+id/contactPersonInfo_employeeId"
+            android:layout_toEndOf="@+id/contactPersonInfo_employeeId" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/contactPersonInfo_itemsView_margin"
+                android:background="@color/person_info_view_bg" />
+
+            <LinearLayout
+                android:id="@+id/ll_contact_personinfo_phonenumber"
+                style="@style/contactItem"
+                android:layout_width="match_parent"
+                android:onClick="onClickListener"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/left_org"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:layout_marginRight="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:id="@+id/tv_contact_personInfo_mainJob"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/contactPersonInfo_itemsView_margin"
+                android:background="@color/person_info_view_bg" />
+
+            <LinearLayout
+                android:id="@+id/ll_contact_personinfo_telenumber"
+                style="@style/contactItem"
+                android:layout_width="match_parent"
+                android:onClick="onClickListener"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:layout_marginRight="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    android:text="@string/contactPersonInfo_telNumber"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:id="@+id/tv_contact_personInfo_telNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:id="@+id/tv_contact_personinfo_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:drawableRight="@mipmap/contact_right_arrow"
+                    android:gravity="right|center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/contactPersonInfo_itemsView_margin"
+                android:background="@color/person_info_view_bg" />
+
+            <LinearLayout
+                android:id="@+id/ll_contact_personinfo_email"
+                style="@style/contactItem"
+                android:layout_width="match_parent"
+                android:onClick="onClickListener"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    android:layout_marginLeft="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:layout_marginRight="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                    android:text="@string/contactPersonInfo_email"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:id="@+id/tv_contact_personInfo_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/common_listItem_textSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:drawableRight="@mipmap/contact_right_arrow"
+                    android:gravity="right|center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/contactPersonInfo_itemsView_margin"
+                android:background="@color/person_info_view_bg" />
+
+            <LinearLayout
+                android:id="@+id/ll_contact_personinfo_creatChat"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                android:layout_marginRight="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/background_blue"
+                android:onClick="onClickListener"
+                android:padding="1dp">
+
+                <TextView
+                    android:id="@+id/tv_contact_personinfo_creatChat_text"
+                    style="@style/contactItem"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:text="发送消息"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_listItem_textSize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_contact_personinfo_sendcard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/contactPersonInfo_itemsTitle_marginRight"
+                android:background="@drawable/person_item_backsend_cornor"
+                android:onClick="onClickListener">
+
+                <TextView
+                    android:id="@+id/tv_contact_personinfo_sendCard"
+                    style="@style/contactItem"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:text="发送名片给好友"
+                    android:textSize="@dimen/common_listItem_textSize" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

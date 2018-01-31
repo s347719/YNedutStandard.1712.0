@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid
+        android:color="#99FFFFFF"/>
+
+    <corners
+        android:bottomLeftRadius="@dimen/gallery_switcherBar_item_corners"
+        android:bottomRightRadius="0dp"
+        android:topLeftRadius="@dimen/gallery_switcherBar_item_corners"
+        android:topRightRadius="0dp"/>
+</shape>

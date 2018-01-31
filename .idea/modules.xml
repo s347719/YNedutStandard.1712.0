@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CordovaLib/CordovaLib.iml" filepath="$PROJECT_DIR$/CordovaLib/CordovaLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LibMarsdaemon/LibMarsDaemon.iml" filepath="$PROJECT_DIR$/LibMarsdaemon/LibMarsDaemon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YNedutStandard.1712.0.iml" filepath="$PROJECT_DIR$/YNedutStandard.1712.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/barcodescanner/barcodescanner.iml" filepath="$PROJECT_DIR$/barcodescanner/barcodescanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" filepath="$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_contact_title_poplist_item"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_listitem_bg_selector"
+    android:gravity="center"
+    android:padding="@dimen/contactChildOrg_popwin_listItem_padding"
+    android:textSize="@dimen/contactChildOrg_popwin_listItem_textSize"
+    android:textColor="@drawable/common_orgpopwin_listitem_text_selector" >
+
+</TextView>

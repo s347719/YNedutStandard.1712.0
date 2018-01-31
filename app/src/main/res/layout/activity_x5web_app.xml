@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/app_webview_titleview_layout"
+        layout="@layout/common_view_app_title_layout"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/x5webcontain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_webview_titleview_layout">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/hide_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:layout_below="@+id/app_webview_titleview_layout"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:background="#00FFFFFF"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/hide_view_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:src="@mipmap/app_actionbar_close" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hide_view_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/common_actionbar_padding"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:src="@mipmap/refresh" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,133 @@
+<ion-view ng-controller="leaveModifyCtrl" cache-view="false">
+    <ion-header-bar class="bar-calm header-text-wrap padding-rt-lt">
+        <div class="row row-no-space">
+            <div class="col col-67">
+                <span class="">请假原因</span>
+                <span class="font-size-12">{{wordNumber}}/500</span>
+            </div>
+            <div class="col col-33">
+                <div class="header-dropdown dropdown">
+                    <div class="dropdown-toggle text-right" data-toggle="dropdown">模板<i class="margin-left-5 ion-navicon"></i></div>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{'active':item.dictName == leaveParam.leaveReason}" ng-repeat="item in leaveReasonList">
+                            <a class="ws-normal" ng-click="chooseTem(item.dictName)" ng-model="item.dictCode">{{item.dictName}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc footer-two-content">
+        <ion-list class="list defined-list">
+            <ion-item class="item white-space-normal">
+                <div class="row">
+                    <div class="col">
+                       <textarea class="textarea-border" placeholder="请输入请假原因" ng-model="leaveParam.leaveReason" maxlength="500"
+                                 ng-change="changeNumber(leaveParam.leaveReason)"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col">
+                        <button ng-class="{'button button-sm button-calm button-outline':!item.selected,'button button-sm button-calm':item.selected}" type="button"
+                                ng-click="selectLeaveType(item.dictCode,$index,0)" id="{{item.dictCode}}"  ng-repeat="item in fourLeaveType track by $index" ng-bind="item.dictName"></button>
+                        <button class="button button-sm button-calm button-outline" type="button" ng-if="moreType" ng-click="moreLeaveType()" >...</button>
+                        <button ng-class="{'button button-sm button-calm button-outline':!it.selected,'button button-sm button-calm':it.selected}" type="button" id="{{it.dictCode}}" ng-click="selectLeaveType(it.dictCode,$index,5)" ng-repeat="it in lastLeaveType"
+                                ng-bind="it.dictName" ng-if="!moreType"></button>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item item-height-50">
+                <div class="row">
+                    <div class="col col-50">
+                        <div class="">是否出校</div>
+                    </div>
+                    <div class="col col-50 text-right">
+                        <label class="toggle defined-toggle-calm travel">
+                            <input type="checkbox" ng-model="leaveParam.isOutSchoolFlag" ng-change="changeIsOutSchool()">
+                            <div class="track">
+                                <span>不出校</span>
+                                <span>出校</span>
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item item-height-50">
+                <div class="row">
+                    <div class="col col-50">
+                        <div class="">是否归寝</div>
+                    </div>
+                    <div class="col col-50 text-right">
+                        <label class="toggle defined-toggle-calm defined-toggle-mini travel">
+                            <input type="checkbox" ng-model="leaveParam.isBackSleep">
+                            <div class="track">
+                                <span>是</span>
+                                <span>否</span>
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item">
+                <div class="row">
+                    <div class="col">
+                        <div>请假起止时间</div>
+                        <div class="input-group margin-top-10">
+                            <input type="text" class="form-control input-border-btm" ynui-datetimepicker readonly
+                                   ng-change="changeTimeLeave(1)" range="enddateone" ng-model="leaveParam.leaveStartTime"/>
+                            <div class="input-group-addon">至</div>
+                            <input type="text" class="form-control input-border-btm" ynui-datetimepicker readonly
+                                   ng-change="changeTimeLeave(2)" id="enddateone" ng-model="leaveParam.leaveEndTime"/>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item item-height-50">
+                <div class="row">
+                    <div class="col col-50">
+                        <div>请假天数</div>
+                    </div>
+                    <div class="col text-right">
+                        <i class="ion-width ion-android-remove-circle calm" ng-click="changeDays(-0.5)"></i>
+                        <input type="text" class="form-control input-border-btm input-mini input-inline" ng-model="leaveParam.leaveDays"
+                               ng-change="verifyLeaveDay()" maxlength="5" ng-blur="initLeaveday()">
+                        <span>天</span>
+                        <i class="ion-width ion-android-add-circle calm" ng-click="changeDays(0.5)"></i>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item" ng-if="!leaveParam.isOutSchoolFlag">
+                <div class="row">
+                    <div class="col">
+                        <div>申请出校时间</div>
+                        <div class="input-group margin-top-10">
+                            <input type="text" class="form-control input-border-btm" ynui-datetimepicker readonly
+                                   ng-change="changeTimePass()" range="end" ng-model="leaveParam.passStartTime"/>
+                            <div class="input-group-addon">至</div>
+                            <input type="text" class="form-control input-border-btm" ynui-datetimepicker readonly id="end" ng-model="leaveParam.passEndTime"/>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="footer-two-bt content-bc">
+       <div class="row footer-pos-button">
+           <div class="col col-33">
+               <button class="button button-sm button-calm button-outline" type="button" ng-click="isCancel()">取消</button>
+           </div>
+           <div class="col text-center">
+               <button class="button button-xlg button-calm" type="button" ng-click="commitLeave(1)">提交</button>
+           </div>
+           <div class="col  text-right">
+                <button class="button button-sm button-calm button-outline" type="button" ng-click="commitLeave(0)" ng-if="leaveInfoParam.status!=4">存草稿</button>
+           </div>
+       </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="createLeaveRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

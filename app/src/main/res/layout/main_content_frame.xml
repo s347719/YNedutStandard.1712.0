@@ -1,0 +1,122 @@
+<TabHost
+    android:id="@android:id/tabhost"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_tab_height"
+            android:layout_alignParentBottom="true"
+            android:showDividers="none">
+        </TabWidget>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@android:id/tabs">
+
+            <fragment
+                android:id="@+id/main_fragment_session"
+                android:name="com.yineng.ynmessager.activity.session.SessionFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <fragment
+                android:id="@+id/main_fragment_contact"
+                android:name="com.yineng.ynmessager.activity.contact.ContactFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <fragment
+                android:id="@+id/main_fragment_app"
+                android:name="com.yineng.ynmessager.activity.app.NewAppFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <fragment
+                android:id="@+id/main_fragment_my"
+                android:name="com.yineng.ynmessager.activity.MyFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@android:id/tabs"
+            android:layout_marginBottom="@dimen/redUnreadBubble_tab_marginBottom"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/main_txt_sessions_unreadNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/redUnreadBubble_tab_marginRight"
+                    android:layout_marginRight="@dimen/redUnreadBubble_tab_marginRight"
+                    android:background="@drawable/num_unread_bg"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/main_text_app_new"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginRight="@dimen/redUnreadBubble_img_tab_marginRight"
+                    android:src="@drawable/num_unread_bg"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/main_txt_event_unreadNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/redUnreadBubble_tab_marginRight"
+                    android:layout_marginRight="@dimen/redUnreadBubble_tab_marginRight"
+                    android:background="@drawable/num_unread_bg"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</TabHost>

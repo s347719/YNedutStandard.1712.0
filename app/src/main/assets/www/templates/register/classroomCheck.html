@@ -1,0 +1,32 @@
+<!--教室分类查看-->
+<ion-view class="classroom-classify">
+    <ion-header-bar class="pos-list-header bar-calm">
+        <div class="classify-header">
+            <div class="text-header-box" ng-click="cancle()">
+                <i class="ion-ios-arrow-back" ></i>{{param.dictName}}
+            </div>
+            <div class="search-text">找到{{classRoomList.length}}条匹配结果</div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <!--搜索教室列表-->
+        <div class="search-content" ng-if="classRoomList && classRoomList.length > 0">
+            <ul class="classroom-list-group">
+                <li class="classroom-list-item" ng-repeat="item in classRoomList" ng-bind="item.name"
+                    ng-click="selectClassRoom(item)"></li>
+            </ul>
+        </div>
+        <!--搜索教室列表-->
+        <div class="fullscreen-box" ng-if="classRoomList && classRoomList.length == 0">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p ng-if="tips.isNoData">没有相关教室</p>
+                <p ng-if="tips.isError">加载教室失败</p>
+                <p class="help-block" ng-click="refreshAndRetry()">刷新试试</p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-sm button-calm button-outline" ng-click="cancle()">取消</button>
+    </ion-footer-bar>
+</ion-view>

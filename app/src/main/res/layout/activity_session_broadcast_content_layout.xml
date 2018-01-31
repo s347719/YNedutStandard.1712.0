@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/broadcastChatContent_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/broadcastChatContent_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/broadcastChatContent_previous"
+            android:textColor="@color/white"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+        <ImageButton
+            android:id="@+id/broadcastChat_imgb_pageNext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:paddingLeft="@dimen/broadcastChatContent_pageButtons_horPadding"
+            android:paddingRight="@dimen/broadcastChatContent_pageButtons_horPadding"
+            android:src="@mipmap/page_next" />
+
+        <ImageButton
+            android:id="@+id/broadcastChat_imgb_pagePrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/broadcastChatContent_pagePrevious_marginRight"
+            android:layout_marginEnd="@dimen/broadcastChatContent_pagePrevious_marginRight"
+            android:layout_toLeftOf="@id/broadcastChat_imgb_pageNext"
+            android:layout_toStartOf="@id/broadcastChat_imgb_pageNext"
+            android:background="@null"
+            android:paddingLeft="@dimen/broadcastChatContent_pageButtons_horPadding"
+            android:paddingRight="@dimen/broadcastChatContent_pageButtons_horPadding"
+            android:src="@mipmap/page_previous" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/broadcastChat_scr_scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/broadcastChatContent_contentArea_padding" >
+
+            <TextView
+                android:id="@+id/broadcastChatContent_txt_sender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/broadcastChatContent_contentArea_content_textSize" />
+
+            <TextView
+                android:id="@+id/broadcastChatContent_txt_timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:layout_marginTop="@dimen/common_listItem_padding"
+                android:textSize="@dimen/broadcastChatContent_contentArea_content_textSize" />
+
+            <TextView
+                android:id="@+id/broadcastChatContent_txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/broadcastChatContent_contentArea_title_marginBottom"
+                android:layout_marginTop="@dimen/common_listItem_padding"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/broadcastChatContent_contentArea_title_textSize"
+                android:textColor="@color/notice_titleColor"/>
+
+            <TextView
+                android:id="@+id/broadcastChatContent_txt_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_listItem_padding"
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/broadcastChatContent_contentArea_content_textSize"
+                android:textColor="@color/notice_contentColor"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

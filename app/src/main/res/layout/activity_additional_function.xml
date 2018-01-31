@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/additionalFunction_lin_rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg_gray"
+    android:orientation="vertical"
+    tools:context=".activity.settings.AdditionalFunctionActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/additionalFunction_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:scaleY="0.7"
+            android:scaleX="0.7"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/additionalFunction_previous"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_textSize_xlarge" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/additionalFunction_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/setting_topArea_verMargin"
+        android:background="@color/white"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/additionalFunction_txt_clearChatMsgList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding"
+            android:text="@string/additionalFunction_clearChatMsgList"
+            android:textColor="@color/actionBar_bg"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/additionalFunction_txt_clearAllChatMsg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="@dimen/common_listItem_padding"-->
+            <!--android:text="@string/additionalFunction_clearAllChatMsg"-->
+            <!--android:textColor="@color/actionBar_bg"-->
+            <!--android:textSize="@dimen/common_listItem_textSize" />-->
+
+        <TextView
+            android:id="@+id/additionalFunction_txt_clearCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding"
+            android:text="@string/additionalFunction_clearCache"
+            android:textColor="@color/actionBar_bg"
+            android:textSize="@dimen/common_listItem_textSize" />
+    </LinearLayout>
+
+</LinearLayout>

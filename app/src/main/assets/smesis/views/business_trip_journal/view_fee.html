@@ -1,0 +1,85 @@
+<!--出差日记账查看费用记录-->
+<ion-view class="business-journal fixed-header">
+    <div class="fixed-header-wrapper">
+        <ion-list>
+            <ion-item class="item-button-right item-default">
+                <h2>{{showTime}} <span>出差费用</span></h2>
+                <p>合计：<span class="text-orange">{{countMoney |number:2}}</span></p>
+                <div class="choose-day">
+                    <i class="pre-icon" ng-click="nextDay(2)"></i>
+                    <i class="next-icon" ng-click="nextDay(1)"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-content class="content-bg view-fee" ng-show="showData">
+        <ion-list class="theme-border-left">
+            <ion-item class="item-avatar item-button-right button-right-two" ng-repeat=" hotel in data.jstxAddHotelFeeDTOList" ng-click="goTo.gotoFun(1,hotel,0)">
+                <img src="assets/images/hotel_fee.png" alt=""/>
+                <div class="divider">
+                    <h2>{{hotel.travelHotelName}}</h2>
+                    <span ng-init="hotel.showButton = 'hotel'+ $index"></span>
+                    <p><span class="text-orange">{{hotel.money |number:2}}</span><span class="text-gray">{{hotel.roomTypeName}}</span><span class="text-gray">{{hotel.areaName}}</span></p>
+                </div>
+                <div class="item-icon-only" ng-click="goTo.gotoFun(2,hotel,0)" ng-if="!(hotel.showButton == test_1)">
+                    <i class="ion-ios-more text-gray"></i>
+                </div>
+                <div class="item-group-btn" ng-if="hotel.showButton == test_1">
+                    <button class="button button-theme button-item-local" ng-if="hotel.showEdit" ng-click="goTo.gotoFun(3,hotel,0)" >修改</button>
+                    <button class="button button-theme button-item-local button-outline" ng-if="hotel.showDel" ng-click="goTo.gotoFun(4,hotel,0)">删除</button>
+                </div>
+            </ion-item>
+            <ion-item class="item-avatar item-button-right button-right-two" ng-repeat="other in data.jstxOtherFeeDTOList" ng-click="goTo.gotoFun(1,other,2)">
+                <img src="assets/images/other_fee.png" alt=""/>
+                <div class="divider">
+                    <h2>{{other.feeReason}}</h2>
+                    <span ng-init="other.showButton = 'other'+ $index"></span>
+                    <p><span class="text-orange">{{other.money |number:2}}</span></p>
+                </div>
+                <div class="item-icon-only" ng-click="goTo.gotoFun(2,other,2)" ng-if="!(other.showButton == test_1)">
+                    <i class="ion-ios-more text-gray"></i>
+                </div>
+                <div class="item-group-btn" ng-if="other.showButton == test_1">
+                    <button class="button button-theme button-item-local" ng-if="other.showEdit" ng-click="goTo.gotoFun(3,other,2)" >修改</button>
+                    <button class="button button-theme button-item-local button-outline" ng-if="other.showDel" ng-click="goTo.gotoFun(4,other,2)">删除</button>
+                </div>
+            </ion-item>
+            <ion-item class="item-avatar item-button-right button-right-two" ng-repeat="trans in data.jstxAddTransFeeDTOList" ng-click="goTo.gotoFun(1,trans,1)">
+                <img src="assets/images/trans_fee.png" alt=""/>
+                <div class="divider">
+                    <h2>{{trans.depart}}——{{trans.termini}}</h2>
+                    <span ng-init="trans.showButton = 'trans'+ $index"></span>
+                    <p><span class="text-orange">{{trans.money |number:2}}</span><span class="text-gray">{{trans.vehicleName}}</span></p>
+                </div>
+                <div class="item-icon-only" ng-click="goTo.gotoFun(2,trans,1)" ng-if="!(trans.showButton == test_1)">
+                    <i class="ion-ios-more text-gray"></i>
+                </div>
+                <div class="item-group-btn" ng-if="trans.showButton == test_1">
+                    <button class="button button-theme button-item-local" ng-if="trans.showEdit" ng-click="goTo.gotoFun(3,trans,1)" >修改</button>
+                    <button class="button button-theme button-item-local button-outline" ng-if="trans.showDel" ng-click="goTo.gotoFun(4,trans,1)">删除</button>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <div class="fullscreen-box" ng-show="!showData">
+        <div class="screen-center blank-bg">
+            <h4><i class="tips-icon"></i>当日没有费用记录！</h4>
+        </div>
+    </div>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col btn-group-wrap four-buttons text-center">
+                <button class="button button-local button-outline button-theme" ng-click="goBack()">返回</button>
+                <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addTrans()" ng-if="showFeiYong">交通费</button>
+                <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addHotel()" ng-if="showFeiYong">住宿费</button>
+                <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addOther()" ng-if="showFeiYong">其他费</button>
+            </div>
+        </div>
+        <!--<div class="btn-group-wrap four-buttons">
+            <button class="button button-local button-outline button-theme" ng-click="goBack()">返回</button>
+            <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addTrans()" ng-if="showFeiYong">交通费</button>
+            <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addHotel()" ng-if="showFeiYong">住宿费</button>
+            <button class="button button-local icon-left ion-ios-plus-empty button-theme" ng-click="addOther()" ng-if="showFeiYong">其他费</button>
+        </div>-->
+    </ion-footer-bar>
+</ion-view>

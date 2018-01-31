@@ -1,0 +1,50 @@
+<!--批量审批-->
+<ion-view class="content-bc">
+    <ion-content>
+        <div class="padding text-muted">
+            "请假申请流程"中，您有多个环节需要审批
+            <div>
+                <button class="button button-calm button-outline">部门审核(2)</button>
+                <button class="button button-default">总监审核(2)</button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-checkbox class="item-divider">
+                <p>全选</p>
+            </ion-checkbox>
+            <ion-checkbox>
+                <h2>请假申请-李四</h2>
+                <p class="text-muted">申请时间&nbsp;:&nbsp;2017/04/22&nbsp;11:25</p>
+            </ion-checkbox>
+            <ion-checkbox>
+                <h2>请假申请-张三</h2>
+                <p class="text-muted">申请时间&nbsp;:&nbsp;2017/04/11&nbsp;11:25</p>
+            </ion-checkbox>
+            <ion-checkbox>
+                <h2>请假申请-张明国</h2>
+                <p class="text-muted">申请时间&nbsp;:&nbsp;2017/04/02&nbsp;11:25</p>
+            </ion-checkbox>
+        </ion-list>
+        <!--弹出框结构开始-->
+        <div class="approval-advice">
+            <label class="checkbox-inline" for=""><input type="radio"/>通过</label>
+            <textarea class="form-control" name="" id="" placeholder="输入审批意见(选填)"></textarea>
+            <span class="help-block">0/500</span>
+        </div>
+        <!--弹出框结构结束-->
+    </ion-content>
+    <ion-footer-bar>
+        <div class="footer-pos-button row">
+            <div class="col text-center">
+                <button class="button button-calm">批量审批(0)</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--<div class="fullscreen-box">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>没有相关数据！</p>
+            <a class="text-muted" href="">刷新重试</a>
+        </div>
+    </div>-->
+</ion-view>

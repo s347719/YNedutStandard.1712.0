@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <include 
+        android:id="@+id/app_common_titleview_layout"
+        layout="@layout/common_view_app_title_layout"/>
+    
+    <RelativeLayout
+        android:id="@+id/app_content_view_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/app_common_titleview_layout" >
+
+        <RelativeLayout
+            android:id="@+id/app_content_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true" >
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/app_content_loading_data"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:max="100"
+            android:progress="0"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/app_content_empty_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone" />
+        
+		<TextView
+            android:id="@+id/app_content_load_failed_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textSize="@dimen/common_listItem_textSize"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <com.yineng.ynmessager.view.EvaluateSearchTeacherView
+        android:id="@+id/app_evalute_search_person_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>

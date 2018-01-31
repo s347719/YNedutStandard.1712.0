@@ -1,0 +1,146 @@
+<!--工作绩效主页面-->
+<ion-view class="my-month-performance">
+    <ion-content class="content-bg job-interview">
+        <div class="list list-space " ng-if="!noResultFlag && !errorFlag">
+            <div class="item item-default item-height-50 item-button-right" ng-repeat="item in items.content" ng-click="goDetail(item)">
+                <h2>{{item.interviewMonth}}绩效面谈</h2>
+                <button class="button button-clear button-item-local" ng-if="item.interviewStatus == 1">
+                    <span class="text-danger font-12">等待面谈/考核</span>
+                </button>
+                <button class="button button-theme button-clear button-item-local" ng-if="item.interviewStatus == 2">
+                    <span class="text-theme">待确认&nbsp;</span><i class="ion-chevron-right font-12 text-light"></i>
+                </button>
+                <button class="button button-theme button-clear button-item-local" ng-if="item.interviewStatus == 3">
+                    <span class="text-gray">已确认&nbsp;</span><i class="ion-chevron-right font-12 text-light"></i>
+                </button>
+            </div>
+        </div>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="mainSearchFun()"></ion-refresher>
+        <div class="text-center font-12" ng-if="!noResultFlag && !errorFlag">
+            <p class="padding bottom-tips" ng-if="items.totalElements <12 && item.totalElements != 0">没有更多了</p>
+            <p class="padding bottom-tips" ng-if="items.totalElements == 12">只显示近1年的数据<br>查看更多内容，请使用电脑访问SMEsis</p>
+        </div>
+    </ion-content>
+    <div class="fullscreen-box" ng-if="noResultFlag || errorFlag">
+        <div class="screen-center"  >
+            <h4 ng-if="noResultFlag">没有绩效考核记录</h4>
+            <h4 ng-if="errorFlag">加载失败，请重试</h4>
+            <p><span ng-if="errorFlag" ng-click="mainSearchFun()">点击重试</span></p>
+        </div>
+    </div>
+</ion-view>
+
+<!--查看开始-->
+<script type="text/ng-template" id="view.html">
+    <ion-modal-view>
+        <ion-view class="fixed-header performance-review content-bg">
+            <div class="fixed-header-wrapper">
+                <div class="item signal-wrap">
+                    <div ng-if="detailData.interviewStatus == 2" class="signal unsure"></div>
+                    <div ng-if="detailData.interviewStatus == 3" class="signal sured"></div>
+                    <h2 class="text-center"><strong>{{detailData.interviewMonth}}绩效面谈结果</strong></h2>
+                </div>
+                <div class="page-tabs page-tabs-color-theme">
+                    <a class="tab-item" ng-class="{'active':nowPage == 1}" ng-click="changePage(1)">
+                        <span class="serial">1</span>
+                        绩效评定
+                    </a>
+                    <a class="tab-item" ng-class="{'active':nowPage == 2}" ng-click="changePage(2)">
+                        <span class="serial">2</span>
+                        面谈记录
+                    </a>
+                </div>
+            </div>
+            <ion-content>
+                <div ng-if="nowPage == 1">
+                    <div class="performance-main-group" ng-init="performFlag = true"  ng-if=" detailData.jxglPerformInterviewDTOList && detailData.jxglPerformInterviewDTOList.length>0">
+                        <div class="performance-main-title" ng-click="performFlag = !performFlag">
+                            <strong>岗位履职</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{detailData.preformPoints}}&nbsp;</span>
+                            <div class="pull-right text-gray">
+                                <i ng-class="{'ion-arrow-up-b':performFlag,'ion-arrow-down-b':!performFlag}" ng-click="checkFlagFun(1)"></i>
+                            </div>
+                             <span ng-class="{'text-green':detailData.preformPointsTop<0,'text-orange':detailData.preformPointsTop>0}" ng-if="detailData.preformPointsTop != 0">
+                            <i ng-class="{'ion-arrow-down-a':detailData.preformPointsTop<0,'ion-arrow-up-a':detailData.preformPointsTop>0}"></i>
+                                <span ng-if="detailData.preformPointsTop>=0">{{detailData.preformPointsTop}}</span>
+                                <span ng-if="detailData.preformPointsTop<0">{{detailData.preformPointsTop.toString().substr(1,detailData.preformPointsTop.length)}}</span>
+                            </span>)
+                        </div>
+                        <div class="performance-main-content" ng-if="performFlag">
+                            <div class="list list-label-text list-space">
+                                <div class="item item-default" ng-repeat="perform in detailData.jxglPerformInterviewDTOList">
+                                    <h5>{{perform.name}}&nbsp;(&nbsp;<span class="text-orange">{{perform.indexPoints}}</span>&nbsp;{{perform.gradeName}}&nbsp;)&nbsp;</h5>
+                                    <p class="text-gray font-12">{{perform.indexDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance-main-group" ng-init="workFlag = true" ng-if="nowPage == 1 && detailData.jxglWorkInterviewDTOList && detailData.jxglWorkInterviewDTOList.length>0">
+                        <div class="performance-main-title" ng-click="workFlag = !workFlag">
+                            <strong>工作业绩</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{detailData.workPoints}}&nbsp;</span>
+                            <div class="pull-right text-gray"><i ng-class="{'ion-arrow-up-b':workFlag,'ion-arrow-down-b':!workFlag}" ng-click="checkFlagFun(2)"></i></div>
+                            <span ng-class="{'text-green':detailData.workPointsTop<0,'text-orange':detailData.workPointsTop>0}" ng-if="detailData.workPointsTop != 0">
+                            <i ng-class="{'ion-arrow-down-a':detailData.workPointsTop<0,'ion-arrow-up-a':detailData.workPointsTop>0}"></i><span ng-if="detailData.workPointsTop>=0">{{detailData.workPointsTop}}</span><span ng-if="detailData.workPointsTop<0">{{detailData.workPointsTop.toString().substr(1,detailData.workPointsTop.length)}}</span>
+                            </span>)
+                        </div>
+                        <div class="performance-main-content" ng-if="workFlag">
+                            <div class="list list-label-text list-space">
+                                <div class="item item-default" ng-repeat="work in detailData.jxglWorkInterviewDTOList">
+                                    <h5>{{work.indexName}}&nbsp;(&nbsp;<span class="text-orange">{{work.indexConefficient}}</span>&nbsp;{{work.indexgradeName}}&nbsp;)&nbsp;</h5>
+                                    <p class="text-gray font-12">{{work.indexDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interview-record-wrap" ng-if="nowPage == 2">
+                    <div class="interview-record-list">
+                        <p>本月主要工作亮点</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{detailData.currentMonthWorkingPoint != null?detailData.currentMonthWorkingPoint:'无'}}
+                        </div>
+                    </div>
+
+                    <div class="interview-record-list">
+                        <p>本月主要存在的问题</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{detailData.currentMonthWorkingQuestion != null?detailData.currentMonthWorkingQuestion:'无'}}
+                        </div>
+                    </div>
+
+                    <div class="interview-record-list">
+                        <p>下月工作要点</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{detailData.nextMonthPoint != null?detailData.nextMonthPoint:'无'}}
+                        </div>
+                    </div>
+
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col btn-group-wrap text-center">
+                        <button class="button button-local button-outline button-theme" ng-click="closeModalOne()">返回</button>
+                        <button class="button button-local button-theme" ng-hide="detailData.interviewStatus == 3" ng-click="save(detailData)">确认面谈结果</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-view>
+    </ion-modal-view>
+</script>
+<!--查看结束-->
+<!-- 冒泡提示开始-->
+<script id="notify-info.html" type="text/ng-template">
+    <ion-modal-view class="sign-success-wrap">
+        <div class="sign-success-content" ng-show="showErorr">
+            <h4 class="text-danger">面谈确认失败！</h4>
+        </div>
+        <div class="sign-success-content" ng-show="!showErorr">
+            <i class="ion-ios-checkmark-outline"></i>
+            <h4 class="text-theme">面谈确认成功！</h4>
+        </div>
+    </ion-modal-view>
+</script>
+<!-- 冒泡提示结束-->

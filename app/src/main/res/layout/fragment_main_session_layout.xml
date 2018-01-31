@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main_session_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="?attr/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:id="@+id/tv_main_session_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/session_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_main_session_alertlayer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_alertBox_height"
+        android:background="#FFF7B6"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/main_alertBox_padding"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="@dimen/main_alertBox_img_size"
+            android:layout_height="@dimen/main_alertBox_img_size"
+            android:src="@mipmap/red_alert" />
+
+        <TextView
+            android:id="@+id/tv_main_session_alert_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/main_alertBox_text_marginLeft"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_alertBox_textSize" />
+
+        <ImageView
+            android:id="@+id/iv_main_session_alert_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/contact_right_arrow" />
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/prlv_main_session_refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/common_content_bg" />
+
+    <LinearLayout
+        android:id="@+id/ll_main_session_empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="#eaeded"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/tv_main_session_no_recentchat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="暂时没有新消息"
+            android:textColor="#999999" />
+    </LinearLayout>
+
+</LinearLayout>

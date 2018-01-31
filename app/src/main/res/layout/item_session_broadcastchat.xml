@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/broadcastChat_listItem_padding" >
+
+    <TextView
+        android:id="@+id/broadcastChat_txt_item_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/broadcastChat_listItem_timestamp_marginBottom"
+        android:textSize="@dimen/broadcastChat_listItem_timestamp_textSize"
+        android:textColor="@color/notice_titleColor"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/broadcastChat_txt_item_timestamp"
+        android:background="@drawable/session_broadcastchat_item_shape"
+        android:orientation="vertical"
+        android:padding="@dimen/broadcastChat_listItem_contentArea_padding" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/broadcastChat_listItem_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/notice_titleColor"
+                android:textSize="@dimen/broadcastChat_listItem_title_textSize" />
+
+            <TextView
+                android:id="@+id/broadcastChat_listItem_hasRead"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/score_num_bg_first"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/broadcastChat_listItem_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/broadcastChat_listItem_contentArea_verSpacing"
+            android:singleLine="true"
+            android:text="@string/broadcastChat_sender"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/broadcastChat_listItem_sender_textSize" />
+
+        <TextView
+            android:id="@+id/broadcastChat_listItem_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/broadcastChat_listItem_contentArea_verSpacing"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/notice_contentColor"
+            android:textSize="@dimen/broadcastChat_listItem_content_textSize" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/app_main_title_rl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/main_app"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+     <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/prlv_main_app_refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/app_main_title_rl_layout"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/ll_app_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/app_main_title_rl_layout"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pb_loading_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10.0dip"
+            android:clickable="false"
+            android:gravity="center" />
+		<!-- 
+            style="?android:attr/progressBarStyleSmall"
+            android:indeterminateDrawable="@anim/update_loading_progressbar_anim" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:lineSpacingExtra="3.0dip"
+            android:text="正在加载应用菜单..."
+            android:textSize="@dimen/common_listItem_textSize" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/app_main_empty_data_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/app_main_title_rl_layout"
+        android:gravity="center"
+        android:text="没有应用菜单！"
+        android:textSize="@dimen/common_listItem_textSize"
+        android:visibility="gone" />
+
+</RelativeLayout>

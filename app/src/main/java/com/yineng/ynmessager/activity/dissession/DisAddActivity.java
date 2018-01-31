@@ -1,0 +1,1449 @@
+package com.yineng.ynmessager.activity.dissession;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.yineng.ynmessager.R;
+import com.yineng.ynmessager.activity.BaseActivity;
+import com.yineng.ynmessager.activity.dissession.HorizontalListViewAdapter.onRemoveSelectedMemgerListener;
+import com.yineng.ynmessager.app.AppController;
+import com.yineng.ynmessager.app.Const;
+import com.yineng.ynmessager.bean.ClientInitConfig;
+import com.yineng.ynmessager.bean.contact.ContactCommonBean;
+import com.yineng.ynmessager.bean.contact.ContactGroup;
+import com.yineng.ynmessager.bean.contact.ContactGroupUser;
+import com.yineng.ynmessager.bean.contact.OrganizationTree;
+import com.yineng.ynmessager.bean.contact.User;
+import com.yineng.ynmessager.bean.dissession.DisSessionBean;
+import com.yineng.ynmessager.db.ContactOrgDao;
+import com.yineng.ynmessager.manager.XmppConnectionManager;
+import com.yineng.ynmessager.receiver.CommonReceiver;
+import com.yineng.ynmessager.receiver.CommonReceiver.IQuitGroupListener;
+import com.yineng.ynmessager.receiver.CommonReceiver.groupCreatedListener;
+import com.yineng.ynmessager.receiver.CommonReceiver.updateGroupDataListener;
+import com.yineng.ynmessager.sharedpreference.LastLoginUserSP;
+import com.yineng.ynmessager.smack.ReqIQ;
+import com.yineng.ynmessager.util.FileUtil;
+import com.yineng.ynmessager.util.JIDUtil;
+import com.yineng.ynmessager.util.L;
+import com.yineng.ynmessager.util.NetWorkUtil;
+import com.yineng.ynmessager.util.TimeUtil;
+import com.yineng.ynmessager.util.ToastUtil;
+import com.yineng.ynmessager.view.HorizontalListView;
+import com.yineng.ynmessager.view.SearchContactEditText;
+import com.yineng.ynmessager.view.SearchContactEditText.onCancelSearchAnimationListener;
+import com.yineng.ynmessager.view.SearchContactEditText.onResultSearchedListener;
+
+import org.jivesoftware.smack.packet.IQ.Type;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * ClassName: DisAddActivity <br/>
+ * Function:  ADD FUNCTION. <br/>
+ * Reason:  ADD REASON(可选). <br/>
+ * date: 2015年3月18日 上午9:54:21 <br/>
+ * 
+ * @author YINENG
+ * @version
+ * @since JDK 1.6
+ */
+public class DisAddActivity extends BaseActivity implements /*ReceiveReqIQCallBack,*/
+		OnClickListener, onCancelSearchAnimationListener {
+	public static final int REFRESH_GALLARY_UI = 0;// 刷新画廊UI
+	public static final int REFRESH_LIST_UI = 1;// 刷新listview的UI
+	public static final int REFRESH_GUID_UI = 2;// 刷新组织机构跳转UI
+	public static final int ADD_SUCCESS = 3;// 成功创建讨论组
+	public static final int ADD_FAILED = 4;// 创建讨论组失败
+	public static final int OVER_FLOW_MAX_MEMBERS = 5;//成员超限
+	public static final String DIS_GROUP_ID_KEY = "discussion_group_id";// 获得传过来的讨论组IDkey
+	public static final int REFRESH_SEARCH_LIST_UI = 8;
+	
+	private RelativeLayout mRel_actionbar; // 标题栏
+	
+	/**
+	 * mOrgPathAdapter: 组织机构跳转适配器
+	 */
+	private OrgPathAdapter mOrgPathAdapter;
+	/**
+	 * mAddPacketId: 添加讨论组成员的PacketId
+	 */
+	private String mAddPacketId;
+	/**
+	 * isRootList: 判断mOrgListLV是否显示（组织机构、群、讨论组）
+	 */
+	private boolean isRootList = true;
+	
+	/**
+	 * 搜索框
+	 */
+	private RelativeLayout mRel_searchBox;
+	
+	/**
+	 * mOrgListLV: 显示组织机构、人员、群、讨论组的UI载体
+	 */
+	private ListView mOrgListLV;
+
+	/**
+	 * mOrgListAdapter: mOrgListLV的适配器
+	 */
+	private OrgListAdapter mOrgListAdapter;
+	
+//	private OrgListAdapter mSearchListAdapter;
+	/**
+	 * mTitleTV:
+	 */
+	private TextView mTitleTV;
+	/**
+	 * mAddBtn: 向服务器发送添加请求的按钮
+	 */
+	private Button mAddBtn;
+	/**
+	 * mHorizontalListView: 显示已选择用户的画廊
+	 */
+	private HorizontalListView mHorizontalListView;
+
+	/**
+	 * mHorizontalListViewAdapter: 画廊适配器
+	 */
+	private HorizontalListViewAdapter mHorizontalListViewAdapter;
+	/**
+	 * mOrgTitlePopwinList: 组织机构跳转导航list
+	 */
+	private ListView mOrgTitlePopwinList;
+	/**
+	 * mOrgTitlePopWindow: 装载组织机构跳转导航list的PopWindow
+	 */
+	private PopupWindow mOrgTitlePopWindow;
+	/**
+	 * mContactOrgDao: 组织机构、群、讨论组所用到的数据库dao
+	 */
+	private ContactOrgDao mContactOrgDao;
+	/**
+	 * mGroupId: 当前组织机构的ID
+	 */
+	private String mGroupId;
+	/**
+	 * mXmppConnectionManager: ASMACK工具
+	 */
+	private XmppConnectionManager mXmppConnectionManager;
+	/**
+	 * mCurrentObjectList:显示当前mOrgListLV界面所需要的数据
+	 * 
+	 */
+	private List<Object> mCurrentObjectList = new ArrayList<Object>();
+	
+	private List<Object> mSearchResultObjects = new ArrayList<Object>();
+	
+	/**
+	 * mGuideList:顶部跳转按钮数据
+	 *
+	 */
+	private LinkedList<OrganizationTree> mGuideList = new LinkedList<OrganizationTree>();
+	
+	/**
+	 * 用户历史操作记录
+	 */
+	private LinkedList<Object> mHistoryPathList = new LinkedList<Object>();
+	
+	/**
+	 * mNewAddUserList:创建讨论组时选择的用户
+	 * 
+	 */
+	private ArrayList<User> mNewAddUserList = new ArrayList<User>();
+
+	/**
+	 * mOldUserList: 当前讨论组中已存在的用户
+	 */
+	private List<User> mOldUserList = new ArrayList<User>();
+
+	private ArrayList<ContactGroupUser> mGroupUserRel = new ArrayList<ContactGroupUser>();
+	
+	/**
+	 * mContactGroup: 当前组织机构信息
+	 */
+	private ContactGroup mContactGroup;
+
+	Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case REFRESH_GALLARY_UI:
+				mHorizontalListViewAdapter.setData(mNewAddUserList);
+				mHorizontalListViewAdapter.notifyDataSetChanged();
+				if (mHorizontalListViewAdapter.getCount()>0) {
+					mAddBtn.setText("完成("+mHorizontalListViewAdapter.getCount()+")");
+					if (mSearchContactEditText.mSearchCreateDisGroupBt != null) {
+						mSearchContactEditText.mSearchCreateDisGroupBt.setText("完成("+mHorizontalListViewAdapter.getCount()+")");
+					}
+				} else {
+					mAddBtn.setText("完成");
+					if (mSearchContactEditText.mSearchCreateDisGroupBt != null) {
+						mSearchContactEditText.mSearchCreateDisGroupBt.setText("完成");
+					}
+				}
+				break;
+			case REFRESH_LIST_UI:
+				updateTitleView();
+				mOrgListAdapter.setData(mCurrentObjectList);
+				mOrgListAdapter.notifyDataSetChanged();
+				break;
+			case REFRESH_GUID_UI:
+				mOrgPathAdapter.setData(mGuideList);
+				mOrgPathAdapter.notifyDataSetChanged();
+				break;
+			case ADD_SUCCESS:
+//				ArrayList<ContactGroupUser> mContactGroupUsers = castUserToContactGroupUser(mNewAddUserList);
+//				Intent resultIntent = new Intent();
+//				resultIntent.putExtra(Const.GROUP_ADD_USER, mContactGroupUsers);
+//				setResult(Const.RESULT_CODE, resultIntent);
+				break;
+			case ADD_FAILED:
+				ToastUtil.toastAlerMessage(DisAddActivity.this, "与服务器通讯异常",Toast.LENGTH_SHORT);
+				break;
+			case OVER_FLOW_MAX_MEMBERS:
+				String string = "讨论组";
+				if (mGroupType != Const.CONTACT_DISGROUP_TYPE) {
+					string = "群组";
+				}
+				ToastUtil.toastAlerMessage(DisAddActivity.this, "您的"+string+"人数已达到"+mMaxMemberNum+"人上限！", Toast.LENGTH_SHORT);
+				break;	
+			case SHOW_SEARCH_VIEW:
+				mCreateDisGroupLayout.setVisibility(View.GONE);
+				mSearchContactEditText.show();
+				mCreateDisGroupLayoutLL.setY(-searchViewY);
+				mSearchContactEditText.mSearchCreateDisGroupBt = (Button) mSearchContactEditText.findViewById(R.id.btn_search_contact_create_disgroup_btn);
+				mSearchContactEditText.mSearchCreateDisGroupBt.setOnClickListener(DisAddActivity.this);
+				mSearchContactEditText.mSearchCreateDisGroupBt.setText("完成("+mHorizontalListViewAdapter.getCount()+")");
+				break;
+			case CANCEL_SEARCH_VIEW:
+				mCreateDisGroupLayoutLL.setY(0);
+				mCreateDisGroupLayout.setVisibility(View.VISIBLE);
+				break;
+			case REFRESH_SEARCH_LIST_UI:
+				mOrgListAdapter.setData(mSearchResultObjects);
+				mOrgListAdapter.notifyDataSetChanged();
+				//判断是否显示空数据界面
+				if (mSearchResultObjects.size() <= 0) {
+					mSearchContactEditText.mContactSearchListView.setEmptyView(mSearchContactEditText.mContactSearchResultEmptyTV);
+				} else {
+					mSearchContactEditText.mContactSearchResultEmptyTV.setVisibility(View.GONE);
+					mSearchContactEditText.mContactSearchListView.setEmptyView(null);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+	};
+	private int mGroupType;
+	private int mMaxMemberNum = 100;
+	private CommonReceiver mCommonReceiver;
+	protected boolean isFinishAcitivity = false;
+	private SearchContactEditText mSearchContactEditText;
+	private LinearLayout mCreateDisGroupLayoutLL;
+	protected float searchViewY;
+	final static int SHOW_SEARCH_VIEW = 6;
+	final static int CANCEL_SEARCH_VIEW = 7;
+	private boolean isShowSearchEditText = false;
+	private LinearLayout mCreateDisGroupLayout;
+	private TextView mTxt_previous;
+	/**
+	 * 取消按钮
+	 */
+	private TextView mQuitViewTV;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_create_disgroup);
+		init();
+		initEvent();
+	}
+
+	/**
+	 * init: 初始化操作
+	 * 
+	 * @author YINENG
+	 */
+	private void init() {
+		mXmppConnectionManager = XmppConnectionManager.getInstance();
+//		mXmppConnectionManager
+//				.addReceiveReqIQCallBack("com:yineng:group", this);
+		mContactOrgDao = new ContactOrgDao(this);
+
+		mRel_actionbar = (RelativeLayout) findViewById(R.id.createDisgroup_rel_actionbar);
+		mAddBtn = (Button) findViewById(R.id.btn_create_disgroup_createbtn);
+		mTitleTV = (TextView) findViewById(R.id.tv_create_disgroup_title);
+		mRel_searchBox = (RelativeLayout) findViewById(R.id.searchBox);
+		mOrgListLV = (ListView) findViewById(R.id.lv_create_disgroup_listview);
+		mHorizontalListView = (HorizontalListView) findViewById(R.id.gl_create_disgroup_horizontallistView);
+		mCreateDisGroupLayout = (LinearLayout) findViewById(R.id.ll_create_disgroup_thumbnail_layout_);
+		mTxt_previous = (TextView)findViewById(R.id.disAdd_previous);
+		mQuitViewTV = (TextView)findViewById(R.id.tv_disAdd_quit_view);
+		// mGroupId是上一级界面传过来的讨论组ID，如果是新建讨论组，则key为null
+		mGroupId = (String) getIntent().getCharSequenceExtra(DIS_GROUP_ID_KEY);
+		mGroupType = getIntent().getIntExtra(DisGroupPersonList.GROUP_TYPE, 0);
+		if (mGroupType != 0 && mGroupId!=null) {
+			mOldUserList = mContactOrgDao.queryUsersByGroupName(mGroupId, mGroupType);
+			mContactGroup = mContactOrgDao.getGroupBeanById(mGroupId, mGroupType);
+		} else {
+			mOldUserList = (List<User>) getIntent().getSerializableExtra("disGroupAddedUser");
+		}
+//		mOldUserList = mContactOrgDao.queryUsersByGroupName(mGroupId, 9);
+//		mContactGroup = mContactOrgDao.getGroupBeanById(mGroupId, 9);
+
+		// 组织结构跳转适配器
+		mOrgPathAdapter = new OrgPathAdapter(this);
+
+		// 画廊适配器
+		mHorizontalListViewAdapter = new HorizontalListViewAdapter(this);
+		mHorizontalListView.setAdapter(mHorizontalListViewAdapter);
+
+		// 人员或组织结构显示列表
+		mOrgListAdapter = new OrgListAdapter(this);
+		mOrgListLV.setAdapter(mOrgListAdapter);
+		showRootListUI();
+		initMaxUser();
+		findSearchContactView();
+	}
+
+	/**
+	 * 初始化最大成员数
+	 */
+	private void initMaxUser() {
+		ClientInitConfig mClientInitConfig = mContactOrgDao.getClientInitInfo();
+		if (mClientInitConfig != null) {
+			if (mGroupType != 0) {
+				if (mGroupType==Const.CONTACT_DISGROUP_TYPE) {//讨论组
+					mMaxMemberNum = Integer.parseInt(mClientInitConfig.getDisgroup_max_user());
+				} else {//群组
+					mMaxMemberNum = Integer.parseInt(mClientInitConfig.getGroup_max_user());
+				}
+			}
+		}		
+	}
+
+
+	private void initEvent() {
+		mAddBtn.setOnClickListener(this);
+		mTitleTV.setOnClickListener(this);
+		mQuitViewTV.setOnClickListener(this);
+		mTxt_previous.setOnClickListener(this);
+		initSearchContactViewListener();
+		mHorizontalListViewAdapter.setAdapterAttr(true, new onRemoveSelectedMemgerListener() {
+			
+			@Override
+			public void onRemoveSelected(User mUser) {
+				//  Auto-generated method stub
+				//刷新横向Listview
+				if (mUser.isSelected()) {
+					mUser.setSelected(false);
+					removeFromUserList(mUser);
+				}
+				//刷新列表
+				if (mCurrentObjectList.contains(mUser)) {
+					int index = mCurrentObjectList.indexOf(mUser);
+					User tempUser = (User) mCurrentObjectList.get(index);
+					tempUser.setSelected(false);
+				}
+				mHandler.sendEmptyMessage(REFRESH_GALLARY_UI);
+				//如果搜索框已弹出
+				if (mSearchContactEditText.isShowing() && mSearchContactEditText.getEditTextStr().length() > 0) {
+					if (mSearchResultObjects.contains(mUser)) {
+						int index = mSearchResultObjects.indexOf(mUser);
+						User tempUser = (User) mSearchResultObjects.get(index);
+						tempUser.setSelected(false);
+					}
+					updateCurrentObjectList(mNewAddUserList, mOldUserList, mSearchResultObjects);
+					mHandler.sendEmptyMessage(REFRESH_SEARCH_LIST_UI);
+				} else {
+					updateCurrentObjectList(mNewAddUserList, mOldUserList, mCurrentObjectList);
+					mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+				}
+			}
+		});
+//		mSearchET.addTextChangedListener(new TextWatcher() {
+//			@Override
+//			public void onTextChanged(CharSequence s, int start, int before,
+//					int count) {
+//			}
+//
+//			@Override
+//			public void beforeTextChanged(CharSequence s, int start, int count,
+//					int after) {
+//				//  Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void afterTextChanged(Editable s) {
+//				if (s.length() > 0) {
+//					mCurrentObjectList = mContactOrgDao
+//							.querySearchResultByKeyWords(s.toString());
+//					updateCurrentObjectList(mNewAddUserList,mOldUserList,mCurrentObjectList);
+//					mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+//				} else {
+//					if (getCurrentOrgNum() == null) {
+//						showRootListUI();
+//					} else {
+//						updateCurrentObjectList(getCurrentOrgNum());
+//						mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+//					}
+//				}
+//			}
+//		});
+		addGroupUpdatedListener();
+	}
+
+	/**
+	 * 添加讨论组信息更改监听器
+	 */
+	private void addGroupUpdatedListener() {
+		mCommonReceiver = new CommonReceiver();
+		mCommonReceiver.setUpdateGroupDataListener(new updateGroupDataListener() {
+			
+			@Override
+			public void updateGroupData(int mGroupType) {
+				if (mGroupType == DisAddActivity.this.mGroupType) {
+					if (!isFinishAcitivity) {
+					} else {
+						isFinishAcitivity  = false;
+					}
+				}
+			}
+		});
+		mCommonReceiver.setIQuitGroupListener(new IQuitGroupListener() {
+
+			@Override
+			public void IQuitMyGroup(int mGroupType) {
+				if (mGroupType == DisAddActivity.this.mGroupType){
+					isFinishAcitivity = true;
+					finish();
+				}
+			}
+		});
+		mCommonReceiver.setGroupCreatedListener(new groupCreatedListener() {
+			
+			@Override
+			public void groupCreated(ContactGroup tempGroup) {
+				if (mGroupId == null && mGroupType == Const.CONTACT_DISGROUP_TYPE && tempGroup != null) {
+					startDisChatActivity(tempGroup);
+				} else {
+					finish();
+				}
+			}
+		});
+		IntentFilter mIntentFilter = new IntentFilter(Const.BROADCAST_ACTION_UPDATE_GROUP);
+		mIntentFilter.addAction(Const.BROADCAST_ACTION_QUIT_GROUP);
+		mIntentFilter.addAction(Const.BROADCAST_ACTION_I_QUIT_GROUP);
+		mIntentFilter.addAction(Const.BROADCAST_ACTION_CREATE_GROUP);
+		registerReceiver(mCommonReceiver, mIntentFilter);		
+	}
+	
+	/**
+	 * removeGuideListTail: 删除mGuideList中指定position对象之后的所有单元
+	 * 
+	 * @author YINENG
+	 * @param position
+	 */
+	private void removeGuideListTail(int position) {
+		while ((mGuideList.size() - 1) > position) {
+			mGuideList.removeLast();
+		}
+	}
+
+	/**
+	 * getCurrentOrgNum: 获得mGuideList中最后一个OrganizationTree的组织机构ID
+	 * 
+	 * @author YINENG
+	 * @return
+	 */
+	private String getCurrentOrgNum() {
+		if (mGuideList.size() > 0) {
+			return mGuideList.getLast().getOrgNo();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * 显示组织机构跳转按钮布局
+	 * 
+	 * @param parent
+	 */
+	private void showWindow(View parent) {
+		TextView firstTitleTV;
+		if (mOrgTitlePopWindow == null) {
+			LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+			View view = layoutInflater.inflate(
+					R.layout.contact_orgtitle_popwindow, null);
+			firstTitleTV = (TextView) view
+					.findViewById(R.id.tv_contact_title_jump_my_org);
+			mOrgTitlePopwinList = (ListView) view
+					.findViewById(R.id.lv_contact_title_current_path);
+			mOrgTitlePopwinList.setAdapter(mOrgPathAdapter);
+			// 创建一个PopuWidow对象
+			mOrgTitlePopWindow = new PopupWindow(view, parent.getWidth(),
+					LayoutParams.WRAP_CONTENT);
+			firstTitleTV.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// 点击跳转到当前用户所在的组织机构
+					OrganizationTree entity = mContactOrgDao
+							.queryMyOrg(DisAddActivity.this);
+					if (entity == null) {
+						return;
+					}
+					resetOrgPathList(entity);
+					mHistoryPathList.clear();
+					mHistoryPathList.addAll(mGuideList);
+					updateCurrentObjectList(entity.getOrgNo());
+					closePopWindow();
+					mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+				}
+			});
+			View mPopwinBG = view.findViewById(R.id.v_popwin_bg);
+			mPopwinBG.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					mOrgTitlePopWindow.dismiss();
+				}
+			});
+			mOrgTitlePopWindow.setOnDismissListener(new OnDismissListener() {
+				
+				@Override
+				public void onDismiss() {
+					mTitleTV.setCompoundDrawablesWithIntrinsicBounds(null, null,
+							getResources().getDrawable(R.mipmap.contact_fast_jump_arrow_down), null);
+				}
+			});
+		}
+		mHandler.sendEmptyMessage(REFRESH_GUID_UI);
+		mOrgTitlePopWindow.setFocusable(true);
+		mOrgTitlePopWindow.update();
+		// 设置允许在外点击消失
+		ColorDrawable dw = new ColorDrawable(0x00000000);
+		mOrgTitlePopWindow.setBackgroundDrawable(dw);
+		mOrgTitlePopWindow.setOutsideTouchable(true);
+
+		mOrgTitlePopWindow.showAsDropDown(parent);
+		mTitleTV.setCompoundDrawablesWithIntrinsicBounds(null, null,
+				getResources().getDrawable(R.mipmap.contact_fast_jump_arrow_up), null);
+		mOrgTitlePopwinList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view,
+					int position, long id) {
+				closePopWindow();
+				removeGuideListTail(position);
+				mHistoryPathList.clear();
+				mHistoryPathList.addAll(mGuideList);
+				if (updateCurrentObjectList(getCurrentOrgNum())) {
+					// 点击跳转，更新listview
+					mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 关闭组织机构跳转布局
+	 */
+	private void closePopWindow() {
+		if (mOrgTitlePopWindow != null && mOrgTitlePopWindow.isShowing()) {
+			mOrgTitlePopWindow.dismiss();
+		}
+	}
+
+	/**
+	 * addAction: 向服务器请求添加讨论组成员的操作
+	 * 
+	 * @author YINENG
+	 * @param list
+	 *            需要新添加的成员列表
+	 */
+	private void addAction(List<User> list,String groupId) {
+		if (list == null || list.isEmpty()) {
+			ToastUtil.toastAlerMessage(this, "未选择新的成员", Toast.LENGTH_SHORT);
+			return;
+		} 
+		DisSessionBean bean = new DisSessionBean();
+//		String groupNameString = DisCreateActivity.calculateGroupName(
+//				mNewAddUserList, null);
+//		bean.setDesc("");
+//		bean.setSubject("");
+//		bean.setNaturalName(groupNameString);
+//		bean.setGroupType(DisSessionBean.DISSESSION);
+		List<String> memberList = new ArrayList<String>();
+		for (User user : list) {
+			memberList.add(user.getUserNo());
+		}
+		bean.setMemberList(memberList);
+		bean.setGroupName(groupId);
+		String json = JSON.toJSONString(bean);
+		ReqIQ iq = new ReqIQ();
+		iq.setAction(3);
+		iq.setType(Type.SET);
+		iq.setNameSpace(Const.REQ_IQ_XMLNS_GET_GROUP);
+		iq.setFrom(JIDUtil.getJIDByAccount(LastLoginUserSP.getInstance(this)
+				.getUserAccount()));
+		iq.setTo("admin@" + mXmppConnectionManager.getServiceName());
+		iq.setParamsJson(json);
+		if (NetWorkUtil.isNetworkAvailable(DisAddActivity.this)) {
+			try {
+				mAddPacketId = iq.getPacketID();
+				mXmppConnectionManager.sendPacket(iq);
+				finish();
+			} catch (Exception e) {
+				//  Auto-generated catch block
+				e.printStackTrace();
+				mHandler.sendEmptyMessage(ADD_FAILED);
+			}
+		} else {
+			ToastUtil.toastAlerMessage(DisAddActivity.this, "没有网络",Toast.LENGTH_SHORT);
+		}
+	}
+
+	/**
+	 * 显示“组织机构，群，讨论组”
+	 */
+	private void showRootListUI() {
+		mCurrentObjectList.clear();
+		ContactCommonBean bean = new ContactCommonBean();
+		bean.setName("组织机构");
+		bean.setNum("0");
+		mCurrentObjectList.add(bean);
+		ContactCommonBean bean1 = new ContactCommonBean();
+		bean1.setName("群");
+		mCurrentObjectList.add(bean1);
+		ContactCommonBean bean2 = new ContactCommonBean();
+		bean2.setName("讨论组");
+		mCurrentObjectList.add(bean2);
+		mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+	}
+
+//	@Override
+//	public void receivedReqIQResult(ReqIQResult packet) {
+//		// 接收到回执信息，判断讨论组是否成功添加人员
+//		if (mAddPacketId.equals(packet.getPacketID())) {
+//			switch (packet.getCode()) {
+//			case 200:
+//				mHandler.sendEmptyMessage(ADD_SUCCESS);
+//				finish();
+//				break;
+//			case 604:
+//				Toast.makeText(DisAddActivity.this, "没有添加人员的权限", 500).show();
+//				break;
+//			default:
+//				mHandler.sendEmptyMessage(ADD_FAILED);
+//				break;
+//			}
+//		}
+//	}
+
+	/**
+	 * updateCurrentObjectList: 根据传入的组织机构ID，查询出当前组织机构下的所有子组织机构和用户， 并且将已选择的用户标识出来
+	 * 
+	 * @author YINENG
+	 * @param orgNum
+	 * @return
+	 */
+	private boolean updateCurrentObjectList(String orgNum) {
+		if (orgNum == null) {
+			return false;
+		}
+		// 获取用户列表
+		ArrayList<User> tempUserList = (ArrayList<User>) mContactOrgDao
+				.queryUsersByOrgNo(orgNum);
+		// 获得组织列表
+		ArrayList<OrganizationTree> tempOrgList = (ArrayList<OrganizationTree>) mContactOrgDao
+				.queryOrgListByParentId(orgNum);
+		mCurrentObjectList.clear();
+
+		// 成员放在上面
+		if (tempUserList != null) {
+			for (User user : tempUserList) {
+				mCurrentObjectList.add(user);
+			}
+		}
+
+		// 组织机构放在下面
+		if (tempOrgList != null) {
+			for (OrganizationTree entity : tempOrgList) {
+				mCurrentObjectList.add(entity);
+			}
+		}
+
+		// 将已在讨论组中的用户标识出来
+		updateCurrentObjectList(mNewAddUserList, mOldUserList,
+				mCurrentObjectList);
+
+		return true;
+	}
+
+	/**
+	 * updateCurrentObjectList: 将已在群中的成员标识出来，已选择的成员标识出来
+	 * 
+	 * @author YINENG
+	 * @param newUserList
+	 *            已选择的成员
+	 * @param oldUserList
+	 *            已在群中的成员
+	 * @param objectList
+	 *            当前的显示列表
+	 */
+	private void updateCurrentObjectList(List<User> newUserList,
+			List<User> oldUserList, List<Object> objectList) {
+//		mSelectedUsersMap.clear();
+		if (newUserList.size() > 0 || oldUserList.size() > 0) {
+			for (Object obj : objectList) {
+				if (obj instanceof User) {
+					for (User user : newUserList) {
+						// 判断当前显示界面的数据有哪些是已选择的
+						if (((User) obj).getUserNo().equals(user.getUserNo())) {
+							((User) obj).setSelected(true);
+//							mSelectedUsersMap.put(user.getUserNo(), ((User) obj));
+							break;
+						}
+					}
+					//  Auto-generated method stub
+					for (User user : oldUserList) {
+						if (((User) obj).getUserNo().equals(user.getUserNo())) {
+							((User) obj).setExited(true);
+							break;
+						}
+					}
+
+				}
+			}
+		}
+	}
+	
+	class OrgListAdapter extends BaseAdapter {
+		private Context nContext;
+		private List<Object> nListObjects = new ArrayList<Object>();
+		private ContactOrgDao mContactOrgDao;
+		private final int[] LOGO_BACKGROUND = {R.mipmap.icon_org_1,
+				R.mipmap.icon_org_2,
+				R.mipmap.icon_org_3,
+				R.mipmap.icon_org_4,
+				R.mipmap.icon_org_5,
+				R.mipmap.icon_org_6,
+				R.mipmap.icon_org_7};
+
+		public OrgListAdapter(Context context) {
+			nContext = context;
+			mContactOrgDao = new ContactOrgDao(nContext);
+			
+		}
+
+		public void setData(List<Object> nListObjects) {
+			this.nListObjects = nListObjects;
+		}
+
+		@Override
+		public int getCount() {
+			return nListObjects.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return nListObjects.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder viewHolder = null;
+			Object tempResultObject = nListObjects.get(position);
+			if (convertView == null) {
+				convertView = LayoutInflater.from(nContext).inflate(
+						R.layout.dis_create_select_list_item, parent,false);
+				viewHolder = new ViewHolder();
+				viewHolder.tvContactItemTag = (TextView) convertView
+						.findViewById(R.id.tv_dis_create_item_tag);
+				viewHolder.logo = (ImageView)convertView.findViewById(R.id.contactChildOrg_img_listItem_logo);
+				viewHolder.llContactItemOrg = (RelativeLayout) convertView
+						.findViewById(R.id.ll_dis_create_item_org);
+				viewHolder.tvContactItemOrgName = (TextView) convertView
+						.findViewById(R.id.tv_dis_create_item_orgname);
+				viewHolder.tvContactItemOrgCount = (TextView) convertView
+						.findViewById(R.id.tv_dis_create_item_personcount);
+				viewHolder.ivContactUserAvatar = (CircleImageView) convertView.findViewById(R.id.iv_dis_create_item_personicon);
+				viewHolder.llContactItemPerson = (LinearLayout) convertView
+						.findViewById(R.id.ll_dis_create_item_person);
+				viewHolder.tvContactItemPersonName = (TextView) convertView
+						.findViewById(R.id.tv_dis_create_item_personname);
+				viewHolder.ivContactSelected = (ImageView) convertView
+						.findViewById(R.id.cb_dis_create_item_checkBox);
+				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
+			}
+			viewHolder.tvContactItemOrgCount.setVisibility(View.VISIBLE);
+			viewHolder.tvContactItemTag.setVisibility(View.GONE);
+			viewHolder.llContactItemOrg.setVisibility(View.GONE);
+			viewHolder.llContactItemPerson.setVisibility(View.GONE);
+			viewHolder.ivContactSelected.setEnabled(true);
+
+			if (tempResultObject instanceof User) {// 用户
+				Object temp = null;
+				if (position > 0) {
+					temp = nListObjects.get(position - 1);
+				}
+				// 当前的position是第一个或者前一个item是组织机构，则显示tag
+				if (temp == null || temp instanceof OrganizationTree) {
+					viewHolder.tvContactItemTag.setVisibility(View.VISIBLE);
+					viewHolder.tvContactItemTag.setText("成员");
+				}
+				User tempUser = (User) nListObjects.get(position);
+				if (tempUser.isExited()) {
+					viewHolder.ivContactSelected.setImageResource(R.mipmap.report_option_selelcting);
+				} else {
+					if (tempUser.isSelected()) {
+						viewHolder.ivContactSelected.setImageResource(R.mipmap.report_option_selelcting);
+					} else {
+						viewHolder.ivContactSelected.setImageResource(R.mipmap.report_option_not_selelcted);
+					}
+				}
+
+				File userIcon = FileUtil.getAvatarByName(tempUser.getUserNo());
+				if (userIcon == null || !userIcon.exists()) {
+					if (tempUser.getGender()==1){
+						viewHolder.ivContactUserAvatar.setImageResource(R.mipmap.session_p2p_men);
+					}else if (tempUser.getGender()==2){
+						viewHolder.ivContactUserAvatar.setImageResource(R.mipmap.session_p2p_woman);
+					}else {
+						viewHolder.ivContactUserAvatar.setImageResource(R.mipmap.session_no_sex);
+					}
+				} else {
+					viewHolder.ivContactUserAvatar.setImageURI(Uri.fromFile(userIcon));
+				}
+
+				viewHolder.llContactItemPerson.setVisibility(View.VISIBLE);
+				viewHolder.tvContactItemPersonName.setText(tempUser.getUserName());
+				viewHolder.llContactItemPerson.setTag(position);
+				viewHolder.llContactItemPerson.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						int p = (Integer) v.getTag();
+						User user = (User) nListObjects.get(p);
+						if (user.isExited()) {
+							return;
+						}
+						if (user.isSelected()) {
+							user.setSelected(false);
+							removeFromUserList(user);
+						} else {
+							int mSumUser = mNewAddUserList.size()+ mOldUserList.size();                                                                                                                                          
+							if (mSumUser > mMaxMemberNum-1) {
+								mHandler.sendEmptyMessage(OVER_FLOW_MAX_MEMBERS);
+								return;
+							}
+							user.setSelected(true);
+							addToUserList(user);
+						}
+						notifyDataSetChanged();
+						mHandler.sendEmptyMessage(REFRESH_GALLARY_UI);
+					}
+				});
+			}
+
+			if (tempResultObject instanceof OrganizationTree) {// 组织机构
+				// 随机设置LOGO
+				int logoBackground = LOGO_BACKGROUND[(int)(Math.random()*7)];
+				viewHolder.logo.setBackgroundResource(logoBackground);
+
+				Object temp = null;
+				if (position >= 1) {
+					temp = nListObjects.get(position - 1);
+				}
+				// 当前的position是第一个或者前一个item是用户，则显示tag
+				if (temp == null || temp instanceof User) {
+					viewHolder.tvContactItemTag.setVisibility(View.VISIBLE);
+					viewHolder.tvContactItemTag.setText("部门");
+				}
+				viewHolder.llContactItemOrg.setVisibility(View.VISIBLE);
+				int num = mContactOrgDao.getOrgUsersCountByOrgIdFromDb(
+						(OrganizationTree) nListObjects.get(position), new HashSet<String>());
+				viewHolder.tvContactItemOrgCount.setText(nContext.getString(R.string.contactGroupOrg_departmentMemberCount,num));
+				viewHolder.tvContactItemOrgName
+						.setText(((OrganizationTree) nListObjects.get(position))
+								.getOrgName());
+				viewHolder.llContactItemOrg
+						.setTag(nListObjects.get(position));
+				viewHolder.llContactItemOrg
+						.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								//  Auto-generated method stub
+								isRootList = false;
+								if (mSearchContactEditText.isShowing()) {
+									cancelSearchContactAnimation();
+								}
+								OrganizationTree entity = (OrganizationTree) v
+										.getTag();
+								resetOrgPathList(entity);
+								mHistoryPathList.add(entity);
+								updateCurrentOrgList(entity);
+							}
+						});
+			}
+
+			if (tempResultObject instanceof ContactCommonBean) {// 联系界面顶层分类（组织机构、群、讨论组）
+				viewHolder.logo.setImageResource(0);
+				if (position == 0) {
+					viewHolder.logo.setBackgroundResource(R.mipmap.contact_org_green);
+				} else if (position == 1) {
+					viewHolder.logo.setBackgroundResource(R.mipmap.session_group);
+				} else if (position == 2) {
+					viewHolder.logo.setBackgroundResource(R.mipmap.session_join_discus);
+				}
+
+				mQuitViewTV.setVisibility(View.INVISIBLE);
+				viewHolder.llContactItemOrg.setVisibility(View.VISIBLE);
+				viewHolder.tvContactItemOrgName
+						.setText(((ContactCommonBean) nListObjects
+								.get(position)).getName());
+				viewHolder.llContactItemOrg.setTag(position);
+				viewHolder.tvContactItemOrgCount.setVisibility(View.GONE);
+				viewHolder.llContactItemOrg
+						.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								//  Auto-generated method stub
+								isRootList = false;
+								switch ((Integer) v.getTag()) {
+								case 0:
+									OrganizationTree entity = new OrganizationTree("0", "-1", "组织机构", 0, "0", 0);
+									resetOrgPathList(entity);
+									mHistoryPathList.add(entity);
+									updateCurrentOrgList(entity);
+									break;
+								case 1:// 群
+									ContactGroup tempGroup = new ContactGroup();
+									tempGroup.setGroupName("0");
+									tempGroup.setNaturalName("群组");
+									tempGroup.setGroupType(Const.CONTACT_GROUP_TYPE);
+//									addGroupGuideList(tempGroup);
+									mHistoryPathList.add(tempGroup);
+									updateCurrentGroupList(tempGroup);
+									break;
+								case 2:// 讨论组
+									ContactGroup tempDisGroup = new ContactGroup();
+									tempDisGroup.setGroupName("0");
+									tempDisGroup.setNaturalName("讨论组");
+									tempDisGroup.setGroupType(Const.CONTACT_DISGROUP_TYPE);
+//									addGroupGuideList(tempDisGroup);
+									mHistoryPathList.add(tempDisGroup);
+									updateCurrentGroupList(tempDisGroup);
+									break;
+
+								default:
+									break;
+								}
+								mQuitViewTV.setVisibility(View.VISIBLE);
+							}
+						});
+			}
+
+			if (tempResultObject instanceof ContactGroup) {// 群组
+				viewHolder.llContactItemOrg.setVisibility(View.VISIBLE);
+				// 随机设置LOGO
+				int logoBackground = LOGO_BACKGROUND[(int)(Math.random()*6)];
+				viewHolder.logo.setBackgroundResource(logoBackground);
+				ContactGroup bean = (ContactGroup) tempResultObject;
+				if (bean.getGroupType() == 8) { // 群组
+					viewHolder.tvContactItemOrgName.setText(bean.getNaturalName());
+				} else { // 讨论组
+					if (bean.getSubject() != null && !bean.getSubject().isEmpty()) {
+						viewHolder.tvContactItemOrgName.setText(bean.getSubject());
+					} else {
+						viewHolder.tvContactItemOrgName.setText(bean.getNaturalName());
+					}
+				}
+				List<User> list = mContactOrgDao.queryUsersByGroupName(
+						bean.getGroupName(), bean.getGroupType());
+				int mUserCount = 0;
+				if (list != null) {
+					mUserCount = list.size();// 总人数
+				}
+				viewHolder.tvContactItemOrgCount.setText(nContext.getString(R.string.contactGroupOrg_departmentMemberCount,mUserCount));
+				viewHolder.llContactItemOrg.setTag(bean);
+				viewHolder.llContactItemOrg.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						//  Auto-generated method stub
+						isRootList = false;
+						if (mSearchContactEditText.isShowing()) {
+							cancelSearchContactAnimation();
+						}
+						ContactGroup tempBean = (ContactGroup) v.getTag();
+//						addGroupGuideList(tempBean);
+						mHistoryPathList.add(tempBean);
+						updateCurrentGroupList(tempBean);
+					}
+				});
+			}
+			return convertView;
+		}
+		
+		class ViewHolder {
+			public ImageView logo;
+			public TextView tvContactItemPersonName;
+			public CircleImageView ivContactUserAvatar;
+			public LinearLayout llContactItemPerson;
+			public TextView tvContactItemOrgCount;
+			public TextView tvContactItemOrgName;
+			public RelativeLayout llContactItemOrg;
+			public TextView tvContactItemTag;
+			public ImageView ivContactSelected;
+		}
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param user
+	 */
+	private void addToUserList(User user) {
+		user.setExited(false);
+		mNewAddUserList.add(user);
+	}
+
+	/**
+	 * 从gallery数据中删除entity
+	 * 
+	 * @param user
+	 */
+	private void removeFromUserList(User user) {
+		for (User entity : mNewAddUserList) {
+			if (entity.getUserNo().equals(user.getUserNo())) {
+				mNewAddUserList.remove(entity);
+				return;
+			}
+		}
+	}
+	
+	public void back(View view) {
+		back();
+	}
+
+	/**
+	 * 返回功能
+	 */
+	private void back() {
+		if (!mHistoryPathList.isEmpty()) {
+			mHistoryPathList.removeLast();
+		}
+		if (mHistoryPathList.isEmpty()) {
+			if (!isRootList) {
+				showRootListUI();
+				isRootList = true;
+				mGuideList.clear();
+			} else {
+				finish();
+			}
+		} else {
+			Object nowOrg = mHistoryPathList.getLast();
+			if (nowOrg instanceof OrganizationTree) {
+				resetOrgPathList((OrganizationTree) nowOrg);
+				updateCurrentOrgList((OrganizationTree) nowOrg);
+			} else if (nowOrg instanceof ContactGroup) {
+				updateCurrentGroupList((ContactGroup) nowOrg);
+			} 
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		back();
+	}
+	
+	/**
+	 * @param entity
+	 */
+	protected void updateCurrentOrgList(OrganizationTree entity) {
+		if (entity.getOrgNo().equals("0")) {
+			ArrayList<OrganizationTree> list1 = (ArrayList<OrganizationTree>) mContactOrgDao
+					.queryOrgListByParentId("0");
+			if (list1 != null && !list1.isEmpty()) {
+				mCurrentObjectList.clear();
+				for (OrganizationTree entity1 : list1) {
+					mCurrentObjectList.add(entity1);
+				}
+			}
+		} else {
+			updateCurrentObjectList(entity.getOrgNo());
+		}
+		mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+	}
+	
+	/**
+	 * @param tempBean
+	 */
+	protected void updateCurrentGroupList(ContactGroup tempBean) {
+		//  Auto-generated method stub
+		if (tempBean.getGroupName().equals("0")) {
+			List<ContactGroup> list;
+			if (tempBean.getGroupType() == Const.CONTACT_GROUP_TYPE) {
+				list = mContactOrgDao.queryGroupList(Const.CONTACT_GROUP_TYPE);
+			} else {
+				list = mContactOrgDao.queryGroupList(Const.CONTACT_DISGROUP_TYPE);
+			}
+			if (list != null && !list.isEmpty()) {
+				mCurrentObjectList.clear();
+				for (ContactGroup entity2 : list) {
+					mCurrentObjectList.add(entity2);
+				}
+			}
+		} else {
+			List<User> list = mContactOrgDao.queryUsersByGroupName(
+					tempBean.getGroupName(), tempBean.getGroupType());
+			if (list != null && !list.isEmpty()) {
+				mCurrentObjectList.clear();
+				for (User entity : list) {
+					mCurrentObjectList.add(entity);
+				}
+				updateCurrentObjectList(mNewAddUserList,mOldUserList,mCurrentObjectList);
+			}
+		}
+		mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_create_disgroup_createbtn:
+			if (mGroupId == null && mGroupType == Const.CONTACT_DISGROUP_TYPE) {//从单人会话进入过来，创建讨论组
+				if (mAddPacketId == null) {//还未发送iq请求
+					if (mOldUserList.size() > 1) {
+						createGroupAction(mOldUserList.get(1));
+					}
+				}
+			} else {//从讨论组资料页进来，添加讨论组成员
+				addAction(mNewAddUserList,mGroupId);
+			}
+			break;
+
+		case R.id.tv_create_disgroup_title:
+			boolean isGroup = false;
+			if (!mHistoryPathList.isEmpty()) {
+				Object mObject = mHistoryPathList.getLast();
+				if (mObject instanceof ContactGroup) {
+					isGroup  = true;
+				}
+			}
+			if (!isRootList && !isGroup) {
+				showWindow(mRel_actionbar);
+			}
+			break;
+		case R.id.btn_search_contact_create_disgroup_btn:
+			mAddBtn.performClick();
+			break;
+		case R.id.disAdd_previous:
+			back();
+			break;
+		case R.id.tv_disAdd_quit_view:
+			finish();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	protected ArrayList<ContactGroupUser> castUserToContactGroupUser(ArrayList<User> mNewAddUserList2) {
+		ArrayList<ContactGroupUser> tempContactGroupUsers = new ArrayList<ContactGroupUser>();
+		for (User user : mNewAddUserList2) {
+			ContactGroupUser tempContactGroupUser = new ContactGroupUser();
+			tempContactGroupUser.setGroupName(mGroupId);
+			tempContactGroupUser.setRole(Const.GROUP_USER_TYPE);
+			tempContactGroupUser.setJid(user.getUserNo());
+			tempContactGroupUsers.add(tempContactGroupUser);
+		}
+		return tempContactGroupUsers;
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if(mOrgTitlePopWindow != null)
+		{
+			mOrgTitlePopWindow.dismiss();
+		}
+//		mXmppConnectionManager.removeReceiveReqIQCallBack(Const.REQ_IQ_XMLNS_GET_GROUP);
+		unregisterReceiver(mCommonReceiver);
+	}
+	
+	private void findSearchContactView() {
+		mSearchContactEditText = new SearchContactEditText(this);
+		mSearchContactEditText.setSessionFragment(false,false,true);
+		mSearchContactEditText.setmHorizontalListViewAdapter(mHorizontalListViewAdapter);
+		mSearchContactEditText.setOnResultSearchedListener(true, new onResultSearchedListener() {
+			
+			@Override
+			public void onResultSearched(List<Object> tempSearchResultObjects) {
+				L.e("tempSearchResultObjects == "+tempSearchResultObjects);
+				if (mSearchContactEditText.getEditTextStr().length() > 0) {
+					if (tempSearchResultObjects != null) {
+						mSearchResultObjects = tempSearchResultObjects;
+						updateCurrentObjectList(mNewAddUserList,mOldUserList,mSearchResultObjects);
+						if (mSearchContactEditText.mContactSearchListView.getAdapter() == null) {
+							mSearchContactEditText.mContactSearchListView.setAdapter(mOrgListAdapter);
+						}
+						mHandler.sendEmptyMessage(REFRESH_SEARCH_LIST_UI);
+//						if (mSearchListAdapter != null) {
+//							mSearchListAdapter.setData(mSearchResultObjects);
+//							mSearchListAdapter.notifyDataSetChanged();
+//						} else {
+//							mSearchListAdapter = new OrgListAdapter(DisAddActivity.this);
+//							mSearchListAdapter.setData(mSearchResultObjects);
+//							mSearchContactEditText.mContactSearchListView.setAdapter(mSearchListAdapter);
+//						}
+
+					}
+				} else {
+					mSearchContactEditText.mContactSearchListView.setAdapter(null);
+					mSearchContactEditText.mContactSearchResultEmptyTV.setVisibility(View.GONE);
+					mSearchContactEditText.mContactSearchListView.setEmptyView(null);
+					updateCurrentObjectList(mNewAddUserList, mOldUserList, mCurrentObjectList);
+					mHandler.sendEmptyMessage(REFRESH_LIST_UI);
+				}
+			}
+		});
+		mRel_searchBox = (RelativeLayout) findViewById(R.id.searchBox);
+		mCreateDisGroupLayoutLL = (LinearLayout) findViewById(R.id.ll_create_disgroup_layout);
+	}
+	
+	private void initSearchContactViewListener() {
+		mRel_searchBox.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View paramView) {
+				isShowSearchEditText = true;
+				LinearLayout.LayoutParams etParamTest = (LinearLayout.LayoutParams) mRel_searchBox
+						.getLayoutParams();
+				searchViewY = mRel_searchBox.getY() - etParamTest.topMargin;
+				TranslateAnimation showAnimation = new TranslateAnimation(0, 0, 0, -searchViewY);
+				showAnimation.setDuration(200);
+				showAnimation.setAnimationListener(showAnimationListener);
+				mCreateDisGroupLayoutLL.startAnimation(showAnimation);
+			}
+		});
+		mSearchContactEditText.setOnCancelSearchAnimationListener(this);
+	}
+
+	/**
+	 * 动画过程监听
+	 */
+	private AnimationListener showAnimationListener = new AnimationListener() {
+		@Override
+		public void onAnimationStart(Animation animation) {
+
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+
+		}
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+			if (isShowSearchEditText) {
+				mHandler.sendEmptyMessage(SHOW_SEARCH_VIEW);
+			} else {
+				mHandler.sendEmptyMessage(CANCEL_SEARCH_VIEW);
+			}
+		}
+	};
+	
+	@Override
+	public void cancelSearchContactAnimation() {
+		isShowSearchEditText = false;
+		mSearchContactEditText.dismiss();
+		TranslateAnimation cancelAnimation = new TranslateAnimation(0, 0, 0, searchViewY);
+		cancelAnimation.setDuration(200);
+		cancelAnimation.setAnimationListener(showAnimationListener);
+		mCreateDisGroupLayoutLL.startAnimation(cancelAnimation);		
+	}
+	
+	/**
+	 * 根据跳转到的org，寻找该org所属的组织机构
+	 * 
+	 * @param tempOrg
+	 */
+	protected void resetOrgPathList(OrganizationTree tempOrg) {
+		ArrayList<OrganizationTree> mMyOrgPathList = new ArrayList<OrganizationTree>();
+		mGuideList.clear();
+		mGuideList.addFirst(new OrganizationTree("0", "-1", "组织机构", 0, "0", 0));
+		mContactOrgDao.queryOrgBelongListByOrgNo(tempOrg, mMyOrgPathList);
+		if (mMyOrgPathList.size() > 0) {
+			Collections.reverse(mMyOrgPathList);
+		}
+		mGuideList.addAll(mMyOrgPathList);
+		if (!tempOrg.getOrgNo().equals("0")) {
+			mGuideList.add(tempOrg);
+		}
+	}
+	
+	/**
+	 * 更新标题栏标题
+	 */
+	protected void updateTitleView() {
+		if (!mHistoryPathList.isEmpty()) {
+			Object mObject = mHistoryPathList.getLast();
+			if (mObject instanceof ContactGroup) {
+				ContactGroup tempObject = (ContactGroup) mObject;
+				if (tempObject.getGroupType() == Const.CONTACT_GROUP_TYPE) {
+					if (tempObject.getGroupName().equals(0)) {
+						mTitleTV.setText("群组");
+					} else {
+						mTitleTV.setText(tempObject.getNaturalName());
+					}
+				} else {
+					if (tempObject.getGroupName().equals(0)) {
+						mTitleTV.setText("讨论组");
+					} else {
+						if (tempObject.getSubject() !=null && !tempObject.getSubject().isEmpty()) {
+							mTitleTV.setText(tempObject.getSubject());
+						} else {
+							mTitleTV.setText(tempObject.getNaturalName());
+						}
+					}
+				}
+			} else if (mObject instanceof OrganizationTree) {
+				OrganizationTree tempObject = (OrganizationTree) mObject;
+				mTitleTV.setText(tempObject.getOrgName());
+				mTitleTV.setCompoundDrawablesWithIntrinsicBounds(null, null,
+						getResources().getDrawable(R.mipmap.contact_fast_jump_arrow_down), null);
+			}
+		} else {
+			mTitleTV.setText("选择联系人");
+			mTitleTV.setCompoundDrawablesWithIntrinsicBounds(null, null,null, null);
+		}		
+	}
+	
+	/**
+	 * 从单人会话进入创建讨论组的操作
+	 * @param user2 
+	 * 
+	 * @throws IOException
+	 */
+	private void createGroupAction(User user2) {
+		/**用于给讨论组命名的变量**/
+		StringBuilder builder = new StringBuilder();
+		/**讨论组对象**/
+		DisSessionBean mDisSessionBean = new DisSessionBean();
+//		String groupNameString = DisCreateActivity.calculateGroupName(mNewAddUserList, null);
+		if (AppController.getInstance().mSelfUser != null) {
+			mDisSessionBean.setDesc(AppController.getInstance().mSelfUser
+					.getUserName()
+					+ " 创建于 "
+					+ TimeUtil.getCurrenDateTime("yyyy-MM-dd hh:mm:ss"));
+			builder.append(AppController.getInstance().mSelfUser.getUserName());
+		} else {
+			mDisSessionBean.setDesc("");
+		}
+		mDisSessionBean.setGroupType(DisSessionBean.DISSESSION);
+		List<String> memberList = new ArrayList<String>();
+		memberList.add(user2.getUserNo());
+		builder.append(user2.getUserName());
+		for (User user : mNewAddUserList) {
+			memberList.add(user.getUserNo());
+			builder.append(user.getUserName());
+		}
+		//控制讨论组名称长度
+		if (builder.length()>20) {
+			builder = builder.delete(20, builder.length());
+			builder.append("...");
+		}
+		mDisSessionBean.setMemberList(memberList);
+		mDisSessionBean.setSubject(builder.toString());
+		mDisSessionBean.setNaturalName(builder.toString());
+		String json = JSON.toJSONString(mDisSessionBean);
+		ReqIQ iq = new ReqIQ();
+		iq.setAction(1);
+		iq.setType(Type.SET);
+		iq.setNameSpace("com:yineng:group");
+		iq.setFrom(JIDUtil.getJIDByAccount(LastLoginUserSP.getInstance(this)
+				.getUserAccount()));
+		iq.setTo("admin@" + mXmppConnectionManager.getServiceName());
+		iq.setParamsJson(json);
+		if (NetWorkUtil.isNetworkAvailable(DisAddActivity.this)) {
+			try {
+				mAddPacketId = iq.getPacketID();
+				mXmppConnectionManager.sendPacket(iq);
+			} catch (Exception e) {
+				//  Auto-generated catch block
+				e.printStackTrace();
+				mAddPacketId = null;
+				mHandler.sendEmptyMessage(ADD_FAILED);
+			}
+		} else {
+			ToastUtil.toastAlerMessage(DisAddActivity.this, "没有网络",Toast.LENGTH_SHORT);
+		}
+	}
+	
+	/**
+	 * 打开讨论组会话窗口
+	 * @param tempGroup
+	 */
+	public void startDisChatActivity(ContactGroup tempGroup) {
+		final Intent chatIntent = new Intent();
+		chatIntent.putExtra(Const.INTENT_GROUP_EXTRA_NAME, tempGroup);
+		chatIntent.putExtra("Account", tempGroup.getGroupName());
+		// 讨论组
+		chatIntent.setClass(this, DisChatActivity.class);
+		startActivity(chatIntent);
+		finish();
+	}
+}

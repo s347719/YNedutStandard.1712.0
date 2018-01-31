@@ -1,0 +1,31 @@
+<ion-view>
+    <div class="alert-top">
+        提示：只能添加最近三天的费用信息
+    </div>
+    <ion-content class="content-bg business-journal has-alert-top">
+        <div class="list list-space">
+            <div class="item item-input">
+                <span class="input-label">金额</span>
+                <input type="number" class="form-control" placeholder="0.00" ng-model="otherFeeInfo.money"/>
+            </div>
+            <div class="item item-input item-input-buttons">
+                <span class="input-label">日期</span>
+                <div class="text-right" ng-if="!id">
+                    <button class="button button-local" ng-class="{'button-theme':selectedDate =='anteayer','button-default':selectedDate !=='anteayer'}"  ng-click="changSelectedDate('anteayer')" ng-bind="anteayer.showStr"></button>
+                    <button class="button button-local" ng-class="{'button-theme':selectedDate =='yesterday','button-default':selectedDate !=='yesterday'}" ng-click="changSelectedDate('yesterday')"  ng-bind="yesterday.showStr"></button>
+                    <button class="button button-local" ng-class="{'button-theme':selectedDate =='today','button-default':selectedDate !=='today'}" ng-click="changSelectedDate('today')"  ng-bind="today.showStr"></button>
+                </div>
+                <span class="text-right" ng-if="id" ng-click="clickDateBusin()"/>{{dateBusin}}</span>
+            </div>
+            <label class="item item-input edit-input item-stacked-label">
+                <span class="input-label">费用事由</span>
+                <textarea name="" id="" rows="5" ng-model="otherFeeInfo.feeReason"  placeholder="请输入费用事由" class="textarea"></textarea>
+            </label>
+        </div>
+        <div class="text-center padding">
+            <button class="button button-theme button-local button-outline btn-min-80" ng-click="showConfirm()">返回</button>
+            <button class="button button-theme button-local button-outline" ng-click="submit(false)" ng-show="!id">保存再添加</button>
+            <button class="button button-theme button-local btn-min-80" ng-click="submit(true)">保存</button>
+        </div>
+    </ion-content>
+</ion-view>

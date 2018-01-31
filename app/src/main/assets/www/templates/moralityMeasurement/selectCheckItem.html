@@ -1,0 +1,67 @@
+<!--选择考核项目-->
+<ion-view class="moralityMeasurement-wrap">
+    <ion-header-bar class="bar-calm">
+        <span class="pos-header-title">选择考核项目</span>
+        <div class="pos-header-box pos-icon-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="搜索名称/编号/字母" ng-model="queryValue">
+            <i class="right-icon ion-ios-close-outline" ng-show="queryValue" ng-click="cleanVal()"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc content-col-two" scroll="false">
+        <div class="left-fixed bc-white border-right">
+            <ion-scroll style="height: 100%;">
+                <ul class="row-one-list">
+                    <li class="row-one-item" ng-class="{'active': selectedItemType == null}" ng-click="selectItemType(null)">全部</li>
+                    <li class="row-one-item" ng-repeat="item in itemTypeList" ng-bind="item.showName" ng-class="{'active': selectedItemType == item}" ng-click="selectItemType(item)"></li>
+                </ul>
+            </ion-scroll>
+        </div>
+        <div class="right-auto">
+            <ion-scroll style="height: 100%;">
+                <div>
+                    <div class="heading-text" ng-if="!(tips.isError || tips.isNoData)">
+                        <ion-scroll direction="x" class="no-scroll">
+                            筛选：
+                            <span ng-click="filter(null)" ng-class="{'active': filterInfo.selectedCreditType == null}">全部</span>
+                            <span ng-click="filter(0)" ng-class="{'active': filterInfo.selectedCreditType == 0}">扣分项</span>
+                            <span ng-click="filter(1)" ng-class="{'active': filterInfo.selectedCreditType == 1}">加分项</span>
+                        </ion-scroll>
+                    </div>
+                    <ion-list class="examine-list-wrap">
+                        <ion-item class="examine-list-item" ng-repeat="item in itemListTemp">
+                            <div class="pos-box-wrap right-icon" ng-click="selectCheckItem(item)">
+                                <div class="box-wrap padding-left-0">
+                                    <span class="box-name" ng-style="{'padding-top':!item.itemDesc ? '25px' : ''}" ng-bind="item.showName"></span>
+                                    <span class="box-times" ng-bind="item.itemDesc"></span>
+                                </div>
+                                <div class="right-box">
+                                    <i class="ion-ios-arrow-forward"></i>
+                                </div>
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="fullscreen-box" ng-if="tips.isError || tips.isNoData">
+                    <div class="screen-center">
+                        <div class="img-no-data"></div>
+                        <p ng-if="tips.isError">加载失败，请重试</p>
+                        <p ng-if="tips.isNoData">没有可选考核项目！</p>
+                        <a class="text-muted" href="javascript:;" ng-click="retry()" ng-if="tips.isError">点击重试</a>
+                    </div>
+                </div>
+            </ion-scroll>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-outline button-sm button-calm" ng-click="previousStep()">上一步</button>
+        <button class="button button-outline button-calm" ng-click="showSelectedStu = !showSelectedStu">
+            已选{{selectedStuList.length}}个学生&nbsp;
+            <i ng-class="{'ion-arrow-up-b': showSelectedStu, 'ion-arrow-down-b': !showSelectedStu}" ></i>
+        </button >
+    </ion-footer-bar>
+    <!--浮动框——已选的学生-->
+    <selected-stu-viewer></selected-stu-viewer>
+    <!--浮动框——已选的学生-->
+</ion-view>
+<!--选择考核项目-->

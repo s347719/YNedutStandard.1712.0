@@ -1,0 +1,54 @@
+<!--选择教室-->
+<div class="class-patrol choose-classroom top-fixed "  ng-controller="chooseClassRoomCont">
+    <div class="bar bar-header bar-calm header-two-wrap bar-height-80">
+        <div class="wd-100">
+            <div class="dropdown-wrap bar-first border-bottom">
+                <div class="dropdown dropdown-menu-100">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{condition.groupName}}<i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="item in  areaList track by $index" ng-class="{'active':condition.groupName == item.name}"><a href="javascript:;" ng-click="getXCAreaRoom(item,'')">{{item.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pos-header-box pos-icon-rt margin-top-5">
+                <!--搜索图标-->
+                <i class="input-left-icon ion-android-search" ng-if="!condition.isQuery"></i>
+                <!--搜索进行中图标-->
+                <i class="input-left-icon ion-ios-loop-strong" ng-if="condition.isQuery"></i>
+                <input type="text" class="form-control radius-input border-radius-20" placeholder="输入教室名称查找"  ng-model="condition.name">
+                <i class="right-icon ion-ios-close-outline" ng-show="condition.name" ng-click="clearConditon()"></i>
+            </div>
+        </div>
+    </div>
+
+    <ion-content class="content-bar-two-80 content-bc">
+        <div class="search-result-text">
+            <!--可隐藏&可显示-->
+            <span>找到{{classRoomList.length}}条匹配结果</span>
+        </div>
+        <ion-list ng-show="classRoomList.length >0 &&  !condition.error">
+            <ion-item class="item-button-right" ng-repeat="item in classRoomList">
+                <h2>{{item.name}}</h2>
+                <button class="button button-sm button-calm button-outline" type="button" ng-click="selectClassRoom(item)">选择</button>
+            </ion-item>
+        </ion-list>
+        <!--获取课程失败&为0开始   取消注释即可查看效果-->
+        <div class="fullscreen-box content-bc" ng-show="classRoomList.length == 0 || condition.error">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>{{condition.title}}</p>
+                <p class="dark" ng-click="doRefresh()">单击刷新</p>
+            </div>
+        </div>
+    </ion-content>
+
+    <!--获取的课程列表结束-->
+    <ion-infinite-scroll  on-infinite="loadMore()"   distance="1%">
+    </ion-infinite-scroll>
+
+
+    <ion-footer-bar align-title="center">
+        <button class="button button-calm button-outline button-sm" ng-click="cancelSelectClass()">取消</button>
+        <button class="button button-clear button-stable icon ion-ios-reload" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</div>

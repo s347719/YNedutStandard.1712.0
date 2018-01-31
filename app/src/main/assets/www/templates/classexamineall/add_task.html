@@ -1,0 +1,128 @@
+<ion-view  ng-controller="addTaskCtrl" class="manage-task">
+    <ion-content class="content-bc">
+        <ion-list class="list list-text-rt-lt text-overflow-box">
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>打分表</li>
+                    <li class="calm" ng-click="openModal()">
+                       <span class="default-color">{{addTaskVo.tableName}}</span>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核区域</li>
+                    <li class="calm" ng-click="openModal1()">
+                         <span class="default-color">{{addTaskVo.groupName}}</span>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核次数</li>
+                    <li class="calm" ng-click="openModal2()">
+                        <span class="">第{{addTaskVo.checkTimes}}次</span>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>学期</li>
+                    <li class="calm" ng-click="openModal3()">
+                        <span class=""> {{addTaskVo.termName?addTaskVo.termName:'请选择'}}</span>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li>考核日期</li>
+                    <li class="calm" ng-click="addTaskKHRQ.show()">
+                        <span class="">{{addTaskVo.checkDate}}</span>
+                        <input type="text" placeholder="日期" ng-model="checkDate" datetimepicker on-select="selectedDate(item)"
+                               datetime-instance="addTaskKHRQ" datetime-settings="addTaskKHRQSettings" class="ng-hide">
+                    </li>
+                </ul>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="content-bc footer-two-bt">
+        <!--<button class="button button-clear button-stable icon ion-reply"  ng-click="doBack()"></button>-->
+        <div class="pos-btn-bt">
+            <button class="button button-xlg button-outline button-calm"  ng-click="doBack()">取消</button>
+            <button class="button button-xlg button-calm" ng-click="addScoreCheckTask()">生成考核任务</button>
+        </div>
+        <!--<button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>-->
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+    <!--选择打分表-->
+    <script id="template.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择打分表
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                </div>
+                <ul class="list-wrap text-center">
+                    <li class="list-item" ng-if="firstObj.alreadyScore&&scoreTableList.length<1">没有可选择的打分表！</li>
+                    <li  ng-class="addTaskVo.tableId==item.id?'list-item active':'list-item'" ng-repeat="item in scoreTableList track by $index" ng-click="selectedScore(item)">{{item.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择打分表-->
+    <!--选择区域-->
+    <script id="template1.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择考核区域
+                    <span class="calm" ng-click="closeModal1()">取消</span>
+                </div>
+                <ul class="list-wrap">
+                    <li class="list-item item-btn-box text-center">
+                        <button ng-class="addTaskVo.checkType==0?'button button-xlg button-calm btn-arrow active':'button button-xlg button-outline button-calm'" ng-click="addTaskVo.checkType=0;getRegionList(addTaskVo.tableId)">管理员的考核区</button>
+                        <button ng-class="addTaskVo.checkType==1?'button button-xlg button-calm btn-arrow active':'button button-xlg button-outline button-calm'" ng-click="addTaskVo.checkType=1;getTableGroupList(addTaskVo.tableId)">我的考核区</button>
+                    </li>
+                    <li class="list-item" ng-if="firstObj.alreadyRegion&&checkRegionList.length<1">没有可选择的区域！</li>
+                    <li ng-class="addTaskVo.regionIdOrGroupId==item.id?'list-item active':'list-item'" ng-repeat="item in checkRegionList track by $index" ng-click="addTaskVo.regionIdOrGroupId=item.id;addTaskVo.groupName=item.name;closeModal1()">{{item.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择区域-->
+    <!--选择次数-->
+    <script id="template2.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择次数
+                    <span class="calm" ng-click="closeModal2()">取消</span>
+                </div>
+                <div class="list-body">
+                    <button class="button button-sm button-calm button-outline" ng-if="checkTimeList.length<1">没有可选择的次数</button>
+                    <button ng-class="addTaskVo.checkTimes==item.id?'button button-sm button-calm btn-maxwd-sm':'button button-sm button-calm btn-maxwd-sm button-outline'" ng-repeat="item in checkTimeList track by $index" ng-click="addTaskVo.checkTimes=item.id;closeModal2()">{{item.name}}</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!--选择次数-->
+    <!--选择学期-->
+    <script id="template3.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    选择学期
+                    <span class="calm" ng-click="closeModal3()">取消</span>
+                </div>
+                <ul class="list-wrap text-center">
+                    <li class="list-item" ng-if="termList.length<1">没有可选择的学期！</li>
+                    <li ng-class="addTaskVo.termId==item.id?'list-item active':'list-item'" ng-repeat="item in termList track by $index" ng-click="selectedTerm(item)">{{item.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--选择学期-->
+</ion-view>

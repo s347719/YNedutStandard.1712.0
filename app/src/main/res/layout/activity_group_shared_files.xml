@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/groupSharedFiles_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/groupSharedFiles_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:text="@string/groupSharedFiles_previous"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+    </RelativeLayout>
+
+    <com.yineng.ynmessager.view.TabLayout.CommonTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@color/white"
+        app:tl_divider_color="@color/common_text_line"
+        app:tl_divider_width="1dp"
+        app:tl_iconVisible="false"
+        app:tl_indicator_color="@color/actionBar_bg"
+        app:tl_textSelectColor="@color/actionBar_bg"
+        app:tl_textUnselectColor="@color/black"
+        app:tl_textsize="@dimen/app_module_text_size"
+        app:tl_underline_color="@color/common_gray"
+        app:tl_underline_height="0.5dp" />
+
+    <com.yineng.ynmessager.view.xrecyclerview.XRecyclerView
+        android:id="@+id/list_view"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+</LinearLayout>

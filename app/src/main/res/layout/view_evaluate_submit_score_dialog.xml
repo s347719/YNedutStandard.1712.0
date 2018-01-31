@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:background="@drawable/app_evaluate_suggestion_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/app_eva_submit_close_dialog_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_actionbar_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_actionbar_padding"
+            android:padding="@dimen/common_actionbar_padding"
+            android:src="@mipmap/app_evaluate_submit_score_dialog_close" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/contactPersonInfo_topArea_height"
+            android:layout_below="@id/app_eva_submit_close_dialog_iv"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.14" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.36" >
+
+                <LinearLayout
+                    android:id="@+id/app_eva_answered_score"
+                    android:layout_width="@dimen/contactPersonInfo_avatarImg_size"
+                    android:layout_height="@dimen/contactPersonInfo_avatarImg_size"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/app_evaluate_submit_score_oval_shape"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/app_eva_my_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="98"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/common_actionbar_title_textSize"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_listItem_padding"
+                        android:layout_marginRight="@dimen/common_listItem_padding"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/red" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/common_listItem_padding"
+                        android:layout_marginRight="@dimen/common_listItem_padding"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/red" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/app_eva_question_sum_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/app_eva_answered_score"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/main_recentSession_listItem_padding"
+                    android:text="100分"
+                    android:textColor="#a0a0a0"
+                    android:textSize="@dimen/common_textSize_xsmall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.36" >
+
+                <TextView
+                    android:id="@+id/app_eva_answered_count"
+                    android:layout_width="@dimen/contactPersonInfo_avatarImg_size"
+                    android:layout_height="@dimen/contactPersonInfo_avatarImg_size"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/app_evaluate_submit_score_oval_shape"
+                    android:gravity="center"
+                    android:text="50"
+                    android:textColor="@color/app_actionBar_bg"
+                    android:textSize="@dimen/common_actionbar_title_textSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/app_eva_question_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/app_eva_answered_count"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/main_recentSession_listItem_padding"
+                    android:text="50题"
+                    android:textColor="#a0a0a0"
+                    android:textSize="@dimen/common_textSize_xsmall" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.14" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/common_listItem_padding"
+            android:text="确定要提交评教结果吗?"
+            android:textColor="#434343"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/main_recentSession_listItem_padding"
+            android:text="提交后无法修改"
+            android:textColor="#a0a0a0"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <Button
+            android:id="@+id/app_eva_dialog_submit_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/common_listItem_padding"
+            android:layout_marginTop="@dimen/common_listItem_padding"
+            android:background="@drawable/app_evaluate_countdown_bg"
+            android:paddingBottom="@dimen/main_recentSession_listItem_padding"
+            android:paddingLeft="@dimen/common_actionbar_height"
+            android:paddingRight="@dimen/common_actionbar_height"
+            android:paddingTop="@dimen/main_recentSession_listItem_padding"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </LinearLayout>
+
+</LinearLayout>

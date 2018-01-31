@@ -1,0 +1,12 @@
+<div class="buttom-pop buttom-pop-mini arrow animate-if  {{'direction-' + locationStr}}"  ng-show="showSelectedStu">
+    <div class="modal-list-wrap">
+        <ul class="list-wrap height-overflow-200 border-radius-10">
+            <li class="list-item item-right-icon left-img" ng-repeat="stu in selectedStuList">
+                <img ng-src="{{stu.headUrl}}" view-Head="{{stu.artworkUrl}}" alt="">{{stu.stuNameStr}}<i class="ion-close" ng-click="removeStu(stu.platformSysUserId)"></i>
+                <li class="text-center no-content" ng-if="selectedStuList.length == 0">
+                    <h5>没有选择的学生！</h5>
+                </li>
+            </li>
+        </ul>
+    </div>
+</div>

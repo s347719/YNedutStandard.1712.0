@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reportCalendarDaily_rcy_indicator"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.17"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.83"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/reportCalendarDaily_txt_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/reportCalendarDaily_tip_verPadding"
+                android:paddingTop="@dimen/reportCalendarDaily_tip_verPadding"
+                android:visibility="gone"
+                tools:text="今天（10月7日）无需填报！"
+                tools:visibility="visible"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reportCalendarDaily_rcy_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/reportCalendar_loadingFailed1"
+        android:visibility="invisible"
+        />
+</FrameLayout>

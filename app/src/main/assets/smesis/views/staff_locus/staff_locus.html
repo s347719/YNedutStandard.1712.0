@@ -1,0 +1,111 @@
+<!--出差人员轨迹正常-->
+<ion-view class="fixed-header staff-locus">
+    <div class="fixed-header-wrapper">
+        <div class="locus-statistic-wrap" ng-show="tadayFlagAll">
+            <!--详情开始-->
+            <div class="locus-content-detail">
+                <ul class="clearfix">
+                    <li ng-class="{'active':tadayFlag}" ng-click="checkData(1)"><i class="map-icon map-normal"></i>今日有定位/{{normal}}</li>
+                    <li ng-class="{'active':!tadayFlag}" ng-click="checkData(2)"><i class="map-icon map-unnormal"></i>今日无定位/{{abnormal}}</li>
+                </ul>
+                <i class="ion-ios-search-strong" ng-click="checkSearch(1)"></i>
+            </div>
+        </div>
+        <!--详情结束-->
+        <!--搜索开始-->
+        <div class="item-input-inset" ng-show="!tadayFlagAll">
+            <div class="item-input-wrapper">
+                <!--搜索图标-->
+                <!--<i class="ion-ios-search-strong" ng-click="search(searchData.name)" ng-show="searchFlag"></i>-->
+                <!--搜索进行时-->
+                <i class="ion-ios-loop-strong"  ng-show="!searchFlag"></i>
+                <input type="text" placeholder="输入姓名查询" ng-model="searchData.name"/>
+                <i class="ion-close-round" ng-click="delete()"></i>
+            </div>
+            <button class="button button-clear" ng-click="checkSearch(2)">取消</button>
+        </div>
+        <!--搜索结束-->
+    </div>
+
+    <div ng-show="tadayFlag && !searghAllFlag">
+        <!--没有出差人员轨迹 解开注释可查看效果-->
+        <div class="fullscreen-box" ng-if="searchDataErrorFlag">
+            <div class="screen-center blank-bg">
+                <h4 ng-if="normalFlag"><i class="tips-icon"></i>加载失败</h4>
+                <h4 ng-if="!normalFlag"><i class="tips-icon"></i>没有人员记录</h4>
+                <p ng-if="!normalFlag" class="text-theme" ng-click="refreshModal()">刷新试试</p>
+            </div>
+        </div>
+        <ion-content class="content-bg" ng-show="tadayFlag && !searghAllFlag">
+            <ion-list ng-repeat="item in listItem" ng-show="item.normal!=0 && !searchDataErrorFlag">
+                <ion-item class="item-title-divider">
+                    {{item.orgOrPersonCount}}({{item.normal}}/{{item.total}}人)
+                </ion-item>
+                <ion-item class="item-avatar item-default item-button-right" ng-click="toPersonDetail(userInfo,1)" ng-repeat="userInfo in item.jstxPositionBakDetailDTOList">
+                    <img src="assets/images/userface_0.png" alt=""/>
+                    <h2>{{userInfo.userName}}</h2>
+                    <p><span class="text-theme">{{userInfo.dataTime}}:</span><span class="text-gray">{{userInfo.address}}</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right"></i>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <ion-infinite-scroll on-infinite="loadData(searchDate)" distance="1%" ng-if="isHoldBack"></ion-infinite-scroll>
+        </ion-content >
+    </div>
+
+    <div ng-show="!tadayFlag && !searghAllFlag">
+        <!--没有出差人员轨迹 解开注释可查看效果-->
+        <div class="fullscreen-box" ng-if="searchDataErrorFlag">
+            <div class="screen-center blank-bg">
+                <h4 ng-if="abnormalFlag"><i class="tips-icon"></i>加载失败</h4>
+                <h4 ng-if="!abnormalFlag"><i class="tips-icon"></i>没有人员记录</h4>
+                <p ng-if="!abnormalFlag" class="text-theme" ng-click="refreshModal()">刷新试试</p>
+            </div>
+        </div>
+        <ion-content class="content-bg" ng-show="!tadayFlag && !searghAllFlag">
+            <ion-list ng-repeat="item in listItem" ng-show="item.abnormal!=0 && !searchDataErrorFlag">
+                <ion-item class="item-title-divider">
+                    {{item.orgOrPersonCount}}({{item.abnormal}}/{{item.total}}人)
+                </ion-item>
+                <ion-item class="item-default" ng-class="{'item-avatar':true, 'item-button-right':true, 'more-pragraph':userInfo.address!=null}" ng-click="toPersonDetail(userInfo,2)" ng-repeat="userInfo in item.jstxPositionBakDetailDTOAbnormalList">
+                    <img src="assets/images/userface_0.png" alt=""/>
+                    <h2>{{userInfo.userName}}</h2>
+                    <p class="text-gray">{{userInfo.dataTime}}</p>
+                    <p class="text-gray">{{userInfo.address || '没有相关数据！'}}</p>
+                    <div class="item-icon-only text-theme">
+                        <i class="ion-ios-arrow-right"></i>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </div>
+
+    <div ng-show="searghAllFlag">
+        <!--查询 显示-->
+        <div class="fullscreen-box" ng-show="!searchDataFlag">
+            <div class="screen-center blank-bg">
+                <h4 ng-if="searchDataFlag"><i class="tips-icon"></i>加载失败</h4>
+                <h4 ng-if="!searchDataFlag"><i class="tips-icon"></i>没有人员记录</h4>
+                <p ng-if="!searchDataFlag" class="text-theme" ng-click="search(searchData.name)">刷新试试</p>
+            </div>
+        </div>
+        <ion-content class="content-bg" ng-show="searghAllFlag">
+            <ion-list ng-repeat="item in listItem" ng-show="item.all>0 && searchDataFlag">
+                <ion-item class="item-title-divider">
+                    {{item.orgOrPersonCount}}({{item.all}}/{{item.total}}人)
+                </ion-item>
+                <ion-item class="item-default" ng-class="{'item-avatar':true, 'item-button-right':true, 'more-pragraph':userInfo.address!=null}" ng-click="toPersonDetail(userInfo,2)" ng-repeat="userInfo in item.allList">
+                    <img src="assets/images/userface_0.png" alt=""/>
+                    <h2>{{userInfo.userName}}</h2>
+                    <p class="text-gray">{{userInfo.dataTime}}</p>
+                    <p class="text-gray">{{userInfo.address || '没有相关数据！' }}</p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right"></i>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </div>
+
+</ion-view>

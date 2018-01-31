@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/filePicker_contentListItem_padding" >
+
+    <ImageView
+        android:id="@+id/folderViewer_img_listItem_icon"
+        android:layout_width="@dimen/filePicker_contentListItem_icon_size"
+        android:layout_height="@dimen/filePicker_contentListItem_icon_size"
+        android:layout_marginRight="@dimen/filePicker_contentListItem_horSpacing" />
+
+    <TextView
+        android:id="@+id/folderViewer_txt_foldername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/filePicker_contentListItem_horSpacing"
+        android:layout_weight="1"
+        android:ellipsize="middle"
+        android:singleLine="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/contact_right_arrow" />
+
+</LinearLayout>

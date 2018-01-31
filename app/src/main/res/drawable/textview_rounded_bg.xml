@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/roundedText_shape_corners"/>
+    <solid android:color="@color/actionBar_bg"/>
+    <padding
+        android:bottom="@dimen/roundedText_shape_verPadding"
+        android:left="@dimen/roundedText_shape_horPadding"
+        android:right="@dimen/roundedText_shape_horPadding"
+        android:top="@dimen/roundedText_shape_verPadding"/>
+</shape>

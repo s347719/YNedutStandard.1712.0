@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_bg"
+    android:background="@drawable/login_history_username"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="13dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="13dp"
+        android:text=""
+        android:textColor="#000"
+        android:singleLine="true"
+        android:maxEms="15"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+
+        <ImageView
+            android:id="@+id/item_delete_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:src="@mipmap/icon_delete_history" />
+    </LinearLayout>
+
+</LinearLayout>

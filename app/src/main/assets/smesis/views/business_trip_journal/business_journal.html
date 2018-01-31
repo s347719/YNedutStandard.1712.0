@@ -1,0 +1,18 @@
+<!--出差日记账主页面-->
+<ion-view>
+    <ion-content class="content-bg">
+        <ion-list class="week" ng-repeat="data in dataList">
+            <ion-item class="item-default item-button-right" ng-class="{'active':showData.selecter,'operated':showData.countMoney >0.1}" ng-repeat="showData in data" ng-click="goTo(showData,data)">
+                <h2 init="showDate = showData.monthDay">{{showData.monthDay}} <span ng-class="getClass(showData)">{{showData.dateDay}}</span></h2>
+                <p class="text-gray"><span>{{showData.dateWeek}}</span><span class="text-orange">{{showData.countMoney |number:2}}</span></p>
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-theme"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="text-center font-12" ng-show="showInfo">
+            <p class="padding bottom-tips">最多显示100天<br>查看更多内容，请使用电脑访问SMEsis</p>
+        </div>
+        <ion-infinite-scroll on-infinite="loadData(searchDate)" distance="1%" ng-if="!showInfo"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

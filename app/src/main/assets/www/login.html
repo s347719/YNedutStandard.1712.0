@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>用户登录</title>
+
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <!--<link href="css/ynedut_main.css" rel="stylesheet">-->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/login.js"></script>
+    <script src="js/login.js"></script>
+</head>
+<body ng-controller="loginCtrl">
+<ion-header-bar align-title="center" class="bar-light">
+    <div class="h1 title">用户登录</div>
+</ion-header-bar>
+<ion-content class="has-header">
+    <form name="loginForm" id="loginForm" novalidate>
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="登录账号" ng-model="loginInfo.username" name="username" maxlength="30" ng-pattern="/^[^:]+$/" required>
+            </label>
+            <label class="item item-input">
+                <input type="password" placeholder="密码" ng-model="loginInfo.password" name="password" ng-maxlength="20" required>
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="login()" ng-bind="loginButtonText"></button>
+        </div>
+        <div class="padding" ng-show="!loginErr">
+            <p class="text-center assertive" ng-bind="loginForm.username.$error.required && loginForm.username.$dirty?'请输入登录账号！':''"></p>
+            <p class="text-center assertive" ng-bind="loginForm.username.$error.pattern && loginForm.username.$dirty?'用户名不能包含“:”号！':''"></p>
+            <p class="text-center assertive" ng-bind="loginForm.password.$error.required && loginForm.password.$dirty?'请输入密码！':''"></p>
+            <p class="text-center assertive" ng-bind="loginForm.password.$error.maxlength && loginForm.password.$dirty?'密码长度不能大于20个字符！':''"></p>
+            <p class="text-center assertive" ng-show="loginErr&&loginErr != ''" ng-bind="loginErr"></p>
+        </div>
+        <div class="padding" ng-show="loginErr">
+            <p class="text-center assertive" ng-bind="loginErr"></p>
+        </div>
+    </form>
+</ion-content>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/event_todo_batch_dis_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/batch_info"
+        android:background="@color/four_percent_black"
+        />
+    <LinearLayout
+        android:id="@+id/batch_info"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <RelativeLayout
+                android:id="@+id/todo_pop_cancel"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/event_todo_batch_pop_cancel" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="@string/evetn_todo_pop_select_hint"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_textSize_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/evetn_todo_pop_hint"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_textSize_small" />
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/todo_batch_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:visibility="visible"
+            />
+
+        <RelativeLayout
+            android:id="@+id/empty_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/event_todo_batch_empty"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_textSize_small"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

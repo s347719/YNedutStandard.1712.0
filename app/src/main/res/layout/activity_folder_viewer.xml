@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:padding="@dimen/common_actionbar_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/filePicker_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/filePicker_txt_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/filePicker_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_backKey_textSize" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/filePicker_txt_fullPath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:padding="@dimen/filePicker_fullPath_padding"
+        android:singleLine="true"
+        android:textSize="@dimen/filePicker_fullPath_textSize" />
+
+    <ListView
+        android:id="@+id/filePicker_lst_folderContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/filePicker_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button_bg_red"
+        android:textColor="@color/white"
+        android:text="@string/filePicker_send" />
+
+</LinearLayout>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\YNedutStandard.1712.0\CordovaLib\assets"/><source path="E:\YNedutStandard.1712.0\CordovaLib\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="E:\YNedutStandard.1712.0\CordovaLib\src\release\assets"/></dataSet></merger>

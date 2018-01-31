@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Application theme. -->
+    <style name="MyAppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!--启动页默认图片-->
+    <style name="Theme.AppLauncher" parent="MyAppBaseTheme">
+        <item name="android:windowBackground">@mipmap/splash_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--全局 正常 主题-->
+    <style name="MyAppTheme.Light" parent="MyAppBaseTheme">
+        <item name="actionBar_bg">@color/actionBar_bg</item>
+        <!-- 此处代码表示的是默认的ProgressBar里面的转圈颜色-->
+        <item name="colorAccent">@color/actionBar_bg</item>
+        <!--该行应该去掉，actionBarUniformStyle 中已包含，保留是为了兼容目前的代码-->
+        <item name="actionBarUniformStyle">@style/ActionBarUniform.Light</item>
+        <item name="actionBar_title">@style/ActionBarUniform_Widget_Title</item>
+        <item name="actionBar_buttonKey">@style/ActionBarUniform_Widget_ButtonKey</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
+    <!--全局 夜间模式 主题-->
+    <style name="MyAppTheme.Dark" parent="MyAppBaseTheme">
+        <!-- 此处代码表示的是默认的ProgressBar里面的转圈颜色-->
+        <item name="colorAccent">@color/actionBar_bg</item>
+        <item name="actionBar_bg">@color/actionBar_bg_dark</item>
+        <item name="actionBarUniformStyle">@style/ActionBarUniform.Dark</item>
+    </style>
+
+    <!-- 标题栏 基础主题-->
+    <style name="ActionBarUniform">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_actionbar_height</item>
+        <item name="android:padding">@dimen/common_actionbar_padding</item>
+    </style>
+    <!-- 标题栏 正常主题-->
+    <style name="ActionBarUniform.Light">
+        <item name="android:background">@color/actionBar_bg</item>
+    </style>
+    <!-- 标题栏 夜间模式主题-->
+    <style name="ActionBarUniform.Dark">
+        <item name="android:background">@color/actionBar_bg_dark</item>
+    </style>
+
+    <!--标题栏 标题文字 正常主题-->
+    <style name="ActionBarUniform_Widget_Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/common_actionbar_title_textSize</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!-- 标题栏 各种操作按钮 正常主题-->
+    <style name="ActionBarUniform_Widget_ButtonKey">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/common_actionbar_textSize</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/common_actionbar_btn_padding</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!--转发页面提示框 -->
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <!--以下是其他部件主题-->
+
+
+    <style name="Anim_Popupwindow">
+        <item name="android:windowEnterAnimation">@anim/additionalfunction_popupwindow_show</item>
+        <item name="android:windowExitAnimation">@anim/additionalfunction_popupwindow_dismiss</item>
+    </style>
+
+    <style name="anim_popup_dir">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/custom_tab_indicator</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textColor">#FF555555</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerPadding">10dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+
+    <style name="ButtonBarButton" />
+
+    <!--
+    <style name="chat_content_date_style">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">#bfbfbf</item>
+    </style>
+    -->
+
+    <style name="chat_text_name_style">
+        <item name="android:textColor">#818181</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="chat_text_date_style">
+        <item name="android:padding">2dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/chat_send_time_bg</item>
+    </style>
+
+    <style name="item_text_info" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/normal_text</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- 联系人界面的item的属性 -->
+    <style name="contactItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">8.5</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:paddingRight">@dimen/common_listItem_padding</item>
+        <item name="android:paddingTop">@dimen/common_listItem_padding</item>
+        <item name="android:paddingBottom">@dimen/common_listItem_padding</item>
+        <item name="android:gravity">center_vertical|left</item>
+    </style>
+    <!-- 全屏dialog样式 左右插入 -->
+    <style name="mydialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <style name="MyDialogStyleBottom" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+
+    <style name="MyAppBaseTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyAppBaseTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Progress_horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/attach_file_download_progbar_bg</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+
+    <style name="NoTitleDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="ChatVoiceDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbok_style</item>
+        <item name="android:scaleX">0.6</item>
+        <item name="android:scaleY">0.6</item>
+    </style>
+    <!-- 我的页面关于点击二维码dialog动画 -->
+    <style name="dialog_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+    <!-- indicator -->
+    <!-- 设置显示器颜色 -->
+    <attr name="tl_indicator_color" format="color" />
+    <!-- 设置显示器高度 -->
+    <attr name="tl_indicator_height" format="dimension" />
+    <!-- 设置显示器固定宽度 -->
+    <attr name="tl_indicator_width" format="dimension" />
+    <!-- 设置显示器margin,当indicator_width大于0,无效 -->
+    <attr name="tl_indicator_margin_left" format="dimension" />
+    <attr name="tl_indicator_margin_top" format="dimension" />
+    <attr name="tl_indicator_margin_right" format="dimension" />
+    <attr name="tl_indicator_margin_bottom" format="dimension" />
+    <!-- 设置显示器圆角弧度-->
+    <attr name="tl_indicator_corner_radius" format="dimension" />
+    <!-- 设置显示器上方还是下方,只对圆角矩形有用-->
+    <attr name="tl_indicator_gravity" format="enum">
+        <enum name="TOP" value="48" />
+        <enum name="BOTTOM" value="80" />
+    </attr>
+    <!-- 设置显示器为常规|三角形|背景色块|-->
+    <attr name="tl_indicator_style" format="enum">
+        <enum name="NORMAL" value="0" />
+        <enum name="TRIANGLE" value="1" />
+        <enum name="BLOCK" value="2" />
+    </attr>
+    <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
+    <attr name="tl_indicator_width_equal_title" format="boolean" />
+    <!-- 设置显示器支持动画-->
+    <attr name="tl_indicator_anim_enable" format="boolean" />
+    <!-- 设置显示器动画时间-->
+    <attr name="tl_indicator_anim_duration" format="integer" />
+    <!-- 设置显示器支持动画回弹效果-->
+    <attr name="tl_indicator_bounce_enable" format="boolean" />
+
+    <!-- underline -->
+    <!-- 设置下划线颜色 -->
+    <attr name="tl_underline_color" format="color" />
+    <!-- 设置下划线高度 -->
+    <attr name="tl_underline_height" format="dimension" />
+    <!-- 设置下划线上方还是下方-->
+    <attr name="tl_underline_gravity" format="enum">
+        <enum name="TOP" value="48" />
+        <enum name="BOTTOM" value="80" />
+    </attr>
+
+    <!-- divider -->
+    <!-- 设置分割线颜色 -->
+    <attr name="tl_divider_color" format="color" />
+    <!-- 设置分割线宽度 -->
+    <attr name="tl_divider_width" format="dimension" />
+    <!-- 设置分割线的paddingTop和paddingBottom -->
+    <attr name="tl_divider_padding" format="dimension" />
+
+    <!-- tab -->
+    <!-- 设置tab的paddingLeft和paddingRight -->
+    <attr name="tl_tab_padding" format="dimension" />
+    <!-- 设置tab大小等分 -->
+    <attr name="tl_tab_space_equal" format="boolean" />
+    <!-- 设置tab固定大小 -->
+    <attr name="tl_tab_width" format="dimension" />
+
+    <!-- title -->
+    <!-- 设置字体大小 -->
+    <attr name="tl_textsize" format="dimension" />
+    <!-- 设置字体选中颜色 -->
+    <attr name="tl_textSelectColor" format="color" />
+    <!-- 设置字体未选中颜色 -->
+    <attr name="tl_textUnselectColor" format="color" />
+    <!-- 设置字体加粗 -->
+    <attr name="tl_textBold" format="enum">
+        <enum name="NONE" value="0" />
+        <enum name="SELECT" value="1" />
+        <enum name="BOTH" value="2" />
+    </attr>
+    <!-- 设置字体全大写 -->
+    <attr name="tl_textAllCaps" format="boolean" />
+
+    <declare-styleable name="SlidingTabLayout">
+        <!-- indicator -->
+        <attr name="tl_indicator_color" />
+        <attr name="tl_indicator_height" />
+        <attr name="tl_indicator_width" />
+        <attr name="tl_indicator_margin_left" />
+        <attr name="tl_indicator_margin_top" />
+        <attr name="tl_indicator_margin_right" />
+        <attr name="tl_indicator_margin_bottom" />
+        <attr name="tl_indicator_corner_radius" />
+        <attr name="tl_indicator_gravity" />
+        <attr name="tl_indicator_style" />
+        <attr name="tl_indicator_width_equal_title" />
+
+        <!-- underline -->
+        <attr name="tl_underline_color" />
+        <attr name="tl_underline_height" />
+        <attr name="tl_underline_gravity" />
+
+        <!-- divider -->
+        <attr name="tl_divider_color" />
+        <attr name="tl_divider_width" />
+        <attr name="tl_divider_padding" />
+
+        <!-- tab -->
+        <attr name="tl_tab_padding" />
+        <attr name="tl_tab_space_equal" />
+        <attr name="tl_tab_width" />
+
+        <!-- title -->
+        <attr name="tl_textsize" />
+        <attr name="tl_textSelectColor" />
+        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textBold" />
+        <attr name="tl_textAllCaps" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CommonTabLayout">
+        <!-- indicator -->
+        <attr name="tl_indicator_color" />
+        <attr name="tl_indicator_height" />
+        <attr name="tl_indicator_width" />
+        <attr name="tl_indicator_margin_left" />
+        <attr name="tl_indicator_margin_top" />
+        <attr name="tl_indicator_margin_right" />
+        <attr name="tl_indicator_margin_bottom" />
+        <attr name="tl_indicator_corner_radius" />
+        <attr name="tl_indicator_gravity" />
+        <attr name="tl_indicator_style" />
+        <attr name="tl_indicator_anim_enable" />
+        <attr name="tl_indicator_anim_duration" />
+        <attr name="tl_indicator_bounce_enable" />
+
+        <!-- underline -->
+        <attr name="tl_underline_color" />
+        <attr name="tl_underline_height" />
+        <attr name="tl_underline_gravity" />
+
+        <!-- divider -->
+        <attr name="tl_divider_color" />
+        <attr name="tl_divider_width" />
+        <attr name="tl_divider_padding" />
+
+        <!-- tab -->
+        <attr name="tl_tab_padding" />
+        <attr name="tl_tab_space_equal" />
+        <attr name="tl_tab_width" />
+
+        <!-- title -->
+        <attr name="tl_textsize" />
+        <attr name="tl_textSelectColor" />
+        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textBold" />
+        <attr name="tl_textAllCaps" />
+
+        <!-- icon -->
+        <!-- 设置icon宽度 -->
+        <attr name="tl_iconWidth" format="dimension" />
+        <!-- 设置icon高度 -->
+        <attr name="tl_iconHeight" format="dimension" />
+        <!-- 设置icon是否可见 -->
+        <attr name="tl_iconVisible" format="boolean" />
+        <!-- 设置icon显示位置,对应Gravity中常量值 -->
+        <attr name="tl_iconGravity" format="enum">
+            <enum name="LEFT" value="3" />
+            <enum name="TOP" value="48" />
+            <enum name="RIGHT" value="5" />
+            <enum name="BOTTOM" value="80" />
+        </attr>
+        <!-- 设置icon与文字间距 -->
+        <attr name="tl_iconMargin" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="SegmentTabLayout">
+        <!-- indicator -->
+        <attr name="tl_indicator_color" />
+        <attr name="tl_indicator_height" />
+        <attr name="tl_indicator_margin_left" />
+        <attr name="tl_indicator_margin_top" />
+        <attr name="tl_indicator_margin_right" />
+        <attr name="tl_indicator_margin_bottom" />
+        <attr name="tl_indicator_corner_radius" />
+        <attr name="tl_indicator_anim_enable" />
+        <attr name="tl_indicator_anim_duration" />
+        <attr name="tl_indicator_bounce_enable" />
+
+        <!-- divider -->
+        <attr name="tl_divider_color" />
+        <attr name="tl_divider_width" />
+        <attr name="tl_divider_padding" />
+
+        <!-- tab -->
+        <attr name="tl_tab_padding" />
+        <attr name="tl_tab_space_equal" />
+        <attr name="tl_tab_width" />
+
+        <!-- title -->
+        <attr name="tl_textsize" />
+        <attr name="tl_textSelectColor" />
+        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textBold" />
+        <attr name="tl_textAllCaps" />
+
+        <attr name="tl_bar_color" format="color" />
+        <attr name="tl_bar_stroke_color" format="color" />
+        <attr name="tl_bar_stroke_width" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="MsgView">
+        <!-- 圆角矩形背景色 -->
+        <attr name="mv_backgroundColor" format="color" />
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_cornerRadius" format="dimension" />
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_strokeWidth" format="dimension" />
+        <!-- 圆角边框颜色-->
+        <attr name="mv_strokeColor" format="color" />
+        <!-- 圆角弧度是高度一半-->
+        <attr name="mv_isRadiusHalfHeight" format="boolean" />
+        <!-- 圆角矩形宽高相等,取较宽高中大值-->
+        <attr name="mv_isWidthHeightEqual" format="boolean" />
+    </declare-styleable>
+
+    <style name="downloadFiles_text">
+        <item name="android:background">@drawable/background_white_blue_cornor_square</item>
+        <item name="android:textColor">@color/actionBar_bg</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_centerVertical">true</item>
+        <!--<item name="android:layout_centerInParent">true</item>-->
+        <item name="android:paddingBottom">@dimen/dp_5</item>
+        <item name="android:paddingTop">@dimen/dp_5</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="download_pop_text">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/actionBar_bg</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:background">@drawable/background_white_blue_cornor_square</item>
+        <item name="android:layout_marginLeft">@dimen/dp_10</item>
+        <item name="android:layout_marginRight">@dimen/dp_10</item>
+        <item name="android:paddingTop">@dimen/dp_3</item>
+        <item name="android:paddingBottom">@dimen/dp_3</item>
+    </style>
+
+    <style name="new_popwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+
+    <!-- ViewPager  -->
+
+    <declare-styleable name="ViewPagerIndicator">
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+        <!-- Style of the icon indicator's views. -->
+        <attr name="vpiIconPageIndicatorStyle" format="reference"/>
+        <!-- Style of the line indicator. -->
+        <attr name="vpiLinePageIndicatorStyle" format="reference"/>
+        <!-- Style of the title indicator. -->
+        <attr name="vpiTitlePageIndicatorStyle" format="reference"/>
+        <!-- Style of the tab indicator's tabs. -->
+        <attr name="vpiTabPageIndicatorStyle" format="reference"/>
+        <!-- Style of the underline indicator. -->
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference"/>
+    </declare-styleable>
+
+    <attr name="centered" format="boolean" />
+    <attr name="selectedColor" format="color" />
+    <attr name="strokeWidth" format="dimension" />
+    <attr name="unselectedColor" format="color" />
+
+    <declare-styleable name="CirclePageIndicator">
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" format="color" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" format="color" />
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation"/>
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" format="dimension" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" format="boolean" />
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" format="color" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" />
+        <!-- View background -->
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <declare-styleable name="LinePageIndicator">
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" />
+        <!-- Color of the unselected lines that represent the pages. -->
+        <attr name="unselectedColor" />
+        <!-- Color of the selected line that represents the current page. -->
+        <attr name="selectedColor" />
+        <!-- Width of each indicator line. -->
+        <attr name="lineWidth" format="dimension" />
+        <!-- Width of each indicator line's stroke. -->
+        <attr name="strokeWidth" />
+        <!-- Width of the gap between each indicator line. -->
+        <attr name="gapWidth" format="dimension" />
+        <!-- View background -->
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <declare-styleable name="TitlePageIndicator">
+        <!-- Screen edge padding. -->
+        <attr name="clipPadding" format="dimension" />
+        <!-- Color of the footer line and indicator. -->
+        <attr name="footerColor" format="color" />
+        <!-- Height of the footer line. -->
+        <attr name="footerLineHeight" format="dimension" />
+        <!-- Style of the indicator. Default is triangle. -->
+        <attr name="footerIndicatorStyle">
+            <enum name="none" value="0" />
+            <enum name="triangle" value="1" />
+            <enum name="underline" value="2" />
+        </attr>
+        <!-- Height of the indicator above the footer line. -->
+        <attr name="footerIndicatorHeight" format="dimension" />
+        <!-- Left and right padding of the underline indicator. -->
+        <attr name="footerIndicatorUnderlinePadding" format="dimension" />
+        <!-- Padding between the bottom of the title and the footer. -->
+        <attr name="footerPadding" format="dimension" />
+        <!-- Position of the line. -->
+        <attr name="linePosition">
+            <enum name="bottom" value="0"/>
+            <enum name="top" value="1"/>
+        </attr>
+        <!-- Color of the selected title. -->
+        <attr name="selectedColor" />
+        <!-- Whether or not the selected item is displayed as bold. -->
+        <attr name="selectedBold" format="boolean" />
+        <!-- Color of regular titles. -->
+        <attr name="android:textColor" />
+        <!-- Size of title text. -->
+        <attr name="android:textSize" />
+        <!-- Padding between titles when bumping into each other. -->
+        <attr name="titlePadding" format="dimension" />
+        <!-- Padding between titles and the top of the View. -->
+        <attr name="topPadding" format="dimension" />
+        <!-- View background -->
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <declare-styleable name="UnderlinePageIndicator">
+        <!-- Whether or not the selected indicator fades. -->
+        <attr name="fades" format="boolean" />
+        <!-- Length of the delay to fade the indicator. -->
+        <attr name="fadeDelay" format="integer" />
+        <!-- Length of the indicator fade to transparent. -->
+        <attr name="fadeLength" format="integer" />
+        <!-- Color of the selected line that represents the current page. -->
+        <attr name="selectedColor" />
+        <!-- View background -->
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
+        <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+    </style>
+
+    <style name="Widget">
+    </style>
+
+    <style name="Widget.TabPageIndicator" parent="Widget">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/vpi__tab_indicator</item>
+        <item name="android:paddingLeft">22dip</item>
+        <item name="android:paddingRight">22dip</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TabPageIndicator</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextAppearance.TabPageIndicator" parent="Widget">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/vpi__dark_theme</item>
+    </style>
+
+    <style name="Widget.IconPageIndicator" parent="Widget">
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
+
+    <bool name="default_circle_indicator_centered">true</bool>
+    <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
+    <color name="default_circle_indicator_page_color">#00000000</color>
+    <integer name="default_circle_indicator_orientation">0</integer>
+    <dimen name="default_circle_indicator_radius">3dp</dimen>
+    <bool name="default_circle_indicator_snap">false</bool>
+    <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+    <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
+
+
+    <dimen name="default_line_indicator_line_width">12dp</dimen>
+    <dimen name="default_line_indicator_gap_width">4dp</dimen>
+    <dimen name="default_line_indicator_stroke_width">1dp</dimen>
+    <color name="default_line_indicator_selected_color">#FF33B5E5</color>
+    <color name="default_line_indicator_unselected_color">#FFBBBBBB</color>
+    <bool name="default_line_indicator_centered">true</bool>
+
+    <dimen name="default_title_indicator_clip_padding">4dp</dimen>
+    <color name="default_title_indicator_footer_color">#FF33B5E5</color>
+    <dimen name="default_title_indicator_footer_line_height">2dp</dimen>
+    <integer name="default_title_indicator_footer_indicator_style">2</integer>
+    <dimen name="default_title_indicator_footer_indicator_height">4dp</dimen>
+    <dimen name="default_title_indicator_footer_indicator_underline_padding">20dp</dimen>
+    <dimen name="default_title_indicator_footer_padding">7dp</dimen>
+    <integer name="default_title_indicator_line_position">0</integer>
+    <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
+    <bool name="default_title_indicator_selected_bold">true</bool>
+    <color name="default_title_indicator_text_color">#BBFFFFFF</color>
+    <dimen name="default_title_indicator_text_size">15dp</dimen>
+    <dimen name="default_title_indicator_title_padding">5dp</dimen>
+    <dimen name="default_title_indicator_top_padding">7dp</dimen>
+
+    <bool name="default_underline_indicator_fades">true</bool>
+    <integer name="default_underline_indicator_fade_delay">300</integer>
+    <integer name="default_underline_indicator_fade_length">400</integer>
+    <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
+
+    <!-- ViewPager  结束  -->
+
+
+
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yineng.ynmessager.activity.settings.DownLoadFilesSearchActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/actionBar_bg"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_5">
+
+        <RelativeLayout
+            android:id="@+id/search_back"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentLeft="true">
+
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/previous" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/searchBox"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_50"
+            android:layout_toRightOf="@+id/search_back"
+            android:background="@drawable/searchbox_app_shape">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/icon_app_seacher" />
+
+                <EditText
+                    android:id="@+id/search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@null"
+                    android:hint="搜索文件"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/app_type_name_text_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_search"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="搜索"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/view_result"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:background="@color/common_content_bg"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_text_color"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <com.yineng.ynmessager.view.EmptySupportRecyclerView
+            android:id="@+id/recyclerview"
+            android:overScrollMode="never"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </RelativeLayout>
+
+</LinearLayout>

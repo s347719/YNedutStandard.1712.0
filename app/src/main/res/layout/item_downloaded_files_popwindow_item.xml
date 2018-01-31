@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/four_percent_black"
+    android:padding="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/item_background_white_cornor"
+        android:orientation="vertical"
+        android:padding="@dimen/downloadedFiles_listItem_padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/view_image"
+                android:layout_width="@dimen/downloadedFiles_listItem_pop_thumbwidth_size"
+                android:layout_height="@dimen/downloadedFiles_listItem_pop_thumbwidth_size"
+                android:background="@drawable/item_background_d2"
+                android:padding="@dimen/dp_5">
+
+                <ImageView
+                    android:id="@+id/downloadedFiles_img_listItem_thumb"
+                    android:layout_width="@dimen/downloadedFiles_listItem_pop_thumbwidth_size"
+                    android:layout_height="@dimen/downloadedFiles_listItem_pop_thumbheight_size"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:layout_marginRight="@dimen/downloadedFiles_listItem_horSpacing"
+                    android:src="@mipmap/file" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/downloadedFiles_txt_listItem_fileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/view_image"
+                android:layout_toRightOf="@id/view_image"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/downloadedFiles_listItem_pop_textSize" />
+
+            <TextView
+                android:id="@+id/downloadedFiles_txt_listItem_timeStamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_image"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_toRightOf="@id/view_image"
+                android:textSize="@dimen/downloadedFiles_listItem_fileName_textSize" />
+
+            <TextView
+                android:id="@+id/downloadedFiles_txt_listItem_fileSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/downloadedFiles_txt_listItem_timeStamp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/downloadedFiles_txt_listItem_timeStamp"
+                android:singleLine="true"
+                android:textSize="@dimen/downloadedFiles_listItem_fileName_textSize" />
+
+            <TextView
+                android:id="@+id/downloadedFiles_txt_listItem_fileSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/downloadedFiles_txt_listItem_timeStamp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/downloadedFiles_txt_listItem_fileSize"
+                android:singleLine="true"
+                android:textSize="@dimen/downloadedFiles_listItem_fileName_textSize" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pop_delete"
+                style="@style/download_pop_text"
+                android:text="@string/downloadedFiles_pop_delete" />
+
+
+
+            <TextView
+                android:id="@+id/pop_transmit"
+                style="@style/download_pop_text"
+                android:text="@string/downloadedFiles_pop_transmit" />
+
+            <TextView
+                android:id="@+id/pop_scan"
+                style="@style/download_pop_text"
+                android:text="@string/downloadedFiles_pop_scan" />
+
+            <TextView
+                android:id="@+id/pop_share"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="false"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

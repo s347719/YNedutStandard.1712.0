@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/roundedText_shape_corners"/>
+    <solid android:color="@color/event_bg_solid_color"/>
+
+    <stroke android:width="1dp"
+        android:color="@color/event_bg_text_color"
+        />
+    <padding
+        android:bottom="@dimen/roundedText_shape_verPadding"
+        android:left="@dimen/roundedText_shape_horPadding"
+        android:right="@dimen/roundedText_shape_horPadding"
+        android:top="@dimen/roundedText_shape_verPadding"/>
+</shape>

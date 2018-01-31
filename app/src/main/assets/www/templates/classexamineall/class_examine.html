@@ -1,0 +1,34 @@
+<ion-view  ng-controller="classExamineCtrl" class="">
+    <ion-content class="content-bc footer-two-content">
+        <ion-list class="list-text-group border-left pad-right-box">
+            <ion-item class="list-text-item" ng-repeat="item in MoraleduChScoreCheckVOList track by $index">
+                <div class="title-text">{{item.scoreTableName}}</div>
+                <div class="margin-top-10">
+                    <label class="button-label">{{item.checkTimes}}</label>
+                    <label class="button-label">共{{item.needCheckClassNum}}个班</label>
+                </div>
+                <p class="margin-top-10">{{item.checkDate}} , {{item.regionName}}</p>
+                <div class="area-right" ng-click="toClassGrade(item)">
+                    剩<span>{{item.noOverClassNum}}</span>个班
+                    <i class="ion-ios-arrow-forward"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="fullscreen-box" ng-if="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p class="" ng-bind="dataErrorMsg"></p>
+                <div class=" text-muted" ng-click="doRefresh()">单击{{dataErrorMsg.length>12?"刷新":"重试"}}</div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="content-bc footer-two-bt">
+        <div class="pos-btn-bt">
+            <button class="button button-xlg button-calm" ng-click="toAddTask()">新增考核任务</button>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button disabled class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

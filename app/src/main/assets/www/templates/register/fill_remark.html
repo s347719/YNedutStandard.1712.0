@@ -1,0 +1,11 @@
+<!--填写备注-->
+<ion-content class="content-bc class-patrol">
+    <div class="patrol-tips">
+        <textarea name="" id="" ng-model="saveTKResultRegisterVO[item.code]" ng-change="showWordLenth(saveTKResultRegisterVO[item.code]);" placeholder="{{placeholder}}" maxlength="{{item.maxLength}}" ></textarea>
+    </div>
+    <div class="text-right patrol-tips">{{inputWordLenth}}/{{item.maxLength}}</div>
+    <div class="text-center">
+        <button class="button button-ssm button-calm button-outline" ng-click="cancel()">取消</button>
+        <button class="button button-xlg button-calm" ng-click="clickSub()">确定</button>
+    </div>
+</ion-content>

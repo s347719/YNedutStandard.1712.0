@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- app -->
+    <string name="test_app_json">Messenger</string>
+    <!-- 公共文字 -->
+
+    <string name="common_offline_notice_title">下线通知</string>
+    <string name="common_offline_notice_msg">您的帐号已在其他手机上登录，如非本人操作，则密码可能已泄露，请尽快修改密码。</string>
+    <string name="common_offline_retry">重新登录</string>
+    <string name="common_offline_exit">退出</string>
+    <string name="common_id_past_title">提示</string>
+    <string name="common_id_past_msg">登录已失效，请重新登录</string>
+    <string name="common_copyToClipboard">已复制</string>
+    <string name="commom_cannot_copyToClipboard">不可复制</string>
+
+    <string-array name="common_weekDays">
+        <item>星期日</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+
+    <string name="notification_title">会话消息</string>
+    <string name="notification_content">来自%1$s个联系人的%2$s条消息！</string>
+    <string name="chatHeader_previous">消息</string>
+    <string name="chatFooter_send">发送</string>
+    <string name="allContact_listItem_online">[在线]</string>
+    <string name="allContact_listItem_offline">[离线]</string>
+
+    <string name="gpsAlert">GPS提示</string>
+    <string name="gpsAlertContent">GPS未开启，建议开启提高定位精确度</string>
+    <string name="gpsAlertGoSettings">设置</string>
+    <string name="gpsStartUp">Messenger正在运行中</string>
+    <string name="gpsSucceedUpload">定位功能已正常启用</string>
+    <string name="gpsUploadFailed">定位功能异常</string>
+
+    <!-- main界面 -->
+    <string name="main_tabitem_home">主页</string>
+    <string name="main_tabitem_organization">联系人</string>
+    <string name="main_tabitem_notice">通知</string>
+    <string name="main_tabitem_setting">设置</string>
+    <string name="main_tabitem_session">会话</string>
+    <string name="main_99plus">99+</string>
+    <string name="title_activity_main">主页</string>
+    <string name="splash_logo">依能科技</string>
+    <string name="org_search">搜索</string>
+    <string name="app_search">搜索应用</string>
+    <string name="main_darkMode">夜间模式</string>
+    <string name="main_normalMode">白天模式</string>
+    <string name="main_mySettings">我的设置</string>
+    <string name="main_downloadedFiles">已下载文件</string>
+    <string name="main_logout">退出登录</string>
+    <string name="main_exit">退出</string>
+    <string name="main_exitConfirmMsg">确定要退出？</string>
+    <string name="main_pressAgainBackToDesktop">再按一次返回桌面</string>
+    <string name="main_confirm">确定</string>
+    <string name="main_cancel">取消</string>
+    <string name="main_helpAndFeedback">帮助反馈</string>
+    <string name="main_session">消息</string>
+    <string name="main_contact">联系人</string>
+    <string name="main_app">应用</string>
+    <string name="main_my">我</string>
+    <string name="main_org">组织机构</string>
+    <string name="main_discussion">讨论组</string>
+    <string name="main_group">群</string>
+    <string name="main_department">部门</string>
+    <string name="main_class">班级</string>
+    <string name="main_teacher">教职工</string>
+    <string name="main_student">学生</string>
+    <string name="main_badNetwork">网络异常，请检查网络设置</string>
+    <string name="main_anotherLogin">已经在其它设备上线！</string>
+    <string name="main_server_shutdown">无法连接服务器,请刷新重试.</string>
+    <string name="main_alreadyOffline">已经下线！</string>
+    <string name="main_event_delete">删除</string>
+    <string name="main_event_noneChecked">没有要删除的通知</string>
+    <string name="main_event_CheckedDeleted">已删除%1$d条通知</string>
+    <string name="main_event_todo">OA申请审批</string>
+    <string name="main_event_notice">通知</string>
+    <string name="main_event_my_todo">待审批</string>
+    <string name="main_event_my_send_request">发起申请</string>
+    <string name="main_event_my_demand">我的申请</string>
+    <string name="event_demand_detail_loading">获取中...</string>
+    <string name="event_demand_detail_load_failed">获取失败,请重试！</string>
+    <string name="event_demand_review_curperson">当前审批人:%1$s</string>
+    <string name="event_demand_review_preperson">上一审批人:%1$s</string>
+    <string name="event_demand_review_reviewTime">申请时间:%1$s</string>
+    <string name="event_demand_review_opinion">%1$s</string>
+    <string name="main_event_my_done">已处理</string>
+    <string name="event_done_my_opinion">我的审批意见:%1$s</string>
+    <string name="event_done_my_reviewTime">我的审批时间:%1$s</string>
+    <string name="event_done_request_time">申请时间:%1$s</string>
+    <string name="event_done_back">返回修改</string>
+    <string name="event_done_refuse">驳回</string>
+    <string name="event_done_over">已结束</string>
+    <string name="event_done_checking">审批中</string>
+
+    <string name="main_event_newTag">new&#160;&#160;%1$s</string>
+    <string-array name="main_eventTabTitle">
+        <item>@string/main_event_my_todo</item>
+        <item>@string/main_event_my_send_request</item>
+        <item>@string/main_event_my_demand</item>
+        <item>@string/main_event_my_done</item>
+    </string-array>
+    <string name="main_eventCheckAll">全选</string>
+    <string name="main_eventNoticeEmpty">没有通知消息</string>
+    <string name="main_eventNoticeEmptyNetDown">网络异常，请检查网络设置</string>
+    <string name="main_eventNoticeEmptyTry">点击重试</string>
+    <string name="main_eventTodoCannotBeOpen">还没有待办事件</string>
+    <string name="main_eventTodoCheckNow">立即处理</string>
+    <string name="main_eventTodoCheckToast">只能电脑上审批</string>
+    <string name="main_eventDomendCheckToast">只能电脑上修改</string>
+    <string name="main_eventDoneCheckToast">只能电脑上查看</string>
+    <string name="main_eventNoticeCannotBeOpen">暂时无法访问事件详情</string>
+    <string name="main_eventWebLoadingFailed">事件详情加载失败，请检查网络</string>
+    <string-array name="main_myapps_title">
+        <item>一卡通</item>
+        <item>我的课表</item>
+        <item>我的成绩</item>
+        <item>学校微网站</item>
+        <item>在线考试</item>
+        <item>在线学习</item>
+        <item>在线办公</item>
+        <item>在线评教</item>
+        <item>实习报告</item>
+    </string-array>
+    <string name="main_myapps_currentWeek">当前周</string>
+    <string name="main_myapps_currentWeek_content">%1$s / %2$s</string>
+    <string name="main_myapps_currentWeek_content_def">--/--</string>
+    <string name="main_myapps_payCardBalance">一卡通余额 (元)</string>
+    <string name="main_myapps_payCardBalance_def">0.00</string>
+    <string name="main_myapps_loadingFailed">加载失败，单击重试！</string>
+
+    <string name="contactGroupOrg_departmentMemberCount">(%1$d)</string>
+    <string name="contactChildOrg_member">成员</string>
+    <string name="contactChildOrg_department">部门</string>
+    <string name="contactChildOrg_group">群组</string>
+    <string name="contactChildOrg_discussionGroup">讨论组</string>
+
+    <string name="contactChildOrg_previous">返回</string>
+    <string name="contactChildOrg_jumpToMyOrg">跳转到我的机构</string>
+    <string name="contactChildOrg_currentPath">当前路径</string>
+
+    <!-- login界面 -->
+    <string name="login_title">掌上YNedut</string>
+    <string name="login_bttext">登录</string>
+    <string name="login_evtext_username">帐号</string>
+    <string name="login_evtext_passowrd">密码</string>
+    <string name="login_evtext_phonenum">手机号码</string>
+    <string name="login_evtext_verification">短信动态码</string>
+    <string name="login_evtext_serviceaddress">服务器地址</string>
+    <string name="login_tvtext_showserviceaddress">显示服务器地址</string>
+    <string name="login_tvtext_hidserviceaddress">隐藏服务器地址</string>
+    <string name="login_errortext_emptyusername">用户名不能为空</string>
+    <string name="login_errortext_emptypassowrd">密码不能为空</string>
+    <string name="login_errortext_emptyserviceaddress">登录地址不能为空</string>
+    <string name="login_errortext_emptyphone">未输入手机号码</string>
+    <string name="login_errortext_emptyphone_check">请输入正确的手机号码</string>
+    <string name="login_errortext_emptyverification">动态码不能为空</string>
+    <string name="login_back">返回重新登录</string>
+    <string name="login_errortext_jsondata">数据解析出错</string>
+    <string name="login_errortext_neterror">网络连接出错</string>
+    <string name="login_errorformat_serviceaddress">登录地址格式不正确</string>
+    <string name="login_confirmDeleteAccount">确定要删除此帐号?</string>
+    <string name="login_deleteOnlyAccount">仅删除帐号</string>
+    <string name="login_deleteAccountWithData">删除帐号和本地记录</string>
+    <string name="login_username_password_error">帐号或密码错误</string>
+    <string name="login_loginNow">正在登录……</string>
+    <string name="login_networkDisconnected">网络连接已断开</string>
+    <string name="login_or">或</string>
+    <string name="login_account_type">帐号密码登录</string>
+    <string name="login_phonenum_type">短信动态码登录</string>
+    <string name="login_get_verification">获取动态码</string>
+    <string name="login_verification_error">动态码错误，请重新输入</string>
+    <string name="login_img_verification_input">请输入图片验证码</string>
+    <string name="login_img_verification_error">验证码输入错误，请重新输入</string>
+    <string name="please_input_server_address2">请输入登录地址</string>
+    <string name="please_input_server_address">请设置登录地址：</string>
+    <string name="server_address_rule">地址必须以http://或https://开头</string>
+    <string name="server_help">如何获取登录地址</string>
+    <string name="phone_help">收不到动态码?</string>
+    <string name="groupInfo_previous">返回</string>
+    <string name="groupInfo_title">群资料</string>
+    <string name="disInfo_previous">返回</string>
+    <string name="disInfo_title">聊天信息</string>
+    <string name="disInfo_discussName">讨论组名称</string>
+    <string name="disInfo_discussMembers">讨论组成员</string>
+    <string name="disInfo_discussAddMembers">添加新组员</string>
+    <string name="disInfo_chatMsgSearch">查找聊天记录</string>
+    <string name="disInfo_quitDiscuss">退出讨论组</string>
+    <string name="disGroupRename_previous">返回</string>
+    <string name="disGroupRename_done">完成</string>
+    <string name="disGroupRename_title">聊天信息</string>
+    <string name="disGroupRename_textCountLimit">%1$d/40</string>
+    <string name="groupInfo_filesShared">群共享</string>
+    <string name="groupInfo_members">群成员</string>
+    <string name="groupInfo_addNewMembers">邀请新成员</string>
+    <string name="server_connection_fail">连接失败，请检查登录地址是否正确</string>
+
+
+    <string name="start">开始</string>
+    <string name="pause">暂停</string>
+    <string name="scan">查看</string>
+    <string name="tasks_manager_demo_title">任务管理器案例</string>
+    <string name="tasks_manager_demo_name" formatted="false">任务: %d</string>
+    <string name="tasks_manager_demo_status_loading">状态: 准备中...</string>
+    <string name="tasks_manager_demo_status_pending">状态: 队列中</string>
+    <string name="tasks_manager_demo_status_started">状态: 开始下载</string>
+    <string name="tasks_manager_demo_status_connected">状态: 已连接上</string>
+    <string name="tasks_manager_demo_status_progress">状态: 下载中...</string>
+    <string name="tasks_manager_demo_status_downloading" formatted="false">状态: 正在下载 %d</string>
+    <string name="tasks_manager_demo_status_error">状态: 出错</string>
+    <string name="tasks_manager_demo_status_paused">状态: 暂停</string>
+    <string name="tasks_manager_demo_status_completed">状态: 下载完成</string>
+    <string name="tasks_manager_demo_status_not_downloaded">状态: 未下载</string>
+
+    <!--短信登录错误码-->
+    <string name="phone_send_success">短信动态码已发送，请注意查看手机</string>
+    <string name="phone_type_no_open">手机号+短信动态码登录方式未开启,不能获取短信动态码</string>
+    <string name="phone_no_found">该手机号在系统中不存在</string>
+    <string name="phone_no_account">该手机号对应的登录帐号不存在</string>
+    <string name="phone_account_lock">该手机号对应的登录帐号已锁定，请联系管理员</string>
+    <string name="phone_account_out_time">该手机号对应的登录帐号不在使用期限范围内，不能登录</string>
+    <string name="phone_account_no_found_or_out_time">该手机号对应的帐号不存在、或帐号被锁定或帐号不在使用期限范围内，请联系管理员</string>
+    <string name="phone_send_code_error">发送动态码失败，请稍后重试</string>
+    <string name="phone_no_prepaid">学校充值的短信条数可能已用完，请联系管理员</string>
+    <string name="phone_get_code_often">发送动态码过于频繁,请您明天再试</string>
+    <string name="phone_get_code_often2">发送动态码过于频繁,请切换登录方式</string>
+    <string name="phone_code_error_or_out_time">动态码错误或已过期,请重新输入</string>
+    <string name="phone_code_lose">动态码已失效,请重新获取</string>
+    <string name="phone_no_empty">手机号或动态码不能为空</string>
+
+    <string-array name="chatFooter_otherButtons">
+        <item>图片</item>
+        <item>文件</item>
+        <item>拍照</item>
+    </string-array>
+
+    <!-- session界面 -->
+    <string name="session_title">消息</string>
+    <string name="session_errortext_network">! 没有网，怎么任性</string>
+    <string name="session_serach_hint">搜索</string>
+    <string name="session_notifyModeAlarm">提醒</string>
+    <string name="session_notifyModeNoAlarm">不提醒</string>
+    <string name="session_clearListDone">已完成清除消息列表</string>
+    <string name="session_clearAllChatMsgDone">已完成清除所有聊天记录</string>
+    <string name="session_clearCacheDone">已完成清除缓存</string>
+    <string name="session_yesterday">昨天</string>
+    <string name="session_draftPrefix">草稿：</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开加载</string>
+    <string name="pull_to_refresh_refreshing_label">正在载入</string>
+    <string name="session_platform_notice_title">平台通知</string>
+    <!--
+      <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
+      <string name="pull_to_refresh_release_label">Release to refresh…</string>
+      <string name="pull_to_refresh_refreshing_label">Loading…</string>
+      -->
+
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+
+    <!-- P2PChatActivity 2人会话界面 -->
+    <string name="p2pChatActivity_contextMenuTitle">操作</string>
+    <string name="p2pChatActivity_copyChatMsg">复制文本</string>
+    <string name="p2pChatActivity_deleteChatMsg">删除</string>
+    <string name="p2pChatActivity_transmitImage">转发</string>
+    <string name="transmit_file_pc_cancel">文件未下载</string>
+    <string name="p2pChatActivity_transmitNotice">只可转发文字.图片.文件</string>
+    <string name="p2pChatActivity_userStatus_phone">（正在手机上使用）</string>
+    <string name="p2pChatActivity_userStatus_pc">（正在电脑上使用）</string>
+    <string name="p2pChatActivity_userStatus_offline">离线</string>
+    <string name="p2pChatInfo_chatInfo">聊天信息</string>
+    <string name="p2pChatInfo_previous">返回</string>
+    <string name="p2pChatInfo_createNewDiscuss">创建讨论组</string>
+    <string name="p2pChatInfo_chatLogSearch">查找聊天记录</string>
+    <string name="p2pChatInfo_myDiscussCountOutOfMax">创建讨论组数量已达到上限（%d）</string>
+    <string name="p2pChatInfo_emojiDisabled">暂不支持输入法表情</string>
+    <string name="findChatRecord_title">聊天记录</string>
+    <string name="findChatRecord_previous">返回</string>
+    <string name="disAdd_title">选择联系人</string>
+    <string name="disAdd_selectContacts">从各分组中选择</string>
+    <string name="disAdd_done">完成</string>
+    <string name="disAdd_doneWithCount">完成（%1$d）</string>
+    <string name="disAdd_department">部门</string>
+    <string name="disAdd_org">组织机构</string>
+    <string name="contactPersonInfo_previous">返回</string>
+    <string name="contactPersonInfo_mainOrg">主组织机构</string>
+    <string name="contactPersonInfo_mainJob">职务&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="contactPersonInfo_telNumber">手机</string>
+    <string name="contactPersonInfo_email">Email</string>
+    <string name="broadcastChat_title">广播</string>
+    <string name="broadcastChat_connectionDisconnect">断网了</string>
+    <string name="broadcastChat_previous">会话</string>
+    <string name="broadcastChat_sender">发送人:%1$s</string>
+    <string name="broadcastChat_delete">删除</string>
+    <string name="broadcastChatContent_title">广播通知</string>
+    <string name="broadcastChatContent_previous">返回</string>
+    <string name="broadcastChatContent_sender">发送人：%1$s</string>
+    <string name="broadcastChatContent_sendTime">发送时间：%1$s</string>
+    <string name="voiceChatMsg_durationTooShort">按键时间太短</string>
+
+    <!-- 个人资料页弹出框界面 -->
+    <string name="personinfo_pop_add_contact">添加到手机通讯录</string>
+    <string name="personinfo_pop_call_contact">拨打号码</string>
+    <string name="personinfo_pop_call_copynum">复制号码</string>
+    <string name="personinfo_pop_sent_sms">发送短信</string>
+    <string name="personinfo_pop_cancle_pop">取消</string>
+    <!--个人资料页面中弹出email框 -->
+    <string name="persion_pop_email_send">发送邮件</string>
+    <string name="persion_pop_email_copy">复制邮箱地址</string>
+    <string name="persion_pop_email_cancle">取消</string>
+
+
+    <!-- Setting Activity 设置主界面 -->
+    <string name="setting_title">我的设置</string>
+    <string name="setting_previous">返回</string>
+    <string name="setting_msgNotify">消息提醒</string>
+    <string name="setting_viewSetting">浏览设置</string>
+    <string name="setting_additionalFunction">辅助功能</string>
+    <string name="setting_downloadedFiles">查看已下载的文件</string>
+    <string name="setting_about">关于 </string>
+    <string name="setting_logout">退出提示</string>
+    <string name="setting_logoutConfirm">确认退出登录吗？</string>
+    <string name="setting_logoutWhenDownloadConfirm">有文件正在下载，确认退出？</string>
+    <string name="setting_cancel">取消</string>
+    <string name="setting_logoutConfirmed">退出</string>
+
+    <!-- MsgNotifySetting Activity 消息提醒 -->
+    <string name="msgNotifySetting_title">消息提醒</string>
+    <string name="msgNotifySetting_distractionFree">免打扰</string>
+    <string name="msgNotifySetting_timeSetting">免打扰时间设置</string>
+    <string name="msgNotifySetting_timeDisplay">%1$s:%2$s-%3$s:%4$s</string>
+    <string name="msgNotifySetting_audio">声音</string>
+    <string name="msgNotifySetting_groupMsgNotifySetting">群/讨论组消息设置</string>
+    <string name="msgNotifySetting_notifyWhenExit">退出后仍接收消息</string>
+
+    <!-- DistractionFreeSettingActivity 免打扰时段设置界面 -->
+    <string name="distractionFreeSetting_title">免打扰设置</string>
+    <string name="distractionFreeSetting_previous">返回</string>
+    <string name="distractionFreeSetting_beginTime">免打扰开始时间</string>
+    <string name="distractionFreeSetting_beginTimeDisplay">%1$s 时  %2$s 分</string>
+    <string name="distractionFreeSetting_endTime">免打扰结束时间</string>
+    <string name="distractionFreeSetting_endTimeDisplay">%1$s 时  %2$s 分</string>
+
+    <!-- ViewSettingActivity 浏览设置界面 -->
+    <string name="viewSetting_title">浏览设置</string>
+    <string name="viewSetting_previous">返回</string>
+    <string name="viewSetting_fontSize">字体大小</string>
+    <string name="viewSetting_backgroundSkin">背景皮肤</string>
+    <string name="viewSetting_autoRecImg">在2G/3G/4G环境下自动接收图片</string>
+
+    <!-- FontSizeSettingActivity 字体设置界面 -->
+    <string name="fontSizeSetting_title">字体大小</string>
+    <string name="fontSizeSetting_small">小</string>
+    <string name="fontSizeSetting_medium">中</string>
+    <string name="fontSizeSetting_huge">大</string>
+    <string name="fontSizeSetting_xhuge">特大</string>
+
+    <!-- AdditionalFunctionActivity 辅助功能设置界面 -->
+    <string name="additionalFunction_title">辅助功能</string>
+    <string name="additionalFunction_previous">返回</string>
+    <string name="additionalFunction_clearChatMsgList">清空消息列表</string>
+    <string name="additionalFunction_clearAllChatMsg">清除所有聊天记录</string>
+    <string name="additionalFunction_clearCache">清除缓存</string>
+    <string name="additionalFunction_deleteConfirm">清空消息列表后，聊天记录依然保留，确定要清空消息列表？</string>
+    <string name="additionalFunction_clearCacheTitle">确定清除缓存？</string>
+    <string name="additionalFunction_deleteChatTitle">确定清除所有聊天记录？</string>
+    <string name="additionalFunction_confirmYes">清除</string>
+    <string name="additionalFunction_confirmNo">取消</string>
+    <string name="additionalFunction_clearSuccessfully">清除完成！</string>
+
+    <!-- AboutActivity 关于界面 -->
+    <string name="about_title">关于</string>
+    <string name="about_previous">返回</string>
+    <string name="about_update">检查新版本</string>
+    <string name="about_scanToDownload">扫描下载</string>
+    <string name="about_intro">功能介绍</string>
+    <string name="about_helpAndFeedback">帮助与反馈</string>
+    <string name="about_currentVersionName">当前版本 %1$s</string>
+    <string name="update_ynedut_service_higher_client">当前版本不可用 \n请卸载后安装 %1$s 版本 </string>
+    <string name="update_ynedut_app_info_failed">当前版本不可用</string>
+
+    <!-- downloadingversion界面 -->
+    <string name="downversion_title">新版更新</string>
+    <string name="downversion_downloading">正在下载：</string>
+    <string name="downversion_bttext_back">返回</string>
+    <string name="downversion_bttext_abort">取消新版</string>
+    <string name="downversion_bttext_pause">暂停</string>
+    <string name="downversion_errortext_dlerror">下载失败</string>
+    <string name="downversion_errortext_dlsucess">下载成功</string>
+    <string name="downversion_altertext_dling">正在下载</string>
+    <string name="downversion_altertext_pause">下载已暂停</string>
+
+    <!-- AudioSettingActivity 声音 设置界面 -->
+    <string name="audioSetting_title">声音</string>
+    <string name="audioSetting_previous">返回</string>
+    <string name="audioSetting_isAlarm">声音</string>
+    <string name="audioSetting_groupIsAlarm">群/讨论组声音</string>
+    <string name="audioSetting_isVibrate">振动</string>
+    <string name="audioSetting_groupIsVibrate">群/讨论组振动</string>
+
+    <!-- GroupMsgNotifySetting 群讨论组消息提醒设置界面 -->
+    <string name="groupMsgNotifySetting_previous">返回</string>
+    <string name="groupMsgNotifySetting_title">群讨论组消息设置</string>
+    <string name="groupMsgNotifySetting_receiveNotify">接收消息并提醒</string>
+    <string name="groupMsgNotifySetting_receiveWithoutNotify">接收消息但不提醒</string>
+    <string name="groupMsgNotifySetting_cancel">取消</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- network status -->
+    <string name="network_is_ok">网络连接正常</string>
+    <string name="network_is_error">网络连接不可用</string>
+
+    <!-- splash 界面 -->
+    <string name="splash_dialogtitle_update">该版本是否更新?</string>
+    <string name="splash_dialogtitle_mustupdate">该版本必须升级才能继续使用,\n是否更新?</string>
+    <string name="splash_bttext_update">更新</string>
+    <string name="splash_bttext_abort">取消</string>
+    <string name="splash_bttext_exit">退出程序</string>
+    <string name="splash_bttext_continue_update">继续更新</string>
+    <string name="splash_bttext_cancel_update">取消更新</string>
+
+    <!-- ImgFolder 界面 -->
+    <string name="imgFolder_title">选择相册</string>
+    <string name="imgFolder_cancel">取消</string>
+    <string name="imgFolder_folderName">%1$s (%2$d)</string>
+    <string name="imgFolder_loading">加载中......</string>
+
+    <!-- ImgPick 界面 -->
+    <string name="imgPick_cancel">取消</string>
+    <string name="imgPick_albums">相册</string>
+    <string name="imgPick_send">发送 (%1$d/%2$d)</string>
+    <string name="imgPick_sending">发送中......</string>
+    <string name="imgPick_selectedCountMax">最多只能发送%1$d张图片哦</string>
+
+    <!-- ImgViewer 界面 -->
+    <string name="imageViewer_saveAs">保存</string>
+    <string name="imageViewer_saveSuccess">成功保存到 %1$s</string>
+    <string name="imageViewer_saveFailed">保存过程中出现异常</string>
+    <string name="filePicker_title">发送文件</string>
+    <string name="filePicker_cancel">取消</string>
+    <string name="filePicker_send">发送 (%1$d/%2$d)</string>
+    <string name="filePicker_selectedCountMax">最多只能发送%1$d个文件哦</string>
+
+    <string name="gallery_title">选择照片</string>
+    <string name="gallery_album">相册</string>
+    <string name="gallery_otherFolders">文件夹</string>
+    <string name="gallery_preview">预览</string>
+    <string name="gallery_done">完成</string>
+
+    <!-- GroupSharedFile 界面 -->
+    <string name="groupSharedFiles_title">群文件</string>
+    <string name="groupSharedFiles_previous">返回</string>
+    <string name="groupSharedFiles_loadingData">正在加载群文件……</string>
+
+    <string-array name="groupSharedFiles_viewPagerTitle">
+        <item>按时间</item>
+        <item>按类型</item>
+        <item>按上传者</item>
+    </string-array>
+
+    <string name="groupSharedFiles_today">今天</string>
+    <string name="groupSharedFiles_inOneWeek">一周内</string>
+    <string name="groupSharedFiles_earlier">更早</string>
+    <string name="groupSharedFiles_doc">文档</string>
+    <string name="groupSharedFiles_img">图片</string>
+    <string name="groupSharedFiles_video">影音</string>
+    <string name="groupSharedFiles_others">其他</string>
+    <string name="groupSharedFiles_openUp">查看</string>
+    <string name="groupSharedFiles_download">下载</string>
+    <string name="groupSharedFiles_owner">来自 %1$s</string>
+    <string name="groupSharedFiles_ownerUnknown">未知</string>
+    <string name="groupSharedFiles_deleteConfirm">确定要删除群文件？</string>
+    <string name="groupSharedFiles_hasNoPermission">没有权限删除该文件</string>
+    <string name="groupSharedFiles_FileIsBeingDownloaded">该文件正在下载，请稍后……</string>
+    <string name="groupSharedFiles_insufficientSpace">本地存储空间不足，无法下载</string>
+    <string name="groupSharedFiles_waitForDownloading">当前有文件正在下载，请稍后……</string>
+    <string name="groupSharedFiles_downloadStart">%1$s 开始下载</string>
+    <string name="groupSharedFiles_downloadSuccess">%1$s 下载完成</string>
+    <string name="groupSharedFiles_downloadFailed">%1$s 下载中断</string>
+    <string name="groupSharedFiles_downloadFailed_ENOSPC">存储空间不足，下载中断</string>
+    <string name="groupSharedFiles_downloadFailed_ETIMEDOUT">网络异常，请检查网络设置</string>
+    <string name="groupSharedFiles_noAppsForThisFile">没有合适的程序打开此文件</string>
+    <string name="groupSharedFiles_fileNotExist">文件不存在</string>
+
+    <!-- 文件管理器 -->
+    <string name="downloadedFiles_previous">返回</string>
+    <string name="downloadedFiles_editor">编辑</string>
+    <string name="downloadedFiles_editor_all">全选</string>
+    <string name="downloadedFiles_editor_cancle">全不选</string>
+    <string name="downloadedFiles_editor_delete">删除</string>
+    <string name="downloadedFiles_pop_delete">删除</string>
+    <string name="downloadedFiles_pop_transmit">转发</string>
+    <string name="downloadedFiles_pop_scan">预览</string>
+    <string name="downloadedFiles_source">类型/来源</string>
+    <string name="downloadedFiles_time">日期</string>
+    <string name="downloadedFiles_reset">重置</string>
+    <string name="downloadedFiles_title">我接收的文件</string>
+    <string name="downloadedFiles_empty">没有任何文件</string>
+    <string name="downloadedFiles_del">删除</string>
+    <string name="downloadedFiles_del_success">删除成功</string>
+    <string name="downloadedFiles_del_failed">删除失败，文件可能已经不存在或者被移动</string>
+    <string name="downloadedFiles_del_failedWhenDownloading">下载中不能删除</string>
+    <string name="downloadedFiles_noAppsForThisFile">没有合适的程序打开此文件</string>
+    <string name="downloadFiles_select_source_all">不限</string>
+    <string name="downloadFiles_select_source_title">按文件类型</string>
+    <string name="downloadFiles_select_source_img">图片</string>
+    <string name="downloadFiles_select_source_txt">文档</string>
+    <string name="downloadFiles_select_source_video">影音</string>
+    <string name="downloadFiles_select_source_other">其他</string>
+    <string name="downloadFiles_select_source_chat">会话</string>
+    <string name="downloadFiles_select_source_group_share">群共享</string>
+    <string name="downloadFiles_select_source_adapterChat">来自会话</string>
+    <string name="downloadFiles_select_source_groupshare">来自群共享</string>
+    <string name="downloadFiles_select_source_promise">来自流程审批</string>
+    <string name="downloadFiles_select_source_oa">OA申请</string>
+    <string name="downloadFiles_select_source_unkown">未知</string>
+    <string name="downloadFiles_select_source_down">按文件来源</string>
+    <string name="downloadFiles_select_time_before">往上一年</string>
+    <string name="downloadFiles_select_time_after">往下一年</string>
+    <string name="downloadFiles_select_time_show">%1$s年</string>
+    <string name="downloadFiles_serarch_data_size">找到%1$s个文件</string>
+
+
+    <string-array name="downloadFiles_time_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <!--++++++++++++++++++++++++请求错误码++++++++++++++++++++++++-->
+    <!--获取平台配置-->
+    <string name="request_error_config">31001</string>
+    <!--平台进行登录验证-->
+    <string name="request_error_login">31002</string>
+    <!--与Openfire建立通讯连接-->
+    <string name="request_error_openfire">21001</string>
+    <!--获取平台token-->
+    <string name="request_error_token">31003</string>
+    <string name="request_failed">服务器连接异常</string>
+    <!--++++++++++++++++++++++++请求错误码++++++++++++++++++++++++-->
+
+
+    <!-- 评教 -->
+    <string name="evaluateCount">被评人:%1$s人</string>
+    <string name="evaluatedCount">已评:%1$s人</string>
+    <string name="evaluatePreviousQues">上一题</string>
+    <string name="evaluateNextQues">下一题</string>
+    <string name="evaluateCheckAllCount">全部%1$s</string>
+    <string name="evaluateUncheckCount">待评%1$s</string>
+    <string name="evaluateCheckedCount">已评%1$s</string>
+    <string name="submit_resut_ing">正在提交</string>
+    <string name="submit_resut_success">提交成功</string>
+    <string name="eva_back_dialog_msg">确定要取消当前评教结果吗？</string>
+    <string name="eva_scoreTooLarge">不能大于%1$.1f分</string>
+    <string name="eva_scoreTooSmall">不能小于%1$.1f分</string>
+
+    <string name="noticeDetails_title">通知详情</string>
+    <string name="noticeDetails_infoText">%1$s&#160;&#160;%2$s</string>
+    <string name="noticeDetails_delete">删除</string>
+    <string name="noticeDetails_deleteConfirm">即将删除</string>
+
+    <string name="internshipList_timeLimit">%1$s&#160;-&#160;%2$s</string>
+    <string name="internshipList_title">实习填报</string>
+    <string name="internshipList_teacher">指导老师：%s</string>
+    <string name="internshipList_company">实习企业：%s</string>
+    <string name="internshipList_monthlyReport">月报</string>
+    <string name="internshipList_weeklyReport">周报</string>
+    <string name="internshipList_dailyReport">日报</string>
+    <string name="internshipList_today">今天</string>
+    <string name="internshipList_noneToReport">该实习活动暂不需要填报！</string>
+    <string name="internshipList_noDataLoaded">当前没有实现活动！</string>
+    <string name="internshipList_clickToRefresh">单击刷新</string>
+
+    <string name="reportCalendar_dailyReport">日报</string>
+    <string name="reportCalendar_weeklyReport">周报</string>
+    <string name="reportCalendar_monthlyReport">月报</string>
+    <string name="reportCalendar_thisWeek">本周</string>
+    <string name="reportCalendar_weekOfYear">%d周</string>
+    <string name="reportCalendar_rangeOfWeek">%1$s-%2$s</string>
+    <string name="reportCalendar_thisMonth">本月</string>
+    <string name="reportCalendar_monthOfYear">%d月</string>
+    <string name="reportCalendar_tip">今天（%1$s）无需填报！</string>
+    <string name="reportCalendar_loadingFailed1">加载失败，请重试！</string>
+    <string name="reportCalendar_loadingFailed2">喵呜~网络不给力啊，重新试试！</string>
+
+    <string name="reportContent_dailyTitle">日报&#160;(%1$d月%2$d日)</string>
+    <string name="reportContent_weeklyTitle">周报&#160;(第%1$d周，%2$d月/%3$d日~%4$d月/%5$d日)</string>
+    <string name="reportContent_monthlyTitle">月报&#160;(%1$d年%2$d月)</string>
+    <string name="reportContent_contentHint">请输入填报内容</string>
+    <string name="reportContent_textCount">已输入%1$d字</string>
+    <string-array name="reportContent_attachments">
+        <item>拍照</item>
+        <item>录音</item>
+        <item>选择照片</item>
+        <item>选择文件</item>
+    </string-array>
+    <string name="reportContent_startAudioRecord">开始录音</string>
+    <string name="reportContent_submitSucceed">提交成功</string>
+    <string name="reportContent_submitFailed">提交失败！请稍后重试</string>
+    <string name="reportContent_confirmExit">提示</string>
+    <string name="reportContent_confirmSaveAsDraft">确定要放弃当前编辑的内容吗？</string>
+    <string name="reportContent_confirmSubmit">当前修改的内容还未提交，确定要放弃吗？</string>
+    <string name="reportContent_giveUp">放弃</string>
+    <string name="reportContent_SaveAsDraft">保存再退出</string>
+    <string name="reportContent_submitAndBack">提交再返回</string>
+    <string name="reportContent_cancel">取消</string>
+    <string name="reportContent_noRequirementText">无填写要求</string>
+
+    <string name="reportFeedback_redo">重做</string>
+    <string name="reportFeedback_isSubmitDelayed">是否延迟提交</string>
+    <string name="reportFeedback_delayedYes">是</string>
+    <string name="reportFeedback_delayedNo">否</string>
+    <string name="reportFeedback_accept">通过</string>
+    <string name="reportFeedback_reject">重做</string>
+    <string name="reportFeedback_delay">延时</string>
+    <string name="reportFeedback_dailyDateOfReport">日报日期：%1$s</string>
+    <string name="reportFeedback_weeklyDateOfReport">周报周次：%1$s</string>
+    <string name="reportFeedback_monthlyDateOfReport">月报月份：%1$s</string>
+    <string name="reportFeedback_writer">填写人：%1$s</string>
+    <string name="reportFeedback_requiredDate">要求提交时间：%1$s</string>
+    <string name="reportFeedback_firstSubmitDate">首次提交时间：%1$s</string>
+    <string name="reportFeedback_lastSubmitDate">最后提交时间：%1$s</string>
+
+    <string name="chat_pin_record_voice">按住说话</string>
+    <string name="chat_release_preview_voice">松手试听</string>
+    <string name="chat_release_cancel_send_voice">松手取消发送</string>
+    <string name="chat_press_record_voice">点击录音</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--自定义相机-->
+    <string name="camera_take_picture_ok">确定</string>
+    <string name="camera_take_picture_cancle">取消</string>
+    <string name="camera_take_picture_again">重拍</string>
+    <string name="camera_permission_confirmation">这个应用没有开通相机权限，请手动开通权限</string>
+    <string name="camera_permission_not_granted">没有相机权限</string>
+
+    <!-- 转发页面  -->
+    <string name="transmit_layout_title">转发给</string>
+    <string name="transmit_layout_cancle">取消</string>
+    <string name="transmit_layout_notice">最近</string>
+
+    <string name="more_app">更多应用</string>
+    <string name="daiban">待办事务</string>
+    <string name="report">未读报告</string>
+    <string name="approcal">待审批</string>
+    <string name="app_normal">常用应用</string>
+    <string name="app_apply_fail">刷新失败</string>
+    <string name="todo_multipe_dispole">批量审批</string>
+    <string name="trans_group_dialog">文件不能转发到群</string>
+    <string name="empty_hint_todo">没有需要审批的流程</string>
+    <string name="empty_hint_send_request">没有能用手机端进行申请的流程</string>
+    <string name="empty_hint_done">没有审批记录</string>
+    <string name="empty_hint_demand">没有申请记录</string>
+
+
+    <string name="my_fragment_title">我</string>
+    <string name="my_fragment_sendCard">发送名片</string>
+    <string name="my_fragment_recive_file">我接收的文件</string>
+    <string name="my_fragment_setting">偏好设置</string>
+    <string name="about_apk_download_address">安装包下载地址</string>
+    <string name="about_service_address">分享登录地址</string>
+    <string name="about_copy_address">复制地址</string>
+    <string name="about_company_name">成都依能科技股份有限公司</string>
+    <string name="about_qrcode">二维码</string>
+    <string name="about_saomiao_qrcode">扫描二维码</string>
+    <string name="system_notice">【系统消息】</string>
+    <string name="platform_notice">【通知公告】</string>
+    <string name="platform_no_notice">暂无通知消息</string>
+    <string name="down_email_app">请下载邮件app</string>
+    <string name="qeCodeSignName">ynedutServerAddress:</string>
+    <string name="qrCodeError">请扫描登录地址二维码</string>
+
+    <!--XRecycleView  -->
+    <string name="listview_header_hint_normal">下拉刷新</string>
+    <string name="listview_header_hint_release">释放立即刷新</string>
+    <string name="listview_loading">正在加载...</string>
+    <string name="nomore_loading">没有了,已经到底啦！</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_done">刷新完成</string>
+    <string name="loading_done">加载完成</string>
+    <string name="listview_header_last_time">上次更新时间：</string>
+    <string name="title_activity_cordova">CordovaActivity</string>
+
+    <string name="app_setting">设置</string>
+    <string name="app_recommend">首页显示</string>
+    <string name="app_recent">最近</string>
+    <string name="app_drop_msg">长按拖动应用排序</string>
+    <string name="app_search_nodata">没有找到相关应用</string>
+    <string name="app_check_service_msg">有推荐应用时自动更新</string>
+
+    <string name="loading_view_click_loading_more">"---"</string>
+    <string name="loading_view_net_error">网路异常，点击重试</string>
+    <string name="cube_ptr_seconds_ago">&#160;秒之前</string>
+    <string name="cube_ptr_minutes_ago">&#160;分钟之前</string>
+    <string name="cube_ptr_hours_ago">&#160;小时之前</string>
+    <string name="loading_app_view_net_error">网路异常，下拉重试</string>
+    <string name="app_more_setting">应用设置</string>
+
+    <!--help activity-->
+    <string name="help_server_title">如何获取登录地址</string>
+    <string name="help_phone_title">收不到动态码</string>
+    <string name="help_phone_content">1、 请检查输入的手机号是否正确，避免短信动态码错发 \n\n2、 可能是通信网络异常所引起，可以尝试开/关飞行模式或重启手机\n\n3、 可能手机内安装了一些安全助手APP对动态码进行了拦截，需要自行在“短信通知”里查看是否有被拦截的新消息\n\n4、 可以将SIM卡换到其他手机上测试\n\n5、 联系手机号码归属运营商进行咨询</string>
+    <string name="title_activity_down_load_files_search">DownLoadFilesSearchActivity</string>
+    <string name="event_todo_batch_empty">没有流程</string>
+    <string name="evetn_todo_pop_hint">只支持以下流程中的申请进行批量审核</string>
+    <string name="evetn_todo_pop_select_hint">请选择流程</string>
+    <string name="pre_checker_info">上一审批人意见</string>
+
+</resources>

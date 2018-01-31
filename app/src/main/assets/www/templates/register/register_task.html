@@ -1,0 +1,77 @@
+<!--登记任务-正常-->
+<ion-view>
+    <ion-header-bar class="bar bar-calm" ng-show="termList&&termList.length>0">
+        <div class="row dropdown-wrap">
+            <div class="col col-50">
+                <div class="dropdown dropdown-menu-100 border-rt">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{termName}}<i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{'active':item.termId==termId}" ng-repeat="item in termList track by $index"><a href="" ng-click="clickTerm(item)" ng-bind="item.termName"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-50">
+                <div class="dropdown dropdown-menu-100">
+                    <p class="text-box" ng-click="toBasicMsg()"><i class="ion-ios-plus-outline"></i>登记任务外的听课</p>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc" ng-show="termList&&termList.length>0">
+        <!--任务列表开始-->
+        <ion-list class="examine-list-wrap margin-top"  ng-if="!emptyInfo">
+            <ion-item class="examine-list-item pos-right-img" ng-repeat="item in taskRegisterVOs track by $index">
+                <div class="pos-box-wrap height-auto-white right-btn-two right-padding-100">
+                    <div class="box-wrap padding-left-0">
+                        <span class="box-name" ng-bind="item.tkglTaskName?item.tkglTaskName:item.kcCourseStr"></span>
+                    </div>
+                    <div class="right-box" ng-if="!item.submit">
+                        <button class="button button-mini button-calm" type="button" ng-click="toRegister(item.id,1)">登记</button>
+                    </div>
+                    <div class="right-box" ng-if="item.submit&&!(item.confirmStatus==2&&item.checkStatus=='待审核')&&item.checkStatus!='通过'">
+                        <button class="button button-mini button-calm button-outline" type="button" ng-click="deleteItem($index,item)">删除</button>
+                        <button class="button button-mini button-calm button-outline" type="button" ng-click="toRegister(item.id,3)">修改</button>
+                    </div>
+                </div>
+                <div class="text-col-2 border-bottom">
+                    <span class="text-title">{{item.dateStr}}&nbsp;&nbsp;{{item.weekStr}}&nbsp;&nbsp;{{item.dayStr}}&nbsp;&nbsp;{{item.knobStr}}</span>
+                </div>
+                <div class="text-col-3 {{item.submit?'padding-right-60':''}}">
+                    <p>{{item.skSysUserName}},{{item.kcCourseStr}},{{item.skRoomStr}}</p>
+                    <p>{{item.teachingAdminClassStr}}</p>
+                </div>
+                <div class="pos-img-bg pass" ng-if="item.submit&&item.confirmStatus!=3&&item.checkStatus=='通过'">
+                    <span class="text-title">{{item.checkStatus}}</span>
+                    <span class="text-number">{{item.totalScore?item.totalScore+'分':''}}</span>
+                </div>
+
+                <div class="pos-img-bg noPass" ng-if="item.submit && item.checkStatus=='待审核' && item.confirmStatus==3">
+                    <span class="text-title">确认<br/>不通过</span>
+                </div>
+                <div class="pos-img-bg noPass" ng-if="item.submit && item.checkStatus=='不通过' && item.confirmStatus!=3">
+                    <span class="text-title margin-top-10">不通过</span>
+                </div>
+                <div class="pos-img-bg pending" ng-if="item.submit&&item.confirmStatus!=3&&item.checkStatus=='待审核'">
+                    <span class="text-title" ng-bind="item.checkStatus"></span>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--任务列表结束-->
+        <div class="fullscreen-box" ng-if="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p>{{dataErrorMsg}}</p>
+                <a class="text-muted" href="" ng-click="doRefresh()">刷新试试</a>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="pageInfo && taskRegisterVOs.length < pageInfo.itemSize" distance="1%" immediate-check="false"></ion-infinite-scroll>
+    </ion-content>
+    <div class="fullscreen-box content-bc" ng-if="emptyInfoTerm">
+        <div class="screen-center top-30">
+            <div class="img-no-data"></div>
+            <p>{{dataErrorMsgTerm}}</p>
+            <p class="dark" ng-click="reloadData()">刷新试试</p>
+        </div>
+    </div>
+</ion-view>
+<!--登记任务-正常-->

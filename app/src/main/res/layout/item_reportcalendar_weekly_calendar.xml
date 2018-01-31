@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/reportCalendarWeekly_calenderItem_height"
+    app:cardCornerRadius="@dimen/reportCalendarWeekly_calenderItem_corners"
+    app:cardElevation="@dimen/reportCalendarWeekly_calenderItem_elevation"
+    app:cardUseCompatPadding="true"
+    >
+
+    <ImageView
+        android:id="@+id/reportCalendarWeekly_img_calenderItem_tag"
+        android:layout_width="@dimen/reportCalendar_calenderItem_tagImg_size"
+        android:layout_height="@dimen/reportCalendar_calenderItem_tagImg_size"
+        tools:src="@mipmap/report_passed"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:padding="@dimen/reportCalendarDaily_calenderItem_padding"
+        >
+
+        <TextView
+            android:id="@+id/reportCalendarWeekly_img_calendarItem_note"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/reportCalendarWeekly_calenderItemItem_textSize_large"
+            tools:text="本周"
+            tools:textColor="@color/gray"
+            />
+
+        <TextView
+            android:id="@+id/reportCalendarWeekly_img_calendarItem_week"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textSize="@dimen/reportCalendarWeekly_calenderItemItem_textSize_large"
+            tools:text="7周"
+            />
+
+        <TextView
+            android:id="@+id/reportCalendarWeekly_img_calendarItem_range"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:singleLine="true"
+            android:textSize="@dimen/reportCalendarWeekly_calenderItemItem_textSize_xSmall"
+            tools:text="1/25-2/2"
+            />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

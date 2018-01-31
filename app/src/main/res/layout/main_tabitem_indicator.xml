@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@drawable/main_tabwidget_shape"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/main_tab_padding" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/main_tabitem_home"
+        android:textColor="@drawable/main_tabitem_txt_selector"
+        android:textSize="@dimen/main_tabItem_textSize" />
+
+</LinearLayout>

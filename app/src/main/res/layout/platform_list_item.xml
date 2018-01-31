@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_actionbar_height"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textSize="14dp"
+            />
+        <View
+            android:id="@+id/view_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@color/actionBar_bg_blue"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

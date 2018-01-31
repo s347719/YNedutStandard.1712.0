@@ -1,0 +1,251 @@
+<!--PDCA主页面-->
+<ion-view>
+    <ion-content class="content-bg pdca">
+        <div class="week">
+            <div class="list">
+                <div class="item item-default item-button-right" ng-click="openModalOne()">
+                    <h2><span>12-11</span><span>星期四</span><span class="text-green">[明天]</span></h2>
+                    <p class="text-gray"><span>未计划</span></p>
+                    <button class="button button-theme button-item-local">
+                        添加计划
+                    </button>
+                </div>
+                <div class="item item-default item-button-right">
+                    <h2><span>12-10</span><span>星期三</span><span class="text-theme">[今天]</span></h2>
+                    <p class="text-gray"><span>共5项任务</span><span>未总结</span><i class="ion-ios-alarm-outline"></i></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-default item-button-right">
+                    <h2><span>12-09</span><span>星期二</span><span class="text-theme">[昨天]</span></h2>
+                    <p class="text-gray"><span>共5项任务</span><i class="ion-ios-alarm-outline"></i></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-default item-button-right">
+                    <h2><span>12-08</span><span>星期一</span><span class="text-gray">[昨天]</span></h2>
+                    <p class="text-gray"><span>共3项任务</span><span>已总结</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="week">
+            <div class="list">
+                <div class="item item-default item-button-right">
+                    <h2><span>12-07</span><span>星期日</span></h2>
+                    <p class="text-gray"><span>未计划</span></p>
+                    <button class="button button-default button-item-local">
+                        添加计划
+                    </button>
+                </div>
+                <div class="item item-default item-button-right" ng-click="openModalThree()">
+                    <h2><span>12-06</span><span>星期六</span></h2>
+                    <p class="text-gray"><span>共3项任务</span><span>已总结</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-default item-button-right" ng-click="openModalThree()">
+                    <h2><span>12-05</span><span>星期五</span></h2>
+                    <p class="text-gray"><span>共3项任务</span><span>已超时不允许总结</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-default item-button-right" ng-click="openModalThree()">
+                    <h2><span>12-04</span><span>星期四</span></h2>
+                    <p class="text-gray"><span>共3项任务</span><span>已总结</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+                <div class="item item-default item-button-right" ng-click="openModalThree()">
+                    <h2><span>12-03</span><span>星期三</span></h2>
+                    <p class="text-gray"><span>共2项任务</span><span>已总结</span></p>
+                    <div class="item-icon-only">
+                        <i class="ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center font-12">
+            <p class="padding bottom-tips">已经到底了，最多显示100天<br>查看更多内容，请使用电脑访问SMEsis</p>
+        </div>
+    </ion-content>
+
+    <!--添加任务 start-->
+    <script id="add-task.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header pdca-add-task">
+            <div class="fixed-header-wrapper">
+                <div class="item item-default">
+                    <h2><span>添加任务</span><span>[12月10日]</span></h2>
+                    <p class="clearfix"><span class="pull-left text-gray">9:00以前添加的任务属于事先计划</span><a href="javascript:;" class="pull-right">从项目/交办中获取</a></p>
+                </div>
+            </div>
+            <ion-content>
+                <div class="item item-title-divider">以下任务属于事先计划</div>
+                <div class="pre-plan-group">
+                    <div class="item-customized ion-icon solid-border">
+                        <span class="serial active">1</span>
+                        <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                        <div class="task-tips clearfix font-12">
+                            <div class="pull-left text-gray"><span>不紧急</span><span>重要</span><span>0.5h</span><span>已完成</span></div>
+                            <div class="pull-right"><a href="">删除</a><a href="" ng-click="openModalTwo()">修改</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-title-divider">以下任务属于延后登记</div>
+                <div class="add-task-group">
+                    <div class="item-customized ion-icon dashed-border" ng-click="openModalTwo()"><i class="ion-edit"></i>添加第2项任务</div>
+                    <div class="item-customized ion-icon dashed-border" ng-click="openModalTwo()"><i class="ion-edit"></i>添加第3项任务</div>
+                    <div class="item-customized ion-icon dashed-border" ng-click="openModalTwo()"><i class="ion-edit"></i>添加第4项任务</div>
+                    <div class="item-customized ion-icon dashed-border" ng-click="openModalTwo()"><i class="ion-edit"></i>添加第5项任务</div>
+                    <div class="item-customized ion-icon dashed-border" ng-click="openModalTwo()"><i class="ion-edit"></i>添加第6项任务</div>
+                    <div class="item-customized ion-icon dashed-border more-task"><i class="ion-plus"></i>增加1项</div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow bar bar-footer">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-outline button-local" ng-click="closeModalOne()">返回</button>
+                        <button class="button button-theme button-local">提交任务</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--添加任务 end-->
+
+    <!--添加任务模态框 start-->
+    <script id="add-task-modal.html" type="text/ng-template">
+        <ion-modal-view class="modal-amt-left">
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title left">第*项任务</h1>
+                <button class="button button-clear button-custom" ng-click="closeModalTwo()">取消</button>
+            </ion-header-bar>
+            <ion-content class="padding has-header button-list">
+                <div class="add-task-detail">
+                    <label>任务名称</label>
+                    <textarea class="form-control" name="" id="" placeholder="请输入任务名称"></textarea>
+                    <label>耗用工时<span class="text-gray">(小时，保留1位小数)</span></label>
+                    <div class="cost-time-group">
+                        <label class="left"><i class="ion-minus"></i></label>
+                        <input class="form-control" type="text"/>
+                        <span>h</span>
+                        <label class="right"><i class="ion-plus"></i></label>
+                    </div>
+                    <ion-checkbox class="checkbox-square-inline">重要</ion-checkbox>
+                    <ion-checkbox class="checkbox-square-inline">紧急</ion-checkbox>
+                    <ion-checkbox class="checkbox-square-inline">已完成</ion-checkbox>
+                    <button class="button button-block button-theme button-local margin-top-20">确定</button>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <!--添加任务模态框 end-->
+
+    <!--查看任务 含编辑start-->
+    <script id="task-conclusion.html" type="text/ng-template">
+        <ion-modal-view class="fixed-header pdca-add-task task-conclusion">
+            <div class="fixed-header-wrapper">
+                <div class="item item-default">
+                    <h2><span>添加任务</span><span>[12月10日]</span></h2>
+                    <p class="text-gray">共5项任务，已完成2项，未完成3项</p>
+                    <p class="text-orange">请在12月13日12:00前完成总结，修改任务请在24:00前操作</p>
+                </div>
+            </div>
+            <ion-content>
+                <div class="alert-top close">
+                    做你写的，记你做的。工作结果只有被“客户”接受并“购买”的部分才产生价值，无效工作会产生N重浪费！
+                    <i class="ion-close-round"></i>
+                </div>
+                <div class="item item-title-divider">工作计划</div>
+                <!--总结内容展示开始-->
+                <div class="conclusion-content empty">
+                    还未总结工作还未总结工作还未总结工作还未总结工作还未总结工作还未总结工作
+                </div>
+                <!--总结内容展示结束-->
+                <!--总结内容编辑开始-->
+                <div class="conclusion-content">
+                    <label class="font-14">工作总结(选填)<span class="text-gray font-12">0/x</span></label>
+                    <textarea class="form-control" name="" id="" ></textarea>
+                </div>
+                <!--总结内容编辑结束-->
+                <div class="item item-title-divider">以下任务属于事先计划</div>
+                <div class="pre-plan-group">
+                    <!--展示开始-->
+                    <!--<div class="item-customized ion-icon solid-border">
+                        <span class="serial active">1</span>
+                        <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                        <div class="task-tips clearfix font-12">
+                            <div class="pull-left text-gray"><span>不紧急</span><span>重要</span><span>0.5h</span><span class="text-green">已完成</span></div>
+                            &lt;!&ndash;<div class="pull-right"><a href="">删除</a><a href="" ng-click="openModalTwo()">修改</a></div>&ndash;&gt;
+                        </div>
+                    </div>-->
+                    <!--展示结束-->
+                    <!--编辑开始-->
+                    <div class="pre-plan-group">
+                        <div class="item-customized ion-icon solid-border">
+                            <span class="serial active">1</span>
+                            <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                            <div class="task-tips-edit">
+                                <div class="cost-time-group">
+                                    <label class="left"><i class="ion-minus"></i></label>
+                                    <input class="form-control" type="text"/>
+                                    <span>h</span>
+                                    <label class="right"><i class="ion-plus"></i></label>
+                                </div>
+                                <ion-checkbox class="checkbox-square-inline">已完成</ion-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <!--编辑结束-->
+                </div>
+                <div class="item item-title-divider">以下任务属于延后登记</div>
+                <div class="pre-plan-group">
+                    <div class="item-customized ion-icon dashed-border">
+                        <span class="serial">2</span>
+                        <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                        <div class="task-tips clearfix font-12">
+                            <div class="pull-left text-gray"><span>不紧急</span><span>重要</span><span>0.5h</span><span class="text-green">已完成</span></div>
+                        </div>
+                    </div>
+                    <div class="item-customized ion-icon dashed-border">
+                        <span class="serial">3</span>
+                        <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                        <div class="task-tips clearfix font-12">
+                            <div class="pull-left text-gray"><span>不紧急</span><span>重要</span><span>0.5h</span><span class="text-orange">未完成</span></div>
+                            <div class="pull-right"><a href="">删除</a><a href="" ng-click="openModalTwo()">修改</a></div>
+                        </div>
+                    </div>
+                    <div class="item-customized ion-icon dashed-border">
+                        <span class="serial">4</span>
+                        <h6>今年的政府工作报告提出，赋予地方更多国有学校改革自主权。</h6>
+                        <div class="task-tips clearfix font-12">
+                            <div class="pull-left text-gray"><span>不紧急</span><span>重要</span><span>0.5h</span><span class="text-green">已完成</span></div>
+                            <div class="pull-right"><a href="">删除</a><a href="" ng-click="openModalTwo()">修改</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-task-group">
+                    <div class="item-customized ion-icon dashed-border more-task"><i class="ion-plus"></i>增加1项任务</div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow bar bar-footer">
+                <div class="row">
+                    <div class="col text-center btn-group-wrap">
+                        <button class="button button-theme button-outline button-local" ng-click="closeModalThree()">返回</button>
+                        <button class="button button-theme button-clear button-local font-14">删除整个计划</button>
+                        <button class="button button-theme button-local">总结</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-modal-view>
+    </script>
+    <!--查看任务 含编辑end-->
+
+</ion-view>

@@ -1,0 +1,123 @@
+<ion-view  class="{{returnClass}}">
+    <div class="fixed-header-wrapper">
+        <div class="item-input-inset" ng-if="!isShowSelect">
+            <div class="place" ng-if="!isShowSelect"  ng-click="selectArea()">
+                <div class="cur-area">
+                    <i class="ion-location"></i>
+                    {{platCommonAraeName}}
+                    <i class="ion-chevron-down"></i>
+                </div>
+            </div>
+            <input  id="area" ng-hide="true" area-selector ng-model="area.name" province-id="area.provinceId" city-id="area.cityId" area-id="area.areaId"
+                    on-select="areaSelect(item)" type="text" placeholder="请选择">
+            <div class="item-input-wrapper">
+                <i class="ion-ios-search-strong" ng-click="search()"></i>
+                <input type="search" placeholder="搜索酒店" ng-model="conditions.name" ng-click="clickInputSearch(0)">
+                <i class="ion-close-round" ng-if="isShowSelect && conditions.name" ng-click="cancleSearch()"></i>
+            </div>
+            <button class="button button-clear" ng-if="isShowSelect" ng-click="search()">
+                搜索
+            </button>
+        </div>
+        <div class="item-input-inset less-padding" ng-if="isShowSelect">
+            <button class="button button-clear" ng-if="isShowSelect" ng-click="clickInputSearch(1)">
+                <i class="ion-chevron-left"></i>
+            </button>
+            <div class="item-input-wrapper">
+                <i class="ion-ios-search-strong" ng-click="search()"></i>
+                <input type="search" placeholder="搜索酒店" ng-model="conditions.name" ng-click="clickInputSearch(0)">
+                <i class="ion-close-round" ng-if="isShowSelect && conditions.name" ng-click="cancleSearch()"></i>
+            </div>
+            <button class="button button-clear" ng-if="isShowSelect" ng-click="search()">
+                搜索
+            </button>
+        </div>
+        <div class="hotel-infor-group" ng-if="!isShowSelect">
+            <ul class="hotel-infor clearfix">
+                <li>
+                    <div class="dropdown">
+                        <div
+                            class="dropdown-btn dropdown-toggle" data-toggle="dropdown">
+                            {{travelHotelType}}<i class="ion ion-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <ul class="hotel-style"><!--倒序循环 -->
+                                <li ng-repeat="item in travelHotelTypeList.slice().reverse()" ng-class="{'active':item.isShowTravel}"
+                                    ng-bind="item.dictName" ng-click="clickHotel(item,0)"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown">
+                            {{hotelStar}}<i class="ion ion-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <ul class="hotel-style"><!--倒序循环 -->
+                                <li ng-repeat="item in hotelStarList.slice().reverse()" ng-class="{'active':item.isHotelStar}"
+                                    ng-bind="item.dictName" ng-click="clickHotel(item,1)"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown" >
+                            {{agreementStr}}<i class="ion ion-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <ul class="hotel-style">
+                                <li ng-repeat="item in agreementList" ng-class="{'active':item.isAgree}"
+                                    ng-bind="item.dictName" ng-click="clickHotel(item,2)"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li ng-click="ueset()">
+                    重置
+                </li>
+            </ul>
+        </div>
+        <div ng-if="searchLoding">
+            <div class="tips clearfix" ng-if="isShowState">在“{{platCommonAraeName}}”内找到<label>{{hotelTraList ? hotelTraList.length : 0}}</label>家
+                <div class="pull-right" ng-if="conditions.areaId" ng-click="clickStateSearch(0)"><label>在“{{platCommonCityName}}”内查找？</label></div>
+            </div>
+            <div class=" tips clearfix" ng-if="!isShowState">在“{{platCommonCityName}}”内找到<label>{{hotelTraList ? hotelTraList.length : 0}}</label>家
+                <div class="pull-right" ng-click="clickStateSearch(1)"><label>返回“{{platCommonAraeName}}”查找？</label></div>
+            </div>
+        </div>
+    </div>
+    <ion-content class="content-bg">
+        <div class="list list-space bottom-70" ng-if="hotelTraList && hotelTraList.length != 0">
+            <ion-item class="item left-border" ng-repeat="item in hotelTraList" ng-click="openModal(item)">
+                <h2 class="stars" ng-class="{'has-coopert': item.isAgreement}">
+                    <i class="coopert-icon"></i>
+                    {{item.name}}
+                    <div class="star">
+                        <i class="ion-star" ng-repeat="index in [1]" ng-if="item.hotelStarCode == '01'"></i>
+                        <i class="ion-star" ng-repeat="index in [1,2]" ng-if="item.hotelStarCode == '02'"></i>
+                        <i class="ion-star" ng-repeat="index in [1,2,3]" ng-if="item.hotelStarCode == '03'"></i>
+                        <i class="ion-star" ng-repeat="index in [1,2,3,4]" ng-if="item.hotelStarCode == '04'"></i>
+                        <i class="ion-star" ng-repeat="index in [1,2,3,4,5]" ng-if="item.hotelStarCode == '05'"></i>
+                    </div>
+                </h2>
+                <p class="clearfix">
+                    <span class="pull-left" ng-bind="item.tel"></span>
+                    <span class="pull-right" ng-bind="item.hotelType"></span>
+                </p>
+                <p ng-bind="item.area"></p>
+            </ion-item>
+        </div>
+    </ion-content>
+    <div class="bottom-fixed-data" ng-if="hotelTraList && hotelTraList.length != 0">共{{hotelTraList.length}}家</div>
+    <div class="fullscreen-box" ng-if="hotelTraList.length == 0">
+        <div class="screen-center">
+            <h4><i class="tips-icon"></i>没有可查询的酒店信息</h4>
+        </div>
+    </div>
+    <ion-footer-bar class="bar-up-shadow">
+        <button class="button button-icon text-gray icon ion-reply" ng-click="goBack()"></button>
+        <button class="button button-icon text-gray icon ion-refresh" ng-click="refreshEdit()"></button>
+    </ion-footer-bar>
+</ion-view>

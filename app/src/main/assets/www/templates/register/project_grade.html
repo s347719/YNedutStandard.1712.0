@@ -1,0 +1,54 @@
+<!--项目打分-->
+<ion-view>
+    <ion-content class="content-bc">
+       <ion-list class="examine-list-wrap item-margin-bottom">
+           <ion-item class="examine-list-item item" ng-repeat="item in scoreItemList">
+               <div class="pos-box-wrap right-mixture-text">
+                   <div class="sequence" ng-bind="$index+1"></div>
+                   <div class="box-wrap">
+                       <p class="sequence-text" ng-bind="item.name"></p>
+                       <p class="margin-top-5">
+                           <span class="margin-right-10">满分：{{item.score}}分</span>
+                           <span class="fixed-text input-inline">
+                                 <input type="text" class="form-control input-small border-radius input-border" maxlength="5" ng-blur="verifyScore(item)" ng-model="item.value" >
+                            </span>
+                           <i class="ion-android-remove-circle calm ion-width" ng-click="updateScore(item,1)"></i>
+                           <i class="ion-android-add-circle calm ion-width text-right" ng-click="updateScore(item,0)"></i>
+                       </p>
+                   </div>
+               </div>
+           </ion-item>
+           <!--<ion-item class="examine-list-item item">-->
+               <!--<div class="pos-box-wrap right-mixture-text">-->
+                   <!--<div class="sequence">2</div>-->
+                   <!--<div class="box-wrap">-->
+                       <!--<p class="sequence-text">熟悉教材，教材详尽，内容规范，计课层次分明，详略搭档，突出重点难点</p>-->
+                       <!--<p class="margin-top-5">-->
+                           <!--<span class="margin-right-10">满分：10分</span>-->
+                            <!--<span class="fixed-text input-inline">-->
+                                 <!--<input type="text" class="form-control input-small border-radius input-border" placeholder="10">-->
+                            <!--</span>-->
+                           <!--<i class="ion-android-remove-circle calm ion-width"></i>-->
+                           <!--<i class="ion-android-add-circle calm ion-width text-right"></i>-->
+                       <!--</p>-->
+                   <!--</div>-->
+               <!--</div>-->
+           <!--</ion-item>-->
+       </ion-list>
+       <!--加载失败-->
+        <!--<div class="fullscreen-box">-->
+            <!--<div class="screen-center">-->
+                <!--<div class="img-no-data"></div>-->
+                <!--<p>获取教室失败</p>-->
+                <!--<p>没有可选的教师</p>-->
+                <!--<a class="text-muted" href="">单击刷新</a>-->
+            <!--</div>-->
+        <!--</div>-->
+       <!--加载失败-->
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-sm button-calm button-outline" ng-click="cancel()">取消</button>
+        <button class="button button-sm button-calm" ng-click="clickSub()">确定</button>
+    </ion-footer-bar>
+</ion-view>
+<!--项目打分-->

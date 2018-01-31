@@ -1,0 +1,30 @@
+<ion-view class="add-leave">
+    <ion-content class="content-bg">
+        <div class="list list-space">
+            <label class="item edit-input item-input item-stacked-label">
+                <span class="input-label">请假原因<span>({{!update.instruction?0:update.instruction.length}}/80)</span></span>
+                <textarea name="" id="" rows="5" maxlength="80" ng-model="update.instruction" placeholder="输入请假原因"></textarea>
+            </label>
+            <div class="item item-input">
+                <span class="input-label">请假类型</span>
+                    <input slide-select init-data="leaveList" name-field="name" slide-title="选择请假类型"
+                           ng-model="leaveTypeName" selected-obj="selectModel"
+                           on-select="diySelect(item)" type="text" placeholder="请选择" readonly="readonly">
+            </div>
+            <div class="item item-input">
+                <span class="input-label">请假天数</span>
+                <input type="text" ng-model="update.days" maxlength="5"  ng-change="checkNuber(update.days, update)" placeholder="请输入天数"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">开始时间</span>
+                <input type="text" placeholder="时间"  ng-model="update.startDate"   datetimepicker datetime-type="datetime"  ng-change="addOndeDay()"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">结束时间</span>
+                <input type="text" placeholder="时间"  datetimepicker datetime-type="datetime"  ng-model="update.endDate"/>
+            </div>
+            <node-selector node="nodeData" options="nodeOptions"></node-selector>
+        </div>
+    </ion-content>
+    <activity-apply options="options"></activity-apply>
+</ion-view>

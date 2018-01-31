@@ -1,0 +1,21 @@
+<ion-view view-title="掌上YNedut 图片批量上传组件">
+    <ion-content class="padding">
+        <h4>Demo1 常规使用</h4>
+        <div web-uploader on-uploader-change="getDfsIds1(data)"></div>
+        <br/>
+        <p ng-bind="msg1"></p>
+        <h4>对应的文件服务器 id：</h4>
+        <p ng-if="!fsIds1.length">没有上传任何文件！</p>
+        <p ng-repeat="fsId in fsIds1">{{fsId}}</p>
+        <hr/>
+        <br/>
+
+        <h4>Demo2 带初始化数据 编辑时用</h4>
+        <div web-uploader on-uploader-change="getDfsIds2(data)" init-files="initFiles2"></div>
+        <br/>
+        <p ng-bind="msg2"></p>
+        <h4>对应的文件服务器 id：</h4>
+        <p ng-if="!fsIds2.length">没有上传任何文件！</p>
+        <p ng-repeat="fsId in fsIds2">{{fsId}}</p>
+    </ion-content>
+</ion-view>

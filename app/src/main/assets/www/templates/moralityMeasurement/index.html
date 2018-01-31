@@ -1,0 +1,24 @@
+<!--操行分考核首页-->
+<ion-view>
+    <div class="fullscreen-box content-bc class-search">
+        <div class="screen-center">
+            <div class="text-center padding-10">
+                <h5 class="text-center margin-top-10 text-muted">请先查找需要考核的学生</h5>
+                <button class="button button-calm button-outline button-lg-height margin-top-20" ng-click="searchByCondition()"><i class="ion-android-search"></i>输入学号/姓名查找学生</button>
+                <button class="button button-calm button-outline button-lg-height margin-top-20" ng-click="searchStuByClass()"><i class="ion-android-search"></i>从班级中查找学生</button>
+                <button class="button button-calm button-outline button-lg-height margin-top-20" ng-click="scanCode()"><i class="scan-icon"></i>扫描学生牌</button>
+            </div>
+        </div>
+    </div>
+    <ion-footer-bar>
+        <button class="button button-outline button-calm" ng-click="showSelectedStu = !showSelectedStu">
+            已选{{selectedStuList.length}}个学生&nbsp;
+            <i ng-class="{'ion-arrow-up-b': showSelectedStu, 'ion-arrow-down-b': !showSelectedStu}" ></i>
+        </button>
+        <button class="button button-xlg button-calm" ng-click="startCheck()">开始考核</button>
+    </ion-footer-bar>
+    <!--浮动框——已选的学生-->
+    <selected-stu-viewer></selected-stu-viewer>
+    <!--浮动框——已选的学生-->
+</ion-view>
+<!--操行分考核 搜索学生-->

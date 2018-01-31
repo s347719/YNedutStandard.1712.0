@@ -1,0 +1,62 @@
+<ion-view>
+    <div class="alert-top">
+        提示：每天只能添加一条住宿费用
+    </div>
+    <ion-content class="content-bg business-journal has-alert-top">
+        <div class="list list-space">
+            <div class="item item-input">
+                <span class="input-label">金额</span>
+                <input type="number" class="form-control" ng-model="jstxAddHotelFeeDTO.money" placeholder="0.00"
+                       maxlength="9"/>
+            </div>
+            <div class="item item-input item-input-buttons">
+                <span class="input-label">日期</span>
+
+                <p class="text-right" ng-show="!id">
+                    <button class="button button-local"
+                            ng-class="{'button-theme':item.check,'button-default':!item.check,'text-light':item.isDis}"
+                            ng-repeat="item in dateTimeList track by $index" ng-click="refresh(item)">{{item.name}}
+                    </button>
+                </p>
+                <input type="text" class="form-control" readonly="readonly" ng-model="dateBusin" ng-show="id"
+                                                            ng-click="clickDateBusin()"/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">所在地区</span>
+
+                <!--<div class="text-only" ng-click="selectArea()">-->
+                <!--<span ng-bind="areaName"></span>-->
+                <!--</div>-->
+                <input id="area" area-selector ng-model="area.name" province-id="area.provinceId"
+                       city-id="area.cityId" area-id="area.areaId"
+                       on-select="areaSelect(item)" type="text" placeholder="请选择" class="text-right"
+                       readonly="readonly" ng-click="selectArea()">
+            </div>
+            <div class="item item-input">
+                <span class="input-label">所住酒店</span>
+                <input hotel-selector ng-model="hotel.name" selected-obj="hotel" area-obj="area"
+                       on-select="hotelSelect(item)" type="text" placeholder="请选择" class="text-right"
+                       readonly="readonly">
+            </div>
+            <div class="item item-input">
+                <span class="input-label">房型</span>
+                <input slide-select init-data="travelHotelData" name-field="dictName" slide-title="选择房型"
+                       ng-model="selectModel.dictName" selected-obj="selectModel"
+                       on-select="diySelect(item)" type="text" placeholder="请选择" class="text-right" readonly="readonly">
+
+            </div>
+            <label class="item item-input edit-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="input" rows="5" class="form-control" ng-model="jstxAddHotelFeeDTO.message" maxlength="50"></textarea>
+            </label>
+
+        </div>
+        <div class="text-center padding">
+            <button class="button button-theme button-local button-outline btn-min-80" ng-click="showConfirm()">返回</button>
+            <button class="button button-theme button-local button-outline" ng-if="!id" ng-disabled="indexCount==3"
+                    ng-click="submit(0)">保存再添加
+            </button>
+            <button class="button button-theme button-local btn-min-80" ng-click="submit(1)" ng-disabled="indexCount==3">保存</button>
+        </div>
+    </ion-content>
+</ion-view>

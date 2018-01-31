@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_content_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg"
+        android:paddingRight="@dimen/common_actionbar_padding"
+        >
+
+        <TextView
+            android:id="@+id/about_txt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/previous"
+            android:gravity="center_vertical"
+            android:text="@string/about_previous"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20"
+            android:scaleX="0.7"
+            android:scaleY="0.7"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="偏好设置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="非WIFI环境下自动接收图片"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <CheckBox
+                android:id="@+id/perfer_load_img"
+                style="@style/CustomCheckboxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="声音提醒"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <CheckBox
+                android:id="@+id/perfer_voice"
+                style="@style/CustomCheckboxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="振动提醒"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <CheckBox
+                android:id="@+id/perfer_shock"
+                style="@style/CustomCheckboxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="免打扰"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <CheckBox
+                android:id="@+id/perfer_not_disturb"
+                style="@style/CustomCheckboxTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/perfer_txt_timeSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="开启时，在设定的开始结束时间段内收到消息时不会响铃或振动"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/common_content_bg" />
+
+    <LinearLayout
+        android:id="@+id/perfer_not_disturb_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding">
+
+            <TextView
+                android:id="@+id/perfer_rel_beginTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:text="@string/distractionFreeSetting_beginTimeDisplay"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distractionFreeSetting_beginTime"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <ImageView
+                android:layout_width="@dimen/msgNotifySetting_arrowRight_size"
+                android:layout_height="@dimen/msgNotifySetting_arrowRight_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/more_details_arrowright_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_listItem_padding">
+
+            <TextView
+                android:id="@+id/perfer_rel_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:text="@string/distractionFreeSetting_endTimeDisplay"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distractionFreeSetting_endTime"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <ImageView
+                android:layout_width="@dimen/msgNotifySetting_arrowRight_size"
+                android:layout_height="@dimen/msgNotifySetting_arrowRight_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/more_details_arrowright_small" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

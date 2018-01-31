@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yineng.ynmessager.activity.session.PlatformNoticeActivity">
+
+    <RelativeLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:background="@color/actionBar_bg">
+
+        <RelativeLayout
+            android:id="@+id/main_rel_event_ActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/session_platform_notice_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_actionbar_title_textSize" />
+
+            <TextView
+                android:id="@+id/tv_platform_notice_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:onClick="backKeyEvent"
+                android:drawableLeft="@mipmap/previous"
+                android:gravity="center_vertical"
+                android:text="@string/groupSharedFiles_previous"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:scaleY="0.7"
+                android:scaleX="0.7"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.yineng.ynmessager.view.HorizontalListView
+        android:id="@+id/scan_listview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        />
+
+    <FrameLayout
+        android:id="@+id/contain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

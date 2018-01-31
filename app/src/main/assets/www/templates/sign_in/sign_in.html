@@ -1,0 +1,153 @@
+<!--打卡-->
+<!--打卡记录时需要类outwork-sign-history-->
+<ion-view class="fixed-header has-page-tabs sign-box-wrap content-bc"
+          ng-class="{'outwork-sign-history':vm.tab === '2' && vm.monthList.length > 0}">
+    <div class="fixed-header-wrapper">
+        <div class="page-tabs page-tabs-color-theme">
+            <a class="tab-item active" href="javascript:void(0);"
+               ng-class="{active: vm.tab === '1'}" ng-click="vm.tab = '1'">开始打卡</a>
+            <a class="tab-item" href="javascript:void(0);"
+               ng-class="{active: vm.tab === '2'}" ng-click="vm.tab = '2'">打卡记录</a>
+        </div>
+    </div>
+    <ion-content>
+        <!--打卡 开始-->
+        <div class="bottom-90" ng-if="vm.tab === '1'">
+            <div class="sign-content-item">
+                <div class="name-wrap">
+                    <div class="name">{{vm.pageData.userName}}</div>
+                    <div class="refresh" ng-click="vm.initPageData()">
+                        <i class="ion-android-refresh"></i>
+                    </div>
+                </div>
+                <div class="location-detail">
+                    <div class="location-time">
+                        <i class="clock-icon"></i>
+                        <span ng-class="{'text-primary': vm.timeStatus === '1' || vm.timeStatus === '2',
+                        'text-danger' : vm.timeStatus === '0'}"
+                              ng-if="vm.timeStatus === '0' || vm.timeStatus === '1'">-- : -- : --</span>
+                        <span ng-class="{'text-primary': vm.timeStatus === '1' || vm.timeStatus === '2',
+                        'text-danger' : vm.timeStatus === '0'}"
+                              ng-if="vm.timeStatus === '2'">{{vm.pageData.currentTime}}</span>
+                    </div>
+                    <div class="location-addr">
+                        <i class="location-icon"></i>
+                        <span ng-class="{'text-primary': vm.dataStatus === '1' || vm.dataStatus === '2',
+                        'text-danger' : vm.dataStatus === '0'}">
+                            {{vm.dataStatus === '0' ? '定位失败(未开启GPS或网络异常)' :
+                            vm.dataStatus === '1' ? '定位中' : vm.pageData.address}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-content-item location-main"
+                 ng-class="{'has-more-hidden': vm.pageData.taskPointVOList.length > 1 && !vm.showMore, 'has-more-show': vm.pageData.taskPointVOList.length > 1 && vm.showMore}"
+                 ng-if="vm.pageData.taskPointVOList.length > 0">
+                <!--显示更多由类has-showmore控制-->
+                <div class="location-content">
+                    <div class="text-gray font-size-10">
+                        提示&nbsp;:&nbsp;以下打卡匹配情况仅供参考，打卡成功后系统会自动匹配相关打卡任务。
+                    </div>
+                    <div class="sign-detail-wrap">
+                        <div class="sign-detail-group" ng-repeat="point in vm.pageData.taskPointVOList">
+                            <div class="detail-title has-distance">
+                                <span><strong ng-bind="point.pointName"></strong></span>&nbsp;
+                                <span class="text-gray" ng-bind="point.taskName"></span>
+                                <div class="distance" ng-if="point.distance !== null"
+                                     ng-bind="'相距' + point.distance + '米'"></div>
+                            </div>
+                            <div class="detail-list success" ng-if="vm.pageData.currentTime >= point.beginTime &&
+                                  vm.pageData.currentTime <= point.endTime">
+                                <span><i class="ion-checkmark-round"></i>要求时间&nbsp;:&nbsp;</span>{{point.time}}
+                            </div>
+                            <div class="detail-list warning" ng-if="vm.pageData.currentTime < point.beginTime ||
+                                  vm.pageData.currentTime > point.endTime">
+                                <span><i class="ion-alert"></i>要求时间&nbsp;:&nbsp;</span>{{point.time}}
+                            </div>
+                            <div class="detail-list success"
+                                 ng-if="point.location !== null && vm.pageData.currentTime >= point.beginTime &&
+                                  vm.pageData.currentTime <= point.endTime">
+                                <span><i class="ion-checkmark-round"></i>要求地点&nbsp;:&nbsp;</span>{{point.location}}
+                            </div>
+                            <div class="detail-list warning"
+                                 ng-if="point.location !== null && (vm.pageData.currentTime < point.beginTime ||
+                                  vm.pageData.currentTime > point.endTime)">
+                                <span><i class="ion-alert"></i>要求地点&nbsp;:&nbsp;</span>{{point.location}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showmore" ng-if="vm.pageData.taskPointVOList.length > 1"
+                     ng-click="vm.showMore = !vm.showMore">
+                    {{vm.showMore ? '收起' : '显示更多'}}
+                    <!--显示更多-->
+                    <!--收起-->
+                </div>
+            </div>
+            <div class="sign-content-item sign-photo-area">
+                <div class="item-control">
+                    <span class="text-gray font-size-12">拍照&nbsp;{{photos.length}}/5</span>
+                    <div class="sign-photo-group clearfix">
+                        <div class="sign-photo-list photo-list" ng-repeat="photo in photos">
+                            <img ng-src="{{photo.uri}}" alt="" ng-click="previewPhoto(photo)"/>
+                            <div class="status" ng-if="photo.status!=1" ng-click="retry(photo)" ng-bind="photo.status==-1?'上传':photo.progress"></div>
+                            <div class="delete" ng-if="photo.status!=0" ng-click="deletePhoto(photo)"><i class="ion-ios-minus"></i></div>
+                        </div>
+                        <div class="sign-photo-list take-photo" ng-repeat="photo in fillPhotos" ng-click="takePhoto()"></div>
+                    </div>
+                </div>
+                <div class="item-control">
+                    <span class="text-gray font-size-12">说明&nbsp;{{vm.dataVO.remark.length}}/50</span>
+                    <textarea class="form-control" maxlength="50" title="" ng-model="vm.dataVO.remark"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--打卡 结束-->
+
+        <!--打卡记录 开始-->
+        <div class="history-content" ng-if="vm.tab === '2' && vm.monthList.length > 0"
+             ng-repeat="month in vm.monthList">
+            <div class="history-time item item-divider" ng-bind="month.month"></div>
+            <div class="location-detail" ng-repeat="item in month.signInList">
+                <div class="location-time">
+                    <div class="arrow"><em></em><span></span></div>
+                    <i class="clock-icon"></i>
+                    <span ng-bind="item.day"></span>
+                    <span ng-bind="item.weekOfDay"></span>
+                    <span ng-bind="item.time"></span></div>
+                <div class="location-addr">
+                    <i class="location-icon"></i>{{item.address}}
+                    <p class="text-gray" ng-if="item.remark">说明：{{item.remark}}</p>
+                    <div class="photo-show clearfix" ng-if="null != item.fastDFSIds">
+                        <div class="photo-list" ng-repeat="src in item.photoSrcList" ng-click="previewPhoto({'uri': src})">
+                            <img alt="" ng-src="{{src}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center font-12" ng-if="vm.tab === '2' && vm.signInStatus === 0">
+            <p class="padding bottom-tips">已经到底了，只显示3个月的数据<br>查看更多内容，请使用电脑访问YNedut</p>
+        </div>
+
+        <div class="fullscreen-box" ng-if="vm.tab === '2' && vm.monthList.length === 0">
+            <div class="screen-center"><!--在此加class="top-30" top为30%-->
+                <div class="img-no-data"></div>
+                <p>没有相关数据！</p>
+                <a class="text-muted" href="" ng-click="vm.findSignIn()">刷新重试</a>
+            </div>
+        </div>
+        <!--打卡记录 结束-->
+    </ion-content>
+    <ion-infinite-scroll on-infinite="vm.findSignIn()" ng-if="vm.tab === '2' && vm.signInStatus === 1" distance="1%"
+                         immediate-check="false"></ion-infinite-scroll>
+    <ion-footer-bar class="special-footer-txtheight nobg" ng-show="vm.tab === '1'">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon text-only" ng-click="vm.submit()">
+                    打卡
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,43 @@
+<!--新版学生老师课表-->
+<ion-view class="schedule-new-wrap schedule">
+    <div class="fullscreen-box" ng-if="loadErrorMsg">
+        <div class="screen-center" ng-click="refreshList()">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+   <div class="content-wrap" ng-if="dataContent">
+       <!--顶部切换周区域-->
+       <ion-header-bar class="schedule-header bar-calm">
+           <div class="dropdown-wrap">
+               <div class="header-dropdown dropdown report-task">
+                   <div class="pos-ion-left" ng-click="changeWeek(selectedWeek.activityWeek-1)">
+                       <i class="ion-ios-arrow-left"></i>
+                   </div>
+                   <div class="dropdown-btn dropdown-toggle clearfix" data-toggle="dropdown">
+                       <div class="pull-left">
+                           <span class="week">{{selectedWeek.week}}</span>
+                           <span class="times">{{selectedWeek.weekStartMonthDay|date:'MM.dd'}}~{{selectedWeek.weekEndMonthDay|date:'MM.dd'}}</span>
+                       </div>
+                       <div class="pull-right">
+                           <i class="ion-arrow-down-b"></i>
+                       </div>
+                   </div>
+                   <div class="pos-ion-right" ng-click="changeWeek(selectedWeek.activityWeek+1)">
+                       <i class="ion-ios-arrow-right"></i>
+                   </div>
+                   <div class="dropdown-menu">
+                       <ul class="week-group clearfix">
+                           <li ng-repeat="week in weekList" ng-class="{'current':curWeekAndDay.week == week.activityWeek , 'active':isClickWeek == week.activityWeek}" ng-click="changeWeek(week.activityWeek)">{{week.week}}</li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+       </ion-header-bar>
+       <!--顶部切换周区域-->
+       <!--课表组件-->
+       <schedule-directive options="options" ng-if="initDataTag && options"></schedule-directive>
+       <!--课表组件-->
+   </div>
+</ion-view>

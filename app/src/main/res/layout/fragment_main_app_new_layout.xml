@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/app_main_title_rl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_actionbar_height"
+            android:background="@color/actionBar_bg"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/appSearchBox"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/searchbox_app_shape"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:src="@mipmap/icon_app_seacher" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:hint="搜索应用"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/app_type_name_text_size" />
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/school_logo_box"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/app_logo_solid"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <com.yineng.ynmessager.view.CircleImageView
+                android:id="@+id/app_school_logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_school_logo" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/float_stop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_business_float_view_height"
+            android:orientation="vertical"/>
+
+        <com.yineng.ynmessager.view.PtrClassicRefreshLayout
+            android:id="@+id/ptr_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.yineng.ynmessager.view.pullUpDownScrollView.ScrollViewFinal
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                app:loadMoreMode="scroll">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/app_load_success_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+                        <!--事件-->
+                        <LinearLayout
+                            android:id="@+id/event_content_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:orientation="vertical">
+
+                            <com.yineng.ynmessager.view.AppsViewPager
+                                android:id="@+id/app_event_viewpager"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:padding="10dp" />
+
+                            <LinearLayout
+                                android:id="@+id/dot_linear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:orientation="horizontal">
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <!--事件end-->
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/gainsboro" />
+
+                        <!--文字通知-->
+                        <LinearLayout
+                            android:id="@+id/app_notify_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="22dp"
+                                android:src="@mipmap/icon_app_recommend" />
+
+                            <!--页码显示-->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/current_page_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/common_text_color"
+                                    android:textSize="@dimen/app_item_title_text_size" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="/"
+                                    android:textColor="@color/common_text_color"
+                                    android:textSize="@dimen/app_item_title_text_size" />
+
+                                <TextView
+                                    android:id="@+id/total_page_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/common_text_color"
+                                    android:textSize="@dimen/app_item_title_text_size" />
+                            </LinearLayout>
+                            <!--页码显示 end-->
+
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/notify_txt_viewPager"
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_weight="0.1"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp" />
+
+                            <Button
+                                android:id="@+id/app_notify_flag"
+                                android:layout_width="33dp"
+                                android:layout_height="18dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <!--文字通知end-->
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/common_text_line" />
+
+                        <!--首页显示app-->
+                        <com.yineng.ynmessager.view.DragGridView
+                            android:id="@+id/app_recommend_gridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:listSelector="#00000000"
+                            android:numColumns="4"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="15dp"
+                            android:scrollbars="none"
+                            android:verticalSpacing="15dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/common_text_line" />
+                    </LinearLayout>
+                    <!--app 获取错误的页面-->
+                    <RelativeLayout
+                        android:id="@+id/app_load_fail_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/app_load_fail_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/load_fail" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/app_load_fail_img"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/loading_app_view_net_error"
+                            android:textSize="@dimen/sp_16" />
+
+                    </RelativeLayout>
+<!-- //注销掉业务逻辑代码-->
+                 <!--   <LinearLayout
+                        android:id="@+id/module_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/float_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/app_business_float_view_height"
+                            android:orientation="vertical">
+
+                            <com.yineng.ynmessager.view.TabLayout.CommonTabLayout
+                                android:id="@+id/tablayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dip"
+                                android:background="@color/white"
+                                app:tl_divider_color="@color/d2"
+                                app:tl_divider_width="1dp"
+                                app:tl_iconVisible="false"
+                                app:tl_indicator_color="@color/actionBar_bg"
+                                app:tl_textSelectColor="@color/actionBar_bg"
+                                app:tl_textUnselectColor="@color/black"
+                                app:tl_textsize="@dimen/app_module_text_size"
+                                app:tl_underline_color="@color/common_gray"
+                                app:tl_underline_height="0.5dp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/app_business_float_view_height"
+                            android:background="@color/white">
+
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                >
+
+
+                                <ImageView
+                                    android:id="@+id/image_before"
+                                    android:layout_width="@dimen/dp_15"
+                                    android:layout_height="@dimen/dp_15"
+                                    android:layout_centerVertical="true"
+                                    android:background="@drawable/invialte_update_before"
+                                    android:layout_marginRight="@dimen/dp_10"
+                                    android:layout_toLeftOf="@+id/invia_before"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/invia_before"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:text="表示昨天24点前更新"
+                                    android:layout_toLeftOf="@+id/image_up"
+                                    android:layout_marginRight="@dimen/dp_20"
+                                    android:textColor="@color/change_question"
+                                    />
+
+                                <ImageView
+                                    android:id="@+id/image_up"
+                                    android:layout_width="@dimen/dp_15"
+                                    android:layout_height="@dimen/dp_15"
+                                    android:layout_centerVertical="true"
+                                    android:background="@drawable/invialte_update"
+                                    android:layout_marginRight="@dimen/dp_10"
+                                    android:layout_toLeftOf="@+id/invia_update"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/invia_update"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="表示实时更新"
+                                    android:textColor="@color/change_question"
+                                    />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/d2"
+                                android:layout_alignParentBottom="true"
+                                />
+                        </RelativeLayout>
+
+
+                        <com.yineng.ynmessager.view.EmptySupportRecyclerView
+                            android:id="@+id/business_recycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:scrollbars="vertical" />
+
+                        <include
+                            layout="@layout/nodata_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+-->
+                </LinearLayout>
+
+            </com.yineng.ynmessager.view.pullUpDownScrollView.ScrollViewFinal>
+
+        </com.yineng.ynmessager.view.PtrClassicRefreshLayout>
+    </FrameLayout>
+
+</LinearLayout>

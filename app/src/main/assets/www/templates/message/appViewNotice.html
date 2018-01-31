@@ -1,0 +1,83 @@
+<ion-view ng-controller="appViewNoticeController">
+    <ion-content class="content">
+            <div class="text-center padding-bottom-10 margin-top-10 border-bm-solid">
+                <h4>{{notice.title}}</h4>
+                <div class="margin-top-10">
+                    <label class="margin-right-10"><strong>发布人：</strong>{{notice.publisherName}}</label>
+                    <label class=""><strong>张贴日期：</strong>{{notice.pubStartTimeStr}}</label>
+                </div>
+            </div>
+            <div>
+                <div class="padding-10 ViewNotice-img">
+                    <div ng-bind-html="notice.noticeContent"></div>
+                    <div class="text-right">
+                        <span ng-bind-html="notice.messageNoticeSignedTemplateVO.signedContent"></span>
+                    </div>
+                </div>
+                <div ng-show="type == 'publisher' || type == 'receiver'">
+                    <div class="padding-10">
+                        <div class="clearfix">
+                            <div class="pull-left"><i class="ion-android-attach margin-right-5 "></i>附件：</div>
+                            <div class="pull-left">
+                                <div class="margin-bottom-10 border-solid" id="success" ng-repeat="item in notice.messageNoticeAttachmentList">
+                                    <div class="" ng-if="item.attachmentName!=null">
+                                        <label class="control-label" ng-click="downLoad(item)"><a class="a-font-color" id="_b{{item.attachmentId}}">{{item.attachmentName}}</a></label>
+                                        <label>({{item.size}}KB)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--通知公告查看概况开始-->
+                <div class="padding-10" ng-if="type == 'publisher'">
+                    <h5>
+                        <strong>
+                            <span class="margin-right-10">通知公告查看概况：通知人数<a href="" ng-click="showReceiverInfo(receiverInfo.readList.concat(receiverInfo.unreadList))">{{receiverInfo.readList.length + receiverInfo.unreadList.length}}</a>人（未读人数<a href="" ng-click="showReceiverInfo(receiverInfo.unreadList)">{{receiverInfo.unreadList.length}}</a>人/已读人数<a href="" ng-click="showReceiverInfo(receiverInfo.readList)">{{receiverInfo.readList.length}}</a>人）</span>
+                        </strong>
+                    </h5>
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th style="width: 50px;">
+                                    序号
+                                </th>
+                                <th>
+                                    接收人
+                                </th>
+                                <th>
+                                    身份
+                                </th>
+                                <th>
+                                    工号/学号
+                                </th>
+                                <th>
+                                    主组织机构/行政班
+                                </th>
+                                <th>
+                                    阅读状态
+                                </th>
+                                <th>
+                                    阅读时间
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in readInfoList">
+                                <td>{{$index+1}}</td>
+                                <td title="{{item.receiveUserName}}">{{item.receiveUserName}}</td>
+                                <td title="{{item.userTypeString}}">{{item.userTypeString}}</td>
+                                <td title="{{item.number}}">{{item.number}}</td>
+                                <td title="{{item.receiveUserDepart}}">{{item.receiveUserDepart}}</td>
+                                <td title="{{item.readStatus ? '已读' : '未读'}}">{{item.readStatus ? '已读' : '未读'}}</td>
+                                <td title="{{item.readTimeStr}}">{{item.readTimeStr}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--通知公告查看概况结束-->
+            </div>
+    </ion-content>
+</ion-view>

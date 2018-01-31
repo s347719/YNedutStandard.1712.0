@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <corners android:radius="180dp" />
+
+    <solid android:color="@color/search_box_app_color" />
+
+
+    <padding
+        android:bottom="@dimen/searchBox_verPadding"
+        android:top="@dimen/searchBox_verPadding" />
+
+</shape>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 每个drawable对象的id以菜单的ID来定义，如app_onecard对应一卡通的菜单id-->
+<resources>
+    <drawable name="app_onecard">@mipmap/app_onecard</drawable>
+    <drawable name="yn_phone_oa">@mipmap/yn_phone_oa</drawable>
+    <drawable name="online_evaluate_tea">@mipmap/online_evaluate</drawable>
+    <drawable name="dormitory_list">@mipmap/dormitory_list</drawable>
+    <drawable name="leave_delete">@mipmap/leave_delete</drawable>
+    <drawable name="leave_view">@mipmap/leave_view</drawable>
+    <drawable name="stu_dg">@mipmap/dinggang</drawable>
+    <drawable name="classcondition">@mipmap/classcondition</drawable>
+    <drawable name="report_detail">@mipmap/report_detail</drawable>
+    <drawable name="attendance_people">@mipmap/attendance</drawable>
+    <drawable name="attendance_student">@mipmap/attendance</drawable>
+    <drawable name="choose_lessons">@mipmap/choose_lessons</drawable>
+    <drawable name="course_table_teacher">@mipmap/course_table</drawable>
+    <drawable name="xk_manage_mobile">@mipmap/xk_manage_mobile</drawable>
+    <drawable name="credit_examine">@mipmap/credit_examine</drawable>
+    <drawable name="teacher_dg">@mipmap/dinggang</drawable>
+    <drawable name="teacher_final_score">@mipmap/final_score</drawable>
+    <drawable name="teacher_mid_score">@mipmap/mid_score</drawable>
+    <drawable name="course_table_stu">@mipmap/course_table</drawable>
+    <drawable name="online_evaluate_stu">@mipmap/online_evaluate</drawable>
+    <drawable name="stu_final_score">@mipmap/final_score</drawable>
+    <drawable name="stu_mid_score">@mipmap/mid_score</drawable>
+</resources>

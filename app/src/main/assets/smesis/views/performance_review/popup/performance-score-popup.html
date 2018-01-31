@@ -1,0 +1,30 @@
+<!--面谈打分-->
+<ion-radio class="radio-left" ng-repeat="level in item.jxglInterviewLevelDTOList">
+    <h5><strong>{{level.name}}&nbsp;(&nbsp;<span class="text-orange">{{level.coefficient}}</span>&nbsp;)</strong></h5>
+    <p class="text-gray">{{level.leveldescription}}</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>良好&nbsp;(&nbsp;<span class="text-orange">1.05</span>&nbsp;)</strong></h5>
+    <p class="text-gray">本月完成内训讲课超过2小时，评价为优，并制作成培训课件及考核试题、导入试题库平台</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>合格&nbsp;(&nbsp;<span class="text-orange">1.00</span>&nbsp;)</strong></h5>
+    <p class="text-gray">完成了学校和部门要求的课程学习，并按个人生涯规划完成2个以上更高级岗位的能力点考核</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>基本合格&nbsp;(&nbsp;<span class="text-orange">0.95</span>&nbsp;)</strong></h5>
+    <p class="text-gray">完成了学校和部门要求的课程学习，考核合格并已经应用到工作中</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>待改进&nbsp;(&nbsp;<span class="text-orange">0.90</span>&nbsp;)</strong></h5>
+    <p class="text-gray">参与了学校和部门要求的课程学习</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>差或违纪&nbsp;(&nbsp;<span class="text-orange">0.50</span>&nbsp;)</strong></h5>
+    <p class="text-gray">工作懈怠，安排任务不能按时完成</p>
+</ion-radio>
+<ion-radio class="radio-left">
+    <h5><strong>严重违纪&nbsp;(&nbsp;<span class="text-orange">0.30</span>&nbsp;)</strong></h5>
+    <p class="text-gray">严重影响别人工作，对学校造成严重的影响</p>
+</ion-radio>
+

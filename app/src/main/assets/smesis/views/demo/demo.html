@@ -1,0 +1,41 @@
+<ion-view>
+    <ion-header-bar align-title="left" class="bar-positive bar-stable">
+        <h1 class="title">组件用例-by范家本</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <div class="input-label">
+                    酒店选择器组件
+                </div>
+                <input hotel-selector ng-model="hotel.name" selected-obj="hotel" area-obj="areaObj" on-select="hotelSelect(item)" type="text" placeholder="请选择" class="text-right">
+            </label>
+            <label class="item item-input">
+                <div class="input-label">
+                    酒店添加组件
+                </div>
+                <button hotel-add class="button button-hollow button-small"><i class="ion-plus"></i> 添加酒店</button>
+            </label>
+            <label class="item item-input">
+                <div class="input-label">
+                    地区选择器组件
+                </div>
+                <input area-selector area-instance="ddd" ng-model="area.name" province-id="area.provinceId" city-id="area.cityId" area-id="area.areaId" on-select="areaSelect(item)" type="text" placeholder="请选择" class="text-right">
+            </label>
+            <label class="item item-input">
+                <div class="input-label">
+                    人员选择组件
+                </div>
+                <input user-selector ng-model="user.name" on-select="userSelect(item)" type="text" placeholder="请选择" class="text-right">
+            </label>
+            <label class="item item-input">
+                <div class="input-label">
+                    抽屉式单选组件
+                </div>
+                <input slide-select init-data="initVehicleData" name-field="dictName" slide-title="选择交通工具" ng-model="selectModel.dictName" selected-obj="selectModel" on-select="diySelect(item)" type="text" placeholder="请选择" class="text-right">
+            </label>
+        </div>
+    </ion-content>
+</ion-view>
+
+

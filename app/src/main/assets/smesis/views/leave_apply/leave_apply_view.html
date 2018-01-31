@@ -1,0 +1,36 @@
+
+<ion-modal-view class="approving-wrap has-special-footer-bar">
+    <ion-content>
+        <div class="padding">
+            <activity-view options="options"></activity-view>
+            <div class="approving-content">
+                <p class="text-gray">申请人&nbsp;:&nbsp;<span>{{leaveData.showUserName}}</span></p>
+                <p class="text-gray">申请时间&nbsp;:&nbsp;<span>{{leaveData.applicationTime}}</span></p>
+                <p class="text-gray">请假类型&nbsp;:&nbsp;<span>{{leaveData.type}}</span></p>
+                <p class="text-gray">请假天数&nbsp;:&nbsp;<span>{{leaveData.days}}</span></p>
+                <p class="text-gray">时间(开始)&nbsp;:&nbsp;<span>{{leaveData.startDate}}</span></p>
+                <p class="text-gray">时间(结束)&nbsp;:&nbsp;<span>{{leaveData.endDate}}</span></p>
+                <p class="text-gray">请假原因&nbsp;:&nbsp;<span>{{leaveData.instruction ?leaveData.instruction:"无"}}</span></p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow" ng-show="!type">
+        <div class="row">
+            <div class="col text-center btn-group-wrap" >
+                <button class="button button-theme button-local button-outline" ng-click="backHome()">返回</button>
+                <button class="button button-theme button-local" ng-click="editData()" ng-show="processScheduleStates ==2">修改</button>
+                <button class="button button-theme button-local" ng-click="delete()" ng-show="processScheduleStates ==2">删除</button>
+                <button class="button button-theme button-local" ng-click="urgeData()" ng-show="processScheduleStates ==3">催办</button>
+                <button class="button button-theme button-local" ng-click="revertData()" ng-show="processScheduleStates ==3">撤销</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar-up-shadow" ng-show="type=='already'">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="backHome()">返回</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <div ng-show="type=='approve'"><activity-approve options="flowOptions"></activity-approve></div>
+</ion-modal-view>

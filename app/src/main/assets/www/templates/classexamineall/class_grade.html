@@ -1,0 +1,107 @@
+<ion-view ng-controller="classGradeCtrl" class="grade-wrap">
+    <ion-spinner class="screen-center" ng-if="!isOver"></ion-spinner>
+    <div ng-show="isOver">
+    <ion-header-bar class="bar bar-calm bar-header">
+        <div class="pos-header-box pos-icon-rt">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" ng-model="someOneShowName.searchItemScoreName" placeholder="搜索考核项目">
+            <i class="right-icon ion-ios-close-outline" ng-if="isSearchItemScoreName" ng-click="closeIconClick(someOneShowName.searchItemScoreName)"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-bc">
+        <ion-list class="list-text-group border-left pad-right-box">
+            <ion-item class="{{item.itemScore!=item.baseScore?'list-text-item item-col-2 item danger-item':'list-text-item item-col-2 item' }}"  ng-repeat="item in MoraleduMobileChItemScoreVOList track by $index">
+                <div class="title-text">{{item.itemName}}</div>
+                <p class="">
+                    <label class="button-label min-width">{{item.baseScore}}分</label>
+                    {{item.remark}}
+                </p>
+                <div class="area-right" ng-click="toClassForm(item)">
+                    评<span>{{item.itemScore}}</span>分
+                    <i class="ion-ios-arrow-forward"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div class="fullscreen-box" ng-if="emptyInfoClass">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p ng-bind="dataErrorMsgClass"></p>
+                <p class="dark" ng-click="doRefresh()">单击{{dataErrorMsgClass=="加载失败，请重试！"?"重试":"刷新"}}</p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="grade-footer">
+        <div class="footer-list">
+           <div class="footer-list-box">
+               <div class="active-arrow" ng-if="selectedClassInfo.isRecode">已打分</div>
+               <div class="heading">{{selectedClassInfo.platformSysAdminClassName}}{{(selectedClassInfo.platformSysBuildName||selectedClassInfo.platformSysRoomName)?'(':''}}{{selectedClassInfo.platformSysBuildName}}{{selectedClassInfo.platformSysRoomName?(selectedClassInfo.platformSysBuildName?'/':'')+selectedClassInfo.platformSysRoomName:''}}{{selectedClassInfo.platformSysBuildName||selectedClassInfo.platformSysRoomName?')':''}}</div>
+               <p class="help-block" title="{{someOneShowName.groupOrRegionName}}">{{someOneShowName.groupOrRegionName.length>10?someOneShowName.groupOrRegionName.substring(0,10)+'...':someOneShowName.groupOrRegionName}}</p>
+
+               <div ng-class="canSubmit.one?'pos-btn-radius':'pos-btn-radius disb-gray'" ng-click="submitScore()">
+                   提交<br/>
+                   {{returnTotalScore()}}分
+               </div>
+           </div>
+            <ul class="list-text-btn">
+                <li ng-click="openGrouping()"><i class="ion-arrow-swap"></i>切换分组</li>
+                <li ng-click="isLastOrNextClass(-1)"><i class="ion-ios-rewind"></i>上一班</li>
+                <li ng-click="isLastOrNextClass(1)"><i class="ion-ios-fastforward"></i>下一班</li>
+            </ul>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+    <!--切换分组-->
+    <script id="grouping.html" type="text/ng-template">
+        <div class="grouping-wrap another">
+            <ion-header-bar class="bar-ynedut bar-title-rt-lt" align-title="center">
+                <div class="buttons" ng-click="toLastOrNextTerm(-1)">
+                    <i class="icon ion-ios-arrow-left"></i>
+                </div>
+                <div class="title" ng-bind="someOneShowName.groupOrRegionName"></div>
+                <div class="buttons" ng-click="toLastOrNextTerm(1)">
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </ion-header-bar>
+            <div class="bar bar-calm bar-subheader">
+                <div class="pos-header-box pos-icon-rt">
+                    <i class="input-left-icon ion-android-search"></i>
+                    <input type="text" class="form-control radius-input border-radius-20" ng-model="someOneShowName.searchClassName" placeholder="搜索班级">
+                    <i class="right-icon ion-ios-close-outline" ng-if="isSearchClassName" ng-click="closeIconClick(someOneShowName.searchClassName)"></i>
+                </div>
+            </div>
+            <ion-content class="has-subheader content-bc">
+                <!--有分组-->
+                <ion-list class="list-text-group border-left pad-right-box">
+                    <ion-item class="list-text-item item-col-2" ng-repeat="item in nowMoraleduMobileChClassDetailVOsList track by $index">
+                        <div class="title-text" ng-bind="item.platformSysAdminClassName"></div>
+                        <p class="" ng-bind="(item.checkUserNameStr?item.checkUserNameStr:'')+(item.checkUserNameStr&&(item.platformSysBuildName||item.platformSysRoomName)?',':'')+(item.platformSysBuildName?item.platformSysBuildName:'')+(item.platformSysRoomName?item.platformSysRoomName:'')">
+                        </p>
+                        <div class="area-right" ng-click="closeGrouping(item)">
+                            <span ng-if="!item.isRecode">未打分</span>
+                            <span ng-if="item.isRecode" ng-bind="item.totalScore"></span>{{item.isRecode?'分':''}}
+                            <i class="ion-ios-arrow-forward" ></i>
+                        </div>
+                    </ion-item>
+                </ion-list>
+                <!--无分组-->
+                <div class="fullscreen-box" ng-if="emptyInfo">
+                    <div class="screen-center">
+                        <div class="img-no-data"></div>
+                        <p ng-bind="dataErrorMsg"></p>
+                        <p class="dark" ng-click="doRefresh()">单击{{dataErrorMsg=="加载失败，请重试！"?"重试":"刷新"}}</p>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="">
+            <button class="button button-clear button-stable icon ion-reply" ng-click="doBack()"></button>
+            <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+            </ion-footer-bar>
+        </div>
+
+    </script>
+    <!--切换分组-->
+    </div>
+</ion-view>

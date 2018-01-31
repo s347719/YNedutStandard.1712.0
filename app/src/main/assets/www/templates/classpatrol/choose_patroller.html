@@ -1,0 +1,109 @@
+<!--选择教师-->
+<div class="class-patrol choose-classroom choose-teacher choose-patroller top-fixed" ng-controller="TeacherController">
+    <div class="header-two-wrap">
+        <div class="bar bar-header bar-calm">
+            <div class="pos-header-box pos-icon-rt">
+                <!--搜索图标-->
+                <i class="input-left-icon ion-android-search" ng-show="!condition.isQuery"></i>
+                <!--搜索进行中图标-->
+                <i class="input-left-icon ion-ios-loop-strong" ng-show="condition.isQuery"></i>
+                <input type="text" class="form-control radius-input border-radius-20" placeholder="输入教师姓名/别名/工号查找" ng-model="condition.name">
+                <i class="right-icon ion-ios-close-outline" ng-show="condition.name" ng-click="clearCondition()"></i>
+            </div>
+        </div>
+        <div class="header-title-sty bar bar-calm bar-two">
+            <div class="head-title-text padding-right-0">
+                <ion-scroll direction="x" class="no-scroll">
+                    <div class="scroll-box-inline">
+                        <a href="javascript:;" ng-click="selectCharacter('')" ng-class="{'active':condition.character == ''}">不限</a>
+                        <a href="javascript:;" ng-click="selectCharacter('A')" ng-class="{'active':condition.character == 'A'}">A</a>
+                        <a href="javascript:;" ng-click="selectCharacter('B')" ng-class="{'active':condition.character == 'B'}">B</a>
+                        <a href="javascript:;" ng-click="selectCharacter('C')" ng-class="{'active':condition.character == 'C'}">C</a>
+                        <a href="javascript:;" ng-click="selectCharacter('D')" ng-class="{'active':condition.character == 'D'}">D</a>
+                        <a href="javascript:;" ng-click="selectCharacter('E')" ng-class="{'active':condition.character == 'E'}">E</a>
+                        <a href="javascript:;" ng-click="selectCharacter('F')" ng-class="{'active':condition.character == 'F'}">F</a>
+                        <a href="javascript:;" ng-click="selectCharacter('G')" ng-class="{'active':condition.character == 'G'}">G</a>
+                        <a href="javascript:;" ng-click="selectCharacter('H')" ng-class="{'active':condition.character == 'H'}">H</a>
+                        <a href="javascript:;" ng-click="selectCharacter('I')" ng-class="{'active':condition.character == 'I'}">I</a>
+                        <a href="javascript:;" ng-click="selectCharacter('J')" ng-class="{'active':condition.character == 'J'}">J</a>
+                        <a href="javascript:;" ng-click="selectCharacter('K')" ng-class="{'active':condition.character == 'K'}">K</a>
+                        <a href="javascript:;" ng-click="selectCharacter('L')" ng-class="{'active':condition.character == 'L'}">L</a>
+                        <a href="javascript:;" ng-click="selectCharacter('M')" ng-class="{'active':condition.character == 'M'}">M</a>
+                        <a href="javascript:;" ng-click="selectCharacter('N')" ng-class="{'active':condition.character == 'N'}">N</a>
+                        <a href="javascript:;" ng-click="selectCharacter('O')" ng-class="{'active':condition.character == 'O'}">O</a>
+                        <a href="javascript:;" ng-click="selectCharacter('P')" ng-class="{'active':condition.character == 'P'}">P</a>
+                        <a href="javascript:;" ng-click="selectCharacter('Q')" ng-class="{'active':condition.character == 'Q'}">Q</a>
+                        <a href="javascript:;" ng-click="selectCharacter('R')" ng-class="{'active':condition.character == 'W'}">R</a>
+                        <a href="javascript:;" ng-click="selectCharacter('S')" ng-class="{'active':condition.character == 'S'}">S</a>
+                        <a href="javascript:;" ng-click="selectCharacter('T')" ng-class="{'active':condition.character == 'T'}">T</a>
+                        <a href="javascript:;" ng-click="selectCharacter('U')" ng-class="{'active':condition.character == 'U'}">U</a>
+                        <a href="javascript:;" ng-click="selectCharacter('V')" ng-class="{'active':condition.character == 'V'}">V</a>
+                        <a href="javascript:;" ng-click="selectCharacter('W')" ng-class="{'active':condition.character == 'W'}">W</a>
+                        <a href="javascript:;" ng-click="selectCharacter('X')" ng-class="{'active':condition.character == 'X'}">X</a>
+                        <a href="javascript:;" ng-click="selectCharacter('Y')" ng-class="{'active':condition.character == 'Y'}">Y</a>
+                        <a href="javascript:;" ng-click="selectCharacter('Z')" ng-class="{'active':condition.character == 'Z'}">Z</a>
+                    </div>
+                </ion-scroll>
+            </div>
+        </div>
+    </div>
+    <!--获取的课程列表开始-->
+    <ion-content class="content-bar-two content-bc" ng-show="teacherList.length >0 && !condition.error">
+        <ion-list>
+            <ion-item class="item-avatar item-button-right" ng-repeat="item in teacherList">
+                <!--<img src="{{item.userHeardUrl}}">-->
+                <img src="img/1.jpg">
+                <h2>{{item.name}}</h2>
+                <p>{{item.alien ? item.alien + "," : ""}}{{item.number}}</p>
+                <!--未选中-->
+                <button class="button button-calm button-sm button-outline" ng-click="overSelect(item)" ng-if="type == 2 && !item.selected">选择</button>
+                <button class="button button-clear button-calm icon ion-android-radio-button-off" ng-if="type == 2 && item.selected"></button>
+
+                <button class="button button-clear button-stable icon ion-android-radio-button-off" ng-click="selectTeacher(item)" ng-if="type == 1 && !item.selected"></button>
+                <button class="button button-clear button-calm icon ion-checkmark-circled" ng-click="selectTeacher(item)" ng-if="type == 1 && item.selected"></button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <!--获取的课程列表结束-->
+    <ion-infinite-scroll  class="content-bc" ng-if="more" on-infinite="loadMore()"   distance="1%">
+    </ion-infinite-scroll>
+    <!--获取课程失败&为0开始   取消注释即可查看效果-->
+    <div class="fullscreen-box content-bc" ng-show="teacherList.length == 0 || condition.error">
+        <div class="screen-center top-30">
+            <div class="img-no-data"></div>
+            <p>{{condition.title}}</p>
+            <p class="dark" ng-click="doRefresh()">单击刷新</p>
+        </div>
+    </div>
+    <!--获取课程失败&为0结束-->
+    <ion-footer-bar align-title="center" ng-class="{'finished-choose':type==2,'':type==1}">
+        <div class="footer-pos-button row">
+            <div class="col col-25">
+                <button class="button button-outline button-calm button-sm" ng-click="cancelTeacher()">取消</button>
+            </div>
+            <div class="col text-center">
+                <button class="button button-calm button-theme" ng-if="type==1" ng-click="overSelectTeachers()">完成({{condition.length}})</button>
+            </div>
+            <div class="col col-20 text-center">
+                <button class="button button-clear button-stable icon ion-ios-reload  " ng-if="type == 2" ng-click="doRefresh()"></button>
+                <button class="button button-calm button-outline button-sm" ng-if="!isShowMoreCourse && type == 1" ng-click="selectClass_view()">查看({{length}})</button>
+                <button class="button button-calm button-sm" ng-if="isShowMoreCourse && type == 1" ng-click="selectClass_view()"><i class="ion-close"></i></button>
+            </div>
+        </div>
+    </ion-footer-bar>
+
+    <!--查看班级浮动框-->
+    <div class="buttom-pop buttom-pop-mini arrow animate-if" ng-if="isShowMoreCourse">
+        <div class="modal-list-wrap">
+            <ul class="list-wrap height-overflow-200 border-radius-10" ng-if="seleectTeacher.length > 0">
+                <li class="list-item item-right-icon" ng-repeat="item in seleectTeacher track by $index">{{item.name}}<i class="ion-close" ng-click="deleteSelectTeacher($index)"></i></li>
+            </ul>
+            <ul class="list-wrap height-overflow-200 border-radius-10" ng-if="seleectTeacher.length  == 0">
+                <li class="text-center no-content">
+                    <h5>没有可选择的教室！</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

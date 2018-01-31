@@ -1,0 +1,213 @@
+Index: app/src/main/java/com/yineng/ynmessager/view/face/ChatTalkFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yineng.ynmessager.view.face;\r\n\r\n\r\nimport android.graphics.RectF;\r\nimport android.support.v4.app.Fragment;\r\nimport android.view.MotionEvent;\r\nimport android.view.View;\r\nimport android.widget.Toast;\r\n\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.activity.p2psession.BaseChatActivity;\r\nimport com.yineng.ynmessager.util.FileUtil;\r\n\r\nimport java.util.UUID;\r\n\r\n/**\r\n * A simple {@link Fragment} subclass.\r\n */\r\npublic class ChatTalkFragment extends BaseVoiceFragment implements View.OnTouchListener{\r\n    private long mRecordingStartTime;\r\n    /**\r\n     * 是否录音超时\r\n     */\r\n    private boolean isTimeOut = false;\r\n\r\n    @Override\r\n    public void initListener() {\r\n//        mRecordVoice.setOnLongClickListener(new View.OnLongClickListener() {\r\n//            @Override\r\n//            public boolean onLongClick(View v) {\r\n//                mRecordVoice.setOnTouchListener(ChatTalkFragment.this);\r\n//                return true;\r\n//            }\r\n//        });\r\n        mRecordVoice.setOnTouchListener(ChatTalkFragment.this);\r\n    }\r\n\r\n    /**\r\n     * 录音超时后的操作\r\n     */\r\n    @Override\r\n    public void showPreviewDialog() {\r\n        isTimeOut = true;\r\n        super.showPreviewDialog();\r\n        showPreviewAndDeleteView(false);\r\n    }\r\n\r\n    @Override\r\n    public boolean onTouch(final View v, MotionEvent event) {\r\n        switch (event.getAction()) {\r\n            case MotionEvent.ACTION_DOWN:\r\n                //如果在录音了，就不再重复调用开始录音，避免崩溃\r\n                if(mVoiceRecorder.isStart()) break;\r\n\r\n                showPreviewAndDeleteView(true);\r\n                mVoiceRecorder.getRecordingConfig().outputPath = FileUtil.getFileByName(UUID.randomUUID().toString());\r\n                mVoiceRecorder.start();\r\n\r\n                mRecordingStartTime = System.currentTimeMillis();\r\n                break;\r\n            case MotionEvent.ACTION_MOVE:\r\n                initViewRect();\r\n                isInPreviewRect = mPreviewVoiceRect.contains(event.getRawX(),event.getRawY());\r\n                isInDeleteRect = mDeleteVoiceRect.contains(event.getRawX(),event.getRawY());\r\n                if (isInPreviewRect) {\r\n                    mPreviewVoice.setImageResource(R.mipmap.chat_voice_preview_selected);\r\n                    setTips(R.string.chat_release_preview_voice);\r\n                } else {\r\n                    mPreviewVoice.setImageResource(R.mipmap.chat_voice_preview);\r\n                }\r\n                if (isInDeleteRect) {\r\n                    mDeleteVoice.setImageResource(R.mipmap.chat_voice_delete_selected);\r\n                    setTips(R.string.chat_release_cancel_send_voice);\r\n                } else {\r\n                    mDeleteVoice.setImageResource(R.mipmap.chat_voice_delete);\r\n                }\r\n                updateRecordTime(count);\r\n                break;\r\n            case MotionEvent.ACTION_UP:\r\n                if(!mVoiceRecorder.isStart()) break;\r\n\r\n                //判断按键时间是否过短\r\n                long current = System.currentTimeMillis();\r\n                if (current - mRecordingStartTime < mRecordingMinLimit)\r\n                {\r\n                    //显示提示文字\r\n                    Toast.makeText(v.getContext(), R.string.voiceChatMsg_durationTooShort, Toast.LENGTH_SHORT).show();\r\n                    //稍过一会儿再停止录音，不然马上停止可能崩溃\r\n                    mHandler.postDelayed(new Runnable()\r\n                    {\r\n\r\n                        @Override\r\n                        public void run()\r\n                        {\r\n                            //禁用录音按钮\r\n                            v.setEnabled(false);\r\n\r\n                            //停止录音\r\n                            mVoiceRecorder.stop();\r\n                            showPreviewAndDeleteView(false);\r\n\r\n                            //稍后才能恢复按钮可用，不然如果又立即点按钮开始录音，可能硬件还正在停止中，造成崩溃\r\n                            mHandler.postDelayed(new Runnable()\r\n                            {\r\n                                @Override\r\n                                public void run()\r\n                                {\r\n                                    v.setEnabled(true);\r\n                                }\r\n                            }, 2500);\r\n\r\n                        }\r\n                    }, 600);\r\n                    break;\r\n                }\r\n\r\n                mVoiceRecorder.stop();\r\n                showPreviewAndDeleteView(false);\r\n                //录音过程中滑动到左侧的试听图标处，显示“松手试听”文本，松手后不直接发送录制的语音，打开试听界面，\r\n                // 可试听录制的语音（点击播放图标，播放语音），可发送语音（点击“发送”按钮），可取消（点击“取消”则删除录制的语音）\r\n                if (isInPreviewRect) {\r\n                    mTalkDialog.show(count);\r\n                    break;\r\n                }\r\n                //录音过程中滑动到右侧的取消图标处，显示“松手取消发送”文本，松手后删除录制的语音，不发送语音信息\r\n                if (isInDeleteRect) {\r\n                    break;\r\n                }\r\n                //是否超时，超时就不发送语音消息了。没有超时就直接发送;直接松开语音图标，发送录制的语音给对方\r\n                if (isTimeOut) {\r\n                    isTimeOut = false;\r\n                    break;\r\n                }\r\n                ((BaseChatActivity)getActivity()).sendVoiceMsg(mVoiceRecorder.getRecordingConfig().outputPath);\r\n                break;\r\n            default:\r\n                break;\r\n        }\r\n        return true;\r\n    }\r\n\r\n    /**\r\n     * 初始化三个按钮的位置\r\n     */\r\n    private void initViewRect() {\r\n        mPreviewVoiceRect = calcViewScreenLocation(mPreviewVoice);\r\n        mDeleteVoiceRect = calcViewScreenLocation(mDeleteVoice);\r\n        mRecordVoiceRect = calcViewScreenLocation(mRecordVoice);\r\n    }\r\n\r\n    /**\r\n     * 显示试听和删除按钮\r\n     * @param show 是否显示\r\n     */\r\n    @Override\r\n    public void showPreviewAndDeleteView(boolean show) {\r\n        mPreviewVoice.setImageResource(R.mipmap.chat_voice_preview);\r\n        mDeleteVoice.setImageResource(R.mipmap.chat_voice_delete);\r\n        if (show) {\r\n            count = 0;\r\n            isInPreviewRect = false;\r\n            isInDeleteRect = false;\r\n            mPreviewVoice.setVisibility(View.VISIBLE);\r\n            mDeleteVoice.setVisibility(View.VISIBLE);\r\n            updateRecordTime(count);\r\n            mHandler.sendEmptyMessageDelayed(UPDATE_TIME,1000);\r\n            if (viewPagerScrollListener != null)\r\n                viewPagerScrollListener.onViewPagerScroll(false);\r\n        } else {\r\n            mVoiceTips.setText(R.string.chat_pin_record_voice);\r\n            mPreviewVoice.setVisibility(View.GONE);\r\n            mDeleteVoice.setVisibility(View.GONE);\r\n            mHandler.removeMessages(UPDATE_TIME);\r\n            if (viewPagerScrollListener != null)\r\n                viewPagerScrollListener.onViewPagerScroll(true);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * 计算指定的 View 在屏幕中的坐标。\r\n     */\r\n    public static RectF calcViewScreenLocation(View view) {\r\n        int[] location = new int[2];\r\n        // 获取控件在屏幕中的位置，返回的数组分别为控件左顶点的 x、y 的值\r\n        view.getLocationOnScreen(location);\r\n        return new RectF(location[0], location[1], location[0] + view.getWidth(),\r\n                location[1] + view.getHeight());\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/view/face/ChatTalkFragment.java	(revision 3225)
++++ app/src/main/java/com/yineng/ynmessager/view/face/ChatTalkFragment.java	(revision )
+@@ -1,29 +1,38 @@
+ package com.yineng.ynmessager.view.face;
+ 
+-
+ import android.graphics.RectF;
++import android.os.Bundle;
++import android.support.annotation.Nullable;
+ import android.support.v4.app.Fragment;
+ import android.view.MotionEvent;
+ import android.view.View;
+ import android.widget.Toast;
+-
+ import com.yineng.ynmessager.R;
+ import com.yineng.ynmessager.activity.p2psession.BaseChatActivity;
+ import com.yineng.ynmessager.util.FileUtil;
+-
++import com.yineng.ynmessager.util.SystemUtil;
++import com.yineng.ynmessager.util.audio.AudioPlayer;
++import com.yineng.ynmessager.view.ChatVoiceDialog;
+ import java.util.UUID;
+ 
+ /**
+  * A simple {@link Fragment} subclass.
+  */
+ public class ChatTalkFragment extends BaseVoiceFragment implements View.OnTouchListener{
++    private ChatVoiceDialog mConfirmDialog;
+     private long mRecordingStartTime;
+     /**
+      * 是否录音超时
+      */
+     private boolean isTimeOut = false;
+ 
++  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
++    super.onViewCreated(view, savedInstanceState);
++
++    mConfirmDialog = new ChatVoiceDialog(mParentActivity, mVoiceRecorder);
++  }
++
+-    @Override
++  @Override
+     public void initListener() {
+ //        mRecordVoice.setOnLongClickListener(new View.OnLongClickListener() {
+ //            @Override
+@@ -131,15 +140,33 @@
+                     isTimeOut = false;
+                     break;
+                 }
+-                ((BaseChatActivity)getActivity()).sendVoiceMsg(mVoiceRecorder.getRecordingConfig().outputPath);
++                //界面是否正在前台显示
++                if (SystemUtil.isUiRunningFront()) {
++                  //正常情况：直接发送
++                  ((BaseChatActivity) getActivity()).sendVoiceMsg(
++                      mVoiceRecorder.getRecordingConfig().outputPath);
++                } else {
++                  //录音过程中，界面退到了后台，比如按home键、来电话等，则弹出试听界面
++                  int durationSec = AudioPlayer.getDuration(mParentActivity.getApplicationContext(),
++                      mVoiceRecorder.getRecordingConfig().outputPath);
++                  durationSec = durationSec / 1000;
++
++                  mConfirmDialog.show(durationSec);
++                }
+                 break;
+             default:
+                 break;
+         }
+         return true;
++    }
++
++  @Override public void onDestroyView() {
++    super.onDestroyView();
++
++    mConfirmDialog.dismiss();
+-    }
++  }
+ 
+-    /**
++  /**
+      * 初始化三个按钮的位置
+      */
+     private void initViewRect() {
+Index: app/src/main/java/com/yineng/ynmessager/view/face/BaseVoiceFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yineng.ynmessager.view.face;\r\n\r\nimport android.graphics.RectF;\r\nimport android.os.Bundle;\r\nimport android.os.Handler;\r\nimport android.os.Message;\r\nimport android.support.annotation.Nullable;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.activity.BaseFragment;\r\nimport com.yineng.ynmessager.app.Const;\r\nimport com.yineng.ynmessager.util.audio.VoiceRecorder;\r\nimport com.yineng.ynmessager.view.ChatVoiceDialog;\r\n\r\nimport java.lang.ref.WeakReference;\r\n\r\n/**\r\n */\r\npublic abstract class BaseVoiceFragment extends BaseFragment\r\n{\r\n    public static final int UPDATE_TIME = 0;\r\n    public ImageView mPreviewVoice;\r\n    public ImageView mDeleteVoice;\r\n    public ImageView mRecordVoice;\r\n    public TextView mVoiceTips;\r\n    public RectF mPreviewVoiceRect;\r\n    public RectF mDeleteVoiceRect;\r\n    public RectF mRecordVoiceRect;\r\n    public ChatVoiceDialog mTalkDialog;\r\n    public boolean isInPreviewRect;\r\n    public boolean isInDeleteRect;\r\n    protected final long mRecordingMinLimit = 1500;\r\n    public int count = 0;\r\n    protected VoiceChatHandler mHandler;\r\n    protected boolean mIsStopped;\r\n\r\n    protected static class VoiceChatHandler extends Handler{\r\n        private final WeakReference<BaseVoiceFragment> host;\r\n\r\n        private VoiceChatHandler(BaseVoiceFragment host)\r\n        {\r\n            this.host = new WeakReference<>(host);\r\n        }\r\n\r\n        @Override\r\n        public void handleMessage(Message msg) {\r\n            BaseVoiceFragment _host = this.host.get();\r\n            if(_host == null) return;\r\n\r\n            switch (msg.what) {\r\n                case UPDATE_TIME:\r\n                    if (_host.count < Const.VOICE_MAX_TIME) {\r\n                        _host.count++;\r\n                        _host.updateRecordTime(_host.count);\r\n                        if (_host.count == Const.VOICE_MAX_TIME) {//刚好一分钟\r\n                            _host.showPreviewDialog();\r\n                            break;\r\n                        }\r\n                        sendEmptyMessageDelayed(UPDATE_TIME,1000);\r\n                    }\r\n                    break;\r\n                default:\r\n                    break;\r\n            }\r\n        }\r\n    }\r\n\r\n    public VoiceRecorder mVoiceRecorder;\r\n\r\n    public void updateRecordTime(int count) {\r\n        if (!isInPreviewRect && !isInDeleteRect) {\r\n            if (count > 9) {\r\n                setTips(\"00:\" + count);\r\n                if (count >= 59)\r\n                    setTips(\"01:00\");\r\n            } else\r\n                setTips(\"00:0\"+count);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        return inflater.inflate(R.layout.fragment_chat_talk, container, false);\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n\r\n        mHandler = new VoiceChatHandler(this);\r\n\r\n        mVoiceRecorder = VoiceRecorder.newInstance();\r\n        VoiceRecorder.RecordingConfig recordingConfig = new VoiceRecorder.RecordingConfig();\r\n        mVoiceRecorder.init(recordingConfig);\r\n\r\n        initView(view);\r\n    }\r\n\r\n    @Override\r\n    public void onStart()\r\n    {\r\n        super.onStart();\r\n\r\n        mIsStopped = false;\r\n    }\r\n\r\n    @Override\r\n    public void onStop()\r\n    {\r\n        super.onStop();\r\n\r\n        mIsStopped = true;\r\n    }\r\n\r\n    @Override\r\n    public void onDestroyView()\r\n    {\r\n        super.onDestroyView();\r\n\r\n        if(mVoiceRecorder.isStart()) mVoiceRecorder.stop();\r\n        mVoiceRecorder.release();\r\n    }\r\n\r\n    private void initView(View view) {\r\n        mVoiceTips = (TextView) view.findViewById(R.id.tv_chat_voice_tips);\r\n        mPreviewVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_preview);\r\n        mDeleteVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_delete);\r\n        mRecordVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_record);\r\n        mTalkDialog = new ChatVoiceDialog(getActivity(), mVoiceRecorder);\r\n        initListener();\r\n    }\r\n\r\n    public abstract void initListener();\r\n\r\n    /**\r\n     * 显示试听和删除按钮\r\n     * @param show 是否显示\r\n     */\r\n    public void showPreviewAndDeleteView(boolean show) {}\r\n\r\n    public void showPreviewDialog() {\r\n        mTalkDialog.show(count);\r\n        resetTimeCounter();\r\n    }\r\n\r\n    public void resetTimeCounter(){\r\n        count = 0;\r\n        mHandler.removeMessages(UPDATE_TIME);\r\n        if (viewPagerScrollListener != null)\r\n            viewPagerScrollListener.onViewPagerScroll(true);\r\n    }\r\n\r\n    public void setTips(int resId) {\r\n        mVoiceTips.setText(resId);\r\n    }\r\n\r\n    public void setTips(String time) {\r\n        mVoiceTips.setText(time);\r\n    }\r\n\r\n    public interface viewPagerScrollable {\r\n        void onViewPagerScroll(boolean scrollable);\r\n    }\r\n\r\n    public viewPagerScrollable viewPagerScrollListener;\r\n\r\n    public void setViewPagerScrollListener(viewPagerScrollable viewPagerScrollListener) {\r\n        this.viewPagerScrollListener = viewPagerScrollListener;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/view/face/BaseVoiceFragment.java	(revision 3225)
++++ app/src/main/java/com/yineng/ynmessager/view/face/BaseVoiceFragment.java	(revision )
+@@ -10,13 +10,11 @@
+ import android.view.ViewGroup;
+ import android.widget.ImageView;
+ import android.widget.TextView;
+-
+ import com.yineng.ynmessager.R;
+ import com.yineng.ynmessager.activity.BaseFragment;
+ import com.yineng.ynmessager.app.Const;
+ import com.yineng.ynmessager.util.audio.VoiceRecorder;
+ import com.yineng.ynmessager.view.ChatVoiceDialog;
+-
+ import java.lang.ref.WeakReference;
+ 
+ /**
+@@ -125,6 +123,7 @@
+ 
+         if(mVoiceRecorder.isStart()) mVoiceRecorder.stop();
+         mVoiceRecorder.release();
++        mTalkDialog.dismiss();
+     }
+ 
+     private void initView(View view) {
+@@ -132,7 +131,7 @@
+         mPreviewVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_preview);
+         mDeleteVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_delete);
+         mRecordVoice = (ImageView) view.findViewById(R.id.iv_chat_voice_record);
+-        mTalkDialog = new ChatVoiceDialog(getActivity(), mVoiceRecorder);
++        mTalkDialog = new ChatVoiceDialog(mParentActivity, mVoiceRecorder);
+         initListener();
+     }
+ 
+Index: app/src/main/java/com/yineng/ynmessager/view/ChatVoiceDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.yineng.ynmessager.view;\r\n\r\nimport android.content.Context;\r\nimport android.content.DialogInterface;\r\nimport android.media.MediaPlayer;\r\nimport android.os.Bundle;\r\nimport android.support.annotation.NonNull;\r\nimport android.support.v7.app.AlertDialog;\r\nimport android.view.Gravity;\r\nimport android.view.View;\r\nimport android.view.Window;\r\nimport android.view.WindowManager;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport com.yineng.ynmessager.R;\r\nimport com.yineng.ynmessager.activity.p2psession.BaseChatActivity;\r\nimport com.yineng.ynmessager.util.audio.AudioPlayer;\r\nimport com.yineng.ynmessager.util.audio.VoiceRecorder;\r\n\r\n/**\r\n * Created by yineng on 2016/4/27.\r\n */\r\npublic class ChatVoiceDialog extends AlertDialog implements View.OnClickListener{\r\n\r\n    private TextView mSendVoiceTV;\r\n    private TextView mCancelSendVoiceTV;\r\n    private TextView mPreviewVoiceTV;\r\n    private ImageView mPlayButton;\r\n    private BaseChatActivity mParentActivity;\r\n    private VoiceRecorder mVoiceRecorder;\r\n    private AudioPlayer mAudioPlayer;\r\n\r\n    public ChatVoiceDialog(@NonNull Context context, @NonNull VoiceRecorder voiceRecorder) {\r\n        super(context);\r\n        mParentActivity = (BaseChatActivity) context;\r\n        mVoiceRecorder = voiceRecorder;\r\n    }\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        initWindow();\r\n        setContentView(R.layout.fragment_chat_preview_record);\r\n        findViews();\r\n        initListener();\r\n    }\r\n\r\n    private void initWindow() {\r\n        Window window = getWindow();\r\n        window.getDecorView().setPadding(0, 0, 0, 0);\r\n        //此处可以设置dialog显示的位置\r\n        window.setGravity(Gravity.BOTTOM);\r\n        WindowManager.LayoutParams lp = window.getAttributes();\r\n        lp.width = WindowManager.LayoutParams.MATCH_PARENT;\r\n        window.setAttributes(lp);\r\n        setCanceledOnTouchOutside(false);\r\n\r\n        setOnShowListener(new OnShowListener() {\r\n            @Override\r\n            public void onShow(DialogInterface dialog)\r\n            {\r\n                mAudioPlayer = AudioPlayer.newInstance();\r\n            }\r\n        });\r\n\r\n        setOnDismissListener(new OnDismissListener() {\r\n            @Override\r\n            public void onDismiss(DialogInterface dialog)\r\n            {\r\n                mAudioPlayer.release();\r\n            }\r\n        });\r\n    }\r\n\r\n    private void findViews() {\r\n        mPreviewVoiceTV = (TextView) findViewById(R.id.tv_chat_preview_voice_tips);\r\n        mSendVoiceTV = (TextView) findViewById(R.id.tv_chat_preview_send);\r\n        mCancelSendVoiceTV = (TextView) findViewById(R.id.tv_chat_preview_cancel_send);\r\n        mPlayButton = (ImageView) findViewById(R.id.iv_chat_preview_voice_play_stop);\r\n    }\r\n\r\n    private void initListener() {\r\n        mSendVoiceTV.setOnClickListener(this);\r\n        mCancelSendVoiceTV.setOnClickListener(this);\r\n        mPlayButton.setOnClickListener(this);\r\n    }\r\n\r\n    @Override\r\n    public void onClick(View v) {\r\n        switch (v.getId()) {\r\n            case R.id.tv_chat_preview_send:\r\n                mParentActivity.sendVoiceMsg(mVoiceRecorder.getRecordingConfig().outputPath);\r\n                dismiss();\r\n                break;\r\n            case R.id.tv_chat_preview_cancel_send:\r\n                dismiss();\r\n                break;\r\n            case R.id.iv_chat_preview_voice_play_stop:\r\n                //如果没有试听时，此时背景为播放图片，点击后就播放，替换成停止图片\r\n                //如果正在试听，点击停止图片，则停止播放，替换成播放图片\r\n                //如果试听结束，则将停止图片替换为播放图片\r\n                if (mAudioPlayer.isPlaying()) {//点击了正在播放的音频，停止播放\r\n                    mPlayButton.setImageResource(R.mipmap.chat_voice_preview_record);\r\n                    mAudioPlayer.stop();\r\n                } else {//点击了未播放的音频，播放音频\r\n                    mPlayButton.setImageResource(R.mipmap.chat_voice_record_stop);\r\n                    AudioPlayer.PlayingConfig tempPlayConfig = new AudioPlayer.PlayingConfig(mVoiceRecorder.getRecordingConfig().outputPath);\r\n                    tempPlayConfig.onCompletionListener = new MediaPlayer.OnCompletionListener () {\r\n                        @Override\r\n                        public void onCompletion(MediaPlayer mp) {\r\n                            //如果播放完了，就替换播放的图片\r\n                            mPlayButton.setImageResource(R.mipmap.chat_voice_preview_record);\r\n                        }\r\n                    };\r\n                    mAudioPlayer.start(tempPlayConfig);\r\n                }\r\n                break;\r\n            default:\r\n                break;\r\n        }\r\n    }\r\n\r\n    public void show(int count) {\r\n        super.show();\r\n        if (count > 9)\r\n            if (count >= 59)\r\n                mPreviewVoiceTV.setText(\"01:00\");\r\n            else\r\n                mPreviewVoiceTV.setText(\"00:\"+count);\r\n        else\r\n            mPreviewVoiceTV.setText(\"00:0\"+count);\r\n        mPlayButton.setImageResource(R.mipmap.chat_voice_preview_record);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/yineng/ynmessager/view/ChatVoiceDialog.java	(revision 3225)
++++ app/src/main/java/com/yineng/ynmessager/view/ChatVoiceDialog.java	(revision )
+@@ -6,13 +6,9 @@
+ import android.os.Bundle;
+ import android.support.annotation.NonNull;
+ import android.support.v7.app.AlertDialog;
+-import android.view.Gravity;
+ import android.view.View;
+-import android.view.Window;
+-import android.view.WindowManager;
+ import android.widget.ImageView;
+ import android.widget.TextView;
+-
+ import com.yineng.ynmessager.R;
+ import com.yineng.ynmessager.activity.p2psession.BaseChatActivity;
+ import com.yineng.ynmessager.util.audio.AudioPlayer;
+@@ -32,7 +28,7 @@
+     private AudioPlayer mAudioPlayer;
+ 
+     public ChatVoiceDialog(@NonNull Context context, @NonNull VoiceRecorder voiceRecorder) {
+-        super(context);
++        super(context, R.style.ChatVoiceDialogTheme);
+         mParentActivity = (BaseChatActivity) context;
+         mVoiceRecorder = voiceRecorder;
+     }
+@@ -47,13 +43,6 @@
+     }
+ 
+     private void initWindow() {
+-        Window window = getWindow();
+-        window.getDecorView().setPadding(0, 0, 0, 0);
+-        //此处可以设置dialog显示的位置
+-        window.setGravity(Gravity.BOTTOM);
+-        WindowManager.LayoutParams lp = window.getAttributes();
+-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+-        window.setAttributes(lp);
+         setCanceledOnTouchOutside(false);
+ 
+         setOnShowListener(new OnShowListener() {
+Index: app/src/main/res/values-v21/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!-- Application theme. -->\r\n    <style name=\"MyAppBaseTheme\" parent=\"Theme.AppCompat.Light.NoActionBar\">\r\n        <!-- All customizations that are NOT specific to a particular API-level can go here. -->\r\n        <item name=\"android:colorPrimary\">@color/colorPrimary</item>\r\n        <item name=\"android:colorPrimaryDark\">@color/colorPrimaryDark</item>\r\n    </style>\r\n\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-v21/styles.xml	(revision 3225)
++++ app/src/main/res/values-v21/styles.xml	(revision )
+@@ -1,7 +1,6 @@
+ <resources>
+     <!-- Application theme. -->
+     <style name="MyAppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+         <item name="android:colorPrimary">@color/colorPrimary</item>
+         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+     </style>
+Index: app/src/main/res/values/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources xmlns:android=\"http://schemas.android.com/apk/res/android\">\n\n    <!-- Application theme. -->\n    <style name=\"MyAppBaseTheme\" parent=\"Theme.AppCompat.Light.NoActionBar\">\n        <!-- All customizations that are NOT specific to a particular API-level can go here. -->\n    </style>\n\n    <!--全局 正常 主题-->\n    <style name=\"MyAppTheme.Light\" parent=\"MyAppBaseTheme\">\n        <item name=\"actionBar_bg\">@color/actionBar_bg</item>\n        <!--该行应该去掉，actionBarUniformStyle 中已包含，保留是为了兼容目前的代码-->\n        <item name=\"actionBarUniformStyle\">@style/ActionBarUniform.Light</item>\n        <item name=\"actionBar_title\">@style/ActionBarUniform_Widget_Title</item>\n        <item name=\"actionBar_buttonKey\">@style/ActionBarUniform_Widget_ButtonKey</item>\n        <item name=\"vpiTabPageIndicatorStyle\">@style/CustomTabPageIndicator</item>\n    </style>\n    <!--全局 夜间模式 主题-->\n    <style name=\"MyAppTheme.Dark\" parent=\"MyAppBaseTheme\">\n        <item name=\"actionBar_bg\">@color/actionBar_bg_dark</item>\n        <item name=\"actionBarUniformStyle\">@style/ActionBarUniform.Dark</item>\n    </style>\n\n    <!-- 标题栏 基础主题-->\n    <style name=\"ActionBarUniform\">\n        <item name=\"android:layout_width\">match_parent</item>\n        <item name=\"android:layout_height\">@dimen/common_actionbar_height</item>\n        <item name=\"android:padding\">@dimen/common_actionbar_padding</item>\n    </style>\n    <!-- 标题栏 正常主题-->\n    <style name=\"ActionBarUniform.Light\">\n        <item name=\"android:background\">@color/actionBar_bg</item>\n    </style>\n    <!-- 标题栏 夜间模式主题-->\n    <style name=\"ActionBarUniform.Dark\">\n        <item name=\"android:background\">@color/actionBar_bg_dark</item>\n    </style>\n\n    <!--标题栏 标题文字 正常主题-->\n    <style name=\"ActionBarUniform_Widget_Title\">\n        <item name=\"android:layout_width\">wrap_content</item>\n        <item name=\"android:layout_height\">wrap_content</item>\n        <item name=\"android:textSize\">@dimen/common_actionbar_title_textSize</item>\n        <item name=\"android:textColor\">@color/white</item>\n    </style>\n    <!-- 标题栏 各种操作按钮 正常主题-->\n    <style name=\"ActionBarUniform_Widget_ButtonKey\">\n        <item name=\"android:layout_width\">wrap_content</item>\n        <item name=\"android:layout_height\">match_parent</item>\n        <item name=\"android:textSize\">@dimen/common_actionbar_textSize</item>\n        <item name=\"android:textColor\">@color/white</item>\n        <item name=\"android:padding\">@dimen/common_actionbar_btn_padding</item>\n        <item name=\"android:gravity\">center_vertical</item>\n    </style>\n\n\n    <!--以下是其他部件主题-->\n\n\n    <style name=\"Anim_Popupwindow\">\n        <item name=\"android:windowEnterAnimation\">@anim/additionalfunction_popupwindow_show</item>\n        <item name=\"android:windowExitAnimation\">@anim/additionalfunction_popupwindow_dismiss</item>\n    </style>\n\n    <style name=\"anim_popup_dir\">\n        <item name=\"android:windowEnterAnimation\">@anim/slide_in</item>\n        <item name=\"android:windowExitAnimation\">@anim/slide_out</item>\n    </style>\n\n    <style name=\"CustomTabPageIndicator\" parent=\"Widget.TabPageIndicator\">\n        <item name=\"android:background\">@drawable/custom_tab_indicator</item>\n        <item name=\"android:textAppearance\">@style/CustomTabPageIndicator.Text</item>\n        <item name=\"android:textColor\">#FF555555</item>\n        <item name=\"android:textSize\">16sp</item>\n        <item name=\"android:divider\">@null</item>\n        <item name=\"android:dividerPadding\">10dp</item>\n        <item name=\"android:showDividers\">middle</item>\n        <item name=\"android:paddingLeft\">8dp</item>\n        <item name=\"android:paddingRight\">8dp</item>\n        <item name=\"android:fadingEdge\">horizontal</item>\n        <item name=\"android:fadingEdgeLength\">8dp</item>\n    </style>\n\n    <style name=\"CustomTabPageIndicator.Text\" parent=\"android:TextAppearance.Medium\">\n        <item name=\"android:typeface\">monospace</item>\n    </style>\n\n    <style name=\"ButtonBar\">\n        <item name=\"android:paddingLeft\">2dp</item>\n        <item name=\"android:paddingTop\">5dp</item>\n        <item name=\"android:paddingRight\">2dp</item>\n        <item name=\"android:paddingBottom\">0dp</item>\n        <item name=\"android:background\">@android:drawable/bottom_bar</item>\n    </style>\n\n    <style name=\"ButtonBarButton\"/>\n\n    <!--\n    <style name=\"chat_content_date_style\">\n        <item name=\"android:minHeight\">50dp</item>\n        <item name=\"android:gravity\">left|center</item>\n        <item name=\"android:textColor\">#000000</item>\n        <item name=\"android:textSize\">15sp</item>\n        <item name=\"android:lineSpacingExtra\">2dp</item>\n        <item name=\"android:clickable\">true</item>\n        <item name=\"android:focusable\">true</item>\n        <item name=\"android:background\">#bfbfbf</item>\n    </style>\n    -->\n\n    <style name=\"chat_text_name_style\">\n        <item name=\"android:textColor\">#818181</item>\n        <item name=\"android:textSize\">15sp</item>\n        <item name=\"android:gravity\">center</item>\n    </style>\n\n    <style name=\"chat_text_date_style\">\n        <item name=\"android:padding\">2dp</item>\n        <item name=\"android:textColor\">#ffffff</item>\n        <item name=\"android:textSize\">12sp</item>\n        <item name=\"android:background\">@drawable/chat_send_time_bg</item>\n    </style>\n\n    <style name=\"item_text_info\" parent=\"android:Widget.TextView\">\n        <item name=\"android:textColor\">@color/normal_text</item>\n        <item name=\"android:textSize\">11sp</item>\n    </style>\n\n    <!-- 联系人界面的item的属性 -->\n    <style name=\"contactItem\">\n        <item name=\"android:layout_width\">0dp</item>\n        <item name=\"android:layout_height\">wrap_content</item>\n        <item name=\"android:layout_weight\">8.5</item>\n        <item name=\"android:background\">@drawable/contact_listitem_bg_selector</item>\n        <item name=\"android:textSize\">14sp</item>\n        <item name=\"android:textColor\">#333333</item>\n        <item name=\"android:padding\">@dimen/common_listItem_padding</item>\n        <item name=\"android:gravity\">center_vertical|left</item>\n    </style>\n    <!-- 全屏dialog样式 左右插入 -->\n    <style name=\"mydialog\" parent=\"@android:style/Theme.Dialog\">\n        <item name=\"android:windowFrame\">@null</item>\n        <item name=\"android:windowIsFloating\">true</item>\n        <item name=\"android:windowIsTranslucent\">true</item>\n        <item name=\"android:windowNoTitle\">true</item>\n        <item name=\"android:backgroundDimEnabled\">true</item>\n        <item name=\"android:windowBackground\">@android:color/transparent</item>\n    </style>\n\n    <style name=\"AnimBottom\" parent=\"@android:style/Animation\">\n        <item name=\"android:windowEnterAnimation\">@anim/push_bottom_in</item>\n        <item name=\"android:windowExitAnimation\">@anim/push_bottom_out</item>\n    </style>\n\n    <style name=\"MyDialogStyleBottom\" parent=\"android:Theme.Dialog\">\n        <item name=\"android:windowAnimationStyle\">@style/AnimBottom</item>\n        <item name=\"android:windowFrame\">@null</item>\n        <!-- 边框 -->\n        <item name=\"android:windowIsFloating\">true</item>\n        <!-- 是否浮现在activity之上 -->\n        <item name=\"android:windowIsTranslucent\">true</item>\n        <!-- 半透明 -->\n        <item name=\"android:windowNoTitle\">true</item>\n        <!-- 无标题 -->\n        <item name=\"android:windowBackground\">@android:color/transparent</item>\n        <!-- 背景透明 -->\n        <item name=\"android:backgroundDimEnabled\">true</item>\n        <!-- 模糊 -->\n    </style>\n\n    <style name=\"MyAppBaseTheme.AppBarOverlay\" parent=\"ThemeOverlay.AppCompat.Dark.ActionBar\"/>\n\n    <style name=\"MyAppBaseTheme.PopupOverlay\" parent=\"ThemeOverlay.AppCompat.Light\"/>\n\n    <style name=\"Progress_horizontal\" parent=\"Widget.AppCompat.ProgressBar.Horizontal\">\n        <item name=\"android:indeterminateOnly\">false</item>\n        <item name=\"android:progressDrawable\">@drawable/attach_file_download_progbar_bg</item>\n        <item name=\"android:indeterminateDrawable\">@android:drawable/progress_indeterminate_horizontal</item>\n        <item name=\"android:minHeight\">20dip</item>\n        <item name=\"android:maxHeight\">20dip</item>\n    </style>\n    <style name=\"NoTitleDialog\" parent=\"android:style/Theme.Dialog\">\n        <item name=\"android:windowNoTitle\">true</item>\n        <item name=\"android:windowFrame\">@null</item>\n    </style>\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/styles.xml	(revision 3225)
++++ app/src/main/res/values/styles.xml	(revision )
+@@ -183,4 +183,10 @@
+         <item name="android:windowNoTitle">true</item>
+         <item name="android:windowFrame">@null</item>
+     </style>
++    <style name="ChatVoiceDialogTheme" parent="Theme.AppCompat.Light.Dialog">
++      <item name="android:windowBackground">@color/transparent</item>
++      <item name="android:windowNoTitle">true</item>
++      <item name="android:windowIsFloating">false</item>
++      <item name="android:layout_gravity">bottom</item>
++    </style>
+ </resources>
+\ No newline at end of file

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/gallery_folderList_item_img_corner">
+
+        <ImageView
+            android:id="@+id/gallery_img_folderListItem_cover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/gallery_folderList_item_img_height"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/myapps_banner1"/>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/gallery_txt_folderListItem_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gallery_folderList_item_folderName_marginTop"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        tools:text="相册哈哈哈"/>
+</LinearLayout>

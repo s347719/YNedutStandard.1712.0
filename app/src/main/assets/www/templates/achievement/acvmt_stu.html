@@ -1,0 +1,92 @@
+<ion-view ng-controller="AchievementCtrl" class="achievement">
+    <ion-header-bar class="bar-ynedut bar-title-rt-lt" ng-hide="hideHead">
+        <div class="buttons" ng-click="toLastOrNextTerm(-1)">
+            <i class="icon ion-chevron-left"></i>
+        </div>
+        <div class="title">{{termTitle}}</div>
+        <div class="buttons" ng-click="toLastOrNextTerm(1)">
+            <i class="icon ion-chevron-right"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="achievement-list-wrap">
+            <ul class="list achievement-list">
+                <li ng-repeat="item in items track by $index"  class="item" ng-click="recordListClick(item)" ng-class="{'pass':item.percentScore!=null && item.percentScore<60}">
+                    <div class="item-in">
+                        <div class="row">
+                            <div class="course col">
+                                <h2 class="title">{{item.kcCourseName}}</h2>
+                                <p>
+                                    {{(item.executeTermRate?item.executeTermRate+",":"")+(item.teachType?item.teachType+",":"")+(item.theoryCredit?item.theoryCredit+"分":"")}}
+                                    <label class="button-label"  ng-show="item.courseProperty=='2' || item.courseProperty=='3'">选</label>
+                                    <label class="button-label label-yellow" ng-show="scoreProperty==3 && item.scoreProperty=='4'">补</label>
+                                    <label class="button-label label-green" ng-show="scoreProperty==3 && item.scoreProperty=='3'">免</label>
+                                </p>
+                            </div>
+                            <div class="credit col col-20" ng-show="scoreProperty==3">
+                                <p class="title">获得学分</p>
+                                <p><span class="score-num" ng-class="{'text-danger':item.credit!=null && item.credit<item.theoryCredit}">{{!item.credit||item.credit.length<1? '--':item.credit}}</span> 分</p>
+                            </div>
+                            <div class="score col col-20">
+                                <p class="title">成绩</p>
+                                <p><span class="score-num">{{item.displayScore}} <span class="two-line"></span></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+    <!--下面弹出模态框-->
+    <script id="recordList.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    成绩记录
+                    <span class="calm" ng-click="closeModal()">取消</span>
+                </div>
+                <ul class="list-wrap">
+                    <!--<li class="list-item">没有可选择的打分表！</li>-->
+                    <li class="list-item clearfix" ng-repeat="item in recoredList track by $index">
+                        <div class="pull-left">
+                            <span class="">时间:{{item.examTime}}</span>
+                            <label class="button-label label-yellow" ng-show="scoreProperty==3 && item.scoreProperty=='4'">补</label>
+                            <label class="button-label label-green" ng-show="scoreProperty==3 && item.scoreProperty=='3'">免</label>
+                        </div>
+                       <div class="pull-right">
+                           <span class="margin-right-10" ng-show="scoreProperty==3">学分:{{!item.credit||item.credit.length<1? '--':item.credit}}</span>
+                           <span>成绩:{{item.score}}分</span>
+                       </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--下面弹出模态框-->
+    <ion-spinner class="screen-center" ng-if="dataLoading"></ion-spinner>
+
+    <div class="fullscreen-box" ng-if="loadError" ng-click="reloadData()">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+
+    <ion-footer-bar align-title="left" class="bar-ynedut">
+        <div class="buttons" ng-if="isBack">
+            <button class="button button-clear" ng-click="doBack()">
+                <i class="icon ion-chevron-left"></i>
+            </button>
+        </div>
+        <h1 class="title">&nbsp;</h1>
+
+        <div class="buttons">
+            <button class="button button-clear" ng-click="doRefresh()">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,193 @@
+<!--巡课登记  打开应用时显示效果-->
+<div class="class-patrol top-fixed " ng-class="{'more':moreKnob}" ng-controller="patrolRegisterMoreController">
+    <div class="top-fixed-list">
+        <ion-list class="patrol-list">
+            <ion-item class="item-button-right item-pos-icon" ng-click="showMore()">
+                <h2>巡课日期/节次</h2>
+                <p ng-bind="xcMobileDetailInfoVO.xcMobileStartVO.checkDateStrs + ' 第' + xcMobileDetailInfoVO.xcMobileStartVO.index + '节'" ng-click="xunchariqi.show()"></p>
+                <input ng-show="false" type="text" placeholder="日期"  datetimepicker  on-select="selectDateTimeMore(item)"
+                       datetime-instance="xunchariqi">
+                <i class="item-pos-right-icon ion-ios-arrow-down"></i>
+            </ion-item>
+            <!--此区域内容由顶部的class类more控制-->
+            <ion-item class="class-sections item-pos-icon">
+                <h2>巡课节次</h2>
+                <div class="sections-group" >
+                    <a href="javascript:;" ng-click="selectKnobMore(item,$index)"
+                       ng-repeat="item in xcMobileDetailInfoVO.xcMobileStartVO.xcMobileKnobVOs track by $index"
+                       ng-class="{'active ':item.select,'':!item.select}" >{{$index + 1}}</a>
+                </div>
+            </ion-item>
+            <!--此区域内容由顶部的class类more控制-->
+            <ion-item class="item-button-right item-pos-icon" ng-click="selectClassRoom()">
+                <h2>教室</h2>
+                <p placeholder="请选择教室"><span >{{xcMobileDetailInfoVO.xcMobileStartVO.classRoomName}}</span><span class="patrol-times">{{xcMobileDetailInfoVO.xcMobileStartVO.checkNumber}}</span></p>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-content class="class-patrol-content content-bc">
+        <!--选择教室后显示效果-->
+        <ion-list class="patrol-list">
+            <ion-item class="margin-top-10 item-button-right item-pos-icon" ng-click="selectTeachClass()">
+                <h2>班级</h2>
+                <p title="">
+                    <span ng-show="className">{{className}}</span>
+                    <span class="help-block"  ng-show="!className">非必选</span>
+                </p>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+            <ion-item class="patrol-attendance no-hover">
+                <div class="detail">
+                    <h2>应到人数</h2>
+                    <div class="clearfix">
+                        <p class="pull-left">
+                            <!--编辑状态-->
+                            <input type="text" placeholder="50" id="shouldNumberEdit"
+                                   ng-model="xcMobileDetailInfoVO.shouldNumber"
+                                   ng-change="getStudentNumber()"/>
+                        </p>
+                        <div class="edit pull-right"><i class="icon ion-edit"></i></div>
+                    </div>
+                </div>
+                <div class="detail">
+                    <h2>请假人数</h2>
+                    <div class="clearfix">
+                        <p class="pull-left">
+                            <input type="text" placeholder="50"  id="leaveNumberEdit"  ng-change="getStudentNumber()"
+                                   ng-model="xcMobileDetailInfoVO.leaveNumber" ng-blur="clickleaveNumberEdit()"/>
+                        </p>
+                        <div class="edit pull-right"><i class="icon ion-edit"></i></div>
+                    </div>
+                </div>
+                <div class="detail">
+                    <h2>未到人数</h2>
+                    <div class="clearfix">
+                        <p class="pull-left">
+                            <input type="text" placeholder="50"  id="absenteeismNumberEdit" ng-model="xcMobileDetailInfoVO.absenteeismNumber"
+                                   ng-change="getStudentNumber()"
+                                  />
+                        </p>
+                        <div class="edit pull-right"><i class="icon ion-edit"></i></div>
+                    </div>
+                </div>
+                <div class="detail">
+                    <h2>实到人数</h2>
+                    <div class="clearfix"  ng-click="clickToNumberEdit($event)">
+                        <p class="pull-left">
+                            <input type="text" placeholder="50" id="toNumberEdit"
+                                   ng-model="xcMobileDetailInfoVO.toNumber"  ng-change="getStudentNumber()"
+                                   ng-blur="clickToNumberEdit()"/>
+                        </p>
+                        <div class="edit pull-right"><i class="icon ion-edit"></i></div>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item-button-right border-bt-0 item-pos-icon" ng-click="selectCourse()">
+                <h2>课程</h2>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+                <p title="">
+                    <span ng-show="xcMobileDetailInfoVO.xcMobileDetailCourseVO.courseName">{{xcMobileDetailInfoVO.xcMobileDetailCourseVO.courseName}}</span>
+                    <span ng-show="!xcMobileDetailInfoVO.xcMobileDetailCourseVO.courseName">非必选</span>
+                </p>
+            </ion-item>
+            <ion-item class="border-bt-0 item-pos-icon"  ng-click="selectPatrollTeacher(1)">
+               <h2 class="">上课[带班]教师</h2>
+               <i class="item-pos-right-icon ion-ios-arrow-forward "></i>
+            </ion-item>
+            <ion-item class="item item-content-case">
+                <!--老师列表开始-->
+                <div class="case-content-wrap dashed-sty" ng-repeat="item in xcMobileDetailInfoVO.classTeacherList">
+                    <div class="fixed-left-text">
+                        {{item.name}}
+                    </div>
+                    <div class="pos-right-cont">
+                        <button class="button button-calm  button-mini" ng-click="selectType(item,2)" ng-class="{'activated':item.attendanceInfo == 2,'button-outline':item.attendanceInfo != 2}">迟到</button>
+                        <button class="button button-calm  button-mini" ng-click="selectType(item,3)" ng-class="{'activated':item.attendanceInfo == 3,'button-outline':item.attendanceInfo != 3}">未到</button>
+                        <button class="button button-calm  button-mini" ng-click="selectType(item,1)" ng-class="{'activated':item.attendanceInfo == 1,'button-outline':item.attendanceInfo != 1}">按时到</button>
+                    </div>
+                </div>
+                <!--老师列表结束-->
+            </ion-item>
+            <ion-item class="item-button-right item-pos-icon" ng-click="selectPatrollTeacher(2)">
+                <h2>巡课人</h2>
+                <p>
+                    <span>{{xcMobileDetailInfoVO.checkTeacher.name + (xcMobileDetailInfoVO.checkTeacher.alien ? '(':'')+xcMobileDetailInfoVO.checkTeacher.alien+(xcMobileDetailInfoVO.checkTeacher.alien ? ')':'')}}</span>
+                </p>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+            <ion-item class="item-button-right item-pos-icon" ng-click="openDiageRemark()">
+                <h2>备注</h2>
+                <p ng-bind="xcMobileDetailInfoVO.remark" ng-show="xcMobileDetailInfoVO.remark"></p>
+                <span class="help-block" ng-show="!xcMobileDetailInfoVO.remark">非必选</span>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+            <!--自定义字段-->
+            <ion-item class="item-button-right item-pos-icon" ng-click="selectCustom(custom)"  ng-repeat="custom in xcMobileDetailInfoVO.xcMobileCustomFieldVOs">
+                <h2 ng-bind="custom.itemName"></h2>
+                <!--单选下拉-->
+                <p ng-show="custom.value" ng-bind="custom.value" ng-if="custom.inputRuleType == 7"></p>
+                <span class="help-block" ng-show="!custom.value"  ng-if="custom.inputRuleType == 7">非必填</span>
+                <!--日期时间-->
+                <input type="text" ng-if="custom.inputRuleType == 6" placeholder="非必填" ng-model="custom.value"  datetimepicker datetime-type="datetime">
+                <!--时间-->
+                <input type="text" ng-if="custom.inputRuleType == 5" placeholder="非必填" ng-model="custom.value"  datetimepicker datetime-type="time">
+                <!--日期-->
+                <input type="text" ng-if="custom.inputRuleType == 4" placeholder="非必填" ng-model="custom.value"   datetimepicker>
+                <!--文本+整数或小数-->
+                <input type="text" ng-if="custom.inputRuleType == 3" ng-model="custom.value" placeholder="非必填" ng-blur="changeInputItem(custom)">
+                <!--文本+整数-->
+                <input type="text" ng-if="custom.inputRuleType == 2" ng-model="custom.value" placeholder="非必填" ng-blur="changeInputItem(custom)">
+                <!--文本+无限制-->
+                <textarea ng-if="custom.inputRuleType == 1" ng-model="custom.value" placeholder="非必填" maxlength="1000" ng-blur="changeInputItem(custom)"></textarea>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar >
+        <button class="button button-block button-sm button-calm button-center border-radius-20" ng-click="saveDetail()">
+            提交
+        </button>
+    </ion-footer-bar>
+
+    <!--自定义查询 单选-->
+    <script id="single-select.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    单选操作
+                    <span class="calm" ng-click="hideTableSingle()">取消</span>
+                </div>
+                <ul class="list-wrap text-center" ng-if="optionList.length > 0">
+                    <li class="list-item" ng-class="{'active':option.name == custom.value,'':option.name != custom.value}" ng-repeat="option in  optionList" ng-click="selectOption(option)">{{option.name}}</li>
+                </ul>
+                <ul class="list-wrap" ng-if="optionList.length == 0" >
+                    <li class="text-center margin-top-10 margin-bottom-10">
+                        <h5>没有可选择的打分表！</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!--自定义 多选-->
+    <script id="more-select.html" type="text/ng-template">
+        <div class="modal modal-btm modal-height">
+            <div class="modal-list-wrap">
+                <div class="list-heading clearfix">
+                    多选操作
+                    <span class="calm" ng-click="hideTableMore()">取消</span>
+                </div>
+                <ion-list class="list-wrap text-center">
+                    <ion-item class="list-item" ng-repeat="index in  [1,2,3,4,5]">
+                        选项
+                    </ion-item>
+                </ion-list>
+                <ul class="list-wrap" ng-if="false">
+                    <li class="list-item text-center margin-top-10 margin-bottom-10">
+                        <h5>没有可选择的打分表！</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+</div>

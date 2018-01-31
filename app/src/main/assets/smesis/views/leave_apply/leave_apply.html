@@ -1,0 +1,51 @@
+<ion-view ng-if="!showFlag">
+    <!--没有请假记录开始 解开注释可查看效果-->
+    <div class="fullscreen-box">
+        <div class="screen-center">
+            <h4 ng-if="errorFlag"><i class="tips-icon"></i>加载失败</h4>
+            <h4 ng-if="!errorFlag"><i class="tips-icon"></i>没有请假记录</h4>
+            <p ng-if="!errorFlag" class="text-theme" ng-click="refreshModal()">刷新试试</p>
+        </div>
+    </div>
+    <ion-footer-bar class="special-footer-height nobg" ng-if="!errorFlag">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon" ng-click="add()">
+                    <i></i>
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>
+<ion-view ng-if="showFlag" class="leave-detail">
+    <ion-content class="content-bg" >
+        <div class="list list-space bottom-70" >
+            <ion-item class="left-border" ng-class="{'item-button-right':item.flowStatus == '返回修改'}" ng-repeat="item in list" ng-click="goTo.gotoFun(item.instruction,1)">
+                <h2>{{item.type}}{{item.days}}天 <span class="divider">|</span>
+                    <span class="text-green" ng-if="item.flowStatus == '结束'">审批通过</span>
+                    <span class="text-danger" ng-if="item.flowStatus == '返回修改'">返回修改</span>
+                    <span class="text-theme" ng-if="item.flowStatus != '结束' && item.flowStatus != '返回修改'">审批中</span>
+                </h2>
+                <p>{{item.timeStringRange}}</p>
+                <p class="text-overflow-two">
+                    {{item.instruction}}
+                </p>
+                <div class="item-icon-only" ng-if="item.flowStatus == '返回修改'" ng-click="goTo.gotoFun(item,2)">
+                    <div class="text-theme">
+                        <span class="ion-edit"></span>
+                    </div>
+                </div>
+            </ion-item>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="special-footer-height nobg" ng-if="!errorFlag && addSecurityFlag">
+        <div class="row">
+            <div class="col text-center">
+                <div class="add-icon" ng-click="add()">
+                    <i></i>
+                </div>
+            </div>
+        </div>
+
+    </ion-footer-bar>
+</ion-view>

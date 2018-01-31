@@ -1,0 +1,24 @@
+<ion-view class="outwork_apply_add business-trip-detail">
+    <ion-content class="content-bg">
+        <div class="list list-space">
+            <label class="item edit-input item-input item-stacked-label">
+                <span class="input-label">外勤事由<span>({{!update.instruction?0:update.instruction.length}}/1000)</span></span>
+                <textarea  rows="5" maxlength="1000" ng-model="update.instruction" placeholder="请说明外勤事由或其他原因"></textarea>
+            </label>
+            <div class="item item-input">
+                <div class="item-input-flex border-right margin-right-10">
+                    <span class="input-label">外勤时间(开始)</span>
+                    <input  ng-model="update.beginTime" type="text" class="text-left" datetime-type="datetime"  datetimepicker  datetime-settings="update.beginTime"  on-select="goBackTime(update.beginTime)"
+                           placeholder="请选择">
+                </div>
+                <div class="item-input-flex">
+                    <span class="input-label">外勤时间(结束)</span>
+                    <input ng-model="update.endTime" type="text" class="text-left" datetime-type="datetime" datetimepicker   placeholder="请选择" datetime-settings="update.endTime"  on-select="goBackTime(update.endTime)"/>
+
+                </div>
+            </div>
+            <node-selector node="nodeData" options="nodeOptions"></node-selector>
+        </div>
+    </ion-content>
+    <activity-apply options="options"></activity-apply>
+</ion-view>

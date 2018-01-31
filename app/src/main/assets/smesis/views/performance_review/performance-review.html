@@ -1,0 +1,451 @@
+<ion-view class="fixed-header performance-review content-bg">
+    <div class="fixed-header-wrapper">
+        <div class="flex-box-wrap">
+            <div class="flex-box-list">
+                <div class="dropdown" >
+                    <div class=" dropdown-btn" data-toggle="dropdown" >
+                        {{mainPageYear}}年{{mainPageMonth}}月面谈
+                        <i class="ion ion-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu choose-month-wrap ">
+                        <div class="choose-month-title clearfix">
+                            <div class="year pull-left hold-on-click">
+                                <span class="current-year">{{mainSearchYear}}</span>
+                                <span class="choose" ng-click="lastYear(1)">往上一年</span>
+                                <span class="choose" ng-click="nextYear(1)">往下一年</span>
+                            </div>
+                            <div class="pull-right choose" ng-click="currentYear(1)">今天</div>
+                        </div>
+                        <div class="month-group clearfix">
+                            <div ng-class="{'today':nowMonth == 1 && nowYear == mainSearchYear && mainPageMonth != 1,'active':mainPageMonth == 1 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(01,1)" class="month-list">1月</div>
+                            <div ng-class="{'today':nowMonth == 2 && nowYear == mainSearchYear && mainPageMonth != 2,'active':mainPageMonth == 2 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(02,1)" class="month-list">2月</div>
+                            <div ng-class="{'today':nowMonth == 3 && nowYear == mainSearchYear && mainPageMonth != 3,'active':mainPageMonth == 3 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(03,1)" class="month-list">3月</div>
+                            <div ng-class="{'today':nowMonth == 4 && nowYear == mainSearchYear && mainPageMonth != 4,'active':mainPageMonth == 4 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(04,1)" class="month-list">4月</div>
+                            <div ng-class="{'today':nowMonth == 5 && nowYear == mainSearchYear && mainPageMonth != 5,'active':mainPageMonth == 5 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(05,1)" class="month-list">5月</div>
+                            <div ng-class="{'today':nowMonth == 6 && nowYear == mainSearchYear && mainPageMonth != 6,'active':mainPageMonth == 6 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(06,1)" class="month-list">6月</div>
+                            <div ng-class="{'today':nowMonth == 7 && nowYear == mainSearchYear && mainPageMonth != 7,'active':mainPageMonth == 7 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(07,1)" class="month-list">7月</div>
+                            <div ng-class="{'today':nowMonth == 8 && nowYear == mainSearchYear && mainPageMonth != 8,'active':mainPageMonth == 8 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(08,1)" class="month-list">8月</div>
+                            <div ng-class="{'today':nowMonth == 9 && nowYear == mainSearchYear && mainPageMonth != 9,'active':mainPageMonth == 9 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(09,1)" class="month-list">9月</div>
+                            <div ng-class="{'today':nowMonth == 10 && nowYear == mainSearchYear && mainPageMonth != 10,'active':mainPageMonth == 10 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(10,1)" class="month-list">10月</div>
+                            <div ng-class="{'today':nowMonth == 11 && nowYear == mainSearchYear && mainPageMonth != 11,'active':mainPageMonth == 11 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(11,1)" class="month-list">11月</div>
+                            <div ng-class="{'today':nowMonth == 12 && nowYear == mainSearchYear && mainPageMonth != 12,'active':mainPageMonth == 12 && mainPageYear == mainSearchYear}" ng-click="chooseMonth(12,1)" class="month-list">12月</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box-list">
+                <div class="input-search-group button-input">
+                    <button class="button button-block button-default" ng-click="openModal()"><i class="ion-ios-search-strong"></i>搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="page-tabs page-tabs-color-theme">
+            <a ng-class="{'active':nowPage == 1}" class="tab-item" ng-click="changePageType(1)">
+                未面谈({{onePageSize}})
+            </a>
+            <a ng-class="{'active':nowPage == 2}" class="tab-item" ng-click="changePageType(2)">
+                已面谈({{twoPageSize}})
+            </a>
+        </div>
+    </div>
+    <ion-content >
+        <!--未面谈开始-->
+        <div class="list list-space" ng-if="!oneTypeErrorFlag && !oneTypeNoResultFlag && nowPage == 1">
+            <ion-item class="item-avatar item-default item-button-right" ng-repeat="itemOne in notInterviewItems.content"
+                      ng-click="openModalOne(itemOne)">
+                <img ng-if="itemOne.sexCode == '1'" src="assets/images/male.png">
+                <img ng-if="itemOne.sexCode == '2'" src="assets/images/female.png">
+                <h2>{{itemOne.name}}&nbsp;&nbsp;
+                    <span class="font-12 text-gray">{{itemOne.postName}}</span>
+                </h2>
+                <p class="text-gray">
+                    <span>{{itemOne.orgName}}</span>
+                </p>
+                <button class="button button-theme button-item-local" >
+                    开始面谈
+                </button>
+            </ion-item>
+            <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(1)" ></ion-refresher>
+            <ion-infinite-scroll overflow-scroll="false" immediate-check="false" on-infinite="loadData(1)" distance="1%" ng-if="onePageMoreData"></ion-infinite-scroll>
+        </div>
+        <!--未面谈结束-->
+        <!--已面谈开始-->
+        <div class="list list-space" ng-if=" nowPage == 2">
+            <ion-item class="item-avatar item-default item-button-right" ng-repeat="itemTwo in interviewItems.content"
+                      ng-click="openModalOne(itemTwo)">
+                <img ng-if="itemTwo.sexCode == '1'" src="assets/images/male.png">
+                <img ng-if="itemTwo.sexCode == '2'" src="assets/images/female.png">
+                <h2>{{itemTwo.name}}&nbsp;&nbsp;<span class="font-12 text-gray">{{itemTwo.postName}}</span></h2>
+                <p class="text-gray">
+                    <span>{{itemTwo.orgName}}</span>
+                </p>
+                <button class="button button-light button-clear button-item-local" >
+                    <span ng-class="{'text-theme':itemTwo.interviewStatusStr == '待确认','text-gray':itemTwo.interviewStatusStr == '已确认'}">{{itemTwo.interviewStatusStr}}&nbsp;</span><i class="ion-chevron-right font-12 text-light"></i>
+                </button>
+            </ion-item>
+            <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(2)"></ion-refresher>
+            <ion-infinite-scroll overflow-scroll="false" immediate-check="false" on-infinite="loadData(2)" distance="50%" ng-if="twoPageMoreData"></ion-infinite-scroll>
+        </div>
+        <!--已面谈结束-->
+    </ion-content>
+    <div class="fullscreen-box" ng-if="(oneTypeErrorFlag || oneTypeNoResultFlag) && nowPage == 1">
+        <div class="screen-center">
+            <h4 ng-if="oneTypeErrorFlag"><i class="tips-icon"></i>加载失败，请重试</h4>
+            <h4 ng-if="oneTypeNoResultFlag"><i class="tips-icon"></i>没有人员名单</h4>
+            <p class="text-theme"ng-if="oneTypeErrorFlag" ng-click="doRefresh(1)">点击重试</p>
+        </div>
+    </div>
+    <div class="fullscreen-box" ng-if="(twoTypeErrorFlag || twoTypeNoResultFlag) && nowPage == 2">
+        <div class="screen-center">
+            <h4 ng-if="twoTypeErrorFlag"><i class="tips-icon"></i>加载失败，请重试</h4>
+            <h4 ng-if="twoTypeNoResultFlag"><i class="tips-icon"></i>没有人员名单</h4>
+            <p class="text-theme" ng-if="twoTypeErrorFlag" ng-click="doRefresh(2)">点击重试</p>
+        </div>
+    </div>
+</ion-view>
+<!--搜索开始-->
+<script type="text/ng-template" id="search.html">
+    <ion-modal-view>
+        <ion-view class="fixed-header performance-review search content-bg">
+            <div class="fixed-header-wrapper">
+                <div class="flex-box-wrap">
+                    <div class="flex-box-list">
+                        <div class="dropdown">
+                            <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown">
+                                {{childPageYear}}年{{childPageMonth}}月面谈
+
+                                <i class="ion ion-chevron-down"></i>
+                            </div>
+                            <div class="dropdown-menu choose-month-wrap">
+                                <div class="choose-month-title clearfix">
+                                    <div class="year pull-left hold-on-click">
+                                        <span class="current-year">{{childSearchYear}}</span>
+                                        <span class="choose" ng-click="lastYear(2)">往上一年</span>
+                                        <span class="choose" ng-click="nextYear(2)">往下一年</span>
+                                    </div>
+                                    <div class="pull-right choose" ng-click="currentYear(2)">今天</div>
+                                </div>
+                                <div class="month-group clearfix">
+                                    <div ng-class="{'active':childPageMonth == 1 && childPageYear == childSearchYear ,'today':nowMonth == 1 && nowYear == childSearchYear && childPageMonth != 1}" ng-click="chooseMonth(01,2)" class="month-list">1月</div>
+                                    <div ng-class="{'active':childPageMonth == 2 && childPageYear == childSearchYear ,'today':nowMonth == 2 && nowYear == childSearchYear && childPageMonth != 2}" ng-click="chooseMonth(02,2)" class="month-list">2月</div>
+                                    <div ng-class="{'active':childPageMonth == 3 && childPageYear == childSearchYear ,'today':nowMonth == 3 && nowYear == childSearchYear && childPageMonth != 3}" ng-click="chooseMonth(03,2)" class="month-list">3月</div>
+                                    <div ng-class="{'active':childPageMonth == 4 && childPageYear == childSearchYear ,'today':nowMonth == 4 && nowYear == childSearchYear && childPageMonth != 4}" ng-click="chooseMonth(04,2)" class="month-list">4月</div>
+                                    <div ng-class="{'active':childPageMonth == 5 && childPageYear == childSearchYear ,'today':nowMonth == 5 && nowYear == childSearchYear && childPageMonth != 5}" ng-click="chooseMonth(05,2)" class="month-list">5月</div>
+                                    <div ng-class="{'active':childPageMonth == 6 && childPageYear == childSearchYear ,'today':nowMonth == 6 && nowYear == childSearchYear && childPageMonth != 6}" ng-click="chooseMonth(06,2)" class="month-list">6月</div>
+                                    <div ng-class="{'active':childPageMonth == 7 && childPageYear == childSearchYear ,'today':nowMonth == 7 && nowYear == childSearchYear && childPageMonth != 7}" ng-click="chooseMonth(07,2)" class="month-list">7月</div>
+                                    <div ng-class="{'active':childPageMonth == 8 && childPageYear == childSearchYear ,'today':nowMonth == 8 && nowYear == childSearchYear && childPageMonth != 8}" ng-click="chooseMonth(08,2)" class="month-list">8月</div>
+                                    <div ng-class="{'active':childPageMonth == 9 && childPageYear == childSearchYear ,'today':nowMonth == 9 && nowYear == childSearchYear && childPageMonth != 9}" ng-click="chooseMonth(09,2)" class="month-list">9月</div>
+                                    <div ng-class="{'active':childPageMonth == 10 && childPageYear == childSearchYear ,'today':nowMonth == 10 && nowYear == childSearchYear && childPageMonth != 10}" ng-click="chooseMonth(10,2)" class="month-list">10月</div>
+                                    <div ng-class="{'active':childPageMonth == 11 && childPageYear == childSearchYear ,'today':nowMonth == 11 && nowYear == childSearchYear && childPageMonth != 11}" ng-click="chooseMonth(11,2)" class="month-list">11月</div>
+                                    <div ng-class="{'active':childPageMonth == 12 && childPageYear == childSearchYear ,'today':nowMonth == 12 && nowYear == childSearchYear && childPageMonth != 12}" ng-click="chooseMonth(12,2)" class="month-list">12月</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-box-list">
+                        <div class="input-search-group input-edit">
+                            <div class="input-inner">
+                                <i class="ion-ios-search-strong" ng-click="searchChildPageFun()"></i>
+                                <i class="ion-close-circled" ng-if="childConditions.name.length > 0" ng-click="clearSearchInput()"></i>
+                                <input type="text" placeholder="搜索" ng-change="searchChildPageFun()" ng-model="childConditions.name"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-content>
+                <div ng-if="modalFlag">
+                    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(3)"></ion-refresher>
+                    <ion-infinite-scroll overflow-scroll="false" immediate-check="false" on-infinite="loadData(3)" distance="1%" ng-if="threePageMoreData"></ion-infinite-scroll>
+                    <div class="item item-title-divider" align="center" ng-if=" !loadFlag || childConditions.name == ''">找到{{threePageSize}}条记录</div>
+                    <div class="item item-title-divider" align="center" ng-if="loadFlag && childConditions.name != ''">正在查找...</div>
+                    <div class="list list-space" >
+                        <ion-item class="item-avatar item-default item-button-right" ng-repeat="modalItem in modalItems.content" ng-click="openModalOne(modalItem)" ng-if="!threeTypeErrorFlag">
+                            <img ng-if="modalItem.sexCode == '1'" src="assets/images/male.png">
+                            <img ng-if="modalItem.sexCode == '2'" src="assets/images/female.png">
+                            <h2>{{modalItem.name}}&nbsp;&nbsp;<span class="font-12 text-gray">{{modalItem.postName}}</span></h2>
+                            <p class="text-gray"><span>{{modalItem.orgName}}</span></p>
+                            <button ng-if="modalItem.interviewStatusStr=='未考核'" class="button button-theme button-item-local">
+                                开始面谈
+                            </button>
+                            <button ng-if="modalItem.interviewStatusStr!='未考核'" class="button button-light button-clear button-item-local">
+                                <span ng-class="{'text-theme':modalItem.interviewStatusStr == '待确认','text-gray':modalItem.interviewStatusStr == '已确认'}">{{modalItem.interviewStatusStr}}&nbsp;</span><i class="ion-chevron-right font-12 text-light"></i>
+                            </button>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-content>
+            <div class="fullscreen-box" ng-if="threeTypeErrorFlag">
+                <div class="screen-center">
+                    <h4><i class="tips-icon"></i>加载失败，请重试</h4>
+                    <p class="text-theme" ng-click="doRefresh(3)">点击重试</p>
+                </div>
+            </div>
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col btn-group-wrap text-center">
+                        <button class="button button-local button-outline button-theme" ng-click="closeModal()">返回</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-view>
+    </ion-modal-view>
+</script>
+<!--搜索结束-->
+
+<!--面谈开始-->
+<script type="text/ng-template" id="interview.html">
+    <ion-modal-view>
+        <ion-view class="fixed-header performance-review content-bg" >
+            <div class="fixed-header-wrapper">
+                <div class="item signal-wrap">
+                    <div ng-class="{'signal sured':item.interviewStatus == 3,'signal unsure':item.interviewStatus == 2}"></div>
+                    <h2 class="text-center"><strong>{{item.name}}&nbsp;{{item.interviewMonth}}绩效面谈</strong></h2>
+                </div>
+                <div class="page-tabs page-tabs-color-theme">
+                    <a ng-class="{' active ':showStep == 1}" class="tab-item" ng-click="changeType(1)">
+                        <span class="serial">1</span>
+                        绩效评定({{allDetailNum}}/{{item.jxglPerformInterviewDTOList.length+item.jxglWorkInterviewDTOList.length}})
+                    </a>
+                    <a ng-class="{' active':showStep == 2}" class="tab-item" ng-click="changeType(2)">
+                        <span class="serial">2</span>
+                        面谈记录
+                    </a>
+                    <div class="course-tips" ng-click="showClassDialog()">
+                        <i class="ion-ios-book"></i>
+                        依能课堂
+                    </div>
+                </div>
+            </div>
+            <ion-content >
+                <!--评分开始-->
+                <div class="performance-main-group interview-score-content" ng-init="showPerform = true" ng-show="showStep == 1 && item.jxglPerformInterviewDTOList && item.jxglPerformInterviewDTOList.length>0" >
+                    <div class="performance-main-title" ng-click="showPerform = !showPerform">
+                        <strong>岗位履职</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{item.preformPoints?item.preformPoints:"未评"}}&nbsp;</span>)
+                        <div class="pull-right text-gray font-20"><i ng-class="{'ion-arrow-up-b':showPerform,'ion-arrow-down-b':!showPerform}" ></i></div>
+                    </div>
+                    <div class="performance-main-content" ng-show="showPerform">
+                        <div class="average-two-column">
+                            <div class="two-column" ng-repeat="data in item.jxglPerformInterviewDTOList">
+                                <div class="performance-score-list" ng-click="showMiddleModal(data,1)">
+                                    <h5>{{data.name}}</h5>
+                                    <div class="performance-score-main">
+                                        <span class="text-orange">{{data.indexPoints||data.indexPoints==0?data.indexPoints:"未评"}}</span>
+                                        <span class="text-gray" >{{data.gradeName}}</span>
+                                        <i class="ion-chevron-right text-gray"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="performance-main-group interview-score-content" ng-init="showWork = true" ng-show="showStep == 1  && item.jxglWorkInterviewDTOList && item.jxglWorkInterviewDTOList.length>0" >
+                    <div class="performance-main-title" ng-click="showWork = !showWork">
+                        <strong>工作业绩</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{item.workPoints?item.workPoints:"未评"}}&nbsp;</span>)
+                        <div class="pull-right text-gray font-20"><i  ng-class="{'ion-arrow-up-b':showWork,'ion-arrow-down-b':!showWork}"  ></i></div>
+                    </div>
+                    <div class="performance-main-content" ng-show="showWork">
+                        <div class="average-two-column">
+                            <div class="two-column" ng-repeat="data in item.jxglWorkInterviewDTOList">
+                                <div class="performance-score-list"  ng-click="showMiddleModal(data,2)">
+                                    <h5>{{data.indexName}}</h5>
+                                    <div class="performance-score-main">
+                                        <span class="text-orange">{{data.indexConefficient||data.indexConefficient==0?data.indexConefficient:"未评"}}</span>
+                                        <span class="text-gray" >{{data.indexgradeName}}</span>
+                                        <i class="ion-chevron-right text-gray"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--面谈记录开始-->
+                <div class="interview-record-wrap" ng-show="showStep == 2">
+                    <div class="interview-record-list">
+                        <p>本月主要工作亮点&nbsp;(&nbsp;选填&nbsp;)&nbsp;<span class="text-gray">{{item.currentMonthWorkingPoint?item.currentMonthWorkingPoint.length:0}}/120</span> </p>
+                        <div class="textarea-wrap">
+                            <textarea class="form-control font-12" maxlength="120" ng-model="item.currentMonthWorkingPoint" rows="4" placeholder="列出教职工本月工作中表现突出的几大亮点"></textarea>
+                        </div>
+                    </div>
+                    <div class="interview-record-list">
+                        <p>本月主要存在的问题&nbsp;(&nbsp;选填&nbsp;)&nbsp;<span class="text-gray">{{item.currentMonthWorkingQuestion?item.currentMonthWorkingQuestion.length:0}}/120</span></p>
+                        <div class="textarea-wrap">
+                            <textarea class="form-control font-12" maxlength="120" rows="4" ng-model="item.currentMonthWorkingQuestion"  placeholder="列出教职工本月工作中有待改进的主要问题，帮助教职工全面认识自己，不断提升"></textarea>
+                        </div>
+                    </div>
+                    <div class="interview-record-list">
+                        <p>下月工作要点&nbsp;(&nbsp;选填&nbsp;)&nbsp;<span class="text-gray">{{item.nextMonthPoint?item.nextMonthPoint.length:0}}/120</span></p>
+                        <div class="textarea-wrap">
+                            <textarea class="form-control font-12" maxlength="120" rows="4" ng-model="item.nextMonthPoint" placeholder="与教职工一起梳理下月工作计划要点，帮助其合理安排任务，提升工作业绩"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--面谈记录结束-->
+            </ion-content>
+
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col btn-group-wrap text-center">
+                        <button class="button button-local button-outline button-theme" ng-click="backInfo()">返回</button>
+                        <button class="button button-local button-theme" ng-hide="item.interviewStatus == 3" ng-click="submit()">提交面谈结果</button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-view>
+    </ion-modal-view>
+</script>
+<!--面谈结束-->
+
+<!--从中间弹出模态框 开始-->
+<script id="middle-modal.html" type="text/ng-template">
+    <ion-modal-view class="modal-amt-middle performance-score-popup" ng-show="dialogData">
+        <div class="customed-popup" >
+            <div class="popup-head">
+                <h3>{{dialogData.name?dialogData.name:dialogData.indexName}}</h3>
+                <i class="ion-close-round" ng-click="closeMiddleModal()"></i>
+            </div>
+            <ion-content>
+                <ion-radio ng-if="dialogData.type==1" class="radio-left" value="{{level.coefficient}}" ng-repeat="level in dialogData.jxglInterviewLevelDTOList" ng-model="dialogData.indexPoints" ng-click="dialogData.gradeName = level.name;dialogData.levelContentId=level.id;closeMiddleModal()">
+                    <h3><strong>{{level.name}}&nbsp;(&nbsp;<span class="text-orange">{{level.coefficient}}</span>&nbsp;)</strong></h3>
+                    <p class="text-gray font-12">{{level.leveldescription}}</p>
+                </ion-radio>
+                <ion-radio ng-if="dialogData.type==2" class="radio-left" value="{{level.coefficient}}" ng-repeat="level in dialogData.jxglInterviewLevelDTOList" ng-model="dialogData.indexConefficient" ng-click="dialogData.indexgradeName = level.name;dialogData.levelContentId=level.id;closeMiddleModal()">
+                    <h3><strong>{{level.name}}&nbsp;(&nbsp;<span class="text-orange">{{level.coefficient}}</span>&nbsp;)</strong></h3>
+                    <p class="text-gray font-12">{{level.leveldescription}}</p>
+                </ion-radio>
+            </ion-content>
+        </div>
+    </ion-modal-view>
+</script>
+
+<script id="showClassDialog.html" type="text/ng-template">
+    <ion-modal-view class="modal-amt-middle">
+    <div class="customed-popup" >
+            <div class="popup-head">
+            <h3>依能课堂</h3>
+            <i class="ion-close-round" ng-click="closeClassDialog()"></i>
+            </div>
+            <ion-content>
+            <div class="padding-20">
+            <h5><i class="ion-record text-theme"></i>&nbsp;<strong>什么是月绩效面谈？有什么作用？</strong></h5>
+    <p class="text-gray font-12">
+            绩效面谈是管理者与下属以一对一面谈的形式，就其考核期内岗位履职表现和工作业绩数据，对照履职考核指标、业绩任务目标的要求，进行面谈、分析和沟通，同时完成绩效评价。绩效面谈的作用是帮助下属改进岗位履职表现、提升工作业绩、评定工作绩效。月绩效面谈是绩效管理工作的重要环节。
+    </p>
+    </div>
+    </ion-content>
+    </div>
+
+    </ion-modal-view>
+</script>
+<!--从中间弹出模态框 结束-->
+<script id="notify-info.html" type="text/ng-template">
+    <ion-modal-view class="sign-success-wrap">
+        <div class="sign-success-content" ng-show="showErorr">
+            <i class="ion-ios-information-outline"></i>
+            <h4 class="text-theme">绩效指标评定还未做完</h4>
+        </div>
+        <div class="sign-success-content" ng-show="!showErorr">
+            <i class="ion-ios-checkmark-outline"></i>
+            <h4 class="text-theme">操作成功</h4>
+        </div>
+    </ion-modal-view>
+</script>
+<!--查看开始-->
+
+<script type="text/ng-template" id="view.html">
+    <ion-modal-view>
+        <ion-view class="fixed-header performance-review content-bg">
+            <div class="fixed-header-wrapper">
+                <div class="item signal-wrap">
+                    <div ng-if="item.interviewStatus == 3" class="signal sured"></div>
+                    <h2 class="text-center"><strong>{{item.name}}&nbsp;{{item.interviewMonth}}绩效面谈</strong></h2>
+                </div>
+                <div class="page-tabs page-tabs-color-theme">
+                    <a class="tab-item" ng-class="{'active':showStep == 1}" ng-click="changePage(1)">
+                        <span class="serial">1</span>
+                        绩效评定
+                    </a>
+                    <a class="tab-item" ng-class="{'active':showStep == 2}" ng-click="changePage(2)">
+                        <span class="serial">2</span>
+                        面谈记录
+                    </a>
+                </div>
+            </div>
+            <ion-content>
+                <div ng-if="showStep == 1">
+                    <div class="performance-main-group interview-score-content" ng-init="performFlag = true" ng-if="item.jxglPerformInterviewDTOList && item.jxglPerformInterviewDTOList.length >0">
+                        <div class="performance-main-title" ng-click="performFlag = !performFlag">
+                            <strong>岗位履职</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{item.preformPoints}}&nbsp;</span>
+                            <div class="pull-right text-gray font-20">
+                                <i ng-class="{'ion-arrow-up-b':performFlag,'ion-arrow-down-b':!performFlag}"></i></div>
+                            <span ng-class="{'text-green':item.preformPointsTop<0,'text-orange':item.preformPointsTop>0}" ng-if="item.preformPointsTop != 0">
+                            <i ng-class="{'ion-arrow-down-a':item.preformPointsTop<0,'ion-arrow-up-a':item.preformPointsTop>0}"></i>
+                                <span ng-if="item.preformPointsTop>=0">{{item.preformPointsTop}}</span>
+                                <span ng-if="item.preformPointsTop<0">{{item.preformPointsTop.toString().substr(1,item.preformPointsTop.length)}}</span>
+                            </span>)
+                        </div>
+                        <div class="performance-main-content" ng-if="performFlag">
+                            <div class="list list-label-text list-space">
+                                <div class="item item-default" ng-repeat="perform in item.jxglPerformInterviewDTOList">
+                                    <h5>{{perform.name}}&nbsp;(&nbsp;<span class="text-orange">{{perform.indexPoints}}</span>&nbsp;{{perform.gradeName}}&nbsp;)&nbsp;</h5>
+                                    <p class="text-gray font-12">{{perform.indexDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance-main-group" ng-init="workFlag = true" ng-if="item.jxglWorkInterviewDTOList && item.jxglWorkInterviewDTOList.length >0">
+                        <div class="performance-main-title"ng-click="workFlag = !workFlag">
+                            <strong>工作业绩</strong>&nbsp;(&nbsp;考核系数&nbsp;:&nbsp;<span class="text-orange">{{item.workPoints}}&nbsp;</span>
+                            <div class="pull-right text-gray font-20">
+                                <i ng-class="{'ion-arrow-up-b':workFlag,'ion-arrow-down-b':!workFlag}" ></i></div>
+                            <span ng-class="{'text-green':item.workPointsTop<0,'text-orange':item.workPointsTop>0}" ng-if="item.workPointsTop != 0">
+                            <i ng-class="{'ion-arrow-down-a':item.workPointsTop<0,'ion-arrow-up-a':item.workPointsTop>0}"></i>
+                                <span ng-if="item.workPointsTop>=0">{{item.workPointsTop}}</span>
+                                <span ng-if="item.workPointsTop<0">{{item.workPointsTop.toString().substr(1,item.workPointsTop.length)}}</span>
+                            </span>)
+                        </div>
+                        <div class="performance-main-content" ng-if="workFlag">
+                            <div class="list list-label-text list-space">
+                                <div class="item item-default" ng-repeat="work in item.jxglWorkInterviewDTOList">
+                                    <h5>{{work.indexName}}&nbsp;(&nbsp;<span class="text-orange">{{work.indexConefficient}}</span>&nbsp;{{work.indexgradeName}}&nbsp;)&nbsp;</h5>
+                                    <p class="text-gray font-12">{{work.indexDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interview-record-wrap" ng-if="showStep == 2">
+                    <div class="interview-record-list">
+                        <p>本月主要工作亮点</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{item.currentMonthWorkingPoint == null?'无':item.currentMonthWorkingPoint}}
+                        </div>
+                    </div>
+                    <div class="interview-record-list">
+                        <p>本月主要存在的问题</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{item.currentMonthWorkingQuestion == null?'无':item.currentMonthWorkingQuestion}}
+                        </div>
+                    </div>
+                    <div class="interview-record-list">
+                        <p>下月工作要点</p>
+                        <div class="line-divider"></div>
+                        <div class="textarea-wrap text-gray">
+                            {{item.nextMonthPoint == null?'无':item.nextMonthPoint}}
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar class="bar-up-shadow">
+                <div class="row">
+                    <div class="col btn-group-wrap text-center">
+                        <button class="button button-local button-outline button-theme" ng-click="closeViewModal()">返回</button>
+                     </div>
+                </div>
+            </ion-footer-bar>
+        </ion-view>
+    </ion-modal-view>
+</script>
+<!--查看结束-->

@@ -1,0 +1,105 @@
+<resources>
+
+    <declare-styleable name="AppTheme">
+        <attr name="actionBarUniformStyle" format="reference"/>
+        <attr name="actionBar_bg" format="reference|color"/>
+        <attr name="actionBar_title" format="reference"/>
+        <attr name="actionBar_buttonKey" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="SlidingMenu">
+        <attr name="mode">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="viewAbove" format="reference"/>
+        <attr name="viewBehind" format="reference"/>
+        <attr name="behindOffset" format="dimension"/>
+        <attr name="behindWidth" format="dimension"/>
+        <attr name="behindScrollScale" format="float"/>
+        <attr name="touchModeAbove">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr name="touchModeBehind">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr name="shadowDrawable" format="reference"/>
+        <attr name="shadowWidth" format="dimension"/>
+        <attr name="fadeEnabled" format="boolean"/>
+        <attr name="fadeDegree" format="float"/>
+        <attr name="selectorEnabled" format="boolean"/>
+        <attr name="selectorDrawable" format="reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="TagCloudView">
+        <attr name="tcvBackground" format="reference"/>
+        <attr name="tcvSpecialBackground" format="reference"/>
+        <attr name="tcvTextColor" format="color"/>
+        <attr name="tcvTextSpecialColor" format="color"/>
+        <attr name="tcvBorder" format="dimension"/>
+        <attr name="tcvTextSize" format="integer"/>
+        <attr name="tcvBorderItem" format="dimension"/>
+        <attr name="tcvItemBorderVertical" format="dimension"/>
+        <attr name="tcvItemBorderHorizontal" format="dimension"/>
+
+        <attr name="tcvSingleLine" format="boolean"/>
+        <attr name="tcvShowEndText" format="boolean"/>
+        <attr name="tcvShowRightImg" format="boolean"/>
+        <attr name="tcvEndText" format="string"/>
+        <attr name="tcvRightResId" format="reference"/>
+        <attr name="tcvCanTagClick" format="boolean"/>
+
+        <attr name="tcvTagResId" format="reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="LoadingViewFinal">
+        <attr name="loadMoreMode">
+            <flag name="click" value="0x0" />
+            <flag name="scroll" value="0x1" />
+        </attr>
+        <attr name="loadMoreView" format="string"/>
+        <attr name="noLoadMoreHideView" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="PtrFrameLayout">
+        <!-- Optional. If you put header and content in xml, you can you these to specify them. -->
+        <attr name="ptr_header" format="reference" />
+        <attr name="ptr_content" format="reference" />
+
+        <!-- the resistance when you are moving the frame -->
+        <attr name="ptr_resistance" format="float" />
+
+        <!-- the ration of the height of the header to trigger refresh -->
+        <attr name="ptr_ratio_of_header_height_to_refresh" format="float" />
+
+        <attr name="ptr_duration_to_close" format="integer" />
+        <attr name="ptr_duration_to_close_header" format="integer" />
+
+        <!-- pull to refresh, otherwise release to refresh, default is release to refresh -->
+        <attr name="ptr_pull_to_fresh" format="boolean" />
+
+        <!-- keep header when refreshing-->
+        <attr name="ptr_keep_header_when_refresh" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PtrClassicHeader">
+        <attr name="ptr_rotate_ani_time" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <!-- 允许显示最大行数 -->
+        <attr name="maxExpandLines" format="integer"/>
+        <!-- 动画执行时间 -->
+        <attr name="duration" format="integer"/>
+
+        <attr name="expandDrawable" format="reference"/>
+
+        <attr name="collapseDrawable" format="reference"/>
+    </declare-styleable>
+
+</resources>

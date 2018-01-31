@@ -1,0 +1,52 @@
+<!--添加/修改报告-->
+<ion-view class="add-report">
+    <ion-content class="content-bg">
+        <div class="list list-space edit-input">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">标题</span>
+                <input type="text" ng-model="reportData.title" placeholder="输入报告标题" maxlength="30"/>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">内容 <span class="text-gray font-12">{{getContentLength(reportData.reportContent)}}/2000</span></span>
+                <textarea type="input" rows="5" class="form-control" ng-model="reportData.reportContent" placeholder="输入报告内容" maxlength="2000"></textarea>
+            </label>
+            <div class="item item-input">
+                <div class="item-input-flex border-right margin-right-10">
+                    <span class="input-label">报告类型</span>
+                    <!--<input type="text" slide-select init-data="vehicleCodeData" class="text-left" ng-model="reportData.reportTypeName" readonly placeholder="请选择报告类型"/>-->
+                    <input slide-select init-data="reportTypeList" name-field="dictName" slide-title="请选择报告类型" ng-model="reportData.reportTypeName"
+                           selected-obj="reportTypeSelectData" on-select="reportTypeSelect(item)" type="text" placeholder="请选择" class="text-left" readonly="readonly">
+                </div>
+                <div class="item-input-flex">
+                    <span class="input-label">重要级别</span>
+                    <!--<input type="text" class="text-left" ng-model="reportData.importantName" readonly placeholder="请选择重要级别"/>-->
+                    <input slide-select init-data="importantList" name-field="dictName" slide-title="请选择重要级别" ng-model="reportData.importantName"
+                           selected-obj="importantSelectData" on-select="importantSelect(item)" type="text" placeholder="请选择" class="text-left" readonly="readonly">
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">主送人</span>
+                <input type="text" placeholder="请选择"  user-selector inServiceStates = "1" title="主送人" routingStatusType="job_report" userTypeApp="2" on-select="selectMainUser(item)" readonly ng-model="reportData.mainUserName"/>
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <div class="item item-input item-stacked-label item-button-right">
+                <span class="input-label">抄送人</span>
+                <input type="text" placeholder="非必选"  user-selector isMore="true" inServiceStates = "1" title="抄送人"  on-select="selectUserList(item)" select-list="reportData.userDTOList" readonly ng-model="userNames"/>
+                <div class="item-icon-only">
+                    <i class="ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+            <div file-uploader init-files="reportData.fsAnnexIDs" init-broadcast="filesDone"></div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-theme button-local button-outline" ng-click="backMethod()">返回</button>
+                <button class="button button-theme button-local" ng-click="saveData()" ng-disabled="opreation.canSubmit">提交</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

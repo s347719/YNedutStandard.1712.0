@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.picker.picture.GalleryActivity">
+
+    <RelativeLayout
+        style="?attr/actionBarUniformStyle"
+        android:background="@color/actionBar_bg_blue"
+        tools:layout_height="46dp"
+        tools:layout_width="match_parent">
+
+        <TextView
+            style="?attr/actionBar_title"
+            android:layout_centerInParent="true"
+            android:text="@string/gallery_title"
+            tools:layout_height="wrap_content"
+            tools:layout_width="wrap_content"/>
+    </RelativeLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        />
+
+    <RadioGroup
+        android:id="@+id/gallery_radG_switchBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gallery_switcherBar_height"
+        android:background="@color/actionBar_bg_blue"
+        android:checkedButton="@+id/gallery_rad_switchAlbum"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/gallery_switcherBar_verPadding"
+        android:paddingTop="@dimen/gallery_switcherBar_verPadding">
+
+        <RadioButton
+            android:id="@id/gallery_rad_switchAlbum"
+            android:layout_width="@dimen/gallery_switcherBar_item_width"
+            android:layout_height="match_parent"
+            android:background="@drawable/radiobutton_shape_lefttab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/gallery_album"
+            android:textColor="@color/text_check_statecolor_black_white"/>
+
+        <RadioButton
+            android:id="@+id/gallery_rad_switchOtherFolders"
+            android:layout_width="@dimen/gallery_switcherBar_item_width"
+            android:layout_height="match_parent"
+            android:background="@drawable/radiobutton_shape_righttab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/gallery_otherFolders"
+            android:textColor="@color/text_check_statecolor_black_white"/>
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/gallery_pager_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/gallery_bottomBar_height"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/gallery_btn_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gallery_preview"/>
+
+            <Button
+                android:id="@+id/gallery_btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gallery_done"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

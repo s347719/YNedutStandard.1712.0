@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yineng.ynmessager.view.face.FaceRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/FaceRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chatFooter_height"
+        android:background="@drawable/chat_send_msg_bg"
+        android:padding="@dimen/chatFooter_padding">
+
+        <ImageView
+            android:id="@+id/btn_face"
+            android:layout_width="@dimen/chatFooter_btnSize"
+            android:layout_height="@dimen/chatFooter_btnSize"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/chatFooter_each_spacing"
+            android:src="@mipmap/chat_send_face" />
+
+        <ImageView
+            android:id="@+id/btn_select"
+            android:layout_width="@dimen/chatFooter_btnSize"
+            android:layout_height="@dimen/chatFooter_btnSize"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/chatFooter_each_spacing"
+            android:layout_toRightOf="@+id/btn_face"
+            android:background="@mipmap/chat_send_more"
+            android:clickable="true"
+            android:scaleType="center" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="@dimen/chatFooter_sendBtn_width"
+            android:layout_height="@dimen/chatFooter_sendBtn_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/chat_send_btn_shape"
+            android:text="@string/chatFooter_send"
+            android:textColor="@color/white"
+            android:textSize="@dimen/chatFooter_sendBtn_textSize"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_send_voice"
+            android:layout_width="@dimen/chatFooter_sendBtn_width"
+            android:layout_height="@dimen/chatFooter_sendBtn_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/chat_send_btn_shape"
+            android:src="@mipmap/chat_open_voice" />
+
+        <com.yineng.ynmessager.view.DisableEmojiEditText
+            android:id="@+id/et_sendmessage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/chatFooter_chatText_height"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/chatFooter_each_spacing"
+            android:layout_toLeftOf="@+id/btn_send"
+            android:layout_toRightOf="@id/btn_select"
+            android:background="@null"
+            android:paddingBottom="@dimen/chatFooter_chatText_verPadding"
+            android:paddingLeft="@dimen/chatFooter_chatText_horPadding"
+            android:paddingRight="@dimen/chatFooter_chatText_horPadding"
+            android:paddingTop="@dimen/chatFooter_chatText_verPadding"
+            android:maxLines="4"
+            android:hint=""
+            android:textSize="@dimen/chatFooter_chatText_textSize" />
+
+        <View
+            android:layout_toLeftOf="@+id/btn_send"
+            android:layout_toRightOf="@id/btn_select"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="@dimen/chatFooter_each_spacing"
+            android:background="@color/actionBar_bg"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_utilchoose"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chatFooter_popupBar_height"
+        android:layout_below="@id/rl_input"
+        android:background="#f6f5f5"
+        android:visibility="gone">
+
+        <GridView
+            android:id="@+id/gv_choose_grid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="@dimen/chatFooter_popupBar_other_item_width"
+            android:numColumns="auto_fit"
+            android:paddingBottom="@dimen/chatFooter_popupBar_other_verPadding"
+            android:paddingLeft="@dimen/chatFooter_popupBar_other_horPadding"
+            android:paddingRight="@dimen/chatFooter_popupBar_other_horPadding"
+            android:paddingTop="@dimen/chatFooter_popupBar_other_verPadding"
+            android:stretchMode="spacingWidth"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_facechoose"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/chatFooter_popupBar_height"
+        android:layout_below="@id/rl_input"
+        android:background="#f6f5f5"
+        android:visibility="gone">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_contains"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/chatFooter_popupBar_indicator_marginBottom"
+            android:gravity="center"
+            android:orientation="horizontal"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_voice_record_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/chatFooter_popupBar_height"
+        android:layout_below="@id/rl_input"
+        android:background="#f6f5f5"
+        android:visibility="gone">
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/voice_indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="10dip"
+            android:textColor="@color/actionBar_bg"
+            app:linePosition="bottom" />
+
+        <com.yineng.ynmessager.view.ViewPagerCompat
+            android:id="@+id/vp_voice_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/voice_indicator"/>
+    </RelativeLayout>
+
+</com.yineng.ynmessager.view.face.FaceRelativeLayout>

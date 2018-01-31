@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_chat_common_title_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/common_actionbar_height"
+    android:background="@color/actionBar_bg">
+
+    <TextView
+        android:id="@+id/chat_common_title_view_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_actionbar_padding"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/previous"
+        android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+        android:gravity="center_vertical"
+        android:onClick="onTitleViewClickListener"
+        android:text="@string/chatHeader_previous"
+        android:textColor="@color/white"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+    
+    <LinearLayout
+        android:id="@+id/chat_common_titleview_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_actionbar_padding"
+        android:layout_alignParentRight="true" >
+
+        <ImageView
+            android:id="@+id/chat_common_title_view_infomation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onTitleViewClickListener"
+            android:padding="@dimen/common_actionbar_btn_padding"
+            android:src="@mipmap/user_center_men" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/chat_common_titleview_right"
+        android:layout_toStartOf="@id/chat_common_titleview_right"
+        android:layout_toRightOf="@id/chat_common_title_view_back"
+        android:layout_toEndOf="@id/chat_common_title_view_back"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/chat_common_title_view_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_actionbar_title_textSize" />
+
+        <TextView
+            android:id="@+id/chat_common_title_view_status"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_textSize_xxsmall"
+            android:visibility="gone" />
+    </LinearLayout>
+
+   <!--  <TextView
+        android:id="@+id/chat_common_title_view_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@id/chat_common_title_view_infomation"
+        android:layout_toRightOf="@id/chat_common_title_view_back"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="ddddddd"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_actionbar_title_textSize" />
+
+    <TextView
+        android:id="@+id/chat_common_title_view_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_common_title_view_name"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@id/chat_common_title_view_infomation"
+        android:layout_toRightOf="@id/chat_common_title_view_back"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="dfdas"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_actionbar_title_textSize" /> -->
+
+</RelativeLayout>

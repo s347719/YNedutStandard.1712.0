@@ -1,0 +1,85 @@
+<div class="" style="height: 100%">
+    <!--详情-->
+    <div class="buttom-pop-bg" ng-if="isShowMoreCourse" ng-click="hideMoreCourse()"></div>
+    <div class="buttom-pop animate-if" ng-if="isShowMoreCourse">
+        <div class="course-bottom-pop">
+            <p class="head">{{dailys}}{{timeTypeValue}}第{{knob}}节</p>
+            <div class="course-list">
+                <div class="course-item" ng-repeat="msgList in courseMsgList">
+                    <p class="title">{{msgList.name}}</p>
+                    <p class="detail">{{msgList.teachers}}<span ng-show="msgList.classRooms!=''">,</span>{{msgList.classRooms}}<span ng-show="msgList.groupNames!=''">,</span>{{msgList.groupNames}}<span ng-show="msgList.classNames!=''">,</span>{{msgList.classNames}}</p>
+                    <p class="detail">{{msgList.substituteReason}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--详情-->
+    <!--左侧固定时间段-->
+    <div class="list-item-times">时间</div>
+    <div class="schedule-times-left" ng-class="{'courseWeek':nocourse}">
+        <ul class="times-left-list">
+            <li class="list-item" ng-style="{'height':amKnobHeight.height}">上午</li>
+            <li class="list-item" ng-style="{'height':pmKnobHeight.height}">下午</li>
+            <li class="list-item" ng-style="{'height':ngKnobHeight.height}" ng-if="isNoNgKnob">晚上</li>
+        </ul>
+    </div>
+    <!--左侧固定时间段-->
+    <!--右侧区域-->
+    <ion-scroll direction="x"  paging="true">
+        <!--周次-->
+        <div class="tab-week-group">
+            <ul class="week-list">
+                <li class="week-item" ng-repeat="datas in tableByWeekList">
+                    {{datas.daily}}
+                </li>
+            </ul>
+        </div>
+        <!--周次-->
+        <div class="schedule-times-right" ng-class="{'courseWeek':nocourse}">
+            <!--节数-->
+            <div class="pitch-group" ng-style="amKnobHeight">
+                <ul class="pitch-list" ng-repeat="datas in tableByWeekList">
+                    <li class="pitch-item" ng-click="showMoreCourse(pitch,datas.daily)" ng-repeat="pitch in datas.amKnobList" ng-style="itemHeight">
+                        <span ng-repeat="ampitch in pitch.courseList">
+                            {{ampitch.name}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="pitch-group" ng-style="pmKnobHeight">
+                <ul class="pitch-list" ng-repeat="datas in tableByWeekList">
+                    <li class="pitch-item" ng-click="showMoreCourse(pitch,datas.daily)" ng-repeat="pitch in datas.pmKnobList" ng-style="itemHeight">
+                              <span ng-repeat="pmpitch in pitch.courseList">
+                            {{pmpitch.name}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="pitch-group" ng-style="ngKnobHeight">
+                <ul class="pitch-list" ng-repeat="datas in tableByWeekList">
+                    <li class="pitch-item" ng-click="showMoreCourse(pitch,datas.daily)" ng-repeat="pitch in datas.ngKnobList" ng-style="itemHeight">
+                              <span ng-repeat="ngpitch in pitch.courseList">
+                            {{ngpitch.name}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!--节数-->
+        </div>
+    </ion-scroll>
+    <!--右侧区域-->
+    <div class="activity-week-wrap" ng-if="nocourse">
+        <!--周课-->
+        <div class="weekCourse-wrap" ng-if="weekCourse">
+            <span class="nameTitle">周课</span>
+            <span class="help-inline">{{weekCourseName}}</span>
+        </div>
+        <!--周课-->
+        <!--活动周-->
+        <div class="weekActivity-wrap" ng-if="weekActivity">
+            <span class="nameTitle">活动周</span>
+            <span class="help-inline">{{weekCourseName}}</span>
+        </div>
+        <!--活动周-->
+    </div>
+</div>

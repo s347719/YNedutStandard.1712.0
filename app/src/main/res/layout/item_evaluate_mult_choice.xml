@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp" >
+
+    <CheckBox
+        android:id="@+id/item_app_evaluate_option_mult_cb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_app_evaluate_option_bg"
+        android:text="团队里程碑荣誉感\n8分-10分"
+        android:textSize="@dimen/common_listItem_textSize"
+        android:button="@null" />
+
+    <ImageView
+        android:id="@+id/item_app_evaluate_option_mult_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/selector_app_evaluate_mult_choose"
+        android:background="@null" />
+
+</RelativeLayout>

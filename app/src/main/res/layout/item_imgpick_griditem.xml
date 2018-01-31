@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/imgPick_gridContent_item_size"
+    android:layout_height="@dimen/imgPick_gridContent_item_size" >
+
+    <ImageView
+        android:id="@+id/imgPick_img_gridItem_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <CheckBox
+        android:id="@+id/imgPick_chk_gridItem_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/imgPick_img_gridItem_img"
+        android:layout_alignEnd="@id/imgPick_img_gridItem_img"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+</RelativeLayout>

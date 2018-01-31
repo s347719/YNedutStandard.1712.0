@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/demand_hole_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_15">
+
+
+        <RelativeLayout
+            android:id="@+id/demand_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/demand_status"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_5">
+
+                <TextView
+                    android:id="@+id/demand_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:textSize="@dimen/common_textSize_small" />
+
+                <TextView
+                    android:id="@+id/demand_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:textColor="@color/common_text_color"
+                    android:textSize="@dimen/common_textSize_xsmall" />
+
+                <TextView
+                    android:id="@+id/demand_curcheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/common_text_color"
+                    android:textSize="@dimen/common_textSize_xsmall" />
+
+                <TextView
+                    android:id="@+id/demand_precheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/common_text_color"
+                    android:textSize="@dimen/common_textSize_xsmall" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/demand_status"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_60"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/has_review_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/demand_top"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_10"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/demand_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/common_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_25"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/demend_review_show_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/review_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pre_checker_info"
+                        android:textColor="@color/actionBar_bg"
+                        android:textSize="@dimen/common_textSize_xsmall" />
+
+                    <ImageView
+                        android:id="@+id/demand_review_image"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_toRightOf="@+id/review_text_view" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/demand_only_hint_computer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="visible">
+
+
+                    <TextView
+                        android:id="@+id/demand_computer_text_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/common_textSize_xsmall"
+                        android:textColor="@color/common_text_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/demand_review_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/has_review_person"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/demand_review_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/event_review_text_bg"
+                    android:padding="@dimen/dp_3"
+                    android:textColor="@color/common_text_color" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/common_content_bg" />
+</LinearLayout>

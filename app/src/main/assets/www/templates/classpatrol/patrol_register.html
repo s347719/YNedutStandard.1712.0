@@ -1,0 +1,38 @@
+<!--巡课登记  打开应用时显示效果-->
+<div class="class-patrol top-fixed more" ng-controller="patrolRegisterController"><!--类more-->
+    <div class="top-fixed-list">
+        <ion-list class="patrol-list">
+            <ion-item class="item-button-right item-pos-icon" >
+                <h2>巡课日期</h2>
+                <p ng-bind="xcMobileStartVO.checkDateStrs" ng-click="xunchariqi.show()"></p>
+                <input ng-show="false" type="text" placeholder="日期" ng-model="xcMobileStartVO.checkDateStrs" datetimepicker on-select="selectDateTime(item)" datetime-instance="xunchariqi">
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+            <!--此区域内容由顶部的class类more控制-->
+            <ion-item class="class-sections no-hover">
+                <h2>巡课节次</h2>
+                <div class="sections-group">
+                    <a href="javascript:;" ng-click="selectKnob(item)" ng-repeat="item in  xcMobileStartVO.xcMobileKnobVOs track by $index" ng-class="{'active':item.select,'':!item.select}">{{$index+1}}</a>
+                </div>
+            </ion-item>
+            <!--此区域内容由顶部的class类more控制-->
+
+            <ion-item class="item-button-right item-pos-icon" ng-click="selectClassRoom()">
+                <h2>教室</h2>
+                <p><span >{{classRoom.name}}</span><span ng-if="classRoom.id" class="patrol-times">{{ xcMobileDetailInfoVO_key.xcMobileStartVO.checkNumber}}</span></p>
+                <i class="item-pos-right-icon ion-ios-arrow-forward"></i>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-content class="class-patrol-content content-bc">
+        <!--只有一个按钮开始-->
+        <div class="margin-top-10 text-center">
+            <button class="button button-sm button-calm button-center border-radius-20" ng-click="nextStep()">下一步</button>
+        </div>
+        <!--只有一个按钮结束-->
+
+        <!--为便查看页面效果，点击下一步过后显示教室详细信息请查看路由patrol_register_more-->
+        <!--可将显示的内容拷贝到下方，以便在一个页面中控制-->
+
+    </ion-content>
+</div>

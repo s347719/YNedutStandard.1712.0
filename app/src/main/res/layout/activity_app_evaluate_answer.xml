@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eeeeee" >
+
+    <RelativeLayout
+        android:id="@+id/app_evaluate_change_ques"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/common_actionbar_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" >
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#d2d2d2" />
+
+        <TextView
+            android:id="@+id/app_evaluate_pre_ques"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/divider"
+            android:layout_marginLeft="@dimen/common_listItem_padding"
+            android:layout_marginRight="@dimen/common_listItem_padding"
+            android:clickable="true"
+            android:drawableLeft="@mipmap/app_evaluate_pre_ques"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:gravity="center_vertical"
+            android:padding="@dimen/common_actionbar_padding"
+            android:text="@string/evaluatePreviousQues"
+            android:textColor="@color/common_text_color"
+            android:textSize="@dimen/common_actionbar_backKey_textSize" />
+
+        <TextView
+            android:id="@+id/app_evaluate_next_ques"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/divider"
+            android:layout_marginLeft="@dimen/common_listItem_padding"
+            android:layout_marginRight="@dimen/common_listItem_padding"
+            android:clickable="true"
+            android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+            android:drawableRight="@mipmap/app_evaluate_next_ques"
+            android:gravity="center_vertical"
+            android:padding="@dimen/common_actionbar_padding"
+            android:text="@string/evaluateNextQues"
+            android:textColor="@color/common_text_color"
+            android:textSize="@dimen/common_actionbar_backKey_textSize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_evaluate_ques_topic_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="@dimen/common_listItem_padding" >
+
+        <TextView
+            android:id="@+id/app_evaluate_ques_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="题目类别"
+            android:textColor="#434343"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+        <TextView
+            android:id="@+id/app_evaluate_ques_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="0/0"
+            android:textColor="#434343"
+            android:textSize="@dimen/common_listItem_textSize"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/app_evaluate_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/app_evaluate_ques_topic_view"
+        android:background="#d2d2d2" />
+
+    <ScrollView
+        android:id="@+id/app_evaluate_ques_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:focusable="true"
+    	android:focusableInTouchMode="true"
+        android:layout_below="@id/app_evaluate_divider"
+        android:layout_above="@id/app_evaluate_change_ques" >
+    </ScrollView>
+
+</RelativeLayout>

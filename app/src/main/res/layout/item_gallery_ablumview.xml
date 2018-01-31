@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/gallery_img_albumItem_picture"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gallery_album_item_height"
+        android:scaleType="centerCrop"/>
+
+    <CheckBox
+        android:id="@+id/gallery_img_albumItem_checkBox"
+        android:layout_width="@dimen/gallery_album_item_checkbox_size"
+        android:layout_height="@dimen/gallery_album_item_checkbox_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/gallery_album_item_checkbox_margin"
+        android:layout_marginRight="@dimen/gallery_album_item_checkbox_margin"
+        android:layout_marginTop="@dimen/gallery_album_item_checkbox_margin"
+        android:background="@drawable/checkbox1_selector"
+        android:button="@null"/>
+</RelativeLayout>

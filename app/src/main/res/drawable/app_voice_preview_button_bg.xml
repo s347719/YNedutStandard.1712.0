@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape android:shape="rectangle">
+            <stroke android:width="1px" android:color="@color/app_actionBar_bg" />
+            <solid android:color="#ffffffff" />
+        </shape></item>
+    <item><shape android:shape="rectangle">
+            <!-- 边框的颜色 ：不能和窗口背景色一样 -->
+            <stroke android:width="1px" android:color="#d2d2d2" />
+            <solid android:color="#ffffffff" />
+        </shape></item>
+
+</selector>

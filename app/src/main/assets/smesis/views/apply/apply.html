@@ -1,0 +1,89 @@
+<!--申请-->
+<ion-view class="content-bg fixed-header has-page-tabs apply-wrap has-special-footer-bar">
+    <div class="fixed-header-wrapper clearfix">
+        <div class="dropdown">
+            <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown">
+                流程名称
+                <i class="ion ion-chevron-down"></i>
+            </div>
+            <ul class="dropdown-menu">
+                <li ng-class="{'active':flow.isClick}" ng-repeat="flow in flowTypeList" ng-click="clickType(1,flow)"><a href="">{{flow.flowName}}</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <div class="dropdown-btn dropdown-toggle" data-toggle="dropdown">
+                流程状态
+                <i class="ion ion-chevron-down"></i>
+            </div>
+            <ul class="dropdown-menu">
+                <li ng-class="{'active':approve.isClick}" ng-repeat="approve in approveTypeList" ng-click="clickType(2,approve)"><a href="">{{approve.name}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <div class="bottom-70" ng-show="dataList.length >0">
+            <div class="list" ng-repeat=" data in dataList">
+                <ion-item class="item-default signal-wrap" ng-click="showApplyDetail(data)">
+                    <h2>{{data.activityTitle}}</h2>
+                    <div class="font-12"><span class="text-gray">流程申请时间&nbsp;:&nbsp;</span>{{data.applyTime}}</div>
+                    <div class="font-12"><span class="text-gray">上一审批人&nbsp;:&nbsp;</span>{{data.lastApproveUser ?data.lastApproveUser:"无"}}</div>
+                    <div class="font-12 text-overflow"><span class="text-gray">审批意见&nbsp;:&nbsp;</span>{{data.approveMessage?data.approveMessage:"无"}}</div>
+                    <div class="signal approving" ng-show="data.processScheduleStates ==3"></div>
+                    <div class="signal back-edit" ng-show="data.actKey !='YNCostApply' && data.processScheduleStates ==2"></div>
+                    <div class="signal approved" ng-show="data.processScheduleStates ==1"></div>
+                    <div class="signal unpass" ng-show="data.actKey =='YNCostApply' && data.processScheduleStates ==2"></div>
+                </ion-item>
+                <div class="item-operation clearfix" ng-show="data.actKey !='YNCostApply' && data.processScheduleStates ==2">
+                    <div class="operation-list" ng-click="deleteData(data)"><i class="ion-ios-trash-outline"></i>删除</div>
+                    <div class="operation-list" ng-click="editData(data)"><i class="ion-edit"></i>修改</div>
+                </div>
+                <div class="item-operation clearfix" ng-show="data.actKey !='YNCostApply'&& data.processScheduleStates ==3">
+                    <div class="operation-list" ng-click="revertData(data)"><i class="ion-ios-trash-outline"></i>撤销</div>
+                    <div class="operation-list" ng-click="urgeData(data)"><i class="ion-edit"></i>催办</div>
+                </div>
+                <div class="item-operation clearfix" ng-show="data.actKey =='YNCostApply'">
+                    <div class="operation-list" ng-click="deleteData(data)" ng-show="data.processScheduleStates !=1"><i class="ion-ios-trash-outline"></i>删除</div>
+                    <div class="operation-list" ng-click="editData(data)" ng-show="data.showEdit"><i class="ion-edit"></i>修改</div>
+                </div>
+            </div>
+            <span ng-show="!isMoreData" class="infinite-more block">没有更多数据了!</span>
+            <ion-infinite-scroll  ng-if="isMoreData" on-infinite="loadMore()"  distance="1%"></ion-infinite-scroll>
+        </div>
+    </ion-content>
+    <!--页面无数据或加载失败时展示 开始 由开发人员判断何时使用，暂注释-->
+    <div class="fullscreen-box" ng-show="showNoData">
+        <div class="screen-center"  >
+            <h4>没有申请记录</h4>
+            <h4 ng-show="showError">加载失败，请重试</h4>
+            <button class="button button-local retry-button" ng-click="loadMore(1)" ng-show="showError">点击重试</button>
+        </div>
+    </div>
+    <!--页面无数据或加载失败时展示 结束-->
+    <ion-footer-bar class="special-footer-height nobg">
+        <div class="row">
+            <div class="col text-center" ng-click="chooseApplyStyle()">
+                <div class="add-icon">
+                    <i class=""></i>
+                </div>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--选择申请类型 开始-->
+    <script id="apply-style.html" type="text/ng-template">
+        <ion-modal-view class="auto min-modal-height apply-wrap">
+            <ion-header-bar class="bar-stable">
+                <h1 class="title">选择流程</h1>
+                <button class="button button-clear button-custom" ng-click="closeApplyStyle()">取消</button>
+            </ion-header-bar>
+            <div class="padding has-header button-list">
+                <div class="slide-select-buttons">
+                    <div class="slide-select-button" ng-repeat="workFlow in workFlowList">
+                        <button class="button button-local button-block button-theme button-outline" ng-click="applyFlow(workFlow)">{{workFlow.flowName}}</button>
+                    </div>
+                </div>
+                <p class="font-12"><span class="text-danger">提示：</span>目前手机端只支持以上流程申请，其他申请请在SMEsis学校运营管理平台电脑端操作！</p>
+            </div>
+        </ion-modal-view>
+    </script>
+</ion-view>

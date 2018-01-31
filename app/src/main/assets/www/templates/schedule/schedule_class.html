@@ -1,0 +1,47 @@
+<!--新版班级课表-->
+<ion-view class="schedule-new-wrap schedule">
+    <div class="fullscreen-box" ng-if="loadErrorMsg">
+        <div class="screen-center" ng-click="showWarning()">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">刷新重试</p>
+        </div>
+    </div>
+    <div class="content-wrap" ng-if="dataContent">
+        <!--顶部切换周区域-->
+        <ion-header-bar class="schedule-header class-schedule-header bar-calm">
+            <div class="dropdown-wrap bor-right">
+                <div class="header-dropdown dropdown">
+                    <p class="dropdown-btn dropdown-toggle dropdown-toggle-pd" data-toggle="dropdown"><span>{{selectedAdminClass.name}}</span><i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu text-left">
+                        <li ng-repeat="ac in adminClassList" ng-click="changeAdminClass(ac)" ng-class="ac.id==selectedAdminClass.id?'active':''">
+                            <a href="">{{ac.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dropdown-wrap">
+                <div class="header-dropdown dropdown report-task">
+                    <div class="dropdown-btn dropdown-toggle clearfix" data-toggle="dropdown">
+                        <div class="pull-left">
+                            <span class="week">{{selectedWeek.week}}</span>
+                            <span class="times">{{selectedWeek.weekStartMonthDay|date:'MM.dd'}}~{{selectedWeek.weekEndMonthDay|date:'MM.dd'}}</span>
+                        </div>
+                        <div class="pull-right">
+                            <i class="ion-arrow-down-b"></i>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu">
+                        <ul class="week-group clearfix">
+                            <li ng-repeat="week in weekList" ng-class="{'current':curWeekAndDay.week == week.activityWeek , 'active':isClickWeek == week.activityWeek}" ng-click="changeWeek(week)">{{week.week}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </ion-header-bar>
+        <!--顶部切换周区域-->
+        <!--课表组件-->
+        <schedule-directive options="options" ng-if="initDataTag && options"></schedule-directive>
+        <!--课表组件-->
+    </div>
+</ion-view>

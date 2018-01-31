@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_common_title_left_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/common_actionbar_height"
+    android:background="@color/actionBar_bg"
+    android:padding="@dimen/common_actionbar_padding" >
+
+    <!--
+         <Button
+        android:id="@+id/chat_common_title_view_back"
+        android:layout_width="70dp"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:onClick="onTitleViewClickListener"
+        android:scaleType="center"
+        android:singleLine="true"
+        android:text="消息" />
+    -->
+
+
+    <!--
+         <Button
+        android:id="@+id/chat_title_view_infomation"
+        android:layout_width="70dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="资料" />
+    -->
+
+    <TextView
+        android:id="@+id/tv_common_title_left_view_back"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/previous"
+        android:drawablePadding="@dimen/common_actionbar_backKey_drawableLeftPadding"
+        android:gravity="center_vertical"
+        android:onClick="onTitleViewClickListener"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:textSize="@dimen/common_contact_actionbar_backKey_textSize" />
+
+    <TextView
+        android:id="@+id/tv_common_title_left_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_actionbar_title_textSize" />
+
+</RelativeLayout>

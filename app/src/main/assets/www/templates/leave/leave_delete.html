@@ -1,0 +1,72 @@
+<ion-view ng-controller="leaveDeleteCtrl">
+    <ion-header-bar class="bar-calm" >
+        <div class="pos-header-box pos-icon-rt" ng-show="!searchBar">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="输入姓名/别名/学号" ng-click="changeSearchStatus()">
+            <i class="right-icon ion-ios-close-outline"></i>
+        </div>
+        <div class="pos-header-box pos-icon-rt pos-text-rt" ng-show="searchBar">
+            <i class="input-left-icon ion-android-search"></i>
+            <input type="text" class="form-control radius-input border-radius-20" placeholder="输入姓名/别名/学号" ng-model="search.searchContent" id="searchIt">
+            <i class="right-icon ion-ios-close-outline" ng-click="cleanSearchContent()"></i>
+            <div class="right-text" ng-click="cancelBack()">取消</div>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="content-bc">
+        <div class="search-result-text" ng-if="searchlenShow">
+            <span>{{showDates.length}}个搜索结果</span>
+        </div>
+        <ion-list class="list examine-list-wrap" ng-repeat="item in showDates" ng-click="item.showDetail=!item.showDetail" >
+            <ion-item class="item examine-list-item list-item-content" >
+                <div class="pos-box-wrap right-btn-one" ng-if="showDates&&showDates.length>0">
+                    <div class="img-box">
+                        <img  ng-src="{{originBaseUrl}}/file/downloadStream.htm?view=1&fastDFSId={{item.headPortraitUrl}}" ng-if="item.headPortraitUrl">
+                        <img  src="img/userface_0.png" ng-if="!item.headPortraitUrl &&item.gender != 2">
+                        <img  src="img/userface_1.png" ng-if="!item.headPortraitUrl &&item.gender == 2">
+                    </div>
+                    <div class="box-wrap">
+                        <span class="box-name" ng-bind="item.name"></span>
+                        <span class="box-times" ng-if="item.alias">{{item.alias}}，{{item.number}}</span>
+                        <span class="box-times"  ng-if="!item.alias">{{item.number}}</span>
+                    </div>
+                    <div class="right-box">
+                        <button class="button button-sm button-calm" type="button" ng-disabled="item.delStatus" ng-click="delLeave($event,$index)">{{item.delStatus?"已销假":"销假"}}</button>
+                    </div>
+                </div>
+                <div class="defined-item-show" ng-if="item.showDetail">
+                    <div class="border-bottom padding-bottom-10">
+                        <h3 class="" ng-bind="item.leaveReason"></h3>
+                        <label class="button-label" ng-bind="item.leaveType"></label>
+                        <label class="button-label" ng-bind="item.isOutSchool"></label>
+                        <label class="button-label" ng-if="item.isBackSleep">归寝</label>
+                        <label class="button-label" ng-if="!item.isBackSleep">不归寝</label>
+                    </div>
+                    <div class="margin-top-10 margin-bottom-10">
+                        <label class="help-block">创建时间&nbsp;<span ng-bind="item.createTime"></span></label>
+                        <label class="help-block">请假时间&nbsp;<span ng-if="item.leaveStartTime&&item.leaveEndTime">{{item.leaveStartTime}}至{{item.leaveEndTime}}</span></label>
+                        <label class="help-block">允许出校时间&nbsp;<span ng-if="item.passStartTime&&item.passEndTime">{{item.passStartTime}}至{{item.passEndTime}}</span></label>
+                        <label class="help-block">放行时间&nbsp;<span ng-bind="item.passTime"></span></label>
+                        <label class="help-block">返校时间&nbsp;<span ng-bind="item.backSchoolTime"></span></label>
+                    </div>
+                </div>
+            </ion-item>
+
+        </ion-list>
+        <div class="fullscreen-box" ng-if="emptyInfo">
+            <div class="screen-center">
+                <div class="img-no-data"></div>
+                <p class="" ng-bind="dataErrorMsg"></p>
+                <p class=" text-muted" ng-click="doRefresh()">单击重试</p>
+            </div>
+        </div>
+        <!--<div class="defined-ion-drag text-center">-->
+            <!--<i class="ion-drag"></i>-->
+        <!--</div>-->
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar class="">
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-view>

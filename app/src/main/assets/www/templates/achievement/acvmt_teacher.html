@@ -1,0 +1,103 @@
+<ion-view ng-controller="AchievementTeacherCtrl" class="achievement teacher">
+
+    <ion-header-bar align-title="center" class="bar-ynedut" ng-hide="hideHead">
+        <div class="row">
+            <div class="col col-50">
+                <div class="header-dropdown dropdown">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{selectedAdminClass.name}}<i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="item in adminClassList">
+                            <a href="" ng-click="chooseAdminClass(item)">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-50">
+                <div class="header-dropdown dropdown">
+                    <p class="dropdown-btn dropdown-toggle" data-toggle="dropdown">{{selectedTerm.name}}<i class="ion-arrow-down-b"></i></p>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="item in termList">
+                            <a href="" ng-class="{'active':true}" ng-click="chooseTerm(item)">{{}}{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="achievement-list-wrap">
+            <ion-list class="list achievement-list">
+                <div ng-repeat="item in items track by $index" class="item">
+                    <div class="item-in">
+                        <ion-item class="course-title" href="{{'#/acvmt_detail?classId='+selectedAdminClass.id+'&state='+scoreProperty+'&courseId='+item.courseId+'&termId='+selectedTerm.id + '&teachType='+(item.teachType=='实操'?2:1) + '&executeTerm='+item.executeTerm}}">
+                            <div class="row">
+                                <div class="col col-75">
+                                    <h2 class="title margin-top-5">{{item.kcCourseName}}</h2>
+
+                                    <p>{{item.executeTermRate+","+item.teachType+","+item.theoryCredit}}</p>
+                                </div>
+                                <div class="col col-25">
+                                    <div class="buttons text-right padding-right-10">
+                                        <div class="chevron">
+                                            <i class="ion-android-arrow-dropright-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-item>
+                        <div class="row">
+                            <div class="score high-low col col-25" ng-class="{'unpass':item.passRate == 0}">
+                                <p class="title">最高分</p>
+
+                                <p><span class="score-num" ng-class="{'unpass':item.passRate == 0}">{{item.highestScore}}<span class="two-line"></span></span></p>
+                            </div>
+                            <div class="score high-low col col-25"  ng-class="{'unpass':item.failureRate > 0}">
+                                <p class="title">最低分</p>
+
+                                <p><span class="score-num" ng-class="{'unpass':item.failureRate > 0}">{{item.lowestScore}}<span class="two-line"></span></span></p>
+                            </div>
+                            <div class="rate col col-25">
+                                <p class="title">及格率</p>
+
+                                <p><span class="score-num" ng-class="{'unpass':item.passRate < 60}">{{item.passRate}}</span>%</p>
+                            </div>
+                            <div class="rate col col-25">
+                                <p class="title">不及格率</p>
+
+                                <p><span class="score-num">{{item.failureRate}}</span>%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-list>
+        </div>
+
+        <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+
+    <ion-spinner class="screen-center" ng-if="dataLoading"></ion-spinner>
+
+    <div class="fullscreen-box" ng-if="loadError" ng-click="reloadData()">
+        <div class="screen-center">
+            <div class="img-no-data"></div>
+            <p>{{loadErrorMsg}}</p>
+            <p class="dark">单击刷新</p>
+        </div>
+    </div>
+
+    <ion-footer-bar align-title="left" class="bar-ynedut">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="doBack()" ng-disabled="!isBack">
+                <i class="icon ion-chevron-left"></i>
+            </button>
+        </div>
+        <h1 class="title">&nbsp;</h1>
+
+        <div class="buttons">
+            <button class="button button-clear" ng-click="doRefresh()">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

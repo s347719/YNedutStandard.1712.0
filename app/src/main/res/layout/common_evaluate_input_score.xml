@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/app_evaluate_common_divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_evaluate_divider_score" />
+
+    <RelativeLayout
+        android:id="@+id/app_evaluate_adjust_score_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_listItem_padding"
+        android:layout_marginRight="@dimen/common_listItem_padding"
+        android:focusable="true"
+    	android:focusableInTouchMode="true"
+        android:background="@drawable/evaluate_adjust_scorce_bg"
+        android:padding="5dp" >
+
+        <ImageView
+            android:id="@+id/app_evaluate_ques_minute_score"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:onClick="onAdjustScoreListener"
+            android:src="@drawable/btn_eva_score_minus" />
+
+        <ImageView
+            android:id="@+id/app_evaluate_ques_plus_score"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:onClick="onAdjustScoreListener"
+            android:src="@drawable/btn_eva_score_plus" />
+
+<!--         <TextView
+            android:id="@+id/app_evaluate_ques_score_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/app_evaluate_ques_plus_score"
+            android:layout_toRightOf="@id/app_evaluate_ques_minute_score"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:paddingLeft="@dimen/common_actionbar_height"
+            android:text="分"
+            android:textColor="@color/app_actionBar_bg"
+            android:textSize="@dimen/common_listItem_textSize" /> -->
+
+        <EditText
+            android:id="@+id/app_evaluate_ques_get_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/app_evaluate_ques_plus_score"
+            android:layout_toRightOf="@id/app_evaluate_ques_minute_score"
+            android:background="@null"
+            android:digits=".0123456789"
+            android:maxLength="4"
+            android:gravity="center"
+            android:inputType="number"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/app_actionBar_bg"
+            android:textSize="@dimen/common_listItem_textSize" />
+
+<!--         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/app_evaluate_ques_plus_score"
+            android:layout_toRightOf="@id/app_evaluate_ques_minute_score"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/app_evaluate_ques_get_point"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:gravity="right|center_vertical"
+                android:maxLength="3"
+                android:text="0"
+                android:textColor="@color/app_actionBar_bg"
+                android:textSize="@dimen/common_listItem_textSize" />
+
+            <TextView
+                android:id="@+id/app_evaluate_ques_score_tag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:text="分"
+                android:textColor="@color/app_actionBar_bg"
+                android:textSize="@dimen/common_listItem_textSize" />
+        </LinearLayout> -->
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/app_evaluate_ques_suggestion"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/common_listItem_padding"
+        android:background="@drawable/app_evaluate_suggestion_bg"
+        android:gravity="top"
+        android:hint="请输入意见或建议"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:textSize="@dimen/common_listItem_textSize"
+        android:visibility="gone" />
+
+</LinearLayout>

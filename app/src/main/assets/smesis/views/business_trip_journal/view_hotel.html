@@ -1,0 +1,44 @@
+<ion-view>
+    <ion-content class="content-bg business-journal">
+        <div class="list list-space">
+            <div class="item item-input">
+                <span class="input-label">金额</span>
+                <input type="number" class="form-control" ng-model="showData.money" placeholder="0.00"
+                       maxlength="9" readonly/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">日期</span>
+                <input type="text" class="form-control" readonly ng-model="dateBusin" ng-if="dateBusin"
+                       readonly/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">所在地区</span>
+                <input type="text" class="form-control" readonly ng-model="showData.addressString" readonly/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">所住酒店</span>
+                <input type="text" class="form-control" readonly ng-model="showData.xzglHotelTraName" readonly/>
+            </div>
+            <div class="item item-input">
+                <span class="input-label">房型</span>
+                <input type="text" class="form-control" readonly ng-model="showData.travelHotelName" readonly/>
+            </div>
+            <label class="item item-input edit-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="input" rows="5" class="form-control" ng-model="showData.message"
+                          maxlength="50" readonly></textarea>
+            </label>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="bar-up-shadow">
+        <div class="row">
+            <div class="col text-center btn-group-wrap">
+                <button class="button button-icon icon ion-reply" ng-click="goBack()"></button>
+                <button class="button button-local button-theme" ng-show="showDel" ng-click="del(showData,0)">删除</button>
+                <button class="button button-local button-theme" ng-show="showEdit" ng-click="edit()">修改</button>
+                <button class="button button-icon icon ion-refresh" ng-click="refresh()"></button>
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

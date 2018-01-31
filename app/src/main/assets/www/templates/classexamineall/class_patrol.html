@@ -1,0 +1,148 @@
+<ion-view  ng-controller="classPatrolCtrl" class="">
+    <ion-header-bar class="bar-calm">
+        <span class="pos-header-title">填写考核信息</span>
+    </ion-header-bar>
+    <ion-spinner class="screen-center" ng-if="!isOver"></ion-spinner>
+    <ion-content class="content-bc check-msg">
+        <div class="header-bt-text bar margin-top">
+            <ul>
+                <li class="text" ng-bind="submitObj.itemName"></li>
+                <li class="content" ng-if="submitObj.itemRemark">
+                    <span  class="{{isOpen?'help-inline open':'help-inline'}}" ng-bind="submitObj.itemRemark"></span>
+                    <a href="" class="pos-link" ng-click="isOpen=!isOpen">{{isOpen?'收起':'全部'}}</a>
+                </li>
+            </ul>
+        </div>
+        <ion-list class="list list-text-rt-lt list-item-height-50">
+            <ion-item class="item no-hover">
+                <ul class="clearfix ">
+                    <li class="">
+                        <div class="left-btn text-center">
+                            <button class="{{submitObj.scoreType==0?'button  button-calm':'button  button-outline button-calm'}}" ng-click="submitObj.scoreType=0;submitObj.score=0;submitObj.itemScore = submitObj.baseScore">加分{{submitObj.addBeginScore}}-{{submitObj.addEndScore}}</button>
+                            <button class="{{submitObj.scoreType==1?'button  button-calm':'button  button-outline button-calm'}}" ng-click="submitObj.scoreType=1;submitObj.score=0;submitObj.itemScore = submitObj.baseScore">扣分{{submitObj.delBeginScore}}-{{submitObj.delEndScore}}</button>
+                        </div>
+                    </li>
+                    <li class="">
+                        <i class="{{submitObj.scoreType==0?(submitObj.score<=submitObj.addBeginScore?'ion-android-remove-circle calm disabled':'ion-android-remove-circle calm'):(submitObj.score<=submitObj.delBeginScore?'ion-android-remove-circle calm disabled':'ion-android-remove-circle calm')}} "  ng-click="isAddScore(-1)"></i>
+                        <div class="center-text"><input type="text" ng-model="submitObj.score" ng-blur="changeScore()"><span>分</span></div>
+                        <i class="{{submitObj.scoreType==0?(submitObj.score>=submitObj.addEndScore?'ion-android-add-circle calm disabled':'ion-android-add-circle calm'):(submitObj.score>=submitObj.delEndScore?'ion-android-add-circle calm disabled':'ion-android-add-circle calm')}}"  ng-click="isAddScore(1)"></i>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item">
+                <div  web-uploader on-uploader-change="getDfsIds(data)" init-files="submitObj.attachmentList" options="options"></div>
+            </ion-item>
+            <ion-item >
+                <ul class="list-pos-wrap margin-top-5">
+                    <li>影响班级考核的学生({{submitObj.stuInfoList.length}})
+                        <div class="left-wrap margin-top-5">
+                            <button class="btn-label theme btn-label-wd-105 margin-right-5" ng-repeat="item in submitObj.stuInfoList track by $index" ng-if="$index<4" title="item.name">{{item.name.length>4?item.name.substring(0,3)+'...':item.name}}</button>
+                            <span ng-repeat="item in submitObj.stuInfoList track by $index" ng-if="$index==4">...</span>
+                        </div>
+                        <div class="right-wrap" style="width: 80px;">
+                            <div class="txm-box theme-bc-radius margin-right-10"  ng-click="scanCode()">
+                                <img class="right-img" src="img/s1s_01.png" alt="">
+                            </div>
+                            <button class="button button-mini button-calm margin-right-10" ng-click="openName()">选择</button>
+                        </div>
+                        <span class="content" ng-if="item.moraleduCreditExamineItemId && submitObj.stuInfoList.length > 0 && item.convertCreditCheckWay==1">注 : 将自动在学生个人操行分的“<span class="text-danger">
+                            {{item.moraleduCreditExamineItemName}}
+                        </span>”上<span class="text-danger">{{item.convertCreditType == 0 ? "扣":"加"}}{{item.convertCreditScore}}分</span> </span>
+                    </li>
+                </ul>
+            </ion-item>
+            <ion-item class="item no-hover">
+                <div>
+                    备注
+                </div>
+                <textarea maxlength="600" class="form-control textarea-border textarea-wd height-60" ng-model="submitObj.remark" placeholder="手动输入"></textarea>
+            </ion-item>
+            <ion-item class="item">
+                <ul class="clearfix">
+                    <li class="margin-top-10">考核时间</li>
+                    <li>
+                        <input type="text" class="calm input-text-sty" ng-model="submitObj.datetime" datetimepicker datetime-type="datetime">
+                    </li>
+                </ul>
+            </ion-item>
+        </ion-list>
+        <div class="fullscreen-box" style="margin-top: 100px;" ng-if="emptyInfo">
+            <div class="screen-center">
+                <p ng-bind="dataErrorMsg"></p>
+                <p class="dark" ng-click="doRefresh()">单击刷新</p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar >
+        <div class="footer-pos-button row">
+            <div class="col col-25">
+                <button class="button button-sm button-outline button-calm" ng-click="lastStep()">上一步</button>
+            </div>
+            <div class="col text-center">
+                <button class="button button-outline button-calm" ng-click="showClassListModal()">已选{{selectedClass.length}}个班级&nbsp;<i class="ion-arrow-down-b"></i></button>
+            </div>
+            <div class="col col-33 text-right">
+                <button class="button button-calm" ng-click="submitScore()">提交</button>
+            </div>
+        </div>
+    </ion-footer-bar>
+    <div class="buttom-pop buttom-pop-mini arrow animate-if direction-left" ng-show="classListShow">
+        <div class="modal-list-wrap">
+            <ul class="list-wrap height-overflow-200 border-radius-10" ng-if="selectedClass.length > 0">
+                <li class="list-item item-right-icon" ng-repeat="item in selectedClass">{{item.name}}<i class="ion-close" ng-click="unSelected($index)"></i></li>
+            </ul>
+            <ul class="list-wrap height-overflow-200" ng-if="selectedClass.length ==  0">
+                <li class="text-center no-content">
+                    <h5>没有选择的班级！</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script id="student.html" type="text/ng-template">
+        <div class="modal modal-btm modal-amt-left" style="">
+            <ion-header-bar class="bar bar-head bar-muted">
+                <div class="pos-header-box pos-icon-rt">
+                    <!--<i class="input-left-icon ion-android-search"></i>-->
+                    <!--<input type="text" class="form-control radius-input border-radius-20" ng-model="someOneShowName.searchClassStu" placeholder="姓名/别名/学号">-->
+                    <!--<i class="right-icon ion-ios-close-outline" ng-if="isCloseIcon" ng-click="closeIconClick()"></i>-->
+                </div>
+            </ion-header-bar>
+            <ion-content style="bottom: 44px;">
+                <ion-list class="list-click-icon" ng-if="classStudent.length > 0">
+                    <ion-item class="touch-area item-checkbox-ion" ng-click="changeChecked($index)" ng-repeat="item in classStudent track by $index">
+                        <div class="wd-100 font-size-14">
+                            <i class="icon-checkbox ion-android-radio-button-off" ng-class="{'active':item.checked}"></i>
+                            {{item.displayName}}
+                        </div>
+                    </ion-item>
+                </ion-list>
+                <div class="fullscreen-box" ng-if="classStudent.length == 0">
+                    <div class="screen-center">
+                        <div class="img-no-data"></div>
+                        <p ng-bind="dataErrorMsgStu"></p>
+                        <p class="dark" ng-click="doRefresh2()">单击刷新</p>
+                    </div>
+                </div>
+            </ion-content>
+            <ion-footer-bar>
+                <div class="pos-btn-bt">
+                    <button class="button button-sm padding-rt-lt button-outline button-calm" ng-click="closeName()">取消</button>
+                    <button class="button button-sm padding-rt-lt button-calm" ng-click="submitClassStu()">完成({{stuCheckedNum}})</button>
+                </div>
+            </ion-footer-bar>
+        </div>
+    </script>
+    <!--选择学生-->
+    <!--自定义弹窗-->
+    <div class="pos-popup-bg" ng-if="checkSuccess">
+        <div class="pos-popup-modal">
+            <div class="text-center margin-top-10">
+                <img src="img/success.png" alt="" width="35" height="35">
+                <h4 class="calm">考核成功</h4>
+                <button class="button button-calm margin-top-20" ng-click="previousStep()">继续其他项目的考核</button><br/>
+                <button class="button button-calm button-outline margin-top-10" ng-click="checkOtherClass()">考核其他班级</button>
+            </div>
+        </div>
+    </div>
+    <!--自定义弹窗-->
+</ion-view>

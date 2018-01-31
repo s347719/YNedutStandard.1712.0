@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="tuitionApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <title>学费</title>
+    <!-- build:css pages/ynedutapp/css/ynedutapp.css -->
+    <link href="../lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="../lib/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../css/ynedut_main.css" rel="stylesheet">
+    <!--endbuild-->
+
+    <!-- build:js assets/scripts/ynedutappvender.js -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="../lib/toastr/toastr.min.js"></script>
+    <!--endbuild-->
+    <!-- build:js assets/scripts/ynedutapp.js -->
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="../lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="../cordova.js"></script>
+
+    <!--app's js-->
+    <script src="../tuition/tuition.module.js"></script>
+    <script src="../tuition/tuition.js"></script>
+</head>
+<body ng-controller="tuitionPayCtrl" ng-cloak>
+<!--缴学费-->
+<ion-pane>
+    <ion-header-bar class="bar bar-calm bar-header header-title-sty">
+        <div class="tabs defined-tabs">
+            <a href="" class="tab-item" ng-class="{'active':tab==1}" ng-click="changeTab(1,false)">我要缴费</a>
+            <a href="" class="tab-item" ng-class="{'active':tab==2}" ng-click="changeTab(2,true)">缴费订单</a>
+        </div>
+    </ion-header-bar>
+    <!--我要缴费开始-->
+    <div class="tuition-pay-wrap" ng-if="tab==1">
+        <ion-content class="content-bc has-footer">
+            <div class="alert-top" ng-if="orderExceptInfo != null">{{orderExceptInfo}}</div>
+
+            <!--没有数据-->
+            <div class="fullscreen-box" ng-if="orderList.length == 0">
+                <div class="screen-center">
+                    <div class="img-no-data"></div>
+                    <p>{{errInfo}}!</p>
+                    <a class="text-muted" href="" ng-click="reload(1)">刷新重试</a>
+                </div>
+            </div>
+            <!--没有数据-->
+            <ion-list class="examine-list-wrap examine-list-border margin-top" ng-if="orderList.length > 0">
+                <h5 class="padding-15">请在下面选择需要缴费的学期</h5>
+                <ion-item class="examine-list-item item" ng-if="order.shouldAmt > 0" ng-repeat="order in orderList track by $index" ng-class="{'border-gray':orderExceptInfo||(!order.couldChoose && !order.isSelected && order.currentPay == 0 || order.shouldAmt == 0),'border-green':order.isSelected && order.currentPay>0}">
+                    <div class="pos-box-wrap right-icon height-auto"  ng-click="chooseTerm($index)">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class="box-name" ng-bind="order.termName"></span>
+                            <span ng-if="order.shouldAmt > 0" class="box-datas" >应缴学费：<span class="warning-c">{{order.shouldAmt}}</span></span>
+                            <span ng-if="order.isSelected" class="box-datas" >本次缴纳：<span class="warning-c">{{order.currentPay}}</span></span>
+                            <!--<span ng-if="order.ownAmt>0" class="box-datas" >只缴部分：<span class="warning-c">{{order.currentPay}}</span>&nbsp;<span class="help-inline">(还欠{{order.ownAmt}})</span></span>-->
+                            <!--<span ng-if="order.ownAmt==0 && order.currentPay > 0" class="box-datas">缴全部：<span class="warning-c">{{order.currentPay}}</span>&nbsp;<span class="help-inline" ng-if="order.currentPay > 0">(可结清)</span></span>-->
+                            <span ng-if="order.ownAmt==0 && order.shouldAmt == 0" class="box-datas"><span class="help-inline">已缴清</span></span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-checkmark-outline" ng-class="{'calm':order.isSelected}"></i>
+                        </div>
+                    </div>
+                    <div class="pos-box-wrap right-icon height-auto" ng-if="order.shouldAmt>0" ng-click="projectPayClick(order,$index)">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class=" help-block padding-top-10" ng-if="!orderExceptInfo && order.ownAmt>0 || order.currentPay > 0">相关缴费项目：共{{order.feeInfoList.length}}个<span ng-if="order.isSelected">，本次选择{{order.totalItem}}个</span></span>
+                            <!--<span class=" help-block padding-top-10" ng-if="!orderExceptInfo && order.ownAmt==0 && order.currentPay == 0">已结清，无欠费项目</span>-->
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+        <ion-footer-bar ng-if="orderList.length>0">
+            <div class="clearfix wd-100">
+                <div class="pull-left">
+                    <span class="help-inline">合计</span>
+                    <span class="text-danger font-size-18" ng-bind="tootalPay"></span>
+                    <span class="help-block">还欠{{totaloweAmt}}</span>
+                </div>
+                <div class="pull-right">
+                    <button class="button button-sm button-calm" ng-click="payWayClick()">去付款</button>
+                </div>
+            </div>
+        </ion-footer-bar>
+    </div>
+    <!--我要缴费结束-->
+
+    <!--缴费订单开始-->
+    <div  ng-if="tab==2">
+        <ion-content class="content-bc">
+            <!--没有数据-->
+            <div class="fullscreen-box" ng-if="confirmOrder.length == 0">
+                <div class="screen-center">
+                    <div class="img-no-data"></div>
+                    <p>{{errInfo}}！</p>
+                    <a class="text-muted" href="" ng-click="reload(2)">刷新重试</a>
+                </div>
+            </div>
+            <!--没有数据-->
+            <ion-list class="examine-list-wrap" ng-if="confirmOrder.length > 0">
+                <ion-item class="examine-list-item item" ng-repeat="order in confirmOrder"  ng-click="showDetail(order)">
+                    <div class="pos-box-wrap right-icon height-auto">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class="help-block margin-top-10" ng-bind="order.createTime"></span>
+                            <span class="box-datas">合计缴费：<span class="warning-c">{{order.totalPayAmt}}</span><i class="ion-common" ng-class="{'ion-arrow-up-b':order.detail,'ion-arrow-down-b':!order.detail}"></i></span>
+                        </div>
+                        <div class="right-box">
+                            <span class="font-size-12" ng-class="{'warning-c':order.orderStatus == 7,'calm':order.orderStatus == 3}">{{order.orderStatusName}}</span>
+                        </div>
+                    </div>
+                    <ul class="pos-box-list" ng-if="order.detail">
+                        <li class="pos-box-item" ng-repeat="term in order.payOrderVOList">
+                            <div class="box-title">
+                                <strong ng-bind="term.termName">
+                                    <span class="right-text warning-c" ng-bind="term.currentPayAmt"></span>
+                                </strong>
+                            </div>
+                            <ul>
+                                <li ng-repeat="detail in term.feeInfoList">
+                                    {{detail.itemName}} <span class="help-inline" ng-bind="detail.specialtyName"></span>
+                                    <span class="right-text warning-c" ng-bind="detail.currentPayAmt"></span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </div>
+    <!--缴费订单结束-->
+</ion-pane>
+
+<!--模态框 选择缴费项目开始-->
+<script id="pay-project.html" type="text/ng-template">
+    <ion-modal-view class="bottom-maxhalf tuition-pay-modal modal-list-wrap">
+        <ion-header-bar class="bar-muted">
+            <h1 class="title">选择缴费项目</h1>
+            <button class="button button-clear button-calm" ng-click="cancleChoose()">取消</button>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list class="examine-list-wrap examine-list-modal">
+                <ion-item class="examine-list-item item" ng-class="{'gray-bc':item.oweAmt==0}" ng-repeat="item in orderItemList"  ng-click="clickPayItem(item)">
+                    <div class="pos-box-wrap right-icon height-auto">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class="box-name">{{item.itemName}} <span class="help-inline">{{item.specialtyName}}</span></span>
+                            <span class="help-inline">已缴{{item.payAmt}} <span class="warning-c" ng-if="item.unCheckPayAmt > 0">(有{{item.unCheckPayAmt}}未到账)</span></span>
+                            <!--<i class="ion-ios-help ion-common"  ng-if="item.oweAmt>0"></i>-->
+                            <span class="help-block">收费标准{{item.feeAmt}}<span ng-if="item.exemptAmt>0">(减免{{item.exemptAmt}})</span></span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-checkmark-outline" ng-class="{'calm':item.isSelected}"></i>
+                            <div class="help-block">
+                                <span ng-if="item.oweAmt>0">欠<span class="warning-c">{{item.oweAmt}}</span></span>
+                                <span ng-if="item.oweAmt==0">已缴清</span>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+        <ion-footer-bar>
+            <div class="pos-btn-bt">
+                <button class="button button-outline button-xlg button-calm" ng-click="hideItem()">确定</button>
+            </div>
+        </ion-footer-bar>
+    </ion-modal-view>
+    <!--<div class="modal modal-btm modal-height tuition-pay-modal">-->
+        <!--<div class="modal-list-wrap">-->
+            <!--<div class="list-heading clearfix">-->
+                <!--选择缴费项目-->
+                <!--<span class="calm" ng-click="cancleChoose()">取消</span>-->
+            <!--</div>-->
+            <!--<ion-list class="examine-list-wrap examine-list-modal">-->
+                <!--<ion-item class="examine-list-item item" ng-class="{'gray-bc':item.oweAmt==0}" ng-repeat="item in orderItemList"  ng-click="clickPayItem(item)">-->
+                    <!--<div class="pos-box-wrap right-icon height-auto">-->
+                        <!--<div class="box-wrap margin-bottom-10 padding-left-0">-->
+                            <!--<span class="box-name">{{item.itemName}} <span class="help-inline">{{item.specialtyName}}</span></span>-->
+                            <!--<span class="help-inline">已缴{{item.payAmt}} <span class="warning-c" ng-if="item.unCheckPayAmt > 0">(有{{item.unCheckPayAmt}}未到账)</span></span>-->
+                            <!--<i class="ion-ios-help ion-common"  ng-if="item.oweAmt>0"></i>-->
+                            <!--<span class="help-block">收费标准{{item.feeAmt}}<span ng-if="item.exemptAmt>0">(减免{{item.exemptAmt}})</span></span>-->
+                        <!--</div>-->
+                        <!--<div class="right-box">-->
+                            <!--<i class="ion-ios-checkmark-outline" ng-class="{'calm':item.isSelected}"></i>-->
+                            <!--<div class="help-block">-->
+                                <!--<span ng-if="item.oweAmt>0">欠<span class="warning-c">{{item.oweAmt}}</span></span>-->
+                                <!--<span ng-if="item.oweAmt==0">已结清</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</ion-item>-->
+            <!--</ion-list>-->
+            <!--<div class="padding-5 text-center">-->
+                <!--<button class="button button-outline button-xlg button-calm" ng-click="hideItem()">确定</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;帮助框&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="pos-help-wrap">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img src="img/pay_tuition.jpg" alt="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="help-block">1、此情况，表示在缴费记录中有付款中的订单，付款成功后会合计到“已缴”中</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="help-block">2、此次需要缴纳的欠费，不会包含未到帐的费用。</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;帮助框&ndash;&gt;-->
+    <!--</div>-->
+</script>
+<!--模态框 选择缴费项目结束-->
+
+<!--模态框 选择支付方式开始-->
+<script id="pay-way.html" type="text/ng-template">
+    <div class="modal modal-btm modal-height">
+        <div class="modal-list-wrap">
+            <div class="list-heading clearfix">
+                选择支付方式
+                <span class="calm" ng-click="canclePay()">取消</span>
+            </div>
+            <ul class="list-warp text-center" ng-if="isConfirm">
+                <li class="list-item text-gray">
+                    <span>没有可用的支付方式!</span>
+                </li>
+            </ul>
+            <!--</div>-->
+            <ion-list class="examine-list-wrap list-no-margin">
+                <ion-item class="examine-list-item" ng-click="weixinPay()"  ng-if="weixin==1">
+                    <div class="pos-box-wrap right-icon height-auto">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class="box-name"><img class="vtc-align" src="../img/weixin_logo.jpg" alt="">&nbsp;&nbsp;微信支付</span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-item class="examine-list-item" ng-click="aliPay()" ng-if="zhifubao==1">
+                    <div class="pos-box-wrap right-icon height-auto">
+                        <div class="box-wrap margin-bottom-10 padding-left-0">
+                            <span class="box-name"><img class="vtc-align" src="../img/zhifubao_logo.jpg" alt="">&nbsp;&nbsp;支付宝支付</span>
+                        </div>
+                        <div class="right-box">
+                            <i class="ion-ios-arrow-forward"></i>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+</script>
+<!--模态框 选择支付方式结束-->
+</body>
+</html>

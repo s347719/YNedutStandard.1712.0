@@ -1,0 +1,79 @@
+<!--详情查看 开始-->
+<ion-view class="approving-wrap">
+    <ion-content ng-class="{'bottom-100':pageType}">
+        <div class="padding">
+            <div class="approving-title signal-wrap">
+                <h5>{{feeApplyData.feeTitle}}</h5>
+                <p class="text-gray font-12">当前处理人&nbsp;:&nbsp;{{approveUserName}}</p>
+                <div class="signal unpass" ng-show="feeApplyData.type=='NOTPASS'"></div>
+                <div class="signal approving" ng-show="feeApplyData.type=='APPROVAL'"></div>
+                <div class="signal approved" ng-show="feeApplyData.type=='APPROVALED'"></div>
+            </div>
+            <div class="approving-flow font-12 padding" ng-show="feeApplyData.lastApproveUserName">
+                <p class="text-gray no-margin">上一审批人&nbsp;:&nbsp;<span>{{feeApplyData.lastApproveUserName}}</span></p>
+                <p class="no-margin"><span class="text-danger">审批意见&nbsp;:&nbsp;</span><span>{{feeApplyData.checkOpinion?feeApplyData.checkOpinion:"无"}}</span></p>
+            </div>
+            <div class="approving-content">
+                <p class="text-gray">费用申请人&nbsp;:&nbsp;<span>{{feeApplyData.createUserName}}</span></p>
+                <p class="text-gray">申请单号&nbsp;:&nbsp;<span>{{feeApplyData.applicationNumber}}</span></p>
+                <p class="text-gray">费用申请日期&nbsp;:&nbsp;<span>{{feeApplyData.applyDate}}</span></p>
+                <p class="text-gray">填报人&nbsp;:&nbsp;<span>{{feeApplyData.writeUserName}}</span></p>
+                <p class="text-gray">流程申请时间&nbsp;:&nbsp;<span>{{feeApplyData.applyDateView}}</span></p>
+                <p class="text-gray">最近修改时间&nbsp;:&nbsp;<span>{{feeApplyData.updateView}}</span></p>
+                <p class="text-gray">最近修改人&nbsp;:&nbsp;<span>{{feeApplyData.updateUserName}}</span></p>
+                <p class="text-gray">预计支出时间&nbsp;:&nbsp;<span>{{feeApplyData.dateToString?feeApplyData.dateToString:"无"}}</span></p>
+                <!--<p class="text-gray">费用发生人&nbsp;:&nbsp;<span>{{feeApplyData.applicationUserNameView}}</span></p>-->
+                <p class="text-gray">费用用途&nbsp;:&nbsp;<span>{{feeApplyData.expensesUse}}</span></p>
+            </div>
+            <!--费用说明列表-->
+            <div class="particulars-msg-list">
+                <div class="particulars-msg-item padding-4">
+                    <div class="help-inline margin-right-10">申请金额合计：<span class="text-danger">{{countApplyMoney |number:2}}</span></div>
+                    <div class="help-inline">核准金额合计：<span class="text-danger">{{countApproveMoney |number:2}}</span></div>
+                </div>
+            </div>
+            <div class="particulars-msg-list margin-top-10">
+                <div class="particulars-msg-item" ng-repeat="detail in feeApplyData.jyhsMyExpensesInfoDTOList">
+                    <div class="serial-border">{{detail.index}}</div>
+                    <ul class="particulars-text-group pad-right-65">
+                        <li class="particulars-text"><label>费用项：</label>{{detail.column}}</li>
+                        <li class="particulars-text"><label>申请金额：</label><span class="text-danger">{{detail.applyMoney |number:2}}</span></li>
+                        <li class="particulars-text" ng-if="!pageType"><label>核准金额：</label><span class="text-danger">{{detail.approvalMoney |number:2}}</span></li>
+                        <li class="particulars-text" ng-if="pageType &&feeApplyData.type!='APPROVALED'"><label>核准金额：</label>
+                            <div class="pos-right-icon">
+                                <input class="form-control input-border input-small" type="number"  ng-model="detail.approvalMoney" ng-change="approveMoney()"/>
+                                <i class="right-icon ion-edit"></i>
+                            </div>
+                        </li>
+                        <li class="particulars-text" ng-if="pageType && feeApplyData.type=='APPROVALED'"><label>核准金额：</label><span class="text-danger">{{detail.approvalMoney}}</span></li>
+                        <li class="particulars-text-sty"><label>支出详尽说明：</label>{{detail.describe}}</li>
+                    </ul>
+                </div>
+            </div>
+            <!--费用说明列表-->
+        </div>
+    </ion-content>
+    <ion-footer-bar ng-show="!pageType">
+        <div class="text-center btn-group-wrap wd-100">
+            <button class="button button-theme button-local button-outline" ng-click="back()">返回</button>
+            <button class="button button-theme button-local" ng-click="edit(feeApplyData)" ng-show="feeApplyData.canUpdate">修改</button>
+            <button class="button button-theme button-local" ng-click="delete(feeApplyData)" ng-show="feeApplyData.type !='APPROVALED'">删除</button>
+        </div>
+    </ion-footer-bar>
+    <div class="special-footer-height bar-up-shadow" ng-show="pageType">
+        <div class="padding" ng-show="feeApplyData.type!='APPROVALED'"><input class="form-control" type="input" readonly placeholder="填写处理意见（非必填）" ng-model="pageData.message" ng-click="showMessage()"/></div>
+        <div class="text-center btn-group-wrap">
+            <button class="button button-theme button-local button-outline" ng-click="back()">返回</button>
+            <button class="button button-theme button-local button-more pos-popover-wrap" ng-click="showMoreButton()" ng-show="feeApplyData.type!='APPROVALED'">通过
+                <i class="font-14" ng-class="{'ion-ios-arrow-up' : showMore == false,'ion-ios-arrow-down':showMore==true}" ></i>
+                <ul class="popover-content" ng-if="showMore">
+                    <li class="popover-list-item" ng-click="passOthrer()">通过并提交他人审批</li>
+                    <li class="popover-list-item" ng-click="approvePass(2)">通过并结束</li>
+                </ul>
+            </button>
+            <button class="button button-theme button-local"  ng-click="approvePass(1)" ng-show="feeApplyData.type!='APPROVALED'">不通过</button>
+        </div>
+    </div>
+</ion-view>
+
+<!--详情查看 结束-->

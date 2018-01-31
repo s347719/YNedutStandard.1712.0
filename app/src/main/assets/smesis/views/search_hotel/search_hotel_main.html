@@ -1,0 +1,50 @@
+<ion-view class="area-selector choose-place " ng-class="{'no-data':addrHistory.length==0}">
+    <div class="area-show">
+        <div class="divider-panel">
+            <div class="panel-heading"><span class="title">当前位置</span></div>
+            <div class="panel-body current-position">
+                <div class="item item-button-right clearfix">
+                    <!--<h3>定位中...</h3>-->
+                    <!--<h3 class="text-danger">定位失败</h3>-->
+                    <div class="location-success" ng-click="serachHotel(cityCode)">{{address}}</div>
+                    <div class="item-group-btn text-theme font-12" ng-click="reLoad()">
+                        重新定位
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider-panel" ng-show="showAddress">
+            <div class="panel-heading"><span class="title">最近</span></div>
+            <div class="panel-body">
+                <div class="select-history">
+                    <button class="button button-local button-theme button-outline" ng-show="address1" ng-click="serachHotel(addrHistory[0].platCommonCityId)">{{addrHistory[0].platCommonCityName}}</button>
+                    <button class="button button-local button-theme button-outline" ng-show="address2" ng-click="serachHotel(addrHistory[1].platCommonCityId)">{{addrHistory[1].platCommonCityName}}</button>
+                    <button class="button button-local button-theme button-outline" ng-show="address3" ng-click="serachHotel(addrHistory[2].platCommonCityId)">{{addrHistory[2].platCommonCityName}}</button>
+                    <button class="button button-local button-theme button-outline" ng-show="address4" ng-click="serachHotel(addrHistory[3].platCommonCityId)">{{addrHistory[3].platCommonCityName}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="divider-panel">
+            <div class="panel-heading"><span class="title">从全国中选择</span></div>
+            <div class="panel-body">
+                <div class="area-breadcrumb">
+                    <i class="ion-location" ng-click="allCity()"></i>
+                    <a href="javascript:void(0);" ng-class="{'active':info.id ==newName}" ng-repeat="info in showData.showName" ng-click="getAddress(info)">{{info.name}}<i class="arrow">></i></a>
+                </div>
+                <!--<div class="area-breadcrumb">-->
+                    <!--<i class="ion-location" ng-click="allCity()"></i>-->
+                    <!--<a href="javascript:void(0);" ng-class="{'active':true}" >{{testShowName}}<i class="arrow">></i></a>-->
+                <!--</div>-->
+
+            </div>
+
+        </div>
+    </div>
+    <ion-content delegate-handle="mainScroll">
+        <div class="list area-list"  >
+            <div  class="item" ng-class="{'active': data.id == newClass}" ng-repeat="data in parentAddress" ng-click="getAddress(data)">
+                <i class="ion-checkmark-round"></i>{{data.name}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

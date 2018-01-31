@@ -1,0 +1,38 @@
+<!--班级统计主页-->
+<ion-voew  ng-controller="ClassTatisticsController"  class="achievement teacher slide-reconstruct-warp">
+    <ion-content>
+        <!--班级情况统计-->
+        <ion-slide-box show-pager="false" class="slide-reconstruct" ng-show="!emptyInfo">
+            <ion-slide ng-repeat="item in classList">
+                <!--班级考勤模块-->
+                <div class="hx-wrap" ng-if="!classCountList[$index].message">
+                    <div class="hx-content">
+                        <div class="hx-roundness" ng-click="viewDetails(1,item.id)">
+                            <span>班级学生<br/><strong>{{classCountList[$index].classTotalNum?classCountList[$index].classTotalNum:0}}</strong>人</span>
+                        </div>
+                        <ul>
+                            <li class="hx-square hx-square-a" ng-click="viewDetails(2,item.id,2)"><span class="square-text">逾期未销假 <br/><strong>{{classCountList[$index].leaveNoDeleteNum?classCountList[$index].leaveNoDeleteNum:0}}</strong>人</span></li>
+                            <li class="hx-square hx-square-b" ng-click="viewDetails(2,item.id,0)"><span class="square-text">出校 <br/><strong>{{classCountList[$index].outSchoolNum?classCountList[$index].outSchoolNum:0}}</strong>人</span></li>
+                            <li class="hx-square hx-square-c" ng-click="viewDetails(3,item.id)"><span class="square-text">处分 <br/><strong>{{classCountList[$index].punishNum?classCountList[$index].punishNum:0}}</strong>人</span></li>
+                            <li class="hx-square hx-square-d" ng-click="viewDetails(2,item.id,1)"><span class="square-text">请假 <br/><strong>{{classCountList[$index].leaveNum?classCountList[$index].leaveNum:0}}</strong>人</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="no-messenger" ng-if="classCountList[$index].message">{{classCountList[$index].message}}</h4>
+                <!--班级考勤模块-->
+                <div class="text-center slide-text-warp">
+                    <h4>{{item.name}}</h4>
+                    <p class="help-block">{{classCountList[$index].queryDate}}&nbsp;&nbsp;&nbsp;&nbsp;{{classCountList[$index].week}}</p>
+                </div>
+                <ul class="icon-nbr-wrap" ng-show="!emptyInfo">
+                    <li class="icon-nbr"><span>{{$index+1}}</span>/{{classList.length}}</li>
+                </ul>
+            </ion-slide>
+        </ion-slide-box>
+        <!--班级情况统计-->
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-clear button-stable icon ion-reply" disabled></button>
+        <button class="button button-clear button-stable icon ion-refresh" ng-click="doRefresh()"></button>
+    </ion-footer-bar>
+</ion-voew>

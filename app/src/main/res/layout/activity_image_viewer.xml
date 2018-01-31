@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.ortiz.touch.HackyViewPager
+        android:id="@+id/imageViewer_pager_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:background="#282828" />
+
+
+    <ImageView
+        android:id="@+id/image_download"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/actionBar_bg"
+        android:src="@mipmap/image_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:visibility="gone"
+        />
+
+
+</RelativeLayout>

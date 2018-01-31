@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/main_recentSession_listItem_padding" >
+
+    <CheckBox
+        android:id="@+id/multiDeleteEvents_chk_contentListItem_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/main_recentSession_listItem_horSpacing"
+        android:layout_marginRight="@dimen/main_recentSession_listItem_horSpacing"
+        android:button="@drawable/checkbox_selector" />
+
+    <ImageView
+        android:id="@+id/multiDeleteEvents_img_contentListItem_avatar"
+        android:layout_width="@dimen/main_recentSession_listItem_avatar_size"
+        android:layout_height="@dimen/main_recentSession_listItem_avatar_size"
+        android:layout_marginEnd="@dimen/main_recentSession_listItem_horSpacing"
+        android:layout_marginRight="@dimen/main_recentSession_listItem_horSpacing"
+        android:layout_toEndOf="@id/multiDeleteEvents_chk_contentListItem_select"
+        android:layout_toRightOf="@id/multiDeleteEvents_chk_contentListItem_select"
+        android:src="@mipmap/user" />
+
+    <TextView
+        android:id="@+id/multiDeleteEvents_txt_contentListItem_title"
+        android:layout_width="@dimen/main_recentSession_listItem_title_width"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:layout_toEndOf="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:layout_toRightOf="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="@dimen/main_recentSession_listItem_title_textSize" />
+
+    <TextView
+        android:id="@+id/multiDeleteEvents_txt_contentListItem_content"
+        android:layout_width="@dimen/main_recentSession_listItem_title_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:layout_toEndOf="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:layout_toRightOf="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/main_recentSession_listItem_content_textSize" />
+
+    <TextView
+        android:id="@+id/multiDeleteEvents_txt_contentListItem_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/multiDeleteEvents_img_contentListItem_avatar"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/main_recentSession_listItem_dateTime_textSize" />
+
+</RelativeLayout>
